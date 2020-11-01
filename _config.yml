@@ -1,11 +1,11 @@
 #博客名字和描述自定义
-title: Newton
-description: 基于jekyll的github极简主题
+title: 随笔
+description: 抄来的主题，随便写写
 
 #个人信息
-author: 邓文丰
-github: doublesand
-email:  whenfung@gmail.com
+author: angrylid
+github: angrylid
+email:  zm4399@gmail.com
 
 #下面的是配置和插件，不需要改
 permalink: none
