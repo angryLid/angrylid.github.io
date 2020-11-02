@@ -1,6 +1,6 @@
 ---
-layout:post
-title:使用VSCode开发C语言
+layout: post
+title: 使用VSCode开发C语言
 ---
 
 ## 安装相应软件和扩展
@@ -40,7 +40,7 @@ title:使用VSCode开发C语言
    - 使用Terminal - Run Build Task... 或快捷键Ctrl + Shift + B 对文件进行编译
    - 使用Run - Start Debugging 或快捷键F5 进行断点调试
 
-**小技巧：可以Watch ```*nums@5```来查看数组
+**小技巧：可以在Watch框里面填入类似 ```*nums@5```字段来查看传入函数的数组**
 
 
 
