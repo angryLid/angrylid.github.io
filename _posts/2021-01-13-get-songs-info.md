@@ -4,7 +4,8 @@ title: 获取网易云音乐的歌单信息
 ---
 
 1. 打开浏览器，输入歌单的分享地址，出现类似这样的页面：
-![page]({{ site.github.url }}/assets/img/get-songs-info-01.png)
+![页面]({{ site.github.url }}/assets/img/get-songs-info-01.png)
+
 2. 打开控制台，拷贝以下代码
 ```javascript
 (function(){
@@ -69,8 +70,12 @@ title: 获取网易云音乐的歌单信息
     console.log(JSON.stringify(resultset))
 }())
 ```
-![f12]({{ site.github.url }}/assets/img/get-songs-info-02.png)
+![控制台]({{ site.github.url }}/assets/img/get-songs-info-02.png)
 就像这样，然后按下回车
 
 3. 拷贝并保存结果
-![result]({{ site.github.url }}/assets/img/get-songs-info-03.png)
+![结果]({{ site.github.url }}/assets/img/get-songs-info-03.png)
+
+4. 保存为JSON文件
+![文件]({{ site.github.url }}/assets/img/get-songs-info-04.png)
+
