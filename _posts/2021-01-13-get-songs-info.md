@@ -4,7 +4,7 @@ title: 获取网易云音乐的歌单信息
 ---
 
 1. 打开浏览器，输入歌单的分享地址，出现类似这样的页面：
-![页面]({{ site.github.url }}/assets/img/get-songs-info-01.png)
+![页面](2021-01-13-get-songs-info-01.png)
 
 2. 打开控制台，拷贝以下代码
 ```javascript
