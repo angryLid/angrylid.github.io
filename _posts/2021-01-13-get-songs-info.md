@@ -70,14 +70,14 @@ title: 获取网易云音乐的歌单信息
     console.log(JSON.stringify(resultset))
 }())
 ```
-![控制台]({{ site.github.url }}/assets/img/get-songs-info-02.png)
+![控制台](2021-01-13-get-songs-info-02.png)
 就像这样，然后按下回车
 
 3. 拷贝并保存结果
-![结果]({{ site.github.url }}/assets/img/get-songs-info-03.png)
+![结果](2021-01-13-get-songs-info-03.png)
 
 4. 保存为JSON文件
-![文件]({{ site.github.url }}/assets/img/get-songs-info-04.png)
+![文件](2021-01-13-get-songs-info-04.png)
 
 在同目录下新建html文件并拷贝下列代码，开启本地服务器，监听8080端口
 ```html
