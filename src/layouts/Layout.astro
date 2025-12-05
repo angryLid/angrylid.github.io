@@ -1,17 +1,40 @@
 ---
-// src/layouts/Layout.astro
+interface Props {
+  title: string;
+}
+
+const { title } = Astro.props;
 ---
+
 <!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Hello World</title>
+    <title>{title} | Mian's</title>
 
     <link rel="icon" href="/favicon.svg" type="image/svg+xml">
     <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+    <link rel="stylesheet" href="/src/styles/global.css">
     </head>
   <body>
-    <slot />
+    <nav>
+      <div class="container">
+        <a href="/" class="nav-brand">angrylid</a>
+        <div class="nav-links">
+          <a href="/" class="btn">Home</a>
+        </div>
+      </div>
+    </nav>
+
+    <main class="container">
+      <slot />
+    </main>
+
+    <footer>
+      <div class="container">
+        <p>&copy; 2024 angrylid. Made with ❤️ and Astro.</p>
+      </div>
+    </footer>
   </body>
 </html>
