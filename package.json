@@ -6,12 +6,14 @@
   "scripts": {
     "dev": "astro dev",
     "build": "astro build",
-    "preview": "astro preview"
+    "preview": "astro preview",
+    "sync": "astro sync"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "astro": "^5.16.4"
+    "astro": "^5.16.4",
+    "dayjs": "^1.11.19"
   }
 }

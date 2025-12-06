@@ -17,8 +17,15 @@ const { title } = Astro.props;
 
     <link rel="icon" href="/favicon.svg" type="image/svg+xml">
     <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
-    <style>
-      /* Global Styles */
+
+    <style is:global>
+:root {
+  --mint-green: #90EE90;
+  --dark-mint: #228B22;
+  --white: #ffffff;
+  --light-gray: #fafaf7;
+  --max-width: 1200px;
+}
 * {
   margin: 0;
   padding: 0;
@@ -47,7 +54,7 @@ body {
 h1, h2, h3, h4, h5, h6 {
   font-weight: 700;
   line-height: 1.2;
-  margin-bottom: 0;
+  margin: 0;
   color: var(--dark-mint);
 }
 
@@ -68,28 +75,18 @@ p {
   line-height: 1.6;
 }
 
+</style>
+    <style>
+
+
 /* Layout */
 .container {
   max-width: var(--max-width);
   margin: 0 auto;
-  padding: 0 1rem;
+  padding: 1rem 1rem;
 }
 
 /* Navigation */
-nav {
-  background-color: var(--white);
-  border-bottom: 1px solid var(--light-gray);
-  padding: 1rem 0;
-  position: sticky;
-  top: 0;
-  z-index: 100;
-}
-
-nav .container {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
 
 .nav-brand {
   font-size: 1.5rem;
