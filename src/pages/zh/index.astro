@@ -2,14 +2,16 @@
 import Layout from '@layouts/Layout.astro';
 import { getCollection } from 'astro:content';
 
-const posts = await getCollection('zh')
+const posts = (await getCollection('blogZh')).sort((a, b) => {
+  return new Date(b.data['created-time']).getTime() - new Date(a.data['created-time']).getTime();
+});
 ---
 
-<Layout title="Index">
+<Layout title="主页">
 <h1>目录</h1>
 <ul>
   {posts.map(post => <li>
-    <a href={`/zh/posts/${post.slug}/`}>{post.data.title}</a>
+    <a href={`/zh/posts/${post.data.slug}/`}>{post.data.title}</a>
     
 </li>)}
 </ul>
