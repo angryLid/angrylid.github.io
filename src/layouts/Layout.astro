@@ -36,7 +36,7 @@ const { title } = Astro.props;
   --mint-green: #90EE90;
   --dark-mint: #228B22;
   --white: #ffffff;
-  --gray: #666666;
+  --gray: #333333;
   --light-gray: #fafaf7;
   --max-width: 1200px;
   --border-radius: 8px;
@@ -60,10 +60,12 @@ h1, h2, h3, h4, h5, h6 {
 
 h1 {
   font-size: 2.5rem;
+  margin-bottom: 1rem;
 }
 
 h2 {
   font-size: 2rem;
+  margin-bottom: .8rem;
 }
 
 h3 {
@@ -73,6 +75,11 @@ h3 {
 p {
   margin-bottom: 1rem;
   line-height: 1.6;
+}
+
+ul,ol {
+  margin-bottom: 1rem;
+  padding-left: 1.5rem;
 }
 
 </style>
@@ -191,9 +198,6 @@ footer a:hover {
   animation: fadeIn 0.6s ease-out;
 }
 .container {
-  h1, h2, h3, h4, h5, h6 {
-    margin-bottom: 0;
-  }
 /* Quote styling */
 blockquote {
   border-left: 4px solid var(--mint-green);
