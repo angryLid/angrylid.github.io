@@ -62,4 +62,4 @@ Linus 说他的东西都直接丢网上，如果有价值的话很多人会帮�
 [^Turing]: 没有任何冒犯的意思，如果图灵先生看到觉得不舒服，请联系我删除。
 [^Quick]: [很快就到你家门口](https://www.bilibili.com/video/BV1BA411t7ED)
 [^Linus]: [【官方双语】真·Linus来了！ - 为Linux之父Linus Torvalds装机 / 两莱一机#linus谈科技
-](https://www.bilibili.com/video/BV1ueS4BUEEn)
+](https://www.bilibili.com/video/BV1ueS4BUEEn) 13 分钟左右

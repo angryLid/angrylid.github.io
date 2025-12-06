@@ -13,7 +13,7 @@ created-time: 2025-12-06
 
 American neuroscientist David Eagleman mentioned this in his book, *Sum: Forty Tales from the Afterlives.*
 
-I prefer to describe it this way: Apart from your DNA sequence and social relationships, it is your distinct experiences and memories that differentiate you from others. Therefore, by this definition, a person like Alan Turing only died twice. I also wish to achieve the third form of immortality. However, I don't have the ability to crack Nazi codes; I probably only have the ability to castrate myself and commit suicide by poison. 
+I prefer to describe it this way: Apart from your DNA sequence and social relationships, it is your distinct experiences and memories that differentiate you from others. Therefore, by this definition, a person like Alan Turing only died twice. I also wish to achieve the third form of immortality. However, I don't have the ability to crack Nazi codes; I probably only have the ability to castrate myself and commit suicide by poison. [^Turing]
 
 So, I am trying to achieve this goal by leaving behind some written records.
 
@@ -46,7 +46,7 @@ I choose not to write on content platforms primarily for the following reasons:
 
 **High Control and Portability:** Platform rule changes or even shutdowns are unpredictable. If that happens, it can be very difficult to move your written work off the platform. In contrast, GitHub's reputation is far superior to theirs. That's why I write in Markdown and upload it to GitHub Pages. Even if they block all Chinese users someday, I still have a local backup.
 
-Linus said that he just puts his stuff online, and if it's valuable, many people will help him save it. I can only rely on myself.
+Linus said that he just puts his stuff online, and if it's valuable, many people will help him save it.[^Linus] I can only rely on myself.
 
 ## Plans
 
@@ -55,3 +55,7 @@ The current update frequency I have set is to produce at least one article per q
 - I will definitely have an “Annual Anime Review” every year. After all, given the current state of the animation industry, one year is barely enough to squeeze out a single quality review.
 - I will also record some major events that I believe are worth documenting, whether they are in the technology sector or the public sphere.
 - And, anything I can publish that won't cause me any trouble.
+
+[^Turing]: If Mr. Turing is offended, please contact me to remove this.
+[^Linus]: [Building the PERFECT Linux PC with Linus Torvalds
+](https://www.youtube.com/watch?v=mfv0V1SxbNA) around 13:00
