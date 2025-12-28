@@ -1,6 +1,7 @@
 ---
 import { type CollectionEntry, getCollection, render } from 'astro:content';
 import BlogPost from '@layouts/Layout.astro';
+import { formatCreatedTime } from '@utils/date';
 
 export async function getStaticPaths() {
 	const posts = await getCollection('blogZh');
@@ -16,5 +17,9 @@ const { Content } = await render(post);
 ---
 
 <BlogPost title={post.data.title}>
+	<p class="mb-3" style="color: var(--gray); font-size: 0.9rem;">
+		创建于 {formatCreatedTime(post.data['created-time'], 'zh')}
+		{post.data['updated-time'] && '更新于 ' + formatCreatedTime(post.data['updated-time'], 'zh')}
+	</p>
 	<Content />
 </BlogPost>
