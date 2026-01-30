@@ -1,7 +1,7 @@
 ---
 title: LLM Killed Cheatsheet
 slug: 16-LLM-killed-cheatsheet.en.md
-created-time: 2025-01-29
+created-time: 2026-01-29
 ---
 
 # LLM Killed Cheatsheet
