@@ -21,6 +21,6 @@ It was similar to my previous hiking experience. The reasons could be:
 2. Teenagers are naturally addicted to dopamine-spiking things like motorcycle riding, video gaming, or sex. Even among them, sports lovers prefer more exciting activities like basketball to hiking.
 3. Many Generation Z in China are busy with endless examinations, peer pressures, while the others are tired from overwork.
 
-I got lost with a newly encountered young guy. As a result, we had to take a long detour to get back on track. This just resembles real life. If you unfortunately make a wrong decision, you usually have to go through great trouble to get back on track. It can be a farewell to your desired life forever if the gods are cruel to you. As the old Chinese saying goes, "once you take one wrong step, every step thereafter is wrong."
+I got lost with a newly encountered young guy. As a result, we had to take a long detour to get back on the right trail. This just resembles real life. If you unfortunately make a wrong decision, you usually have to go through great trouble to get back on track. It can be a farewell to your desired life forever if the gods are cruel to you. As the old Chinese saying goes, "once you take one wrong step, every step thereafter is wrong."
 
 My sport band recorded that I went 20 kilometers in around 6 hours.
