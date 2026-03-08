@@ -21,7 +21,7 @@ const toDate = (date:Date) => currentLang === 'zh'
   {posts.map(post =>
     <li class="blog-list-item">
       <a href={`${basePath}/${post.data.slug}/`} class="blog-list-link">
-        <span class="blog-list-title">{post.data.title}</span>
+        <h2 class="blog-list-title">{post.data.title}</h2>
         <span class="blog-list-date">{toDate(post.data['created-time'])}</span>
       </a>
     </li>

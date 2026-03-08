@@ -1,5 +1,5 @@
 ---
-import Layout from '@layouts/Layout.astro';
+import IndexLayout from '@layouts/IndexLayout.astro';
 import BlogList from '@components/BlogList.astro';
 import { getCollection } from 'astro:content';
 
@@ -8,10 +8,10 @@ const posts = (await getCollection('blogZh')).sort((a, b) => {
 });
 ---
 
-<Layout title="主页">
+<IndexLayout title="主页">
 <h1>目录</h1>
 <BlogList posts={posts} basePath="/zh/posts" />
-</Layout>
+</IndexLayout>
 
 <style>
  h1 {

@@ -1,5 +1,5 @@
 ---
-import Layout from '@layouts/Layout.astro';
+import IndexLayout from '@layouts/IndexLayout.astro';
 import BlogList from '@components/BlogList.astro';
 import { getCollection } from 'astro:content';
 
@@ -8,10 +8,10 @@ const posts = (await getCollection('blog')).sort((a, b) => {
 });
 ---
 
-<Layout title="Index">
+<IndexLayout title="Index">
 <h1>Index</h1>
 <BlogList posts={posts} basePath="/posts" />
-</Layout>
+</IndexLayout>
 <style>
  h1 {
   margin-inline: 1rem;

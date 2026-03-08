@@ -1,0 +1,37 @@
+---
+import 'github-markdown-css/github-markdown.css';
+import Layout from '@layouts/Layout.astro';
+
+---
+<style>
+	.markdown-body {
+		box-sizing: border-box;
+		min-width: 200px;
+		max-width: 980px;
+		margin: 0 auto;
+		padding: 45px;
+	}
+
+	@media (max-width: 767px) {
+		.markdown-body {
+			padding: 15px;
+		}
+	}
+
+	@media (prefers-color-scheme: dark) {
+		body {
+			background-color: #0d1117;
+		}
+	}
+
+	.markdown-body {
+		:is(h1, h2, h3, h4, h5, h6){
+			color: var(--dark-mint);
+		}
+	}
+</style>
+<Layout>
+    <main class="markdown-body">
+      <slot />
+    </main>
+</Layout>
