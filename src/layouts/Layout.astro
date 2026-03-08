@@ -1,5 +1,6 @@
 ---
 import Header from "../components/Header.astro";
+import 'github-markdown-css/github-markdown.css';
 
 interface Props {
   title: string;
@@ -315,7 +316,7 @@ const { title } = Astro.props;
   <body>
     <Header />
 
-    <main class="container">
+    <main class="container markdown-body">
       <slot />
     </main>
 
