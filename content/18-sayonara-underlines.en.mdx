@@ -1,0 +1,70 @@
+---
+title: Sayonara, Underlines
+slug: sayonara-underlines
+created-time: 2026-03-28
+---
+import './18-sayonara-underlines/styles.css';
+import RangeMethod from './18-sayonara-underlines/range-api.astro';
+
+# Sayonara, Underlines
+
+> [!NOTE]
+> This article was written with AI assistance.
+
+This was one of my old articles in Notion, posted in early 2023.
+
+At that time, a new feature was proposed by the UI designer at my previous company.
+
+**How to make an underline that supports multi-line text, linear gradients, and rounded corners at a time** 
+
+I didn't intentionally renew this article, but unfortunately, AI still cannot provide a perfect solution to this problem. So, I decided to share the content of this article as it is.
+
+I assume readers can inspect the code with dev tools, so I just omit code snippets for a better reading experience.
+
+## TL;DR
+
+| Method | Multi-line | Linear-gradient | Rounded-corner |
+| --- | --- | --- | --- |
+| `text-decoration` | ✅ | ❌ | ❌ |
+| Pseudo-elements | ❌ | ✅ | ✅ |
+| `background-position` | ✅ | ✅ | ❌ |
+| `box-decoration-break` | ✅ | ❌ | ✅ |
+| Range API | ✅ | ✅ | ✅ |
+
+## `text-decoration`
+<div data-namespace="sayonara-underlines" >
+Simple `text-decoration` method is the most straightforward way to add underlines to text. Although it does have plenty of features, neither linear gradients nor rounded corners are supported. <span className="text-decoration-method">In CSS, linear-gradient is a special type of image. So, it's not a valid value for the `text-decoration-color` property.</span>
+</div>
+
+## Pseudo-elements
+<div data-namespace="sayonara-underlines">
+
+<div className="pseudo-elements-method">
+    <div className="">The Title</div>
+</div>
+
+It's a commonly seen effect for titles. Using pseudo-elements like `::before` or `::after` allows you to create more complex underlines. You can use `background` to create linear gradients and rounded corners. However, this method does not support multi-line text, as the pseudo-element will only apply to a single line.
+</div>
+
+## `background-position`
+<div data-namespace="sayonara-underlines" >
+    By using `background-position`, you can create multi-line underlines with linear gradients. <span className="self-positioned-background-method">However, this method does not support rounded corners, limited by the rectangular shape of the background.</span>
+</div>
+
+## `box-decoration-break` with SVG
+<div data-namespace="sayonara-underlines" >
+    The `box-decoration-break` property can be used in combination with SVG to create underlines that support linear gradients and rounded corners. <span className="box-decoration-break-method">However, this method does not support linear gradients, as the gradient is applied to every single line separately rather than as a continuous effect.</span>
+</div>
+
+> [!TIP]
+> The compatibility of `box-decoration-break` is a bit better than in 2023. But it still has some issues in Safari and mobile browsers. So, it's not a perfect solution for this problem.
+
+## Range API
+
+<div data-namespace="sayonara-underlines" >
+
+<RangeMethod/>
+
+This method is more complex to implement, but it provides the most flexibility and control over the appearance of the underlines.
+
+</div>

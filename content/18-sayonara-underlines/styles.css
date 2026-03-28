@@ -1,0 +1,87 @@
+.text-decoration-method {
+    text-decoration-line: underline;
+    text-decoration-thickness: 2px;
+    text-decoration-color: #ff7a18;
+}
+
+.pseudo-elements-method {
+    display: flex;
+    padding-bottom: 10px;
+}
+
+.pseudo-elements-method>* {
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    font-size: 1.4rem;
+    font-weight: 700;
+}
+
+.pseudo-elements-method>*:before {
+    content: "";
+    position: absolute;
+    top: 100%;
+    width: 100%;
+    left: 0;
+    height: 6px;
+    border-radius: 10px;
+    background: linear-gradient(130deg, #ff7a18, #ffcf1b);
+}
+
+.self-positioned-background-method {
+    font-size: 24px;
+    padding-bottom: 6px;
+    display: inline;
+    line-height: 1.6rem;
+    background-image: linear-gradient(130deg, #ff7a18, #ffcf1b);
+    background-size: 100% 8px;
+    background-repeat: no-repeat;
+    background-position: 0 1em;
+}
+
+.box-decoration-break-method {
+    --background-height: 8px;
+    font-size: 24px;
+    background-image: 
+        url("./left-cap.svg"),
+        linear-gradient(to right, #ff7a18, #ff7a18),  
+        url("./right-cap.svg");
+    background-size: 
+        auto var(--background-height), 
+        calc(100% - 8px) var(--background-height), 
+        auto var(--background-height);
+
+    background-position-x: 0, 4px, 100%;
+
+    background-position-y: 24px;
+    padding-bottom: 6px;
+    background-repeat: no-repeat;
+    display: inline;
+    -webkit-box-decoration-break: clone;
+    box-decoration-break: clone;
+}
+
+.range-api-method {
+    box-decoration-break: clone;
+    font-weight: 400;
+    display: block;
+    font-size: 24px;
+    line-height: 2rem;
+    text-decoration: none;
+}
+
+.range-api-method .line {
+    display: inline;
+    position: relative;
+    padding-bottom: 4px;
+}
+
+.range-api-method .after {
+    position: absolute;
+    width: 100%;
+    height: 8px;
+    content: "";
+    bottom: 0px;
+    left: 0px;
+    border-radius: 50px;
+}

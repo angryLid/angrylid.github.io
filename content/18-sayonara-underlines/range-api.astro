@@ -1,0 +1,96 @@
+<div class="range-api-method"></div>
+
+<div class="range-api-method"></div>
+
+<style></style>
+<script is:inline>
+  /**
+   * Remaps a value from the [0, 1] range to a custom [min, max] range.
+   * @param {number} value - The input value between 0 and 1.
+   * @param {number} newMin - The lower bound of the target range (e.g., 0.15).
+   * @param {number} newMax - The upper bound of the target range (e.g., 0.85).
+   * @param {boolean} clamp - Whether to restrict the output within [newMin, newMax].
+   * @returns {number} The remapped value.
+   */
+  const mapRange = (value, newMin, newMax, clamp = true) => {
+    // Linear interpolation formula: val * (max - min) + min
+    let result = value * (newMax - newMin) + newMin;
+
+    if (clamp) {
+      const actualMin = Math.min(newMin, newMax);
+      const actualMax = Math.max(newMin, newMax);
+      result = Math.max(actualMin, Math.min(actualMax, result));
+    }
+
+    return result;
+  };
+
+  const context = {
+    current: document.querySelector(".range-api-method").nextElementSibling,
+    backup: document.querySelector(".range-api-method"),
+    content: `The Range API allows you to create underlines that support multi-line text, linear gradients, and rounded corners.`,
+    alternate() {
+      this.current.innerText = "";
+      [this.current, this.backup] = [this.backup, this.current];
+    },
+    init() {
+      this.current.innerText = this.content;
+    },
+  };
+
+  const processLine = (line, context) => {
+    const textLength = context.current.innerText.length;
+    const text = context.current.innerText.slice(line.startAt, line.endAt);
+
+    const transparency = [
+      line.startAt / textLength,
+      line.endAt / textLength,
+    ].map((t) => 1 - t).map((t) => mapRange(t, 0.15, 0.85));
+    const decoration = `<div class="after" style="background-image:linear-gradient(to right, rgba(255, 122, 24,${transparency[0]}), rgba(255, 122, 24, ${transparency[1]}))"></div>`;
+    context.backup.insertAdjacentHTML(
+      "beforeend",
+      `<div class="line-wrapper">
+        <div class="line">
+            ${text}
+            ${decoration}
+        </div>
+    </div>`,
+    );
+  };
+
+  const onResize = (processLine, context) => {
+    context.init();
+    const { current: target } = context;
+    const textLength = target.innerText.length;
+    let offset = 0;
+    const selection = document.getSelection();
+
+    while (offset < textLength) {
+      const range = new Range();
+      range.setStart(target.firstChild, offset);
+      range.setEnd(target.firstChild, offset);
+      selection.addRange(range);
+
+      selection.modify("extend", "forward", "character");
+      selection.modify("extend", "forward", "lineboundary");
+
+      const endAt = selection.getRangeAt(0).endOffset;
+      processLine(
+        {
+          startAt: offset,
+          endAt,
+        },
+        context,
+      );
+      selection.empty();
+      offset = endAt;
+    }
+    context.alternate();
+  };
+
+  onResize(processLine, context);
+
+  window.addEventListener("resize", () => {
+    onResize(processLine, context);
+  });
+</script>
