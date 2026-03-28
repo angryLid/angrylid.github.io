@@ -6,11 +6,11 @@ created-time: 2025-12-28
 
 # CHANGELOG
 
-## Revision 2025-12-28
+## Revision 2026-03-28
 
-- Added CHANGELOG
-- Added created time for post pages
-- Added table styles
+- Upgraded Astro to v6
+- Added MDX integration
+- Added .nvmrc with Node version 22
 
 ## Revision 2026-03-08
 
@@ -19,3 +19,9 @@ created-time: 2025-12-28
 - Installed and integrated github-markdown-css package
 - Cleaned up unused styling rules in IndexLayout.astro and Layout.astro
 - Optimized font stacks for loading performance
+
+## Revision 2025-12-28
+
+- Added CHANGELOG
+- Added created time for post pages
+- Added table styles

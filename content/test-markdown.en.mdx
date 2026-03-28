@@ -107,11 +107,6 @@ for i in range(10):
 
 Inline equation: $E = mc^2$
 
-Block equation:
-$$
-\int_{-\infty}^{\infty} e^{-x^2} dx = \sqrt{\pi}
-$$
-
 ## Tasks/CHECKLISTS
 
 - [x] Completed task
@@ -137,3 +132,36 @@ This comprehensive markdown test covers:
 - And more!
 
 The styling should be consistent across all elements using our global CSS variables and design system.
+
+## MDX Features
+
+### Using Variables
+
+export const greeting = "Hello from MDX!";
+export const currentYear = 2026;
+
+{greeting} The current year is {currentYear}.
+
+### Using JSX Elements
+
+<div style={{ padding: '1rem', background: '#f0f0f0', borderRadius: '8px' }}>
+  This is a JSX element embedded in MDX
+</div>
+
+### Conditional Rendering
+
+export const isLoggedIn = true;
+
+{isLoggedIn && <p>Welcome back! You are logged in.</p>}
+
+export const isAdmin = false;
+
+{isAdmin ? <p>Admin panel access granted.</p> : <p>Regular user access.</p>}
+
+### Mapping Data
+
+export const fruits = ['Apple', 'Banana', 'Cherry', 'Date'];
+
+<ul>
+  {fruits.map(fruit => <li key={fruit}>{fruit}</li>)}
+</ul>
