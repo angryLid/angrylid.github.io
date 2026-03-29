@@ -163,3 +163,26 @@ number.replace(/\B(?=(\d{3})+(?!\d))/g, ",")
 tel.replace(/(\d{3})\d{4}(\d{4})/, '$1****$2')
 
 ```
+
+## How to get type of a JavaScript object
+
+```javascript
+function typeNameOf(a:any) {
+  if( a !== null && typeof a === "object"){
+    const t:string =  Object.prototype.toString.call(a)
+    return t.slice(8,t.length - 1)
+  }else {
+    return typeof a
+  }
+}
+```
+
+## USB Names
+
+|Rates|Latest Name | Previous Name |
+| --- | --- | --- |
+|480 Mbps = 60 MB/s|USB|USB 2.0|
+|5 Gbps = 625 MB/s|USB 5Gbps|USB 3.0, USB, 3.1 Gen 1, USB 3.2 Gen 1|
+|10 Gbps = 1.25 GB/s|Revoked|USB 3.1, USB 3.1 Gen 2, USB 3.2 Gen 2|
+|20 Gbps = 2.5 GB/s|USB 20Gbps|USB 3.2 Gen 2x2, USB 4 20 Gbps, USB 4 2x2|
+|40 Gbps = 5 GB/s|USB 40Gbps|USB 4 40 Gbps, USB4 3x2
