@@ -1,89 +1,85 @@
 ---
-import type { CollectionEntry } from 'astro:content';
-import dayjs from 'dayjs';
+import type { CollectionEntry } from "astro:content";
+import { formatCreatedTime } from "@utils/date";
 
 interface Props {
-  posts: CollectionEntry<'blog'>[];
+  posts: CollectionEntry<"blog">[];
   basePath: string;
 }
 
 const { posts, basePath } = Astro.props;
-
-const toDate = (date:Date) => dayjs(date).format('MMM D, YYYY')
-
-
 ---
+
 <ul class="blog-list">
-  {posts.map(post =>
-    <li class="blog-list-item">
-      <a href={`${basePath}/${post.data.slug}/`} class="blog-list-link">
-        <h2 class="blog-list-title">{post.data.title}</h2>
-        <span class="blog-list-date">{toDate(post.data['created-time'])}</span>
-      </a>
-    </li>
-  )}
+  {
+    posts.map((post) => (
+      <li class="blog-list-item">
+        <a href={`${basePath}/${post.data.slug}/`} class="blog-list-link">
+          {post.data.title}
+        </a>
+        <span class="blog-list-date">
+          {formatCreatedTime(post.data["created-time"])}
+        </span>
+      </li>
+    ))
+  }
 </ul>
 
 <style>
-.blog-list {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-}
+  .blog-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
 
-.blog-list-item {
-  margin-bottom: 1rem;
-  padding: 1rem;
-  /* background-color: var(--white, #ffffff); */
-  border: 1px solid var(--light-gray, #fafaf7);
-  border-radius: var(--border-radius, 8px);
-  transition: all 0.3s ease;
-}
-
-.blog-list-item:hover {
-  transform: translateX(4px);
-  border-color: var(--dark-mint, #228B22);
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-}
-
-.blog-list-link {
-  text-decoration: none;
-  color: var(--gray, #666666);
-  display: block;
-  transition: color 0.3s ease;
-}
-
-.blog-list-link:hover {
-  color: var(--dark-mint, #228B22);
-}
-
-.blog-list-title {
-  font-size: 1.1rem;
-  font-weight: 600;
-  line-height: 1.4;
-  display: block;
-  margin-bottom: 0.25rem;
-}
-
-.blog-list-date {
-  font-size: 0.9rem;
-  color: var(--gray, #666666);
-  display: block;
-}
-
-/* Responsive design */
-@media (max-width: 768px) {
   .blog-list-item {
-    padding: 0.75rem;
-    margin-bottom: 0.75rem;
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    justify-content: space-between;
+    padding-block: 6px;
+  }
+
+  .blog-list-link {
+    text-decoration: none;
+    color: var(--dark-mint);
+    font-size: 1.2rem;
+  }
+
+  .blog-list-link:hover {
+    text-decoration: underline;
+    text-decoration-color: var(--dark-mint);
   }
 
   .blog-list-title {
-    font-size: 1rem;
+    font-size: 1.1rem;
+    font-weight: 600;
+    line-height: 1.4;
+    display: block;
+    margin-bottom: 0.25rem;
   }
 
   .blog-list-date {
-    font-size: 0.8rem;
+    font-size: 0.9rem;
+    color: var(--gray, #999999);
+    display: block;
+    font-family:
+      ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono",
+      "Courier New", monospace;
   }
-}
+
+  /* Responsive design */
+  @media (max-width: 768px) {
+    .blog-list-item {
+      flex-wrap: wrap;
+    }
+
+    .blog-list-title {
+      font-size: 1rem;
+    }
+
+    .blog-list-date {
+      font-size: 0.8rem;
+    }
+  }
 </style>
