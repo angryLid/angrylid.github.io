@@ -1,19 +1,17 @@
 ---
-import IndexLayout from '@layouts/IndexLayout.astro';
-import BlogList from '@components/BlogList.astro';
-import { getCollection } from 'astro:content';
+import IndexLayout from "@layouts/IndexLayout.astro";
+import BlogList from "@components/BlogList.astro";
+import { getCollection } from "astro:content";
 
-const posts = (await getCollection('blog')).sort((a, b) => {
-  return new Date(b.data['created-time']).getTime() - new Date(a.data['created-time']).getTime();
+const posts = (await getCollection("blog")).sort((a, b) => {
+  return (
+    new Date(b.data["created-time"]).getTime() -
+    new Date(a.data["created-time"]).getTime()
+  );
 });
 ---
 
 <IndexLayout title="Index">
-<h1>Index</h1>
-<BlogList posts={posts} basePath="/posts" />
+  <h1>Index</h1>
+  <BlogList posts={posts} basePath="/posts" />
 </IndexLayout>
-<style>
- h1 {
-  margin-inline: 1rem;
-}
-</style>

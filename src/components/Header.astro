@@ -1,7 +1,7 @@
 ---
 const { title } = Astro.props;
 
-const homeUrl = '/';
+const homeUrl = "/";
 ---
 
 <nav>
@@ -10,33 +10,38 @@ const homeUrl = '/';
   </div>
 </nav>
 <style>
-/* Navigation Styles */
+  /* Navigation Styles */
 
+  nav {
+    background-color: var(--light-gray);
+    border-bottom: 1px solid var(--light-gray);
+    padding: 1rem 0;
+    width: 100%;
+  }
 
-nav {
-  background-color: var(--light-gray);
-  border-bottom: 1px solid var(--light-gray);
-  padding: 1rem 0;
-  width: 100%;
-}
+  @media (max-width: 480px) {
+    nav {
+      padding: 0;
+    }
+  }
 
-.bar {
-  max-width: var(--max-width);
-  margin: 0 auto;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  padding: 0 2rem;
-  box-sizing: border-box;
-}
+  .bar {
+    max-width: var(--max-width);
+    margin: 0 auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0 2rem;
+    box-sizing: border-box;
+  }
 
-.nav-brand {
-  font-family: "La Belle Aurore", cursive;
-  font-weight: 400;
-  font-style: normal;
-  font-size: 3.4rem;
-  color: var(--dark-mint);
-  text-decoration: none;
-  letter-spacing: -0.02em;
-}
+  .nav-brand {
+    font-family: "La Belle Aurore", cursive;
+    font-weight: 400;
+    font-style: normal;
+    font-size: 3.4rem;
+    color: var(--dark-mint);
+    text-decoration: none;
+    letter-spacing: -0.02em;
+  }
 </style>

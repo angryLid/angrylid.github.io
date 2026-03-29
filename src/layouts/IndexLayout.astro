@@ -1,5 +1,5 @@
 ---
-import Layout from '@layouts/Layout.astro';
+import Layout from "@layouts/Layout.astro";
 
 interface Props {
   title: string;
@@ -7,27 +7,32 @@ interface Props {
 
 const { title } = Astro.props;
 ---
-  <style>
-      /* Layout */
-      .container {
-        box-sizing: border-box;
-        min-width: 200px;
-        max-width: 980px;
-        margin: 0 auto;
-        padding: 45px;
-      }
-      .container {
-		:is(h1, h2, h3, h4, h5, h6){
-			color: var(--dark-mint);
-		}
 
-	}
+<style>
+  /* Layout */
   .container {
-      background: var(--white);
+    box-sizing: border-box;
+    min-width: 200px;
+    max-width: 980px;
+    margin: 0 auto;
+    padding: 45px;
+  }
+  .container {
+    :is(h1, h2, h3, h4, h5, h6) {
+      color: var(--dark-mint);
     }
-    </style>
+  }
+  .container {
+    background: var(--white);
+  }
+  @media (max-width: 480px) {
+    .container {
+      padding: 20px;
+    }
+  }
+</style>
 <Layout title={title}>
-    <main class="container">
-      <slot />
-    </main>
+  <main class="container">
+    <slot />
+  </main>
 </Layout>
