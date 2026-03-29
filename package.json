@@ -17,6 +17,8 @@
     "astro": "^6.1.1",
     "dayjs": "^1.11.19",
     "github-markdown-css": "^5.9.0",
-    "remark-github-blockquote-alert": "^2.0.1"
+    "rehype-katex": "^7.0.1",
+    "remark-github-blockquote-alert": "^2.0.1",
+    "remark-math": "^6.0.0"
   }
 }
