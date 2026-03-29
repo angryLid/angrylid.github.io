@@ -22,6 +22,7 @@ npm run preview
 ## Architecture
 
 ### Project Structure
+- `content/` - Blog articles and posts in Markdown format
 - `src/pages/` - Astro page components and routing
   - `index.astro` - Main page component with Astro syntax, frontmatter code execution, and inline styling
 - `astro.config.mjs` - Astro configuration file (currently minimal)
