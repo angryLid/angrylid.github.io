@@ -19,7 +19,8 @@ const { Content } = await render(post);
 <BlogPost title={post.data.title}>
 	<p class="mb-3" style="color: var(--gray); font-size: 0.9rem;">
 		Created At {formatCreatedTime(post.data['created-time'])}
-		{post.data['updated-time'] && 'Updated At ' + formatCreatedTime(post.data['updated-time'])}
+		{post.data['updated-time'] && ' • Updated At ' + formatCreatedTime(post.data['updated-time'])}
+		{post.data.tags && post.data.tags.length > 0 && ' • ' + post.data.tags.map(tag => `#${tag}`).join(' ')}
 	</p>
 	<Content />
 </BlogPost>
