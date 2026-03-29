@@ -5,11 +5,6 @@ import mdx from "@astrojs/mdx";
 export default defineConfig({
   site: 'https://example.com',
 
-  i18n: {
-      locales: ["zh", "en"],
-      defaultLocale: "en",
-  },
-
   markdown: {
       remarkPlugins: [remarkGithubAdmonitions],
   },

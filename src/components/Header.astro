@@ -1,9 +1,7 @@
 ---
 const { title } = Astro.props;
 
-// Get current language
-const currentLang = Astro.currentLocale || 'en';
-const homeUrl = currentLang === 'zh' ? '/zh/' : '/';
+const homeUrl = '/';
 ---
 
 <nav>

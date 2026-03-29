@@ -3,17 +3,13 @@ import type { CollectionEntry } from 'astro:content';
 import dayjs from 'dayjs';
 
 interface Props {
-  posts: CollectionEntry<'blog' | 'blogZh'>[];
+  posts: CollectionEntry<'blog'>[];
   basePath: string;
 }
 
 const { posts, basePath } = Astro.props;
 
-// Get current language for date formatting
-const currentLang = Astro.currentLocale || 'en';
-const toDate = (date:Date) => currentLang === 'zh'
-  ? dayjs(date).format('YYYY 年 MM 月 DD 日')
-  : dayjs(date).format('MMM D, YYYY')
+const toDate = (date:Date) => dayjs(date).format('MMM D, YYYY')
 
 
 ---
