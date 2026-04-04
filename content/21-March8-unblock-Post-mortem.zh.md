@@ -61,7 +61,7 @@ adb shell service call miui.mqsas.IMQSNative 21 i32 1 s16 "dd" i32 1 s16 "if=/da
 
 ## 余波
 
-尽管非 8Elite Gen5 芯片的手机依旧不能利用漏洞 1解锁，但安全补丁在2026 年 1 月以及之前的手机都有可能把 `SELinux` 设为宽容，再利用 `KernelSU` 最新的越狱模式获得临时root 权限。
+尽管非 8Elite Gen5 芯片的手机无法利用漏洞 1解锁，但安全补丁在2026 年 1 月以及之前的手机都有可能把 `SELinux` 设为宽容，再利用 `KernelSU` 最新的越狱模式获得临时root 权限。
 
 - 实测 小米 14 Ultra 安全补丁2026 年 1 月 可行
 - 实测 一加 Ace3V 安全补丁2026 年 1 月 可行
