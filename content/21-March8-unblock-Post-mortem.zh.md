@@ -74,7 +74,7 @@ adb shell service call miui.mqsas.IMQSNative 21 i32 1 s16 "dd" i32 1 s16 "if=/da
 
 由于 `ZygiskNext` 必须在 boot 早期注入 init 进程，也不可用。小米设备可以尝试用这个项目[^fix]修补。
 
-[^post]: [喜欢 ROOT 的用户有福了，小米开了三八解锁节，点击就给解锁（）](v2ex.com/t/1196673)
+[^post]: [喜欢 ROOT 的用户有福了，小米开了三八解锁节，点击就给解锁（）](https://v2ex.com/t/1196673)
 [^1]: [Unlocking qualcomm bootloader via gbl exploit ](https://github.com/kasnria001/qualcomm_gbl_exploit_poc)
 [^2]: [小米解锁BL 小米17ProMax/红米K90ProMax解锁BL方法已开源](https://www.bilibili.com/video/BV1YxPBz9E3B)
 [^3]: [参数校验的补丁](https://git.codelinaro.org/clo/la/abl/tianocore/edk2/-/commit/fb8e864254cdc370670233e3cb73a2b18ff33c9f)
