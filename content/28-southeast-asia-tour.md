@@ -29,7 +29,7 @@ The whole Philippines is like the human resource provider to Western world. Ther
 ## Pattaya
 We landed at Bangkok and took a bus to Pattaya. The appearance of street and houses resembles tier-3 city in China apart from the CBD. But it's obvious more international than most Chinese cities. Indians, Europeans and East-Asians were everywhere. Two years had passed since my last visit. The market share of Chinese cars grew really slow. Toyota and ISUZU logos still dominate. I felt the good price had increased. A bowl of soup and a plate of rice charged me around 100 RMB. Even pineapples offered no advantage over China.
 
-I walked through the red light areas. Because we're just colleagues, no one will really enter any bar in such a scenario. A group of Chinese passed by, observed the landscape like businessmen. To be honest, I didn’t see the attraction. A man paying for such services usually wants one of two things: the sex itself, or the feeling of power — being able to act superior and command a woman. But buying a drink for a foreign lady in a bar gives you neither.
+I walked through the red light street with colleagues. We were curious, looking around like businessmen. To be honest, I didn’t see the attraction. A man paying for such services usually wants one of two things: the sex itself, or the feeling of power — being able to act superior and command a woman. But buying a drink for a foreign lady in a bar gives you neither.
 
 I felt a bit disappointed at the buffet. It didn't have many local specialty. Instead, it's full of ordinary cooked in a Western style. Why do I want to eat French fries or bacon in a hotel at an average price higher than 1000RMB?
 
