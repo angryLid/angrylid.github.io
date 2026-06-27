@@ -36,12 +36,21 @@ const homeUrl = "/";
   }
 
   .nav-brand {
-    font-family: "La Belle Aurore", cursive;
-    font-weight: 400;
+    font-family: "Cascadia Code", monospace;
     font-style: normal;
     font-size: 3.4rem;
     color: var(--dark-mint);
     text-decoration: none;
     letter-spacing: -0.02em;
+  }
+
+  .nav-brand::after {
+    content: "";
+    display: inline-block;
+    width: 0.4em;
+    height: 0.76em;
+    background-color: var(--dark-mint);
+    margin-left: 0.05em;
+    opacity: 0.85;
   }
 </style>
