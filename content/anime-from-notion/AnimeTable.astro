@@ -1,0 +1,354 @@
+---
+// AnimeTable.astro — reads and displays anime-from-notion.csv from content/
+import { readFileSync } from "node:fs";
+import { resolve } from "node:path";
+
+// --- CSV parser (handles quoted multiline fields) ---
+function parseCSV(text: string): Record<string, string>[] {
+  const rows: Record<string, string>[] = [];
+  let headers: string[] = [];
+  let currentRow: string[] = [];
+  let currentField = "";
+  let inQuotes = false;
+  let headerParsed = false;
+
+  for (let i = 0; i < text.length; i++) {
+    const ch = text[i];
+    const next = text[i + 1];
+
+    if (inQuotes) {
+      if (ch === '"') {
+        if (next === '"') {
+          currentField += '"';
+          i++;
+        } else {
+          inQuotes = false;
+        }
+      } else {
+        currentField += ch;
+      }
+    } else {
+      if (ch === '"') {
+        inQuotes = true;
+      } else if (ch === ",") {
+        currentRow.push(currentField.trim());
+        currentField = "";
+      } else if (ch === "\n") {
+        currentRow.push(currentField.trim());
+        currentField = "";
+        if (currentRow.length > 1 || currentRow[0] !== "") {
+          if (!headerParsed) {
+            headers = currentRow;
+            headerParsed = true;
+          } else {
+            const obj: Record<string, string> = {};
+            headers.forEach((h, idx) => {
+              obj[h] = currentRow[idx] ?? "";
+            });
+            rows.push(obj);
+          }
+        }
+        currentRow = [];
+      } else if (ch === "\r") {
+        // skip
+      } else {
+        currentField += ch;
+      }
+    }
+  }
+
+  if (currentField || currentRow.length > 0) {
+    currentRow.push(currentField.trim());
+    if (currentRow.length > 1 || currentRow[0] !== "") {
+      const obj: Record<string, string> = {};
+      headers.forEach((h, idx) => {
+        obj[h] = currentRow[idx] ?? "";
+      });
+      rows.push(obj);
+    }
+  }
+
+  return rows;
+}
+
+// Resolve from project root (cwd) — works in both dev and build
+const csvPath = resolve("content/anime-from-notion/anime-from-notion.csv");
+const csvText = readFileSync(csvPath, "utf-8");
+const records = parseCSV(csvText);
+
+// --- helpers ---
+function renderStars(rating: string): string {
+  const n = parseInt(rating) || 0;
+  return "★".repeat(n) + "☆".repeat(Math.max(0, 4 - n));
+}
+
+function formatDate(dateStr: string): string {
+  if (!dateStr) return "";
+  const parts = dateStr.split("/");
+  if (parts.length === 3) {
+    return `${parts[0]}年${parts[1]}月${parts[2]}日`;
+  }
+  return dateStr;
+}
+---
+
+<style>
+  .anime-table-wrapper h1 {
+    margin-bottom: 0.5rem;
+    font-size: 1.8rem;
+  }
+  .anime-table-wrapper .subtitle {
+    color: var(--gray);
+    margin-bottom: 2rem;
+    font-size: 0.95rem;
+  }
+
+  /* Filter bar */
+  .filters {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-bottom: 1.5rem;
+  }
+  .filter-btn {
+    padding: 0.3rem 0.8rem;
+    border: 1px solid #ddd;
+    border-radius: 20px;
+    background: var(--white);
+    color: var(--gray);
+    cursor: pointer;
+    font-size: 0.85rem;
+    transition: all 0.2s;
+  }
+  .filter-btn:hover {
+    border-color: var(--dark-mint);
+    color: var(--dark-mint);
+  }
+  .filter-btn.active {
+    background: var(--dark-mint);
+    color: var(--white);
+    border-color: var(--dark-mint);
+  }
+
+  /* Table */
+  .table-scroll {
+    overflow-x: auto;
+  }
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.9rem;
+  }
+  thead th {
+    text-align: left;
+    padding: 0.75rem 0.6rem;
+    border-bottom: 2px solid var(--dark-mint);
+    color: var(--dark-mint);
+    font-weight: 600;
+    white-space: nowrap;
+    cursor: pointer;
+    user-select: none;
+  }
+  thead th .sort-arrow {
+    font-size: 0.7rem;
+    margin-left: 2px;
+  }
+  tbody td {
+    padding: 0.6rem;
+    border-bottom: 1px solid #eee;
+    vertical-align: top;
+  }
+  tbody tr:hover {
+    background: #f0faf0;
+  }
+  tbody tr.hidden {
+    display: none;
+  }
+
+  .col-name {
+    font-weight: 600;
+    min-width: 180px;
+  }
+  .col-name small {
+    display: block;
+    font-weight: 400;
+    color: #999;
+    font-size: 0.8rem;
+    margin-top: 2px;
+  }
+  .col-rating {
+    color: #f0a030;
+    white-space: nowrap;
+    font-size: 0.85rem;
+  }
+  .col-category {
+    min-width: 140px;
+  }
+  .col-category .tag {
+    display: inline-block;
+    background: #e8f5e9;
+    color: var(--dark-mint);
+    padding: 1px 6px;
+    border-radius: 4px;
+    font-size: 0.75rem;
+    margin: 1px 2px;
+  }
+  .col-date {
+    white-space: nowrap;
+    min-width: 100px;
+  }
+  .col-studio {
+    min-width: 120px;
+  }
+  .col-comment {
+    min-width: 280px;
+    max-width: 400px;
+    line-height: 1.5;
+  }
+
+  @media (max-width: 768px) {
+    .col-comment {
+      max-width: 200px;
+    }
+  }
+</style>
+
+<div class="anime-table-wrapper">
+  <h1>Anime</h1>
+  <p class="subtitle">
+    {records.length} entries. Click column headers to sort, use the buttons to
+    filter by rating.
+  </p>
+
+  <div class="filters">
+    <button class="filter-btn active" data-rating="all">All</button>
+    <button class="filter-btn" data-rating="4">★★★★ (4)</button>
+    <button class="filter-btn" data-rating="3">★★★ (3)</button>
+    <button class="filter-btn" data-rating="2">★★ (2)</button>
+    <button class="filter-btn" data-rating="1">★ (1)</button>
+  </div>
+
+  <div class="table-scroll">
+    <table id="anime-table">
+      <thead>
+        <tr>
+          <th data-col="0">Name</th>
+          <th data-col="1">Rating</th>
+          <th data-col="2">Category</th>
+          <th data-col="3">Air Date</th>
+          <th data-col="4">Studio</th>
+          <th data-col="5">Comment</th>
+        </tr>
+      </thead>
+      <tbody>
+        {records.map((r) => (
+          <tr data-rating={r["观感"] || "0"}>
+            <td class="col-name">
+              {r["Name"]}
+              {r["原名"] && <small>{r["原名"]}</small>}
+            </td>
+            <td class="col-rating">{renderStars(r["观感"])}</td>
+            <td class="col-category">
+              {r["分类"].split(",").filter(Boolean).map((tag) => (
+                <span class="tag">{tag.trim()}</span>
+              ))}
+            </td>
+            <td class="col-date">{formatDate(r["开播时间"])}</td>
+            <td class="col-studio">{r["制作公司"]}</td>
+            <td class="col-comment">{r["comment"]}</td>
+          </tr>
+        ))}
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<script>
+  const table = document.getElementById("anime-table")!;
+  const tbody = table.querySelector("tbody")!;
+  const thead = table.querySelector("thead")!;
+  const filterBar = table.closest(".anime-table-wrapper")!.querySelector(".filters")!;
+
+  // --- sorting ---
+  let sortCol = 3; // Air Date
+  let sortAsc = false; // newest first by default
+
+  thead.addEventListener("click", (e) => {
+    const th = (e.target as HTMLElement).closest("th");
+    if (!th) return;
+    const col = parseInt(th.dataset.col!);
+    if (col === sortCol) {
+      sortAsc = !sortAsc;
+    } else {
+      sortCol = col;
+      sortAsc = col === 3; // ascending for date
+    }
+    sortTable();
+    updateSortIndicators();
+  });
+
+  function updateSortIndicators() {
+    thead.querySelectorAll("th").forEach((th, i) => {
+      th.querySelector(".sort-arrow")?.remove();
+      if (i === sortCol) {
+        const arrow = document.createElement("span");
+        arrow.className = "sort-arrow";
+        arrow.textContent = sortAsc ? " ▲" : " ▼";
+        th.appendChild(arrow);
+      }
+    });
+  }
+
+  function sortTable() {
+    const rows = Array.from(tbody.querySelectorAll("tr"));
+    rows.sort((a, b) => {
+      const aVal = (a.children[sortCol]?.textContent ?? "").trim();
+      const bVal = (b.children[sortCol]?.textContent ?? "").trim();
+
+      if (sortCol === 1) {
+        const aStars = parseInt(a.dataset.rating || "0");
+        const bStars = parseInt(b.dataset.rating || "0");
+        return sortAsc ? aStars - bStars : bStars - aStars;
+      }
+
+      if (sortCol === 3) {
+        const aMatch = aVal.match(/(\d{4})年(\d{1,2})月(\d{1,2})日/);
+        const bMatch = bVal.match(/(\d{4})年(\d{1,2})月(\d{1,2})日/);
+        if (aMatch && bMatch) {
+          const aDate = new Date(+aMatch[1], +aMatch[2] - 1, +aMatch[3]);
+          const bDate = new Date(+bMatch[1], +bMatch[2] - 1, +bMatch[3]);
+          return sortAsc
+            ? aDate.getTime() - bDate.getTime()
+            : bDate.getTime() - aDate.getTime();
+        }
+        return sortAsc ? aVal.localeCompare(bVal) : bVal.localeCompare(aVal);
+      }
+
+      return sortAsc ? aVal.localeCompare(bVal) : bVal.localeCompare(aVal);
+    });
+
+    rows.forEach((row) => tbody.appendChild(row));
+  }
+
+  // --- filtering ---
+  let activeRating = "all";
+
+  filterBar.addEventListener("click", (e) => {
+    const btn = (e.target as HTMLElement).closest("button");
+    if (!btn) return;
+    activeRating = btn.dataset.rating!;
+    filterBar.querySelectorAll(".filter-btn").forEach((b) => b.classList.remove("active"));
+    btn.classList.add("active");
+
+    tbody.querySelectorAll("tr").forEach((row) => {
+      if (activeRating === "all" || row.dataset.rating === activeRating) {
+        row.classList.remove("hidden");
+      } else {
+        row.classList.add("hidden");
+      }
+    });
+  });
+
+  updateSortIndicators();
+  sortTable();
+</script>
