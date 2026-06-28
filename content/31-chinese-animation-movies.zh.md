@@ -7,7 +7,7 @@ tags:
   - Notion
 ---
 
-# Chinese Animation Movies
+# 讲稿：中国动画电影 / Chinese Animation Movies
 
 ## 自我介绍部分
 
