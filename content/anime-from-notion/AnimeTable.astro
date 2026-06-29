@@ -2,6 +2,7 @@
 // AnimeTable.astro — reads and displays anime-from-notion.csv from content/
 import { readFileSync } from "node:fs";
 import { resolve } from "node:path";
+import { formatCreatedTime } from "@utils/date";
 
 // --- CSV parser (handles quoted multiline fields) ---
 function parseCSV(text: string): Record<string, string>[] {
@@ -76,19 +77,19 @@ const csvPath = resolve("content/anime-from-notion/anime-from-notion.csv");
 const csvText = readFileSync(csvPath, "utf-8");
 const records = parseCSV(csvText);
 
-// --- helpers ---
-function renderStars(rating: string): string {
-  const n = parseInt(rating) || 0;
-  return "★".repeat(n) + "☆".repeat(Math.max(0, 4 - n));
-}
+// --- rating counts ---
+const ratingCounts: Record<string, number> = { all: records.length };
+records.forEach((r) => {
+  const k = r["观感"] || "0";
+  ratingCounts[k] = (ratingCounts[k] || 0) + 1;
+});
 
-function formatDate(dateStr: string): string {
-  if (!dateStr) return "";
-  const parts = dateStr.split("/");
-  if (parts.length === 3) {
-    return `${parts[0]}年${parts[1]}月${parts[2]}日`;
-  }
-  return dateStr;
+// --- helpers ---
+const RATING_EMOJI = ["", "1", "2", "3", "4"];
+
+function renderRating(rating: string): string {
+  const n = parseInt(rating) || 0;
+  return RATING_EMOJI[n] || "";
 }
 ---
 
@@ -161,10 +162,6 @@ function formatDate(dateStr: string): string {
   tbody tr:hover {
     background: #f0faf0;
   }
-  tbody tr.hidden {
-    display: none;
-  }
-
   .col-name {
     font-weight: 600;
     min-width: 180px;
@@ -177,9 +174,8 @@ function formatDate(dateStr: string): string {
     margin-top: 2px;
   }
   .col-rating {
-    color: #f0a030;
     white-space: nowrap;
-    font-size: 0.85rem;
+    font-size: 1.1rem;
   }
   .col-category {
     min-width: 140px;
@@ -221,13 +217,14 @@ function formatDate(dateStr: string): string {
   </p>
 
   <div class="filters">
-    <button class="filter-btn active" data-rating="all">All</button>
-    <button class="filter-btn" data-rating="4">★★★★ (4)</button>
-    <button class="filter-btn" data-rating="3">★★★ (3)</button>
-    <button class="filter-btn" data-rating="2">★★ (2)</button>
-    <button class="filter-btn" data-rating="1">★ (1)</button>
-  </div>
+    <button class="filter-btn active" data-rating="all">All ({ratingCounts.all})</button>
+    <button class="filter-btn" data-rating="4">4️⃣ ({ratingCounts["4"] || 0})</button>
+    <button class="filter-btn" data-rating="3">3️⃣ ({ratingCounts["3"] || 0})</button>
+    <button class="filter-btn" data-rating="2">2️⃣ ({ratingCounts["2"] || 0})</button>
+    <button class="filter-btn" data-rating="1">1️⃣ ({ratingCounts["1"] || 0})</button>
+    <button class="filter-btn" data-rating="0">Unrated ({ratingCounts["0"] || 0})</button>
 
+  </div>
   <div class="table-scroll">
     <table id="anime-table">
       <thead>
@@ -247,13 +244,13 @@ function formatDate(dateStr: string): string {
               {r["Name"]}
               {r["原名"] && <small>{r["原名"]}</small>}
             </td>
-            <td class="col-rating">{renderStars(r["观感"])}</td>
+            <td class="col-rating">{renderRating(r["观感"])}</td>
             <td class="col-category">
               {r["分类"].split(",").filter(Boolean).map((tag) => (
                 <span class="tag">{tag.trim()}</span>
               ))}
             </td>
-            <td class="col-date">{formatDate(r["开播时间"])}</td>
+            <td class="col-date">{formatCreatedTime(r["开播时间"])}</td>
             <td class="col-studio">{r["制作公司"]}</td>
             <td class="col-comment">{r["comment"]}</td>
           </tr>
@@ -300,8 +297,7 @@ function formatDate(dateStr: string): string {
   }
 
   function sortTable() {
-    const rows = Array.from(tbody.querySelectorAll("tr"));
-    rows.sort((a, b) => {
+    allRows.sort((a, b) => {
       const aVal = (a.children[sortCol]?.textContent ?? "").trim();
       const bVal = (b.children[sortCol]?.textContent ?? "").trim();
 
@@ -312,8 +308,8 @@ function formatDate(dateStr: string): string {
       }
 
       if (sortCol === 3) {
-        const aMatch = aVal.match(/(\d{4})年(\d{1,2})月(\d{1,2})日/);
-        const bMatch = bVal.match(/(\d{4})年(\d{1,2})月(\d{1,2})日/);
+        const aMatch = aVal.match(/^(\d{4})-(\d{2})-(\d{2})$/);
+        const bMatch = bVal.match(/^(\d{4})-(\d{2})-(\d{2})$/);
         if (aMatch && bMatch) {
           const aDate = new Date(+aMatch[1], +aMatch[2] - 1, +aMatch[3]);
           const bDate = new Date(+bMatch[1], +bMatch[2] - 1, +bMatch[3]);
@@ -327,11 +323,24 @@ function formatDate(dateStr: string): string {
       return sortAsc ? aVal.localeCompare(bVal) : bVal.localeCompare(aVal);
     });
 
-    rows.forEach((row) => tbody.appendChild(row));
+    applyFilter();
   }
 
   // --- filtering ---
+  const allRows = Array.from(tbody.querySelectorAll("tr"));
   let activeRating = "all";
+
+  function applyFilter() {
+    // Remove all rows from DOM
+    allRows.forEach((row) => row.remove());
+
+    // Re-append only matching rows
+    allRows.forEach((row) => {
+      if (activeRating === "all" || row.dataset.rating === activeRating) {
+        tbody.appendChild(row);
+      }
+    });
+  }
 
   filterBar.addEventListener("click", (e) => {
     const btn = (e.target as HTMLElement).closest("button");
@@ -339,14 +348,7 @@ function formatDate(dateStr: string): string {
     activeRating = btn.dataset.rating!;
     filterBar.querySelectorAll(".filter-btn").forEach((b) => b.classList.remove("active"));
     btn.classList.add("active");
-
-    tbody.querySelectorAll("tr").forEach((row) => {
-      if (activeRating === "all" || row.dataset.rating === activeRating) {
-        row.classList.remove("hidden");
-      } else {
-        row.classList.add("hidden");
-      }
-    });
+    applyFilter();
   });
 
   updateSortIndicators();
