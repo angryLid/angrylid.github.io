@@ -3,7 +3,7 @@ import fs from "node:fs";
 import path from "node:path";
 
 // Read and parse the CSV at build time
-const csvPath = path.join(process.cwd(), "content/bilibili-dump.csv");
+const csvPath = path.join(process.cwd(), "content/bilibili-dump/bilibili-dump.csv");
 const csvText = fs.readFileSync(csvPath, "utf-8");
 
 // Parse CSV lines (simple parser — no quoted commas in the data)
