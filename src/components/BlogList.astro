@@ -8,6 +8,13 @@ interface Props {
 }
 
 const { posts, basePath } = Astro.props;
+
+function isWip(post: CollectionEntry<"blog">): boolean {
+  const status = post.data.status;
+  if (!status) return false;
+  if (Array.isArray(status)) return status.includes("WIP");
+  return status === "WIP";
+}
 ---
 
 <ul class="blog-list">
@@ -15,7 +22,7 @@ const { posts, basePath } = Astro.props;
     posts.map((post) => (
       <li class="blog-list-item">
         <a href={`${basePath}/${post.data.slug}/`} class="blog-list-link">
-          {post.data.title}
+          {isWip(post) ? `[WIP] ${post.data.title}` : post.data.title}
         </a>
         <span class="blog-list-date">
           {formatCreatedTime(post.data["created-time"])}

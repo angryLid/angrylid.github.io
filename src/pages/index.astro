@@ -3,7 +3,20 @@ import IndexLayout from "@layouts/IndexLayout.astro";
 import BlogList from "@components/BlogList.astro";
 import { getCollection } from "astro:content";
 
+function isWip(post: { data: Record<string, unknown> }): boolean {
+  const status = post.data.status;
+  if (!status) return false;
+  if (Array.isArray(status)) return status.includes("WIP");
+  return status === "WIP";
+}
+
 const posts = (await getCollection("blog")).sort((a, b) => {
+  const aWip = isWip(a);
+  const bWip = isWip(b);
+  // Pin WIP articles to the top
+  if (aWip && !bWip) return -1;
+  if (!aWip && bWip) return 1;
+  // Otherwise sort by created-time descending
   return (
     new Date(b.data["created-time"]).getTime() -
     new Date(a.data["created-time"]).getTime()
