@@ -62,3 +62,7 @@ npm run preview
 ## GitHub Pages Deployment
 
 The project includes a `.nojekyll` file to disable GitHub's Jekyll processing, ensuring Astro-generated static files are served directly. The CNAME file suggests custom domain configuration.
+
+## Skills
+
+All skills are saved in `.claude/skills` for compatibility reasons.

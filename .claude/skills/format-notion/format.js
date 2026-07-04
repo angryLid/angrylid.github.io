@@ -110,7 +110,7 @@ function formatNotionMarkdown(filePath) {
 
 const filePath = process.argv[2];
 if (!filePath) {
-  console.error('Usage: node format-notion-markdown.js <file-path>');
+  console.error('Usage: node format.js <file-path>');
   process.exit(1);
 }
 

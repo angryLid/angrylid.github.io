@@ -5,8 +5,8 @@
  * Uses jsdom so extraction logic mirrors the bookmark.user.js config.ts exactly.
  *
  * Usage:
- *   node .claude/scripts/bgm-fetch-meta.js <bgm-url>
- *   node .claude/scripts/bgm-fetch-meta.js <bgm-url> --json   (raw JSON)
+ *   node .claude/skills/bgm-metadata/fetch.js <bgm-url>
+ *   node .claude/skills/bgm-metadata/fetch.js <bgm-url> --json   (raw JSON)
  */
 
 const { JSDOM } = require("jsdom");
@@ -119,7 +119,7 @@ async function main() {
   const url = args.find((a) => !a.startsWith("--"));
 
   if (!url) {
-    console.error("Usage: node bgm-fetch-meta.js <bgm.tv/subject/ID> [--json]");
+    console.error("Usage: node fetch.js <bgm.tv/subject/ID> [--json]");
     process.exit(1);
   }
 
