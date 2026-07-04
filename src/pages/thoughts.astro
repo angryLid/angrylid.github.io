@@ -1,0 +1,16 @@
+---
+import IndexLayout from "@layouts/IndexLayout.astro";
+import Giscus from "@components/Giscus.astro";
+---
+
+<IndexLayout title="Thoughts">
+  <p class="intro">Leave a thought, share a reaction.</p>
+  <Giscus />
+</IndexLayout>
+
+<style>
+  .intro {
+    color: var(--gray);
+    margin-bottom: 1rem;
+  }
+</style>

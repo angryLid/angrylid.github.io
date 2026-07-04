@@ -24,7 +24,6 @@ const posts = (await getCollection("blog")).sort((a, b) => {
 });
 ---
 
-<IndexLayout title="Index">
-  <h1>Index</h1>
+<IndexLayout title="Posts">
   <BlogList posts={posts} basePath="/posts" />
 </IndexLayout>
