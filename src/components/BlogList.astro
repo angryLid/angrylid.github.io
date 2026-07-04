@@ -1,6 +1,6 @@
 ---
 import type { CollectionEntry } from "astro:content";
-import { formatCreatedTime } from "@utils/date";
+import { isWip } from "@utils/freshness";
 
 interface Props {
   posts: CollectionEntry<"blog">[];
@@ -8,13 +8,6 @@ interface Props {
 }
 
 const { posts, basePath } = Astro.props;
-
-function isWip(post: CollectionEntry<"blog">): boolean {
-  const status = post.data.status;
-  if (!status) return false;
-  if (Array.isArray(status)) return status.includes("WIP");
-  return status === "WIP";
-}
 ---
 
 <ul class="blog-list">
@@ -24,9 +17,11 @@ function isWip(post: CollectionEntry<"blog">): boolean {
         <a href={`${basePath}/${post.data.slug}/`} class="blog-list-link">
           {isWip(post) ? `[WIP] ${post.data.title}` : post.data.title}
         </a>
-        <span class="blog-list-date">
-          {formatCreatedTime(post.data["created-time"])}
-        </span>
+        {Array.isArray(post.data.tags) && post.data.tags.length > 0 && (
+          <span class="blog-list-tags">
+            {post.data.tags.map((t: string) => `#${t}`).join(' ')}
+          </span>
+        )}
       </li>
     ))
   }
@@ -66,7 +61,7 @@ function isWip(post: CollectionEntry<"blog">): boolean {
     margin-bottom: 0.25rem;
   }
 
-  .blog-list-date {
+  .blog-list-tags {
     font-size: 0.9rem;
     color: var(--gray, #999999);
     display: block;
@@ -85,7 +80,7 @@ function isWip(post: CollectionEntry<"blog">): boolean {
       font-size: 1rem;
     }
 
-    .blog-list-date {
+    .blog-list-tags {
       font-size: 0.8rem;
     }
   }

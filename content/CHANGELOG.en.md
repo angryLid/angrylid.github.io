@@ -2,6 +2,7 @@
 title: CHANGELOG
 slug: CHANGELOG
 created-time: 2025-12-28
+updated-time: 2026-07-04
 ---
 
 # CHANGELOG
@@ -9,11 +10,13 @@ created-time: 2025-12-28
 ## Revision 2026-07-04
 
 - Added /thoughts route with Giscus comments
-- Added Posts/Thoughts nav tabs in IndexLayout, replacing the visible <h1>
+- Added Posts/Thoughts nav tabs in IndexLayout, replacing the visible `<h1>`
 - Reworked Header to a brand-only banner
 - Added NavMenu component with active-state highlighting
 - Renamed index page title from "Index" to "Posts"
 - Added visually-hidden h1 for accessibility and SEO
+- Added freshness/recency scoring for post sorting (exponential decay, 2-year half-life) via src/utils/freshness.ts
+- Replaced created-date with tags on the posts listing; tagless posts show no metadata
 
 ## Revision 2026-03-28
 
