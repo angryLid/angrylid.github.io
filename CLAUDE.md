@@ -22,11 +22,24 @@ npm run preview
 ## Architecture
 
 ### Project Structure
-- `content/` - Blog articles and posts in Markdown format
+- `content/` - Blog articles in Markdown/MDX format
 - `src/pages/` - Astro page components and routing
-  - `index.astro` - Main page component with Astro syntax, frontmatter code execution, and inline styling
-- `astro.config.mjs` - Astro configuration file (currently minimal)
-- `tsconfig.json` - TypeScript configuration extending Astro's base config
+  - `index.astro` - Posts listing (title "Posts")
+  - `thoughts.astro` - /thoughts route with Giscus comments
+  - `posts/[...slug].astro` - Dynamic blog post route
+- `src/layouts/` - Layout components
+  - `Layout.astro` - Base HTML shell (Header + slot + footer)
+  - `IndexLayout.astro` - Centered container with NavMenu and sr-only h1
+  - `BlogPost.astro` - Markdown body wrapper for posts
+- `src/components/` - Reusable components
+  - `Header.astro` - Brand-only top banner
+  - `NavMenu.astro` - Posts/Thoughts nav tabs with active-state highlighting
+  - `Giscus.astro` - Giscus comments (is:inline external script)
+  - `BlogList.astro` - Post listing
+- `src/utils/date.ts` - Date formatting helpers
+- `src/content.config.ts` - Content collection schema
+- `astro.config.mjs` - Markdown plugins (remark-github-blockquote-alert, remark-math, rehype-katex) + MDX integration
+- `tsconfig.json` - TypeScript config with path aliases (@components, @layouts, @utils)
 - `.nojekyll` - Disables Jekyll processing on GitHub Pages
 
 ### Key Features
@@ -42,10 +55,9 @@ npm run preview
 
 ## Configuration Notes
 
-- Astro configuration uses default settings with minimal customization
-- TypeScript is configured but not actively used in current setup
+- Astro config includes remark/rehype plugins (GitHub admonitions, math/KaTeX) and the MDX integration
+- TypeScript is configured with path aliases (@components, @layouts, @utils) but is not heavily used
 - The site uses inline CSS rather than external stylesheets
-- No additional layouts or components beyond the main page currently exist
 
 ## GitHub Pages Deployment
 

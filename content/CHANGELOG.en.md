@@ -6,6 +6,15 @@ created-time: 2025-12-28
 
 # CHANGELOG
 
+## Revision 2026-07-04
+
+- Added /thoughts route with Giscus comments
+- Added Posts/Thoughts nav tabs in IndexLayout, replacing the visible <h1>
+- Reworked Header to a brand-only banner
+- Added NavMenu component with active-state highlighting
+- Renamed index page title from "Index" to "Posts"
+- Added visually-hidden h1 for accessibility and SEO
+
 ## Revision 2026-03-28
 
 - Upgraded Astro to v6
