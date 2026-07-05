@@ -16,17 +16,19 @@ Run: `node .opencode/skills/bgm-metadata/fetch.js "<bgm-url>"`
 For raw JSON: `node .opencode/skills/bgm-metadata/fetch.js "<bgm-url>" --json`
 
 ### Supported input formats
+
 - `https://bgm.tv/subject/12345`
 - `https://bangumi.tv/subject/12345`
 - `https://chii.in/subject/12345`
 - A raw numeric subject ID
 
 ### Output columns (matching anime-from-notion.csv)
-| Column     | Source                                      |
-| ---------- | ------------------------------------------- |
-| Name       | `中文名` from `ul#infobox`, falls back to `#headerSubject h1 a` |
-| 原名        | title (if different from Chinese name)       |
-| 分类        | `.subject_tag_section .l.meta span`          |
-| 开播时间    | `开始` date from `ul#infobox`, formatted yyyy-MM-dd |
-| 制作公司    | `.tip` text starting with `动画制作` → `a.l`  |
-| rating     | `.global_rating .number`                     |
+
+| Column   | Source                                                          |
+| -------- | --------------------------------------------------------------- |
+| Name     | `中文名` from `ul#infobox`, falls back to `#headerSubject h1 a` |
+| 原名     | title (if different from Chinese name)                          |
+| 分类     | `.subject_tag_section .l.meta span`                             |
+| 开播时间 | `开始` date from `ul#infobox`, formatted yyyy-MM-dd             |
+| 制作公司 | `.tip` text starting with `动画制作` → `a.l`                    |
+| rating   | `.global_rating .number`                                        |

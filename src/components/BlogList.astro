@@ -19,7 +19,7 @@ const { posts, basePath } = Astro.props;
         </a>
         {Array.isArray(post.data.tags) && post.data.tags.length > 0 && (
           <span class="blog-list-tags">
-            {post.data.tags.map((t: string) => `#${t}`).join(' ')}
+            {post.data.tags.map((t: string) => `#${t}`).join(" ")}
           </span>
         )}
       </li>

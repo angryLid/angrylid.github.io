@@ -15,10 +15,7 @@ function cleanTitle(s) {
 }
 
 function escapeMarkdownTitle(s) {
-  return s
-    .replace(/\\/g, "\\\\")
-    .replace(/\[/g, "\\[")
-    .replace(/\]/g, "\\]");
+  return s.replace(/\\/g, "\\\\").replace(/\[/g, "\\[").replace(/\]/g, "\\]");
 }
 
 function normalizeUrl(url) {

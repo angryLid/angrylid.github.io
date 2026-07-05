@@ -6,6 +6,9 @@
 - Hardened CI: pinned GitHub Actions to commit SHAs, added per-job permissions, set Node 22
 - Moved CHANGELOG out of the content collection to root CHANGELOG.md (no longer published as a post)
 - Migrated Claude Code toolchain to opencode: relocated skills to .opencode/skills, renamed CLAUDE.md to AGENTS.md, dropped format-notion skill
+- Added Prettier formatter with prettier-plugin-astro (.prettierrc.json, .prettierignore); added format/format:check scripts
+- Added ESLint linter with eslint-plugin-astro and @eslint/js recommended (eslint.config.mjs); added lint script
+- Removed unused imports/vars surfaced by the linter (src/utils/freshness.ts, src/content.config.ts, content/bilibili-dump/BilibiliDump.astro)
 
 ## Revision 2026-07-04
 

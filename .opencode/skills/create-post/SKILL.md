@@ -46,19 +46,19 @@ YAML, delimited by `---`.
 
 Required:
 
-| field           | value                                                                                                          |
-| --------------- | -------------------------------------------------------------------------------------------------------------- |
-| `title`         | Post title. Quote it if it contains `:`, `?`, `"`, `#`, or leading/trailing spaces.                            |
-| `slug`          | The filename **without** the extension (e.g. `34-my-topic.zh`). Becomes the URL — must be URL-safe and unique. |
-| `created-time`  | Today's date, `YYYY-MM-DD`, unquoted (e.g. `2026-07-04`).                                                       |
+| field          | value                                                                                                          |
+| -------------- | -------------------------------------------------------------------------------------------------------------- |
+| `title`        | Post title. Quote it if it contains `:`, `?`, `"`, `#`, or leading/trailing spaces.                            |
+| `slug`         | The filename **without** the extension (e.g. `34-my-topic.zh`). Becomes the URL — must be URL-safe and unique. |
+| `created-time` | Today's date, `YYYY-MM-DD`, unquoted (e.g. `2026-07-04`).                                                      |
 
 Optional:
 
-| field           | value                                                                                                                |
-| --------------- | -------------------------------------------------------------------------------------------------------------------- |
-| `updated-time`  | `YYYY-MM-DD`. Add only when revising an existing post.                                                               |
-| `tags`          | Inline array, e.g. `["dev"]` or `["体验", "Notion"]`. Omit entirely if none.                                          |
-| `status`        | `["WIP"]` for work-in-progress drafts. Auto-prefixes `[WIP]` in the listing and pins the post to the top.            |
+| field          | value                                                                                                     |
+| -------------- | --------------------------------------------------------------------------------------------------------- |
+| `updated-time` | `YYYY-MM-DD`. Add only when revising an existing post.                                                    |
+| `tags`         | Inline array, e.g. `["dev"]` or `["体验", "Notion"]`. Omit entirely if none.                              |
+| `status`       | `["WIP"]` for work-in-progress drafts. Auto-prefixes `[WIP]` in the listing and pins the post to the top. |
 
 ### 5. Body
 

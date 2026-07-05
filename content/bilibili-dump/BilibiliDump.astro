@@ -8,7 +8,6 @@ const csvText = fs.readFileSync(csvPath, "utf-8");
 
 // Parse CSV lines (simple parser — no quoted commas in the data)
 const lines = csvText.trim().split("\n");
-const headers = lines[0].split(",");
 
 interface VideoEntry {
   Name: string;

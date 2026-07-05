@@ -80,10 +80,10 @@ function extractAirDate(doc) {
  * Extract tags from .subject_tag_section .l.meta span (mirrors config.ts exactly)
  */
 function extractTags(doc) {
-  const spans = doc.querySelectorAll(
-    ".subject_tag_section .l.meta span",
-  );
-  return Array.from(spans).map((s) => s.textContent.trim()).filter(Boolean);
+  const spans = doc.querySelectorAll(".subject_tag_section .l.meta span");
+  return Array.from(spans)
+    .map((s) => s.textContent.trim())
+    .filter(Boolean);
 }
 
 /**
@@ -96,7 +96,9 @@ function extractStudios(doc) {
     const tip = li.querySelector(".tip");
     if (tip && tip.textContent.trim().startsWith("动画制作")) {
       const anchors = li.querySelectorAll("a.l");
-      return Array.from(anchors).map((a) => a.textContent.trim()).filter(Boolean);
+      return Array.from(anchors)
+        .map((a) => a.textContent.trim())
+        .filter(Boolean);
     }
   }
   return [];
@@ -139,8 +141,7 @@ async function main() {
     headers: {
       "User-Agent":
         "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36",
-      Accept:
-        "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
+      Accept: "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
     },
   });
 

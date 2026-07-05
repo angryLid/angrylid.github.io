@@ -17,11 +17,21 @@ pnpm build
 
 # Preview production build locally
 pnpm preview
+
+# Format the codebase with Prettier
+pnpm format
+
+# Check formatting without writing (CI / verification)
+pnpm format:check
+
+# Lint with ESLint
+pnpm lint
 ```
 
 ## Architecture
 
 ### Project Structure
+
 - `content/` - Blog articles in Markdown/MDX format
 - `src/pages/` - Astro page components and routing
   - `index.astro` - Posts listing (title "Posts")
@@ -43,12 +53,14 @@ pnpm preview
 - `.nojekyll` - Disables Jekyll processing on GitHub Pages
 
 ### Key Features
+
 - **Static Site Generation**: Astro generates fast, static HTML/CSS/JS
 - **Component-Based**: Uses Astro's component system with frontmatter code execution
 - **TypeScript Support**: Configured with TypeScript extensions
 - **GitHub Pages Ready**: Configured for automatic deployment with .nojekyll file
 
 ### Development Workflow
+
 1. Run `pnpm dev` for local development with hot reload
 2. Run `pnpm build` to create production build in `dist/`
 3. Deploy the `dist/` directory to GitHub Pages
@@ -59,6 +71,8 @@ pnpm preview
 - TypeScript is configured with path aliases (@components, @layouts, @utils) but is not heavily used
 - The site uses inline CSS rather than external stylesheets
 - Uses pnpm (pinned via `packageManager: pnpm@11.10.0`); requires Node >=22. Install deps with `pnpm install`, not `npm install`
+- Formatting: Prettier with `prettier-plugin-astro` (config in `.prettierrc.json`, ignores in `.prettierignore`). Blog prose under `content/` is excluded from formatting
+- Linting: ESLint flat config in `eslint.config.mjs` using `@eslint/js` recommended + `eslint-plugin-astro` recommended. `@typescript-eslint/parser` is included so `eslint-plugin-astro` can parse TypeScript in `.astro` frontmatter. `.opencode/` is ignored. Run `pnpm lint` to verify
 
 ## GitHub Pages Deployment
 
