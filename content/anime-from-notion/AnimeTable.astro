@@ -1,10 +1,10 @@
 ---
-// AnimeTable.astro — reads and displays anime-from-notion.csv from content/
 import { readFileSync } from "node:fs";
 import { resolve } from "node:path";
+import DataTable from "@components/DataTable.astro";
 import { formatCreatedTime } from "@utils/date";
+import { escapeHtml } from "@utils/html";
 
-// --- CSV parser (handles quoted multiline fields) ---
 function parseCSV(text: string): Record<string, string>[] {
   const rows: Record<string, string>[] = [];
   let headers: string[] = [];
@@ -72,28 +72,76 @@ function parseCSV(text: string): Record<string, string>[] {
   return rows;
 }
 
-// Resolve from project root (cwd) — works in both dev and build
 const csvPath = resolve("content/anime-from-notion/anime-from-notion.csv");
 const csvText = readFileSync(csvPath, "utf-8");
 const records = parseCSV(csvText);
 
-// --- rating counts ---
-const ratingCounts: Record<string, number> = { all: records.length };
-records.forEach((r) => {
-  const k = r["观感"] || "0";
-  ratingCounts[k] = (ratingCounts[k] || 0) + 1;
-});
-
-// --- helpers ---
-const RATING_EMOJI = ["", "1", "2", "3", "4"];
+const RATING_DISPLAY = ["", "1", "2", "3", "4"];
 
 function renderRating(rating: string): string {
   const n = parseInt(rating) || 0;
-  return RATING_EMOJI[n] || "";
+  return RATING_DISPLAY[n] || "";
 }
 ---
 
-<style>
+<div class="anime-table-wrapper">
+  <h1>Anime</h1>
+  <p class="subtitle">{records.length} entries. Click headers or use the rule bar to sort & filter.</p>
+
+  <DataTable
+    data={records}
+    defaultSort={[{ key: "开播时间", asc: false }]}
+    columns={[
+      {
+        key: "Name",
+        label: "Name",
+        render: (row) =>
+          escapeHtml(row["Name"]) +
+          (row["原名"]
+            ? `<small class="at-subtitle">${escapeHtml(row["原名"])}</small>`
+            : ""),
+        className: "col-name",
+      },
+      {
+        key: "观感",
+        label: "Rating",
+        type: "number",
+        format: (v) => renderRating(String(v)),
+        className: "col-rating",
+      },
+      {
+        key: "分类",
+        label: "Category",
+        render: (row) =>
+          row["分类"]
+            .split(",")
+            .filter(Boolean)
+            .map((tag) => `<span class="at-tag">${escapeHtml(tag.trim())}</span>`)
+            .join(""),
+        className: "col-category",
+      },
+      {
+        key: "开播时间",
+        label: "Air Date",
+        type: "date",
+        format: (v) => formatCreatedTime(v),
+        className: "col-date",
+      },
+      {
+        key: "制作公司",
+        label: "Studio",
+        className: "col-studio",
+      },
+      {
+        key: "comment",
+        label: "Comment",
+        className: "col-comment",
+      },
+    ]}
+  />
+</div>
+
+<style is:global>
   .anime-table-wrapper h1 {
     margin-bottom: 0.5rem;
     font-size: 1.8rem;
@@ -104,83 +152,25 @@ function renderRating(rating: string): string {
     font-size: 0.95rem;
   }
 
-  /* Filter bar */
-  .filters {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.5rem;
-    margin-bottom: 1.5rem;
-  }
-  .filter-btn {
-    padding: 0.3rem 0.8rem;
-    border: 1px solid #ddd;
-    border-radius: 20px;
-    background: var(--white);
-    color: var(--gray);
-    cursor: pointer;
-    font-size: 0.85rem;
-    transition: all 0.2s;
-  }
-  .filter-btn:hover {
-    border-color: var(--dark-mint);
-    color: var(--dark-mint);
-  }
-  .filter-btn.active {
-    background: var(--dark-mint);
-    color: var(--white);
-    border-color: var(--dark-mint);
-  }
-
-  /* Table */
-  .table-scroll {
-    overflow-x: auto;
-  }
-  table {
-    width: 100%;
-    border-collapse: collapse;
-    font-size: 0.9rem;
-  }
-  thead th {
-    text-align: left;
-    padding: 0.75rem 0.6rem;
-    border-bottom: 2px solid var(--dark-mint);
-    color: var(--dark-mint);
-    font-weight: 600;
-    white-space: nowrap;
-    cursor: pointer;
-    user-select: none;
-  }
-  thead th .sort-arrow {
-    font-size: 0.7rem;
-    margin-left: 2px;
-  }
-  tbody td {
-    padding: 0.6rem;
-    border-bottom: 1px solid #eee;
-    vertical-align: top;
-  }
-  tbody tr:hover {
-    background: #f0faf0;
-  }
-  .col-name {
+  .anime-table-wrapper td.col-name {
     font-weight: 600;
     min-width: 180px;
   }
-  .col-name small {
+  .anime-table-wrapper .at-subtitle {
     display: block;
     font-weight: 400;
     color: #999;
     font-size: 0.8rem;
     margin-top: 2px;
   }
-  .col-rating {
+  .anime-table-wrapper td.col-rating {
     white-space: nowrap;
     font-size: 1.1rem;
   }
-  .col-category {
+  .anime-table-wrapper td.col-category {
     min-width: 140px;
   }
-  .col-category .tag {
+  .anime-table-wrapper .at-tag {
     display: inline-block;
     background: #e8f5e9;
     color: var(--dark-mint);
@@ -189,168 +179,22 @@ function renderRating(rating: string): string {
     font-size: 0.75rem;
     margin: 1px 2px;
   }
-  .col-date {
+  .anime-table-wrapper td.col-date {
     white-space: nowrap;
     min-width: 100px;
   }
-  .col-studio {
+  .anime-table-wrapper td.col-studio {
     min-width: 120px;
   }
-  .col-comment {
+  .anime-table-wrapper td.col-comment {
     min-width: 280px;
     max-width: 400px;
     line-height: 1.5;
   }
 
   @media (max-width: 768px) {
-    .col-comment {
+    .anime-table-wrapper td.col-comment {
       max-width: 200px;
     }
   }
 </style>
-
-<div class="anime-table-wrapper">
-  <h1>Anime</h1>
-  <p class="subtitle">
-    {records.length} entries. Click column headers to sort, use the buttons to
-    filter by rating.
-  </p>
-
-  <div class="filters">
-    <button class="filter-btn active" data-rating="all">All ({ratingCounts.all})</button>
-    <button class="filter-btn" data-rating="4">4️⃣ ({ratingCounts["4"] || 0})</button>
-    <button class="filter-btn" data-rating="3">3️⃣ ({ratingCounts["3"] || 0})</button>
-    <button class="filter-btn" data-rating="2">2️⃣ ({ratingCounts["2"] || 0})</button>
-    <button class="filter-btn" data-rating="1">1️⃣ ({ratingCounts["1"] || 0})</button>
-    <button class="filter-btn" data-rating="0">Unrated ({ratingCounts["0"] || 0})</button>
-
-  </div>
-  <div class="table-scroll">
-    <table id="anime-table">
-      <thead>
-        <tr>
-          <th data-col="0">Name</th>
-          <th data-col="1">Rating</th>
-          <th data-col="2">Category</th>
-          <th data-col="3">Air Date</th>
-          <th data-col="4">Studio</th>
-          <th data-col="5">Comment</th>
-        </tr>
-      </thead>
-      <tbody>
-        {records.map((r) => (
-          <tr data-rating={r["观感"] || "0"}>
-            <td class="col-name">
-              {r["Name"]}
-              {r["原名"] && <small>{r["原名"]}</small>}
-            </td>
-            <td class="col-rating">{renderRating(r["观感"])}</td>
-            <td class="col-category">
-              {r["分类"].split(",").filter(Boolean).map((tag) => (
-                <span class="tag">{tag.trim()}</span>
-              ))}
-            </td>
-            <td class="col-date">{formatCreatedTime(r["开播时间"])}</td>
-            <td class="col-studio">{r["制作公司"]}</td>
-            <td class="col-comment">{r["comment"]}</td>
-          </tr>
-        ))}
-      </tbody>
-    </table>
-  </div>
-</div>
-
-<script>
-  const table = document.getElementById("anime-table")!;
-  const tbody = table.querySelector("tbody")!;
-  const thead = table.querySelector("thead")!;
-  const filterBar = table.closest(".anime-table-wrapper")!.querySelector(".filters")!;
-
-  // --- sorting ---
-  let sortCol = 3; // Air Date
-  let sortAsc = false; // newest first by default
-
-  thead.addEventListener("click", (e) => {
-    const th = (e.target as HTMLElement).closest("th");
-    if (!th) return;
-    const col = parseInt(th.dataset.col!);
-    if (col === sortCol) {
-      sortAsc = !sortAsc;
-    } else {
-      sortCol = col;
-      sortAsc = col === 3; // ascending for date
-    }
-    sortTable();
-    updateSortIndicators();
-  });
-
-  function updateSortIndicators() {
-    thead.querySelectorAll("th").forEach((th, i) => {
-      th.querySelector(".sort-arrow")?.remove();
-      if (i === sortCol) {
-        const arrow = document.createElement("span");
-        arrow.className = "sort-arrow";
-        arrow.textContent = sortAsc ? " ▲" : " ▼";
-        th.appendChild(arrow);
-      }
-    });
-  }
-
-  function sortTable() {
-    allRows.sort((a, b) => {
-      const aVal = (a.children[sortCol]?.textContent ?? "").trim();
-      const bVal = (b.children[sortCol]?.textContent ?? "").trim();
-
-      if (sortCol === 1) {
-        const aStars = parseInt(a.dataset.rating || "0");
-        const bStars = parseInt(b.dataset.rating || "0");
-        return sortAsc ? aStars - bStars : bStars - aStars;
-      }
-
-      if (sortCol === 3) {
-        const aMatch = aVal.match(/^(\d{4})-(\d{2})-(\d{2})$/);
-        const bMatch = bVal.match(/^(\d{4})-(\d{2})-(\d{2})$/);
-        if (aMatch && bMatch) {
-          const aDate = new Date(+aMatch[1], +aMatch[2] - 1, +aMatch[3]);
-          const bDate = new Date(+bMatch[1], +bMatch[2] - 1, +bMatch[3]);
-          return sortAsc
-            ? aDate.getTime() - bDate.getTime()
-            : bDate.getTime() - aDate.getTime();
-        }
-        return sortAsc ? aVal.localeCompare(bVal) : bVal.localeCompare(aVal);
-      }
-
-      return sortAsc ? aVal.localeCompare(bVal) : bVal.localeCompare(aVal);
-    });
-
-    applyFilter();
-  }
-
-  // --- filtering ---
-  const allRows = Array.from(tbody.querySelectorAll("tr"));
-  let activeRating = "all";
-
-  function applyFilter() {
-    // Remove all rows from DOM
-    allRows.forEach((row) => row.remove());
-
-    // Re-append only matching rows
-    allRows.forEach((row) => {
-      if (activeRating === "all" || row.dataset.rating === activeRating) {
-        tbody.appendChild(row);
-      }
-    });
-  }
-
-  filterBar.addEventListener("click", (e) => {
-    const btn = (e.target as HTMLElement).closest("button");
-    if (!btn) return;
-    activeRating = btn.dataset.rating!;
-    filterBar.querySelectorAll(".filter-btn").forEach((b) => b.classList.remove("active"));
-    btn.classList.add("active");
-    applyFilter();
-  });
-
-  updateSortIndicators();
-  sortTable();
-</script>

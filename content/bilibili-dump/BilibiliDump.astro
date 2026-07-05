@@ -1,12 +1,13 @@
 ---
 import fs from "node:fs";
 import path from "node:path";
+import DataTable from "@components/DataTable.astro";
+import { formatCreatedTime } from "@utils/date";
+import { escapeHtml } from "@utils/html";
 
-// Read and parse the CSV at build time
 const csvPath = path.join(process.cwd(), "content/bilibili-dump/bilibili-dump.csv");
 const csvText = fs.readFileSync(csvPath, "utf-8");
 
-// Parse CSV lines (simple parser — no quoted commas in the data)
 const lines = csvText.trim().split("\n");
 
 interface VideoEntry {
@@ -29,165 +30,76 @@ const entries: VideoEntry[] = lines.slice(1).map((line) => {
     "author homepage": cols[5],
   };
 });
-
-// Group by Tags, then sort each group by Created time descending
-const grouped = new Map<string, VideoEntry[]>();
-for (const entry of entries) {
-  const tag = entry.Tags || "未分类";
-  if (!grouped.has(tag)) {
-    grouped.set(tag, []);
-  }
-  grouped.get(tag)!.push(entry);
-}
-for (const items of grouped.values()) {
-  items.sort((a, b) => b["Created time"].localeCompare(a["Created time"]));
-}
-
-// Order groups sensibly
-const groupOrder = ["科普", "教学", "二创", "听歌", "娱乐"];
-const sortedGroups = [...grouped.entries()].sort((a, b) => {
-  const ia = groupOrder.indexOf(a[0]);
-  const ib = groupOrder.indexOf(b[0]);
-  if (ia === -1 && ib === -1) return a[0].localeCompare(b[0]);
-  if (ia === -1) return 1;
-  if (ib === -1) return -1;
-  return ia - ib;
-});
-
-// Format date: 2023/02/19 → 2023-02-19
-function fmtDate(d: string) {
-  return d.replace(/\//g, "-");
-}
 ---
 
 <div class="bilibili-dump">
-  {
-    sortedGroups.map(([tag, items]) => (
-      <section class="tag-group">
-        <h2 id={`tag-${tag}`}>
-          <a href={`#tag-${tag}`}>{tag}</a>
-          <span class="count">{items.length}</span>
-        </h2>
-        <ul class="video-list">
-          {items.map((v) => (
-            <li class="video-item">
-              <a href={v.URL} class="video-title" target="_blank" rel="noopener">
-                {v.Name}
-              </a>
-              <span class="video-meta">
-                <a href={v["author homepage"]} class="author" target="_blank" rel="noopener">
-                  {v.author}
-                </a>
-                <span class="date">{fmtDate(v["Created time"])}</span>
-              </span>
-            </li>
-          ))}
-        </ul>
-      </section>
-    ))
-  }
+  <DataTable
+    data={entries}
+    defaultSort={[{ key: "Tags", asc: true }, { key: "Created time", asc: false }]}
+    columns={[
+      {
+        key: "Name",
+        label: "Name",
+        render: (row) =>
+          `<a href="${row.URL}" target="_blank" rel="noopener" class="bd-link">${escapeHtml(row.Name)}</a>`,
+        className: "col-name",
+      },
+      {
+        key: "author",
+        label: "Author",
+        render: (row) =>
+          `<a href="${row["author homepage"]}" target="_blank" rel="noopener" class="bd-author">${escapeHtml(row.author)}</a>`,
+        className: "col-author",
+      },
+      {
+        key: "Tags",
+        label: "Tags",
+        className: "col-tags",
+      },
+      {
+        key: "Created time",
+        label: "Date",
+        type: "date",
+        format: (v) => formatCreatedTime(v),
+        className: "col-date",
+      },
+    ]}
+  />
 </div>
 
-<style>
+<style is:global>
   .bilibili-dump {
     margin-top: 1.5rem;
   }
-
-  .tag-group {
-    margin-bottom: 2rem;
+  .bilibili-dump td.col-name {
+    min-width: 200px;
   }
-
-  .tag-group h2 {
-    font-size: 1.3rem;
-    margin-bottom: 0.75rem;
-    padding-bottom: 0.3rem;
-    border-bottom: 1px solid var(--border-color, #30363d);
-    display: flex;
-    align-items: baseline;
-    gap: 0.5rem;
-  }
-
-  .tag-group h2 a {
+  .bilibili-dump td.col-name .bd-link {
+    color: var(--gray);
     text-decoration: none;
-    color: var(--dark-mint);
   }
-
-  .count {
-    font-size: 0.8rem;
-    color: var(--gray, #8b949e);
-    font-weight: normal;
-  }
-
-  .video-list {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-  }
-
-  .video-item {
-    display: flex;
-    justify-content: space-between;
-    align-items: baseline;
-    gap: 1rem;
-    padding: 4px 0;
-    font-size: 0.95rem;
-  }
-
-  .video-title {
-    color: var(--color-text, #333333);
-    text-decoration: none;
-    flex: 1;
-    min-width: 0;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-  }
-
-  .video-title:hover {
+  .bilibili-dump td.col-name .bd-link:hover {
     color: var(--dark-mint);
     text-decoration: underline;
   }
-
-  .video-meta {
-    display: flex;
-    gap: 1rem;
-    align-items: baseline;
-    flex-shrink: 0;
-    font-size: 0.85rem;
-  }
-
-  .author {
-    color: var(--gray, #8b949e);
+  .bilibili-dump td.col-author .bd-author {
+    color: var(--gray);
     text-decoration: none;
     white-space: nowrap;
   }
-
-  .author:hover {
+  .bilibili-dump td.col-author .bd-author:hover {
     color: var(--dark-mint);
     text-decoration: underline;
   }
-
-  .date {
-    color: var(--gray, #8b949e);
+  .bilibili-dump td.col-tags {
+    white-space: nowrap;
+    color: var(--gray);
+  }
+  .bilibili-dump td.col-date {
+    color: var(--gray);
     font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
     white-space: nowrap;
     min-width: 5.5rem;
     text-align: right;
-  }
-
-  @media (max-width: 640px) {
-    .video-item {
-      flex-direction: column;
-      gap: 0;
-      padding: 6px 0;
-    }
-
-    .video-title {
-      white-space: normal;
-    }
-
-    .video-meta {
-      font-size: 0.8rem;
-    }
   }
 </style>

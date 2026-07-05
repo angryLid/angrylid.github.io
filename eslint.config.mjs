@@ -24,4 +24,10 @@ export default [
       globals: globals.node,
     },
   },
+  {
+    files: ["src/components/DataTable.types.ts"],
+    rules: {
+      "no-unused-vars": "off",
+    },
+  },
 ];
