@@ -1,6 +1,6 @@
 ---
-import type { DataTablePayload, Props } from "./DataTable.types";
-import DataTableReact from "./DataTable.tsx";
+import type { DataTablePayload, Props } from "./types";
+import DataTableReact from "./DataTable.client.tsx";
 
 const { data, columns, defaultSort = [] }: Props = Astro.props;
 

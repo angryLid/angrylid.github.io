@@ -44,7 +44,7 @@ export default [
     },
   },
   {
-    files: ["src/components/DataTable.types.ts"],
+    files: ["src/components/DataTable/types.ts"],
     rules: {
       "no-unused-vars": "off",
     },
