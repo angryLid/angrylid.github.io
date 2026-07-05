@@ -75,7 +75,6 @@ function matchesFilter(value: string, rule: FilterRule): boolean {
     case "<=":
       return num <= target;
   }
-  return true;
 }
 
 function opsForType(type: ColumnType): { v: FilterOp; t: string }[] {

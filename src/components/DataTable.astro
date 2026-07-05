@@ -1,17 +1,14 @@
 ---
-import type { Column, DataTablePayload, Props } from "./DataTable.types";
+import type { DataTablePayload, Props } from "./DataTable.types";
 import DataTableReact from "./DataTable.tsx";
 
 const { data, columns, defaultSort = [] }: Props = Astro.props;
 
-const cols: Required<
-  Pick<Column, "key" | "label" | "type" | "sortable" | "filterable">
-> &
-  Column[] = columns.map((c) => ({
-  type: "string",
-  sortable: true,
-  filterable: true,
+const cols = columns.map((c) => ({
   ...c,
+  type: c.type ?? "string",
+  sortable: c.sortable ?? true,
+  filterable: c.filterable ?? true,
 }));
 
 function cellContent(

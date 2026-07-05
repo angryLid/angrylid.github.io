@@ -116,7 +116,7 @@ function renderRating(rating: string): string {
           row["分类"]
             .split(",")
             .filter(Boolean)
-            .map((tag) => `<span class="at-tag">${escapeHtml(tag.trim())}</span>`)
+            .map((tag: string) => `<span class="at-tag">${escapeHtml(tag.trim())}</span>`)
             .join(""),
         className: "col-category",
       },

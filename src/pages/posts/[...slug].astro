@@ -26,7 +26,7 @@ const { Content } = await render(post);
     {
       post.data.tags &&
         post.data.tags.length > 0 &&
-        " • " + post.data.tags.map((tag) => `#${tag}`).join(" ")
+        " • " + post.data.tags.map((tag: string) => `#${tag}`).join(" ")
     }
   </p>
   <Content />
