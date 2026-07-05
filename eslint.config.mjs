@@ -1,6 +1,8 @@
 import js from "@eslint/js";
 import astro from "eslint-plugin-astro";
 import tseslintParser from "@typescript-eslint/parser";
+import reactPlugin from "eslint-plugin-react";
+import reactHooksPlugin from "eslint-plugin-react-hooks";
 import globals from "globals";
 
 export default [
@@ -22,6 +24,29 @@ export default [
     languageOptions: {
       parser: tseslintParser,
       globals: globals.node,
+    },
+  },
+  {
+    files: ["**/*.tsx"],
+    ignores: ["**/*.astro/*.tsx"],
+    plugins: {
+      react: reactPlugin,
+      "react-hooks": reactHooksPlugin,
+    },
+    languageOptions: {
+      parser: tseslintParser,
+      parserOptions: {
+        ecmaFeatures: { jsx: true },
+      },
+      globals: { ...globals.browser },
+    },
+    settings: {
+      react: { version: "detect" },
+    },
+    rules: {
+      ...reactPlugin.configs.flat.recommended.rules,
+      ...reactPlugin.configs.flat["jsx-runtime"].rules,
+      ...reactHooksPlugin.configs["recommended-latest"].rules,
     },
   },
   {
