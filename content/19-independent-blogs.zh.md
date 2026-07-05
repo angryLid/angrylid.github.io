@@ -2,7 +2,7 @@
 title: 遍历 1300+ 中文独立博客：一点看法与收获
 slug: independent-blogs
 created-time: 2024-08-04
-tags: ["life"]
+tags: ["Notion", "life"]
 ---
 
 # 遍历 1300+ 中文独立博客：一点看法与收获

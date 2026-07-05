@@ -2,7 +2,7 @@
 title: "Dive into JavaScript Decorators"
 slug: decorators
 created-time: 2025-02-27
-tags: ["dev"]
+tags: ["dev", "Notion"]
 ---
 
 # Dive into JavaScript Decorators: Step by Step to Method Enhancements
