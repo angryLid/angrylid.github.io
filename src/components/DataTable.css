@@ -1,0 +1,269 @@
+.dt-wrapper {
+  margin-top: 1.5rem;
+}
+.dt-toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 1rem;
+  padding: 0.6rem 0.8rem;
+  background: var(--white);
+  border: 1px solid #eee;
+  border-radius: 8px;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04);
+}
+.dt-rules {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.4rem;
+  flex: 1;
+  min-width: 0;
+}
+.dt-rules-empty {
+  color: var(--gray);
+  font-size: 0.8rem;
+  font-style: italic;
+  opacity: 0.7;
+}
+.dt-actions {
+  display: flex;
+  gap: 0.4rem;
+  flex-shrink: 0;
+  align-items: center;
+}
+.dt-btn {
+  padding: 0.3rem 0.75rem;
+  border: 1px solid #d1d5db;
+  border-radius: 16px;
+  background: var(--white);
+  color: var(--gray);
+  cursor: pointer;
+  font-size: 0.8rem;
+  line-height: 1.4;
+  transition: all 0.15s;
+}
+.dt-btn:hover {
+  border-color: var(--dark-mint);
+  color: var(--dark-mint);
+}
+.dt-btn.dt-sort-btn {
+  border-color: var(--dark-mint);
+  color: var(--dark-mint);
+}
+.dt-btn.dt-sort-btn:hover {
+  background: #f0faf0;
+}
+.dt-btn.dt-reset {
+  border: none;
+  color: var(--gray);
+  margin-left: 0.25rem;
+}
+.dt-btn.dt-reset:hover {
+  color: #c33;
+  background: #fee2e2;
+  border: none;
+}
+
+.dt-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.2rem 0.25rem 0.2rem 0.55rem;
+  border-radius: 16px;
+  font-size: 0.78rem;
+  line-height: 1.4;
+  border: 1px solid transparent;
+}
+.dt-chip-glyph {
+  font-size: 0.85rem;
+  line-height: 1;
+}
+.dt-chip-filter {
+  background: #f3f4f6;
+  border-color: #e5e7eb;
+  color: #374151;
+}
+.dt-chip-filter .dt-chip-glyph {
+  color: #6b7280;
+}
+.dt-chip-sort {
+  background: #f0faf0;
+  border-color: var(--dark-mint);
+  color: var(--dark-mint);
+}
+.dt-chip-sort .dt-chip-glyph {
+  font-weight: 700;
+}
+.dt-chip-idx {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.1rem;
+  height: 1.1rem;
+  border-radius: 50%;
+  background: var(--dark-mint);
+  color: #fff;
+  font-size: 0.6rem;
+  font-weight: 700;
+  line-height: 1;
+}
+.dt-chip-toggle {
+  cursor: pointer;
+  border: none;
+  background: transparent;
+  color: var(--dark-mint);
+  padding: 0;
+  font-size: 0.95rem;
+  font-weight: 700;
+  line-height: 1;
+}
+.dt-chip-toggle:hover {
+  opacity: 0.7;
+}
+.dt-chip-remove {
+  cursor: pointer;
+  border: none;
+  background: transparent;
+  color: var(--gray);
+  padding: 0;
+  font-size: 1rem;
+  line-height: 1;
+  width: 1.1rem;
+  height: 1.1rem;
+  border-radius: 50%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.15s;
+}
+.dt-chip-remove:hover {
+  color: #c33;
+  background: #fee2e2;
+}
+
+.dt-form-slot {
+  margin-bottom: 1rem;
+}
+.dt-form {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.65rem 0.75rem;
+  border: 1px solid #eee;
+  border-radius: 8px;
+  background: var(--white);
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04);
+}
+.dt-form-label {
+  color: var(--gray);
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  margin-right: 0.1rem;
+  white-space: nowrap;
+}
+.dt-form select,
+.dt-form input {
+  padding: 0.35rem 0.55rem;
+  border: 1px solid #e5e7eb;
+  border-radius: 4px;
+  font-size: 0.85rem;
+  line-height: 1.5;
+  background: var(--white);
+  color: inherit;
+  transition:
+    border-color 0.15s,
+    box-shadow 0.15s;
+}
+.dt-form select {
+  appearance: none;
+  -webkit-appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6' viewBox='0 0 10 6'%3E%3Cpath fill='%23228b22' d='M5 6L0 0h10z'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 0.5rem center;
+  background-size: 0.6rem;
+  padding-right: 1.6rem;
+}
+.dt-form select:hover,
+.dt-form input:hover {
+  border-color: #d1d5db;
+}
+.dt-form select:focus,
+.dt-form input:focus {
+  border-color: var(--dark-mint);
+  outline: none;
+  box-shadow: 0 0 0 2px rgba(34, 139, 34, 0.18);
+}
+.dt-form input::placeholder {
+  color: #9ca3af;
+}
+.dt-form .dt-form-add {
+  background: var(--dark-mint);
+  color: var(--white);
+  border-color: var(--dark-mint);
+  font-weight: 600;
+}
+.dt-form .dt-form-add:hover {
+  background: #1c7a1c;
+  color: var(--white);
+  border-color: #1c7a1c;
+  box-shadow: 0 1px 3px rgba(34, 139, 34, 0.2);
+}
+.dt-form .dt-form-cancel {
+  border: none;
+  background: transparent;
+  color: var(--gray);
+}
+.dt-form .dt-form-cancel:hover {
+  background: #f3f4f6;
+  color: var(--gray);
+  border: none;
+}
+.dt-header-menu {
+  border-left: 3px solid var(--dark-mint);
+  padding-left: 0.7rem;
+}
+.dt-header-menu .dt-btn {
+  flex: 1 1 auto;
+}
+
+.dt-th-interactive {
+  cursor: pointer;
+  user-select: none;
+}
+.dt-th-interactive:hover .dt-th-label {
+  text-decoration: underline;
+}
+.dt-th-badge {
+  font-size: 0.7rem;
+  color: var(--dark-mint);
+  font-weight: 700;
+}
+
+.dt-scroll {
+  overflow-x: auto;
+}
+.dt-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.9rem;
+}
+.dt-table thead th {
+  text-align: left;
+  padding: 0.75rem 0.6rem;
+  border-bottom: 2px solid var(--dark-mint);
+  color: var(--dark-mint);
+  font-weight: 600;
+  white-space: nowrap;
+}
+.dt-table tbody td {
+  padding: 0.6rem;
+  border-bottom: 1px solid #eee;
+  vertical-align: top;
+}
+.dt-table tbody tr:hover {
+  background: #f0faf0;
+}

@@ -39,3 +39,28 @@ export interface SortRule {
   type: ColumnType;
   asc: boolean;
 }
+
+export interface SerializedCell {
+  html: string;
+  sortValue: string;
+  className?: string;
+}
+
+export interface SerializedRow {
+  cells: SerializedCell[];
+}
+
+export interface SerializedColMeta {
+  key: string;
+  label: string;
+  type: ColumnType;
+  sortable: boolean;
+  filterable: boolean;
+  className?: string;
+}
+
+export interface DataTablePayload {
+  cols: SerializedColMeta[];
+  rows: SerializedRow[];
+  defaultSort: SortLevel[];
+}

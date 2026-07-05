@@ -1,4 +1,5 @@
 import { defineConfig } from "astro/config";
+import { unified } from "@astrojs/markdown-remark";
 import remarkGithubAdmonitions from "remark-github-blockquote-alert";
 import remarkMath from "remark-math";
 import rehypeKatex from "rehype-katex";
@@ -9,8 +10,10 @@ export default defineConfig({
   site: "https://example.com",
 
   markdown: {
-    remarkPlugins: [remarkGithubAdmonitions, remarkMath],
-    rehypePlugins: [rehypeKatex],
+    processor: unified({
+      remarkPlugins: [remarkGithubAdmonitions, remarkMath],
+      rehypePlugins: [rehypeKatex],
+    }),
   },
 
   integrations: [mdx(), react()],
