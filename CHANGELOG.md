@@ -1,25 +1,12 @@
 # CHANGELOG
 
-## Revision 2026-07-05
+## Revision 2026-07
 
-- Migrated package manager from npm to pnpm (pinned pnpm@11.10.0, Node >=22)
-- Hardened CI: pinned GitHub Actions to commit SHAs, added per-job permissions, set Node 22
-- Moved CHANGELOG out of the content collection to root CHANGELOG.md (no longer published as a post)
-- Migrated Claude Code toolchain to opencode: relocated skills to .opencode/skills, renamed CLAUDE.md to AGENTS.md, dropped format-notion skill
-- Added Prettier formatter with prettier-plugin-astro (.prettierrc.json, .prettierignore); added format/format:check scripts
-- Added ESLint linter with eslint-plugin-astro and @eslint/js recommended (eslint.config.mjs); added lint script
-- Removed unused imports/vars surfaced by the linter (src/utils/freshness.ts, src/content.config.ts, content/bilibili-dump/BilibiliDump.astro)
-
-## Revision 2026-07-04
-
-- Added /thoughts route with Giscus comments
-- Added Posts/Thoughts nav tabs in IndexLayout, replacing the visible `<h1>`
-- Reworked Header to a brand-only banner
-- Added NavMenu component with active-state highlighting
-- Renamed index page title from "Index" to "Posts"
-- Added visually-hidden h1 for accessibility and SEO
-- Added freshness/recency scoring for post sorting (exponential decay, 2-year half-life) via src/utils/freshness.ts
-- Replaced created-date with tags on the posts listing; tagless posts show no metadata
+- Migrated npm → pnpm (pinned pnpm@11.10.0, Node >=22) and hardened CI (pinned GitHub Actions SHAs, per-job permissions, Node 22)
+- Migrated toolchain from Claude Code to opencode (skills → .opencode/skills, CLAUDE.md → AGENTS.md); moved CHANGELOG out of the content collection to root CHANGELOG.md
+- Added Prettier and ESLint with format/lint scripts; removed unused imports/vars surfaced by the linter
+- Added /thoughts route with Giscus comments and Posts/Thoughts nav tabs (NavMenu with active-state highlighting); reworked Header to a brand-only banner; added a visually-hidden h1 for a11y/SEO; renamed index title to "Posts"
+- Added freshness scoring for post sorting (exponential decay, 2-year half-life) in src/utils/freshness.ts; replaced created-date with tags on the posts listing
 
 ## Revision 2026-03-28
 
