@@ -1,0 +1,6 @@
+allowBuilds:
+  esbuild: true
+  sharp: true
+nodeLinker: hoisted
+overrides:
+  style-to-js: 2.0.1

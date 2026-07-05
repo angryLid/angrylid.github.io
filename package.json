@@ -12,11 +12,16 @@
   "keywords": [],
   "author": "",
   "license": "ISC",
+  "packageManager": "pnpm@11.10.0",
+  "engines": {
+    "node": ">=22"
+  },
   "dependencies": {
     "@astrojs/mdx": "^5.0.3",
     "astro": "^6.1.1",
     "dayjs": "^1.11.19",
     "github-markdown-css": "^5.9.0",
+    "katex": "^0.16.0",
     "rehype-katex": "^7.0.1",
     "remark-github-blockquote-alert": "^2.0.1",
     "remark-math": "^6.0.0"
