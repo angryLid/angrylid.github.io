@@ -10,13 +10,13 @@ This is a modern static website built with Astro, deployed to GitHub Pages. The 
 
 ```bash
 # Start development server
-npm run dev
+pnpm dev
 
 # Build static site for production
-npm run build
+pnpm build
 
 # Preview production build locally
-npm run preview
+pnpm preview
 ```
 
 ## Architecture
@@ -49,8 +49,8 @@ npm run preview
 - **GitHub Pages Ready**: Configured for automatic deployment with .nojekyll file
 
 ### Development Workflow
-1. Run `npm run dev` for local development with hot reload
-2. Run `npm run build` to create production build in `dist/`
+1. Run `pnpm dev` for local development with hot reload
+2. Run `pnpm build` to create production build in `dist/`
 3. Deploy the `dist/` directory to GitHub Pages
 
 ## Configuration Notes
@@ -58,6 +58,7 @@ npm run preview
 - Astro config includes remark/rehype plugins (GitHub admonitions, math/KaTeX) and the MDX integration
 - TypeScript is configured with path aliases (@components, @layouts, @utils) but is not heavily used
 - The site uses inline CSS rather than external stylesheets
+- Uses pnpm (pinned via `packageManager: pnpm@11.10.0`); requires Node >=22. Install deps with `pnpm install`, not `npm install`
 
 ## GitHub Pages Deployment
 

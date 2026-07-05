@@ -1,5 +1,12 @@
 # CHANGELOG
 
+## Revision 2026-07-05
+
+- Migrated package manager from npm to pnpm (pinned pnpm@11.10.0, Node >=22)
+- Hardened CI: pinned GitHub Actions to commit SHAs, added per-job permissions, set Node 22
+- Moved CHANGELOG out of the content collection to root CHANGELOG.md (no longer published as a post)
+- Migrated Claude Code toolchain to opencode: relocated skills to .opencode/skills, renamed CLAUDE.md to AGENTS.md, dropped format-notion skill
+
 ## Revision 2026-07-04
 
 - Added /thoughts route with Giscus comments
