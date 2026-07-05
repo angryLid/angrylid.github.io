@@ -1,10 +1,12 @@
 ---
-title: 讲稿：日本语出门教程 / The Japanese Language
+title: 日本语出门教程 / The Japanese Language
 slug: 14-the-jp-lang.zh
 created-time: 2026-01-15
+tags:
+  - Sharing Session
 ---
 
-# 讲稿：日本语出门教程 / The Japanese Language
+# 日本语出门教程 / The Japanese Language
 
 ## Intro
 各位下午好，我是Mason. 如你们所见，今天分享的主题是日语。这个主题原本是我在去年的一项英语课作业。最近我又把它回炉重造了一遍，俗称炒冷饭。先问一下有谁学过日语，考过证书吗？没有是吧，那我就放心了。待会儿可以乱讲了。
