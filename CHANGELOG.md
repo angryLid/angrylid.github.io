@@ -1,10 +1,3 @@
----
-title: CHANGELOG
-slug: CHANGELOG
-created-time: 2025-12-28
-updated-time: 2026-07-04
----
-
 # CHANGELOG
 
 ## Revision 2026-07-04

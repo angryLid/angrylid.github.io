@@ -12,8 +12,7 @@ draft the body.
 ## When to use
 
 - The user asks to create / start / write a new post on a given topic.
-- Do NOT use for editing existing posts, the `thoughts` route, or
-  `CHANGELOG.en.md`.
+- Do NOT use for editing existing posts or the `thoughts` route.
 
 ## Steps
 
