@@ -11,9 +11,9 @@ Fields extracted: **Name** (Chinese name, falls back to title), **原名** (orig
 
 ## Usage
 
-Run: `node .claude/skills/bgm-metadata/fetch.js "<bgm-url>"`
+Run: `node .opencode/skills/bgm-metadata/fetch.js "<bgm-url>"`
 
-For raw JSON: `node .claude/skills/bgm-metadata/fetch.js "<bgm-url>" --json`
+For raw JSON: `node .opencode/skills/bgm-metadata/fetch.js "<bgm-url>" --json`
 
 ### Supported input formats
 - `https://bgm.tv/subject/12345`

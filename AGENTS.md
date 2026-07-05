@@ -1,6 +1,6 @@
-# CLAUDE.md
+# AGENTS.md
 
-This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+This file provides guidance to opencode when working with code in this repository.
 
 ## Project Overview
 
@@ -65,4 +65,4 @@ The project includes a `.nojekyll` file to disable GitHub's Jekyll processing, e
 
 ## Skills
 
-All skills are saved in `.claude/skills` for compatibility reasons.
+All skills are saved in `.opencode/skills`.

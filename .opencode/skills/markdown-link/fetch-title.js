@@ -4,7 +4,7 @@
  * Fetch the <title> of a web page and emit a Markdown link `[Title](url)`.
  *
  * Usage:
- *   node .claude/skills/markdown-link/fetch-title.js <url>
+ *   node .opencode/skills/markdown-link/fetch-title.js <url>
  */
 
 const { JSDOM } = require("jsdom");

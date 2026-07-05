@@ -5,8 +5,8 @@
  * Uses jsdom so extraction logic mirrors the bookmark.user.js config.ts exactly.
  *
  * Usage:
- *   node .claude/skills/bgm-metadata/fetch.js <bgm-url>
- *   node .claude/skills/bgm-metadata/fetch.js <bgm-url> --json   (raw JSON)
+ *   node .opencode/skills/bgm-metadata/fetch.js <bgm-url>
+ *   node .opencode/skills/bgm-metadata/fetch.js <bgm-url> --json   (raw JSON)
  */
 
 const { JSDOM } = require("jsdom");

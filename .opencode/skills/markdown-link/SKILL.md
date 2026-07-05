@@ -15,7 +15,7 @@ Fetch the page `<title>` for a given URL and produce a Markdown inline link.
 
 ## Steps
 
-1. Run `node .claude/skills/markdown-link/fetch-title.js "<url>"`.
+1. Run `node .opencode/skills/markdown-link/fetch-title.js "<url>"`.
 2. The script prints a single Markdown link to stdout:
    `[Page Title](https://example.com/path)`.
 3. Insert that link into the target Markdown file at the desired location.
