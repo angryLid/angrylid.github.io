@@ -4,11 +4,10 @@ import path from "node:path";
 import DataTable from "@components/DataTable.astro";
 import { formatCreatedTime } from "@utils/date";
 import { escapeHtml } from "@utils/html";
+import { parseCSV } from "@utils/csv";
 
 const csvPath = path.join(process.cwd(), "content/bilibili-dump/bilibili-dump.csv");
 const csvText = fs.readFileSync(csvPath, "utf-8");
-
-const lines = csvText.trim().split("\n");
 
 interface VideoEntry {
   Name: string;
@@ -19,17 +18,7 @@ interface VideoEntry {
   "author homepage": string;
 }
 
-const entries: VideoEntry[] = lines.slice(1).map((line) => {
-  const cols = line.split(",");
-  return {
-    Name: cols[0],
-    "Created time": cols[1],
-    Tags: cols[2],
-    URL: cols[3],
-    author: cols[4],
-    "author homepage": cols[5],
-  };
-});
+const entries = parseCSV<VideoEntry>(csvText);
 ---
 
 <div class="bilibili-dump">
@@ -68,9 +57,6 @@ const entries: VideoEntry[] = lines.slice(1).map((line) => {
 </div>
 
 <style is:global>
-  .bilibili-dump {
-    margin-top: 1.5rem;
-  }
   .bilibili-dump td.col-name {
     min-width: 200px;
   }

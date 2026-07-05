@@ -4,73 +4,7 @@ import { resolve } from "node:path";
 import DataTable from "@components/DataTable.astro";
 import { formatCreatedTime } from "@utils/date";
 import { escapeHtml } from "@utils/html";
-
-function parseCSV(text: string): Record<string, string>[] {
-  const rows: Record<string, string>[] = [];
-  let headers: string[] = [];
-  let currentRow: string[] = [];
-  let currentField = "";
-  let inQuotes = false;
-  let headerParsed = false;
-
-  for (let i = 0; i < text.length; i++) {
-    const ch = text[i];
-    const next = text[i + 1];
-
-    if (inQuotes) {
-      if (ch === '"') {
-        if (next === '"') {
-          currentField += '"';
-          i++;
-        } else {
-          inQuotes = false;
-        }
-      } else {
-        currentField += ch;
-      }
-    } else {
-      if (ch === '"') {
-        inQuotes = true;
-      } else if (ch === ",") {
-        currentRow.push(currentField.trim());
-        currentField = "";
-      } else if (ch === "\n") {
-        currentRow.push(currentField.trim());
-        currentField = "";
-        if (currentRow.length > 1 || currentRow[0] !== "") {
-          if (!headerParsed) {
-            headers = currentRow;
-            headerParsed = true;
-          } else {
-            const obj: Record<string, string> = {};
-            headers.forEach((h, idx) => {
-              obj[h] = currentRow[idx] ?? "";
-            });
-            rows.push(obj);
-          }
-        }
-        currentRow = [];
-      } else if (ch === "\r") {
-        // skip
-      } else {
-        currentField += ch;
-      }
-    }
-  }
-
-  if (currentField || currentRow.length > 0) {
-    currentRow.push(currentField.trim());
-    if (currentRow.length > 1 || currentRow[0] !== "") {
-      const obj: Record<string, string> = {};
-      headers.forEach((h, idx) => {
-        obj[h] = currentRow[idx] ?? "";
-      });
-      rows.push(obj);
-    }
-  }
-
-  return rows;
-}
+import { parseCSV } from "@utils/csv";
 
 const csvPath = resolve("content/anime-from-notion/anime-from-notion.csv");
 const csvText = readFileSync(csvPath, "utf-8");
@@ -159,7 +93,7 @@ function renderRating(rating: string): string {
   .anime-table-wrapper .at-subtitle {
     display: block;
     font-weight: 400;
-    color: #999;
+    color: #555;
     font-size: 0.8rem;
     margin-top: 2px;
   }
