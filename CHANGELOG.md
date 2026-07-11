@@ -13,6 +13,9 @@
 - Upgraded Astro 6 → 7 (Vite 8, `@astrojs/mdx` 5 → 7); markdown config now builds its processor via `unified()`
 - Added `pnpm typecheck` (`astro check`) with `@astrojs/check` + `typescript` devDeps; fixed implicit-any params surfaced by the checker
 - Extracted `parseCSV` to `src/utils/csv.ts` and `escapeHtml` to `src/utils/html.ts`; both table components now share the CSV parser
+- Added presentation mode at `/pres/[slug]/[pageNo]/`: MDX-per-slide (`pres` content collection with `title`/`steps`/`presTitle` schema), arrow-key navigation with per-slide animation build steps (`data-anim`/`data-step` CSS reveal system), Astro View Transitions for CSS-animated slide swaps via `navigate()`, and a dedicated fullscreen `Presentation.astro` layout; back-navigation restores to the last step via a `sessionStorage` flag; includes `/pres/` listing, `/pres/[slug]/` redirect, and a `demo` presentation
+- Added Shift+Enter fullscreen toggle on the presentation layout (bound to the document, so it persists across slide navigations)
+- Added presenter view (Shift+S opens `/pres/[slug]/presenter/`): pre-renders all slides as scaled miniatures (`transform: scale` + `ResizeObserver` against a 1280×720 design size), a speaker-notes teleprompter via an inline `<Notes>` MDX component (inert `<template>` on the audience side, cloned to the notes panel on the presenter side), a next-slide thumbnail, Prev/Next buttons + arrow keys, and bidirectional `BroadcastChannel` sync between the main and popup windows — the main window is the navigation authority (`pendingStep` carries the target step across view-transition swaps since `sessionStorage` is per-window; `navigatingTo` guards mid-swap messages; `navSource` prevents echo loops)
 
 ## Revision 2026-03-28
 
