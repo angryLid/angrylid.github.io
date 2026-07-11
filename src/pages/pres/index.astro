@@ -1,0 +1,33 @@
+---
+import { getCollection } from "astro:content";
+import Layout from "@layouts/Layout.astro";
+
+const entries = await getCollection("pres");
+const bySlug = new Map<string, { presTitle: string; count: number }>();
+for (const entry of entries) {
+  const slug = entry.id.split("/")[0];
+  if (!bySlug.has(slug)) {
+    bySlug.set(slug, { presTitle: entry.data.presTitle || slug, count: 0 });
+  }
+  bySlug.get(slug)!.count++;
+}
+const presentations = [...bySlug.entries()].sort(([a], [b]) =>
+  a.localeCompare(b),
+);
+---
+
+<Layout title="Presentations">
+  <main class="container">
+    <h1>Presentations</h1>
+    <ul>
+      {
+        presentations.map(([slug, info]) => (
+          <li>
+            <a href={`/pres/${slug}/`}>{info.presTitle}</a>
+            <span> ({info.count} slides)</span>
+          </li>
+        ))
+      }
+    </ul>
+  </main>
+</Layout>

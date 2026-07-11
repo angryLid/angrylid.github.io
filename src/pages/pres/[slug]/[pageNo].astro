@@ -1,0 +1,53 @@
+---
+import { type CollectionEntry, getCollection, render } from "astro:content";
+import Presentation from "@layouts/Presentation.astro";
+
+export async function getStaticPaths() {
+  const entries = await getCollection("pres");
+
+  // Group by slug = first segment of entry.id
+  // (id for content/pres/demo/01-title.mdx === "demo/01-title")
+  const bySlug = new Map<string, CollectionEntry<"pres">[]>();
+  for (const entry of entries) {
+    const slug = entry.id.split("/")[0];
+    if (!bySlug.has(slug)) bySlug.set(slug, []);
+    bySlug.get(slug)!.push(entry);
+  }
+
+  return [...bySlug.entries()].flatMap(([slug, slides]) => {
+    // Sort lexicographically by id — hence the 01-, 02- naming convention.
+    slides.sort((a, b) => a.id.localeCompare(b.id));
+    const total = slides.length;
+    const presTitle = slides[0].data.presTitle || slug;
+
+    return slides.map((entry, idx) => ({
+      params: { slug, pageNo: String(idx + 1) },
+      props: { entry, slug, pageNo: idx + 1, total, presTitle },
+    }));
+  });
+}
+
+interface Props {
+  entry: CollectionEntry<"pres">;
+  slug: string;
+  pageNo: number;
+  total: number;
+  presTitle: string;
+}
+
+const { entry, slug, pageNo, total, presTitle } = Astro.props;
+const { Content } = await render(entry);
+const steps = entry.data.steps;
+const title = entry.data.title;
+---
+
+<Presentation
+  slug={slug}
+  pageNo={pageNo}
+  total={total}
+  steps={steps}
+  presTitle={presTitle}
+  title={title}
+>
+  <Content />
+</Presentation>
