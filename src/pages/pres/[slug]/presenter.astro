@@ -1,0 +1,400 @@
+---
+import { type CollectionEntry, getCollection, render } from "astro:content";
+
+export async function getStaticPaths() {
+  const entries = await getCollection("pres");
+  const bySlug = new Map<string, CollectionEntry<"pres">[]>();
+  for (const entry of entries) {
+    const slug = entry.id.split("/")[0];
+    if (!bySlug.has(slug)) bySlug.set(slug, []);
+    bySlug.get(slug)!.push(entry);
+  }
+  return [...bySlug.entries()].map(([slug, slides]) => {
+    slides.sort((a, b) => a.id.localeCompare(b.id));
+    return {
+      params: { slug },
+      props: {
+        slides,
+        total: slides.length,
+        presTitle: slides[0].data.presTitle || slug,
+      },
+    };
+  });
+}
+
+interface Props {
+  slides: CollectionEntry<"pres">[];
+  total: number;
+  presTitle: string;
+}
+
+const { slug } = Astro.params;
+const { slides, total, presTitle } = Astro.props;
+const rendered = await Promise.all(
+  slides.map(async (entry) => {
+    const { Content } = await render(entry);
+    return { Content, steps: entry.data.steps, title: entry.data.title };
+  }),
+);
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{presTitle} — Presenter</title>
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Cascadia+Code:ital,wght@0,200..700;1,200..700&display=swap"
+      rel="stylesheet"
+    />
+
+    <style is:global>
+      :root {
+        --mint-green: #90ee90;
+        --dark-mint: #228b22;
+        --white: #ffffff;
+        --light-gray: #fafaf7;
+        --gray: #666666;
+        --border-radius: 8px;
+      }
+
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      html,
+      body {
+        height: 100%;
+      }
+
+      body {
+        font-family:
+          -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu,
+          Cantarell, sans-serif;
+        line-height: 1.6;
+        color: var(--gray);
+        background-color: var(--light-gray);
+      }
+
+      /* data-anim visibility — must be replicated here (Presentation.astro CSS
+         is not loaded on this page). */
+      [data-anim] {
+        opacity: 0;
+        transition:
+          opacity 0.3s ease,
+          transform 0.3s ease;
+      }
+      [data-anim][data-visible] {
+        opacity: 1;
+      }
+
+      /* slide wrapper replicates Presentation.astro's main.slide + body flex */
+      .slide {
+        width: 100%;
+        max-width: 1200px;
+        padding: 2rem;
+        text-align: center;
+      }
+      .slide :is(h1, h2, h3, h4, h5, h6) {
+        color: var(--dark-mint);
+      }
+
+      /* preview scaling — faithful miniature of the 1280x720 design */
+      .preview-stage {
+        position: relative;
+        width: 100%;
+        aspect-ratio: 16 / 9;
+        overflow: hidden;
+        background: var(--light-gray);
+        border-radius: var(--border-radius);
+      }
+      .preview-inner {
+        width: 1280px;
+        height: 720px;
+        transform-origin: top left;
+        transform: scale(var(--s, 1));
+        position: absolute;
+        top: 0;
+        left: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: var(--light-gray);
+      }
+
+      .slide-section[hidden] {
+        display: none;
+      }
+
+      /* presenter layout */
+      .presenter {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        grid-template-rows: auto 1fr auto;
+        gap: 1rem;
+        padding: 1rem;
+        height: 100vh;
+      }
+      .topbar {
+        grid-column: 1 / 3;
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+      }
+      .topbar h1 {
+        font-size: 1.1rem;
+        color: var(--dark-mint);
+        margin-right: auto;
+      }
+      .current {
+        grid-column: 1;
+        grid-row: 2;
+        min-height: 0;
+      }
+      .notes {
+        grid-column: 2;
+        grid-row: 2;
+        overflow: auto;
+        background: var(--white);
+        border-radius: var(--border-radius);
+        padding: 1.5rem;
+        font-size: 1.15rem;
+        line-height: 1.7;
+      }
+      .notes:empty::before {
+        content: "(no notes for this slide)";
+        color: var(--gray);
+        font-style: italic;
+      }
+      .notes :is(h1, h2, h3) {
+        color: var(--dark-mint);
+        margin: 0.4em 0;
+      }
+      .notes ul,
+      .notes ol {
+        margin: 0.4em 0 0.4em 1.5em;
+      }
+      .next-thumb {
+        grid-column: 1 / 3;
+        grid-row: 3;
+      }
+      .next-thumb .preview-stage {
+        height: 120px;
+      }
+      button {
+        font: inherit;
+        padding: 0.4rem 1rem;
+        border-radius: var(--border-radius);
+        border: 1px solid var(--dark-mint);
+        background: var(--white);
+        color: var(--dark-mint);
+        cursor: pointer;
+      }
+      button:hover {
+        background: var(--mint-green);
+      }
+      #counter {
+        font-family: "Cascadia Code", monospace;
+        opacity: 0.7;
+      }
+    </style>
+  </head>
+  <body data-slug={slug} data-total={String(total)}>
+    <div class="presenter">
+      <div class="topbar">
+        <h1>{presTitle}</h1>
+        <button id="prev" type="button">Prev</button>
+        <button id="next" type="button">Next</button>
+        <span id="counter">1 / {total}</span>
+      </div>
+      <div class="current">
+        {
+          rendered.map(({ Content, steps }, idx) => (
+            <section
+              class="slide-section"
+              data-page={idx + 1}
+              data-steps={steps}
+              hidden={idx !== 0}
+            >
+              <div class="preview-stage">
+                <div class="preview-inner">
+                  <main class="slide">
+                    <Content />
+                  </main>
+                </div>
+              </div>
+            </section>
+          ))
+        }
+      </div>
+      <div class="notes" id="notes"></div>
+      <div class="next-thumb">
+        <div class="preview-stage">
+          <div class="preview-inner" id="next-inner"></div>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      const channel = new BroadcastChannel("pres-speaker");
+      const slug = document.body.dataset.slug ?? "";
+      const total = parseInt(document.body.dataset.total ?? "0", 10);
+      const sections = Array.from(
+        document.querySelectorAll<HTMLElement>(".slide-section"),
+      );
+      const notesPanel = document.getElementById("notes")!;
+      const counter = document.getElementById("counter")!;
+      const nextInner = document.getElementById("next-inner")!;
+
+      let currentPage = 1;
+      let currentStep = 0;
+
+      function computeSteps(section: HTMLElement): number {
+        const fm = parseInt(section.dataset.steps ?? "", 10) || 1;
+        let maxAnim = 0;
+        section.querySelectorAll("[data-anim]").forEach((el) => {
+          const n = parseInt(el.getAttribute("data-anim") ?? "", 10);
+          if (!Number.isNaN(n) && n > maxAnim) maxAnim = n;
+        });
+        return Math.max(fm, maxAnim + 1);
+      }
+
+      function setStep(step: number): void {
+        currentStep = step;
+        const section = sections[currentPage - 1];
+        if (!section) return;
+        section.querySelectorAll("[data-anim]").forEach((el) => {
+          const n = parseInt(el.getAttribute("data-anim") ?? "", 10);
+          if (!Number.isNaN(n) && n <= step) {
+            el.setAttribute("data-visible", "");
+          } else {
+            el.removeAttribute("data-visible");
+          }
+        });
+      }
+
+      function updateNextThumb(): void {
+        nextInner.replaceChildren();
+        const nextSection = sections[currentPage]; // 0-indexed: next slide
+        if (!nextSection) return;
+        const slide = nextSection.querySelector(".slide");
+        if (!slide) return;
+        const clone = slide.cloneNode(true) as HTMLElement;
+        // show all anim elements in the thumbnail
+        clone.querySelectorAll("[data-anim]").forEach((el) => {
+          el.setAttribute("data-visible", "");
+        });
+        nextInner.append(clone);
+      }
+
+      function showPage(page: number, step?: number): void {
+        const target = Math.max(1, Math.min(total, page));
+        const section = sections[target - 1];
+        if (!section) return;
+        sections.forEach((s) => {
+          s.hidden = true;
+        });
+        currentPage = target;
+        setStep(step ?? 0); // set visibility WHILE hidden (no flash)
+        section.hidden = false; // reveal with correct state
+        const tpl = section.querySelector(
+          "template.speaker-notes",
+        ) as HTMLTemplateElement | null;
+        notesPanel.replaceChildren(
+          tpl ? tpl.content.cloneNode(true) : document.createTextNode(""),
+        );
+        counter.textContent = `${target} / ${total}`;
+        updateNextThumb();
+      }
+
+      function broadcast(): void {
+        channel.postMessage({
+          kind: "state",
+          slug,
+          pageNo: currentPage,
+          step: currentStep,
+          total,
+        });
+      }
+
+      function goNext(): void {
+        const steps = computeSteps(sections[currentPage - 1]);
+        if (currentStep < steps - 1) {
+          setStep(currentStep + 1);
+          broadcast();
+        } else if (currentPage < total) {
+          showPage(currentPage + 1, 0);
+          broadcast();
+        }
+      }
+
+      function goPrev(): void {
+        if (currentStep > 0) {
+          setStep(currentStep - 1);
+          broadcast();
+        } else if (currentPage > 1) {
+          const prevSteps = computeSteps(sections[currentPage - 2]);
+          showPage(currentPage - 1, prevSteps - 1);
+          broadcast();
+        }
+      }
+
+      channel.onmessage = (e: MessageEvent) => {
+        const msg = e.data;
+        if (!msg || msg.slug !== slug) return;
+        if (msg.kind === "request-state") {
+          broadcast();
+          return;
+        }
+        if (msg.kind !== "state") return;
+        if (msg.pageNo !== currentPage) {
+          showPage(msg.pageNo, msg.step);
+        } else {
+          setStep(msg.step);
+        }
+      };
+
+      // Init — no ClientRouter, no astro:page-load. Deferred module runs after
+      // DOM is ready. Read ?page= for initial slide, then ask main for state.
+      const initialPage = parseInt(
+        new URLSearchParams(location.search).get("page") ?? "1",
+        10,
+      );
+      showPage(initialPage, 0);
+      channel.postMessage({ kind: "request-state", slug });
+
+      document.addEventListener("keydown", (e: KeyboardEvent) => {
+        if (e.key === "ArrowRight" || e.key === "ArrowDown") {
+          e.preventDefault();
+          goNext();
+        } else if (e.key === "ArrowLeft" || e.key === "ArrowUp") {
+          e.preventDefault();
+          goPrev();
+        }
+      });
+      document.getElementById("prev")?.addEventListener("click", goPrev);
+      document.getElementById("next")?.addEventListener("click", goNext);
+
+      // ResizeObserver: scale every .preview-stage's inner to fit its width.
+      const ro = new ResizeObserver((entries) => {
+        for (const en of entries) {
+          const stage = en.target as HTMLElement;
+          const inner = stage.querySelector(
+            ".preview-inner",
+          ) as HTMLElement | null;
+          if (inner) {
+            inner.style.setProperty("--s", String(stage.clientWidth / 1280));
+          }
+        }
+      });
+      document.querySelectorAll(".preview-stage").forEach((s) => ro.observe(s));
+    </script>
+  </body>
+</html>

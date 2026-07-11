@@ -119,6 +119,60 @@ const fullTitle = `${presTitle} — ${title} (${pageNo}/${total})`;
 <script>
   import { navigate } from "astro:transitions/client";
 
+  // ---------------- BroadcastChannel (module scope; survives swaps) ----------------
+  // Syncs the main slide window with the presenter-view popup. BC does not echo
+  // back to the sender, so broadcasting on local action + applying silently on
+  // receive cannot loop.
+  const channel = new BroadcastChannel("pres-speaker");
+  let navigatingTo: number | null = null; // destination pageNo during in-flight navigate
+  let pendingStep: number | null = null; // step to apply once that page loads
+  let navSource: "local" | "sync" | null = null; // who triggered the in-flight navigate
+
+  function currentSlug(): string {
+    return document.body.dataset.slug ?? "";
+  }
+  function readState() {
+    const b = document.body;
+    return {
+      slug: b.dataset.slug ?? "",
+      pageNo: parseInt(b.dataset.pageNo ?? "", 10),
+      step: parseInt(b.dataset.step ?? "0", 10),
+      total: parseInt(b.dataset.total ?? "0", 10),
+    };
+  }
+  function broadcastState(): void {
+    const s = readState();
+    if (!s.slug) return;
+    channel.postMessage({ kind: "state", ...s });
+  }
+
+  channel.onmessage = (e: MessageEvent) => {
+    const msg = e.data;
+    if (!msg || msg.slug !== currentSlug()) return;
+    if (msg.kind === "request-state") {
+      broadcastState();
+      return;
+    }
+    if (msg.kind !== "state") return;
+    const body = document.body;
+    if (!body.dataset.slug) return;
+    const myPage = parseInt(body.dataset.pageNo ?? "", 10);
+    if (navigatingTo != null) {
+      // mid-navigate: only remember the destination step, ignore the rest
+      if (msg.pageNo === navigatingTo) pendingStep = msg.step;
+      return;
+    }
+    if (msg.pageNo !== myPage) {
+      navigatingTo = msg.pageNo;
+      navSource = "sync";
+      pendingStep = msg.step;
+      navigate(`/pres/${currentSlug()}/${msg.pageNo}/`);
+    } else {
+      setStep(msg.step); // silent apply, no re-broadcast
+    }
+  };
+
+  // ---------------- slide helpers ----------------
   function computeSteps(body: HTMLElement): number {
     const fm = parseInt(body.dataset.steps ?? "", 10) || 1;
     let maxAnim = 0;
@@ -140,6 +194,59 @@ const fullTitle = `${presTitle} — ${title} (${pageNo}/${total})`;
     });
   }
 
+  function setStep(step: number): void {
+    const body = document.body;
+    body.dataset.step = String(step);
+    syncVisibility(body, step);
+  }
+
+  function goNext(): void {
+    const body = document.body;
+    const pageNo = parseInt(body.dataset.pageNo ?? "", 10);
+    const total = parseInt(body.dataset.total ?? "", 10);
+    const steps = computeSteps(body);
+    const step = parseInt(body.dataset.step ?? "0", 10);
+    if (step < steps - 1) {
+      setStep(step + 1);
+      broadcastState();
+    } else if (pageNo < total) {
+      navigatingTo = pageNo + 1;
+      navSource = "local";
+      pendingStep = null;
+      navigate(`/pres/${currentSlug()}/${pageNo + 1}/`);
+    }
+  }
+
+  function goPrev(): void {
+    const body = document.body;
+    const pageNo = parseInt(body.dataset.pageNo ?? "", 10);
+    const step = parseInt(body.dataset.step ?? "0", 10);
+    if (step > 0) {
+      setStep(step - 1);
+      broadcastState();
+    } else if (pageNo > 1) {
+      // own-keyboard back-nav: same-window restore flag still works
+      sessionStorage.setItem(
+        `pres-restore-${currentSlug()}-${pageNo - 1}`,
+        "last",
+      );
+      navigatingTo = pageNo - 1;
+      navSource = "local";
+      pendingStep = null;
+      navigate(`/pres/${currentSlug()}/${pageNo - 1}/`);
+    }
+  }
+
+  function openPresenter(): void {
+    const s = readState();
+    if (!s.slug) return;
+    window.open(
+      `/pres/${s.slug}/presenter/?page=${s.pageNo}`,
+      "pres-speaker",
+      "width=1280,height=800",
+    );
+  }
+
   function initSlide(): void {
     const body = document.body;
     if (!body.dataset.slug) return;
@@ -149,14 +256,30 @@ const fullTitle = `${presTitle} — ${title} (${pageNo}/${total})`;
     const steps = computeSteps(body);
 
     let step = 0;
-    // Back-nav restore: previous page set the flag → land on last step.
+    // Back-nav restore (own-keyboard): previous page set the flag → land on last step.
     const restoreKey = `pres-restore-${slug}-${pageNo}`;
     if (sessionStorage.getItem(restoreKey) === "last") {
       step = steps - 1;
       sessionStorage.removeItem(restoreKey);
     }
+
+    // Sync-driven navigation overrides the step with the carried pendingStep.
+    const wasNav = navigatingTo === pageNo;
+    const source = navSource;
+    if (wasNav) {
+      navigatingTo = null;
+      navSource = null;
+    }
+    if (wasNav && pendingStep != null) {
+      step = pendingStep;
+      pendingStep = null;
+    }
+
     body.dataset.step = String(step);
     syncVisibility(body, step);
+
+    // Only broadcast for local navigations; sync navigations stay silent.
+    if (wasNav && source === "local") broadcastState();
   }
 
   function onKeyDown(e: KeyboardEvent): void {
@@ -174,31 +297,19 @@ const fullTitle = `${presTitle} — ${title} (${pageNo}/${total})`;
       return;
     }
 
-    const slug = body.dataset.slug;
-    const pageNo = parseInt(body.dataset.pageNo ?? "", 10);
-    const total = parseInt(body.dataset.total ?? "", 10);
-    const steps = computeSteps(body);
-    let step = parseInt(body.dataset.step ?? "0", 10);
+    // Shift+S opens the presenter-view popup.
+    if (e.key === "S" && e.shiftKey && !e.ctrlKey && !e.metaKey && !e.altKey) {
+      e.preventDefault();
+      openPresenter();
+      return;
+    }
 
     if (e.key === "ArrowRight" || e.key === "ArrowDown") {
       e.preventDefault();
-      if (step < steps - 1) {
-        step++;
-        body.dataset.step = String(step);
-        syncVisibility(body, step);
-      } else if (pageNo < total) {
-        navigate(`/pres/${slug}/${pageNo + 1}/`);
-      }
+      goNext();
     } else if (e.key === "ArrowLeft" || e.key === "ArrowUp") {
       e.preventDefault();
-      if (step > 0) {
-        step--;
-        body.dataset.step = String(step);
-        syncVisibility(body, step);
-      } else if (pageNo > 1) {
-        sessionStorage.setItem(`pres-restore-${slug}-${pageNo - 1}`, "last");
-        navigate(`/pres/${slug}/${pageNo - 1}/`);
-      }
+      goPrev();
     }
   }
 
