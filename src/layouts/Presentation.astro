@@ -163,6 +163,17 @@ const fullTitle = `${presTitle} — ${title} (${pageNo}/${total})`;
     const body = document.body;
     if (!body.dataset.slug) return;
 
+    // Shift+Enter toggles fullscreen on the presentation.
+    if (e.key === "Enter" && e.shiftKey) {
+      e.preventDefault();
+      if (document.fullscreenElement) {
+        void document.exitFullscreen();
+      } else {
+        void document.documentElement.requestFullscreen().catch(() => {});
+      }
+      return;
+    }
+
     const slug = body.dataset.slug;
     const pageNo = parseInt(body.dataset.pageNo ?? "", 10);
     const total = parseInt(body.dataset.total ?? "", 10);
