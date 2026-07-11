@@ -66,9 +66,30 @@ const fullTitle = `${presTitle} — ${title} (${pageNo}/${total})`;
         justify-content: center;
       }
 
+      /* 16:9 stage — largest 16/9 rectangle that fits the viewport */
+      .slide-stage {
+        width: min(100vw, calc(100vh * 16 / 9));
+        aspect-ratio: 16 / 9;
+        position: relative;
+        overflow: hidden;
+      }
+
+      /* Fixed 1280×720 design canvas, scaled to fit the stage.
+         position:absolute also establishes the positioning context for
+         slide-content position:absolute (e.g. reveal answers). */
+      .slide-inner {
+        width: 1280px;
+        height: 720px;
+        transform-origin: top left;
+        transform: scale(var(--s, 1));
+        position: absolute;
+        top: 0;
+        left: 0;
+      }
+
       .slide {
         width: 100%;
-        max-width: 1200px;
+        height: 100%;
         padding: 2rem;
         text-align: center;
       }
@@ -109,9 +130,13 @@ const fullTitle = `${presTitle} — ${title} (${pageNo}/${total})`;
     data-steps={String(steps)}
     data-step="0"
   >
-    <main class="slide">
-      <slot />
-    </main>
+    <div class="slide-stage">
+      <div class="slide-inner">
+        <main class="slide">
+          <slot />
+        </main>
+      </div>
+    </div>
     <div class="pres-indicator">{pageNo} / {total}</div>
   </body>
 </html>
@@ -313,9 +338,36 @@ const fullTitle = `${presTitle} — ${title} (${pageNo}/${total})`;
     }
   }
 
+  // ---------------- slide canvas scaling ----------------
+  // Scale the fixed 1280×720 design canvas to fit the .slide-stage.
+  // Observer is disconnected on each view-transition swap to avoid leaks.
+  let scaleRO: ResizeObserver | null = null;
+
+  function initScale(): void {
+    if (scaleRO) {
+      scaleRO.disconnect();
+      scaleRO = null;
+    }
+    const stage = document.querySelector(
+      ".slide-stage",
+    ) as HTMLElement | null;
+    const inner = stage?.querySelector(
+      ".slide-inner",
+    ) as HTMLElement | null;
+    if (!stage || !inner) return;
+    const update = () =>
+      inner.style.setProperty("--s", String(stage.clientWidth / 1280));
+    update();
+    scaleRO = new ResizeObserver(update);
+    scaleRO.observe(stage);
+  }
+
   // Bundled module script runs once per session. document persists across
   // view-transition swaps, so these listeners survive all navigations without
   // accumulating. astro:page-load re-initializes per page using fresh body data.
-  document.addEventListener("astro:page-load", initSlide);
+  document.addEventListener("astro:page-load", () => {
+    initSlide();
+    initScale();
+  });
   document.addEventListener("keydown", onKeyDown);
 </script>
