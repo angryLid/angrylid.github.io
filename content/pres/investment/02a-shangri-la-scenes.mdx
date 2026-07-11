@@ -1,0 +1,40 @@
+---
+title: "香格里拉风光"
+steps: 1
+---
+import Notes from "@components/Notes.astro";
+import pudacuo from "./assets/pudacuo.jpg";
+import dukezong from "./assets/dukezong.jpg";
+import sumtseling from "./assets/sumtseling.jpg";
+import tigerLeapingGorge from "./assets/tiger-leaping-gorge.jpg";
+
+<div style="position: absolute; top: 0; left: 0; width: 1280px; height: 720px; display: grid; grid-template-columns: 1fr 1fr; grid-template-rows: 1fr 1fr; gap: 0;">
+  <div style="position: relative; overflow: hidden;">
+    <img src={pudacuo.src} alt="普达措国家公园" style="width: 100%; height: 100%; object-fit: cover;" />
+    <span style="position: absolute; bottom: 0.75rem; left: 0.75rem; color: #fff; font-size: 1.1rem; background: rgba(0,0,0,0.55); padding: 0.2rem 0.6rem; border-radius: 4px; text-shadow: 0 1px 3px rgba(0,0,0,0.9);">普达措国家公园</span>
+  </div>
+  <div style="position: relative; overflow: hidden;">
+    <img src={dukezong.src} alt="独克宗古城" style="width: 100%; height: 100%; object-fit: cover;" />
+    <span style="position: absolute; bottom: 0.75rem; left: 0.75rem; color: #fff; font-size: 1.1rem; background: rgba(0,0,0,0.55); padding: 0.2rem 0.6rem; border-radius: 4px; text-shadow: 0 1px 3px rgba(0,0,0,0.9);">独克宗古城</span>
+  </div>
+  <div style="position: relative; overflow: hidden;">
+    <img src={sumtseling.src} alt="噶丹松赞林寺" style="width: 100%; height: 100%; object-fit: cover;" />
+    <span style="position: absolute; bottom: 0.75rem; left: 0.75rem; color: #fff; font-size: 1.1rem; background: rgba(0,0,0,0.55); padding: 0.2rem 0.6rem; border-radius: 4px; text-shadow: 0 1px 3px rgba(0,0,0,0.9);">噶丹松赞林寺</span>
+  </div>
+  <div style="position: relative; overflow: hidden;">
+    <img src={tigerLeapingGorge.src} alt="虎跳峡" style="width: 100%; height: 100%; object-fit: cover;" />
+    <span style="position: absolute; bottom: 0.75rem; left: 0.75rem; color: #fff; font-size: 1.1rem; background: rgba(0,0,0,0.55); padding: 0.2rem 0.6rem; border-radius: 4px; text-shadow: 0 1px 3px rgba(0,0,0,0.9);">虎跳峡</span>
+  </div>
+</div>
+
+<Notes>
+
+香格里拉不仅有"英文造词"的名字，还有绝美的风光。四个地标：
+- 普达措国家公园：原始森林与宁静湖泊，适合放松
+- 独克宗古城：古老石板路，世界最大的转经筒
+- 噶丹松赞林寺：云南最大的藏传佛教寺院，建筑宏伟
+- 虎跳峡：世界最深的峡谷之一，水流湍急，景色壮观
+
+这页作为热身答案后的视觉过渡，让听众"看见"香格里拉。
+
+</Notes>
