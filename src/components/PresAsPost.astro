@@ -1,0 +1,225 @@
+---
+import { getCollection, render } from "astro:content";
+
+interface Props {
+  slug: string;
+  showNotes?: boolean;
+}
+
+const { slug, showNotes = true } = Astro.props;
+
+const entries = await getCollection("pres");
+const slides = entries
+  .filter((e) => e.id.split("/")[0] === slug)
+  .sort((a, b) => a.id.localeCompare(b.id));
+
+if (slides.length === 0) {
+  throw new Error(`PresAsPost: no slides found for slug "${slug}"`);
+}
+
+const presTitle = slides[0].data.presTitle || slug;
+
+const rendered = await Promise.all(
+  slides.map(async (entry) => {
+    const { Content } = await render(entry);
+    return { Content, title: entry.data.title };
+  }),
+);
+---
+
+<div class="pres-post">
+  <p class="pres-post-intro">
+    <a href={`/pres/${slug}/`}>进入演示模式 →</a>
+    <span class="pres-post-title">{presTitle}</span>
+  </p>
+
+  {
+    rendered.map(({ Content, title }, idx) => (
+      <section class="slide-block">
+        <header class="slide-block-head">
+          <h2 class="slide-no">
+            {idx + 1}. {title}
+          </h2>
+          <a class="slide-link" href={`/pres/${slug}/${idx + 1}/`}>
+            幻灯片 {idx + 1} ↗
+          </a>
+        </header>
+        <div class="preview-stage">
+          <div class="preview-inner">
+            <main class="slide">
+              <Content />
+            </main>
+          </div>
+        </div>
+        {showNotes && <div class="notes-block" data-notes />}
+      </section>
+    ))
+  }
+</div>
+
+<style is:global>
+  .pres-post {
+    margin: 2rem 0;
+  }
+
+  .pres-post-intro {
+    display: flex;
+    align-items: baseline;
+    gap: 0.75rem;
+    margin-bottom: 1.5rem;
+    font-size: 0.9rem;
+  }
+  .pres-post-intro a {
+    color: var(--dark-mint);
+    text-decoration: none;
+  }
+  .pres-post-intro a:hover {
+    text-decoration: underline;
+  }
+  .pres-post-title {
+    color: var(--gray);
+    opacity: 0.7;
+  }
+
+  .pres-post .slide-block {
+    margin-bottom: 3rem;
+    border-top: 1px solid #e0e0d8;
+    padding-top: 1.5rem;
+  }
+  .pres-post .slide-block:first-of-type {
+    border-top: none;
+    padding-top: 0;
+  }
+
+  .pres-post .slide-block-head {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 1rem;
+    margin-bottom: 0.75rem;
+  }
+  .pres-post .slide-no {
+    font-size: 1.25rem;
+    color: var(--dark-mint);
+    margin: 0;
+  }
+  .pres-post .slide-link {
+    font-size: 0.85rem;
+    color: var(--gray);
+    text-decoration: none;
+    white-space: nowrap;
+  }
+  .pres-post .slide-link:hover {
+    color: var(--dark-mint);
+    text-decoration: underline;
+  }
+
+  /* Scaled slide preview — mirrors presenter.astro's preview-stage so the
+     1280×720 design canvas is shown as a faithful 16:9 miniature. */
+  .pres-post .preview-stage {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    overflow: hidden;
+    background: var(--light-gray);
+    border-radius: var(--border-radius);
+    border: 1px solid #e0e0d8;
+  }
+  .pres-post .preview-inner {
+    width: 1280px;
+    height: 720px;
+    transform-origin: top left;
+    transform: scale(var(--s, 1));
+    position: absolute;
+    top: 0;
+    left: 0;
+  }
+  .pres-post .slide {
+    width: 100%;
+    height: 100%;
+    padding: 2rem;
+    text-align: center;
+  }
+  .pres-post .slide :is(h1, h2, h3, h4, h5, h6) {
+    color: var(--dark-mint);
+  }
+
+  /* Replicate Presentation.astro's global reset inside the canvas, and
+     undo github-markdown-css effects (border-bottom on headings, list
+     padding) so slides match their presentation-mode appearance. */
+  .pres-post .preview-inner * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  .pres-post .preview-inner :is(h1, h2, h3, h4, h5, h6) {
+    border-bottom: none;
+  }
+
+  /* data-anim elements are always visible in blog-post context
+     (Presentation.astro's opacity:0 rule is not loaded here). */
+  .pres-post [data-anim] {
+    opacity: 1;
+  }
+
+  /* Speaker notes */
+  .pres-post .notes-block {
+    margin-top: 1rem;
+    padding: 1rem 1.25rem;
+    background: var(--white);
+    border-left: 3px solid var(--dark-mint);
+    border-radius: 4px;
+    font-size: 0.95rem;
+    line-height: 1.7;
+    color: var(--gray);
+  }
+  .pres-post .notes-block:empty {
+    display: none;
+  }
+  .pres-post .notes-block :is(h1, h2, h3) {
+    color: var(--dark-mint);
+    margin: 0.4em 0;
+    font-size: 1em;
+  }
+  .pres-post .notes-block :is(ul, ol) {
+    margin: 0.4em 0 0.4em 1.5em;
+  }
+  .pres-post .notes-block p {
+    margin: 0.4em 0;
+  }
+</style>
+
+<script is:inline>
+  // Extract speaker notes from each slide's <template> and render them
+  // visibly. is:inline runs synchronously during parse (before paint), so
+  // notes appear without a flash. The data-notes-done guard prevents
+  // duplicate processing if the component is rendered more than once.
+  (function () {
+    document
+      .querySelectorAll(".pres-post .slide-block:not([data-notes-done])")
+      .forEach(function (block) {
+        var tpl = block.querySelector("template.speaker-notes");
+        var notes = block.querySelector("[data-notes]");
+        if (tpl && notes) {
+          notes.append(tpl.content.cloneNode(true));
+        }
+        block.setAttribute("data-notes-done", "");
+      });
+  })();
+</script>
+
+<script>
+  // Scale each 1280px-wide slide canvas to fit its preview-stage width.
+  const ro = new ResizeObserver((entries) => {
+    for (const en of entries) {
+      const stage = en.target as HTMLElement;
+      const inner = stage.querySelector<HTMLElement>(".preview-inner");
+      if (inner) {
+        inner.style.setProperty("--s", String(stage.clientWidth / 1280));
+      }
+    }
+  });
+  document
+    .querySelectorAll<HTMLElement>(".pres-post .preview-stage")
+    .forEach((s) => ro.observe(s));
+</script>
