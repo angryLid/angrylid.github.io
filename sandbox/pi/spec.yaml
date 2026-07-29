@@ -1,0 +1,38 @@
+schemaVersion: "1"
+kind: agent
+name: pi
+displayName: Pi
+description: "Minimal terminal coding agent (Earendil) — single custom Anthropic-compatible provider configured via ~/.pi/agent/models.json"
+
+agent:
+  image: "docker/sandbox-templates:shell-docker"
+  aiFilename: AGENTS.md
+  entrypoint:
+    run: [pi]
+
+network:
+  allowedDomains:
+    - registry.npmjs.org
+    - ark.cn-beijing.volces.com
+  serviceDomains:
+    ark.cn-beijing.volces.com: volcengine
+  serviceAuth:
+    volcengine:
+      headerName: x-api-key
+      valueFormat: "%s"
+
+credentials:
+  sources:
+    volcengine:
+      env:
+        - VOLCENGINE_API_KEY
+
+environment:
+  proxyManaged:
+    - VOLCENGINE_API_KEY
+
+commands:
+  install:
+    - command: "npm config set proxy $HTTP_PROXY && npm config set https-proxy $HTTP_PROXY && i=0; while [ $i -lt 5 ]; do npm install -g --maxsockets=1 --fetch-timeout=600000 @earendil-works/pi-coding-agent && break; i=$((i+1)); echo \"Retrying ($i/5)...\"; done"
+      user: "1000"
+      description: "Install pi coding agent globally (with proxy + retries)"

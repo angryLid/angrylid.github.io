@@ -11,7 +11,9 @@
     "format": "prettier --write .",
     "format:check": "prettier --check .",
     "lint": "eslint .",
-    "typecheck": "astro check"
+    "typecheck": "astro check",
+    "sandbox": "sbx run --kit ./sandbox/pi/ pi",
+    "sandbox:validate": "sbx kit validate ./sandbox/pi/"
   },
   "keywords": [],
   "author": "",

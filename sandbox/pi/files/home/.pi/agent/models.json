@@ -1,0 +1,19 @@
+{
+  "providers": {
+    "volcengine": {
+      "baseUrl": "https://ark.cn-beijing.volces.com/api/coding",
+      "api": "anthropic-messages",
+      "apiKey": "$VOLCENGINE_API_KEY",
+      "compat": {
+        "supportsEagerToolInputStreaming": false,
+        "supportsStrictTools": true
+      },
+      "models": [
+        {
+          "id": "minimax-m3",
+          "name": "minimax-m3 (Volcengine Ark Coding)"
+        }
+      ]
+    }
+  }
+}
