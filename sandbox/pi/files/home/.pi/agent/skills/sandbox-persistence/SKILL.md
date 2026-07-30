@@ -1,6 +1,6 @@
 ---
 name: sandbox-persistence
-description: Persistently store new pi skills and pi packages (extensions) in the kit so they survive sandbox recreation. Use when creating a new skill (write the skill to sandbox/pi/files/home/.pi/agent/skills/) or when installing a pi extension (add an install step to sandbox/pi/spec.yaml commands.install). This sandbox uses an overlay filesystem — anything written to ~/.pi/ inside the running VM is lost when the sandbox is recreated, so persistent assets must be baked into the kit instead.
+description: Persistently store new pi skills and pi packages (extensions) in the kit so they survive sandbox recreation. Use when creating a new skill (write the skill to sandbox/pi/files/home/.pi/agent/skills/) or when installing a pi extension (add it to sandbox/pi/files/home/.pi/agent/settings.json packages[]). This sandbox uses an overlay filesystem — anything written to ~/.pi/ inside the running VM is lost when the sandbox is recreated, so persistent assets must be baked into the kit instead.
 ---
 
 # Sandbox Persistence
@@ -12,7 +12,7 @@ are discarded on recreation. Two kinds of assets must therefore be added
 to the kit, not the live VM, in order to be **persistent**:
 
 1. **Pi skills** — new `SKILL.md` files
-2. **Pi packages / extensions** — anything you would otherwise `pi install`
+2. **Pi packages / extensions** — entries in `settings.json` → `packages[]`
 
 Everything else (auth tokens, ephemeral session data, scratch files) is
 fine to leave in the VM and is out of scope for this skill.
@@ -33,13 +33,12 @@ kit", skip this skill and operate on the live VM only.
 | Concept                | Live VM (ephemeral)                                | Kit (persistent)                                                  |
 | ---------------------- | -------------------------------------------------- | ---------------------------------------------------------------- |
 | Pi skills              | `~/.pi/agent/skills/<name>/SKILL.md`               | `sandbox/pi/files/home/.pi/agent/skills/<name>/SKILL.md`         |
-| Pi installed packages  | `~/.pi/agent/npm/`, `~/.pi/agent/git/`, `~/.pi/agent/settings.json` (`packages: [...]`) | `sandbox/pi/spec.yaml` — append a step to `commands.install`     |
+| Pi installed packages  | `~/.pi/agent/npm/`, `~/.pi/agent/git/`, `~/.pi/agent/settings.json` (`packages: [...]`) | `sandbox/pi/files/home/.pi/agent/settings.json` (add the source string to the existing `packages: []` array) |
 
-The kit's `sandbox/pi/files/` is overlaid onto the VM's `/` (or onto
-`$HOME`, per the `files/home/...` layout) at sandbox creation, so anything
-placed there appears at the corresponding live path on every new sandbox.
-`commands.install` in `spec.yaml` runs once per fresh sandbox before the
-agent starts, so package fetches happen there.
+The kit's `sandbox/pi/files/home/...` is overlaid onto `$HOME` at sandbox
+creation, so anything placed there appears at the corresponding live path
+on every new sandbox — before any agent command runs, and without
+needing a network round-trip.
 
 ## Add a skill (persistent)
 
@@ -87,68 +86,59 @@ that location is ephemeral. Always write to the kit path.
 
 ## Add an extension (persistent)
 
-Edit `sandbox/pi/spec.yaml` and append a new entry to `commands.install`.
-The existing entry installs the `pi` CLI itself; new entries are run
-afterwards, in the order listed. Match the existing style.
+Edit `sandbox/pi/files/home/.pi/agent/settings.json` and append the
+package's source string to the existing `packages` array:
 
-```yaml
-commands:
-  install:
-    - command: "npm config set proxy $HTTP_PROXY && npm config set https-proxy $HTTP_PROXY && i=0; while [ $i -lt 5 ]; do npm install -g --maxsockets=1 --fetch-timeout=600000 @earendil-works/pi-coding-agent && break; i=$((i+1)); echo \"Retrying ($i/5)...\"; done"
-      user: "1000"
-      description: "Install pi coding agent globally (with proxy + retries)"
-    - command: "i=0; while [ $i -lt 3 ]; do pi install <source-spec> && break; i=$((i+1)); echo \"Retrying ($i/3)...\"; sleep 2; done"
-      user: "1000"
-      description: "Install <human-readable name> into user settings (~/.pi/agent/)"
+```json
+{
+  "defaultProjectTrust": "always",
+  "packages": ["npm:pi-mcp-adapter", "<new-source-spec>"]
+}
 ```
 
-`<source-spec>` is anything `pi install` accepts:
+`<source-spec>` is the same string you would pass to `pi install`:
 
-- `npm:@scope/pkg@1.2.3` — pin a version if you want reproducible kits
+- `npm:@scope/pkg@1.2.3` — pin a version for a reproducible kit
 - `npm:pkg` — track latest
 - `git:github.com/user/repo@v1` — git tag/branch
 - `https://...` — raw URL
 - `/abs/path` or `./rel/path` — local
 
-The `&& break` inside the while loop means: succeed → done, fail → log and
-retry up to N times. The first `install` step retries 5× (it has the
-proxy config in front of it); subsequent steps inherit the proxy from
-`~/.npmrc` set by step 1 and typically only need 2–3 retries.
-
 Steps:
 
-1. Open `sandbox/pi/spec.yaml`.
-2. Append a new `- command:` item to `commands.install` (preserving the
-   2-space list indent and 6-space key indent of the existing entries).
-3. `user: "1000"` — matches the existing step and ensures the install
-   lands in the right home dir.
-4. Validate YAML and bash syntax before committing:
+1. Open `sandbox/pi/files/home/.pi/agent/settings.json`.
+2. Append the source spec to the `packages` array (preserving the
+   2-space indent and trailing comma before the new entry if needed).
+3. Validate JSON before committing:
    ```bash
-   python3 -c "import yaml; yaml.safe_load(open('sandbox/pi/spec.yaml'))"
-   # extract the new command and run:
-   bash -n -c '<the new command string>'
+   python3 -c "import json; json.load(open('sandbox/pi/files/home/.pi/agent/settings.json'))"
    ```
-5. For the *current* VM, also run the command now so the user does not
-   have to recreate the sandbox to test it:
+4. For the *current* VM, also install the package now so the user does
+   not have to recreate the sandbox to use it:
    ```bash
    pi install <source-spec>
    ```
-   This is fine — the spec change is what makes it persistent; the
-   immediate `pi install` is just for the present session.
+   This is fine — the kit change is what makes the install persistent;
+   the immediate `pi install` is just for the present session.
 
 ## Why this is structured this way
 
 - The kit's `sandbox/pi/files/home/...` is the canonical "lower layer" of
   the VM's overlay. Files there are present on every fresh sandbox before
-  the first user command.
-- `spec.yaml`'s `commands.install` is the only hook that runs at sandbox
-  creation time with network access. It is the only reliable place to
-  fetch external packages — putting `pi install` commands in
-  `~/.bashrc` or a startup script would race the agent, miss the
-  network policy window, and not survive image rebuilds.
-- `pi install` is idempotent: re-running it on a VM that already has the
-  package is a no-op, so the in-VM `pi install` and the kit's
-  `commands.install` step do not fight each other.
+  the first user command — **no install step, no network, no TTY required**.
+- Earlier versions of this kit used `spec.yaml → commands.install` to run
+  `pi install` at sandbox creation. That approach is fragile: the install
+  step needs a TTY (or non-interactive approval), needs network access
+  during the install window, and races the kit overlay. Editing
+  `settings.json` directly side-steps all three.
+- The `commands.install` hook is still used for the `pi` CLI itself, where
+  we genuinely need to fetch a binary from the network — there is no
+  pre-baked equivalent. New extension installs do **not** belong there.
+- The only catch: editing `settings.json` records the package but does
+  **not** fetch its files into `~/.pi/agent/npm/` (or `git/`). On a fresh
+  sandbox, the first `pi install <source>` (or a `/reload`) will populate
+  the directory. The kit ships the *registration* persistently; the
+  *files* are filled in lazily on first use.
 
 ## Quick verification
 
@@ -158,8 +148,8 @@ After editing the kit, confirm both halves are wired up:
 # Skill is in the kit (not just the VM)
 ls sandbox/pi/files/home/.pi/agent/skills/
 
-# Extension install step is in the kit
-grep -A1 "pi install" sandbox/pi/spec.yaml
+# Extension registration is in the kit
+cat sandbox/pi/files/home/.pi/agent/settings.json
 
 # In the current VM, both should also be present
 ls ~/.pi/agent/skills/
