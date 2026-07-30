@@ -1,0 +1,752 @@
+---
+// Renders a title whose letters drift up/down ("price") and recolor by their
+// height relative to the left neighbor — like candlesticks on a chart. Three
+// moving-average-style lines (MA7/MA15/MA30) are overlaid BEHIND the letters.
+//
+// IMPORTANT — the MA lines are NOT mathematically derived from the candle
+// heights. Each line has its own wave model (same phase, different
+// frequency mix) so we can freely dial amplitude and smoothness for maximum
+// visual drama. Fast lines swing hard, slow lines drift gently — they cross
+// constantly (golden-cross / death-cross patterns) purely for presentation
+// flair. Directions stay aligned because all profiles share one phase.
+//
+// Color rule (visual height = NEGATION of translateY offset, since +v moves
+// down on screen):
+//   letter lower than its left neighbor → colorA (green #06806b)
+//   letter higher than its left neighbor → colorB (red   #cc2f3c)
+//   leftmost letter is compared to baseline 0.
+//
+// Every `interval` seconds (default 3) the whole "chart" shifts left by one:
+// letter i takes letter i+1's height; the rightmost takes the NEXT sample of a
+// multi-frequency wave (long cycle 48 ⊃ mid 16 ⊃ short 5.1 + light noise) — so
+// the title reads as a travelling economic cycle, big cycles carrying little
+// ones, sliding leftward over time. A ~0.8s eased rAF animation glides both
+// letters and MA lines together so the trail stays in lockstep with candles.
+//
+// Props:
+//   text          — title string (required)
+//   colorA        — color when the letter is LOWER than its left neighbor  (default #06806b)
+//   colorB        — color when the letter is HIGHER than its left neighbor (default #cc2f3c)
+//   offsetRange   — max vertical drift, em, applied both directions (default 0.3)
+//   interval      — seconds between snake shifts (default 3)
+//   ma            — [{ period, color }] overlays drawn behind letters.
+//                   Defaults: MA3 (fast, blue) + MA7 (slow, amber).
+//                   NOTE: MA needs period <= text.length; with "INVESTMENT"
+//                   (10 letters) MA30 cannot be computed, hence the smaller
+//                   defaults. Pass a longer text or different periods via
+//                   this prop to taste.
+//   minDuration / maxDuration — unused (kept for API compat; no-op)
+
+interface MA {
+  period: number;
+  color: string;
+  label?: string;
+  // Per-MA amplitude multiplier. Short-period (fast) MAs should have HIGHER
+  // gain than long-period (slow) ones so their larger swings let them cross
+  // the slower lines as trends reverse (golden cross / death cross effect).
+  // Combined with a Power-stretch sign(x)·|x|^α that pulls near-zero values
+  // outward while tucking peaks inward for a more organic look.
+  // `gain` clamped to [0.1, 4].
+  gain?: number;
+  // Per-MA vertical downward shift of the whole line, in em. Positive = down.
+  // Keep the spread small so fast MAs (high gain) can overtake slow MAs
+  // (low gain) on big swings and produce visible crossings.
+  dy?: number;
+}
+
+interface Props {
+  text: string;
+  colorA?: string;
+  colorB?: string;
+  offsetRange?: number;
+  interval?: number;
+  ma?: MA[];
+  minDuration?: number;
+  maxDuration?: number;
+  /** Show T-shaped candlestick wicks above/below each letter. Default true. */
+  wicks?: boolean;
+  /** Base length of each wick (one side), in em. Default 0.35. */
+  wickLength?: number;
+  /** Width of the T-bar at each end of the wick, in em. Default 0.32. */
+  wickBarWidth?: number;
+  /** Thickness of the wick line + T-bar, in em. Default 0.11. */
+  wickThickness?: number;
+  /** Random variance of individual wick lengths, 0–1. Default 0.5. */
+  wickVariance?: number;
+}
+
+const {
+  text,
+  colorA = "#06806b",
+  colorB = "#cc2f3c",
+  offsetRange = 0.6,
+  interval = 3,
+  ma,
+  minDuration,
+  maxDuration,
+  wicks = true,
+  wickLength = 0.55,
+  wickBarWidth = 0.32,
+  wickThickness = 0.11,
+  wickVariance = 0.5,
+} = Astro.props as Props;
+
+// compat no-ops
+void minDuration;
+void maxDuration;
+
+const letters = [...text];
+
+const range = Math.max(0, Number(offsetRange));
+const rnd = (lo: number, hi: number) => Math.random() * (hi - lo) + lo;
+
+// ---- color validation (reject CSS injection) ----
+const colorRe =
+  /^(#[0-9a-fA-F]{3,8}|rgb\([^)]*\)|rgba\([^)]*\)|hsl\([^)]*\)|hsla\([^)]*\)|var\(--[\w-]+\)|[a-zA-Z]+)$/;
+const safeColor = (c: string, name: string) => {
+  const s = String(c);
+  if (!colorRe.test(s)) throw new Error(`CandlestickTitle: invalid ${name} "${s}"`);
+  return s;
+};
+const esc = (c: string) => c.replace(/[\\"]/g, (m) => "\\" + m);
+const A = esc(safeColor(colorA, "colorA"));
+const B = esc(safeColor(colorB, "colorB"));
+
+// Z-order: SVG paints later paths on top. List SLOWEST first so the fast
+// MA7 always draws on top and stays visible where lines cross.
+//
+// Crossing design — fast MAs get HIGHER gain (larger swing amplitude), slow
+// MAs get LOWER gain (smaller, smoother swing). Small dy spread means the
+// fast line (big swings) rises ABOVE the slow line at peaks and drops BELOW
+// it at troughs — producing natural golden-cross / death-cross patterns as
+// the travelling wave changes direction.
+const maList: MA[] =
+  ma && ma.length
+    ? ma.map((m, i) => ({
+        period: Math.max(2, Math.round(Number(m.period) || 3)),
+        color: safeColor(m.color, `ma[${i}].color`),
+        label: m.label ? String(m.label) : `MA${Math.round(Number(m.period) || 3)}`,
+        gain: Math.min(4, Math.max(0.1, Number(m.gain ?? 1))),
+        dy: Number(m.dy ?? 0),
+      }))
+    : [
+        // Slowest first (bottom layer). Gain scales inversely with period
+        // so MA7 swings WIDEST, MA15 is mid, MA30 is flattest — the fast
+        // line repeatedly overtakes the slow ones as the wave rolls, giving
+        // frequent golden-cross / death-cross patterns.
+        // dy spread is only 0.5em total to keep all three in one tight band,
+        // offset below the letter baseline so MA lines don't run through
+        // the glyphs.
+        { period: 30, color: "#7a5a9c", label: "MA30", gain: 0.9, dy: 1.10 },
+        { period: 15, color: "#d08a3a", label: "MA15", gain: 1.8, dy: 0.85 },
+        { period: 7, color: "#2f6d8f", label: "MA7", gain: 3.0, dy: 0.60 },
+      ];
+
+// "Economic cycle" height model: each new letter's height is a sample of a
+// multi-frequency wave (long cycle 48 ⊃ mid cycle 16 ⊃ short ripples 5.1 —
+// the irrational short period keeps the combo from ever repeating within a
+// presentation) plus a touch of noise. Weights sum to 1 so the result stays
+// inside ±range. A per-build random `phase` offsets the three sinusoids so
+// the initial shape varies between builds.
+//
+// `profile` controls the mix of frequencies:
+//   "candle" — default, balanced (the letter / candlestick wave)
+//   "fast"   — mostly high freq, very twitchy (for MA7-style fast lines)
+//   "mid"    — mid-weighted (for MA15-style medium lines)
+//   "slow"   — almost all low freq, very smooth (for MA30-style slow lines)
+type WaveProfile = "candle" | "fast" | "mid" | "slow";
+function waveHeight(
+  t: number,
+  range: number,
+  phase: number,
+  profile: WaveProfile = "candle",
+): number {
+  const slow = Math.sin((t / 48) * Math.PI * 2 + phase);
+  const med = Math.sin((t / 16) * Math.PI * 2 + phase * 1.7);
+  const fast = Math.sin((t / 5.1) * Math.PI * 2 + phase * 2.3);
+  const noise = Math.random() * 2 - 1;
+  let wSlow: number, wMed: number, wFast: number, wNoise: number;
+  switch (profile) {
+    case "fast":
+      // lots of high-freq ripple → big, fast swings
+      wSlow = 0.25; wMed = 0.30; wFast = 0.40; wNoise = 0.05;
+      break;
+    case "mid":
+      wSlow = 0.40; wMed = 0.35; wFast = 0.20; wNoise = 0.05;
+      break;
+    case "slow":
+      // almost all long-cycle → smooth, gentle trend
+      wSlow = 0.80; wMed = 0.15; wFast = 0.03; wNoise = 0.02;
+      break;
+    default: // candle
+      wSlow = 0.60; wMed = 0.26; wFast = 0.10; wNoise = 0.04;
+  }
+  const v = wSlow * slow + wMed * med + wFast * fast + wNoise * noise;
+  return +(v * range).toFixed(4);
+}
+
+// Map MA period → wave profile + gain adjustment factor.
+// Fast MAs use the "fast" profile (lots of ripple, big swings); slow MAs
+// use "slow" (smooth). This is entirely cosmetic — lines are NOT computed
+// from the candle data, so we can make them cross as dramatically as we
+// want while still sharing the same underlying phase (so directions agree).
+function profileForPeriod(period: number): WaveProfile {
+  if (period <= 7) return "fast";
+  if (period <= 18) return "mid";
+  return "slow";
+}
+
+// SSR initial heights + colors: sample the wave at t=0..N-1 so the FIRST
+// frame already reads as a coherent travelling wave across the title, not a
+// random scatter. The same `phase` is echoed to the client via data-phase so
+// the live snake-shift continues the SAME wave (rightmost letter keeps taking
+// the next wave sample w(t), the whole pattern slides left — a travelling
+// economic cycle).
+const phase = +rnd(0, Math.PI * 2).toFixed(4);
+const offsets = letters.map((_, i) => waveHeight(i, range, phase, "candle"));
+
+// Per-letter random wick lengths (top and bottom independently random).
+// Base = wickLength; variance controls how far each side can deviate.
+// Stored as data-* on the letters container so the client can keep
+// generating new random values as the snake shifts left.
+// minRatio = minimum length as a fraction of base (prevents T-bar from
+// touching or merging into the candle body).
+const wv = Math.min(1, Math.max(0, Number(wickVariance)));
+const wickMinRatio = 0.7;
+const randWick = () => {
+  const v = wickLength * (1 + wv * (Math.random() * 2 - 1));
+  return +Math.max(wickLength * wickMinRatio, v).toFixed(4);
+};
+const wickTops = letters.map(randWick);
+const wickBots = letters.map(randWick);
+
+// Each MA line gets its OWN height array, sampled from a wave with the same
+// phase but a different frequency profile. This way lines share the same
+// big-trend direction but swing with independent amplitudes — producing
+// frequent, visually dramatic crossings. Gain is baked into the SSR sample
+// so the initial paint matches the client's first measurement.
+const maOffsetsList: number[][] = maList.map((m) =>
+  letters.map((_, i) => waveHeight(i, range, phase, profileForPeriod(m.period))),
+);
+
+// Visual height is the negation of the offset (translateY +v moves down):
+//   offsets[i] > left → visually lower → colorA (green)
+//   offsets[i] <= left → visually higher → colorB (red)
+const colorFor = (i: number): string => {
+  const left = i === 0 ? 0 : offsets[i - 1];
+  return offsets[i] > left ? A : B;
+};
+---
+
+<div class="snake-chart" style={`--colorA:${A};--colorB:${B};--wickLen:${Number(wickLength) || 0}em;--wickBar:${Number(wickBarWidth) || 0}em;--wickThick:${Number(wickThickness) || 0.06}em;${wicks ? "":"--wickLen:0;"}padding-block:1.0em 1.4em;`}>
+  <svg class="ma-lines" data-periods={JSON.stringify(maList.map((m) => m.period))} data-profiles={JSON.stringify(maList.map((m) => profileForPeriod(m.period)))} data-gains={JSON.stringify(maList.map((m) => m.gain ?? 1))} data-dys={JSON.stringify(maList.map((m) => m.dy ?? 0))} data-offsets={JSON.stringify(maOffsetsList)}>
+    {
+      maList.map((m, i) => (
+        <path
+          class="ma-line"
+          data-idx={i}
+          d=""
+          fill="none"
+          stroke={m.color}
+          stroke-width="3"
+          stroke-linejoin="round"
+          stroke-linecap="round"
+        />
+      ))
+    }
+  </svg>
+
+  <h1 class="snake-title" aria-label={text}>
+    <span
+      class="snake-letters"
+      data-range={range}
+      data-interval={Number(interval) || 3}
+      data-phase={phase}
+      data-offsets={JSON.stringify(offsets)}
+      data-wick-tops={JSON.stringify(wickTops)}
+      data-wick-bots={JSON.stringify(wickBots)}
+      data-wick-variance={wv}
+      data-wick-min-ratio={wickMinRatio}
+    >
+      {
+        letters.map((ch, i) => (
+          <span
+            class="letter"
+            style={`transform: translateY(${offsets[i]}em); color: ${colorFor(i)}; --wickTop:${wickTops[i]}em; --wickBot:${wickBots[i]}em;`}
+            aria-hidden="true"
+          >
+            {ch}
+          </span>
+        ))
+      }
+    </span>
+  </h1>
+</div>
+
+<style>
+  .snake-chart {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    /* padding-block set inline. Top padding clears upward letter drift and
+       fast-MA peaks above baseline; bottom padding fits the slowest MA at
+       its trough. Total SVG canvas height is ~letter + 1.0em + 1.4em. */
+  }
+
+  .snake-title {
+    position: relative;
+    z-index: 1;
+    display: inline-flex;
+    line-height: 1;
+    margin: 0;
+    padding: 0;
+    font-size: inherit;
+    font-weight: inherit;
+    font-family: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, "Liberation Mono", "Courier New", monospace;
+  }
+
+  .snake-letters {
+    display: inline-flex;
+  }
+
+  .snake-letters .letter {
+    position: relative;
+    display: inline-block;
+    margin: 0;
+    background: currentColor;
+    -webkit-text-fill-color: #fff;
+    text-align: center;
+    /* Fixed candle-body width, narrower than 1ch so the left-biased glyph
+       visually sits in the middle of the colored rectangle. T-wicks are
+       centered on this same box, so everything lines up visually. */
+    width: 1ch;
+    /* driven by JS rAF now (no CSS transition) so MA lines can move in sync */
+  }
+
+  /* T-shaped candlestick wicks on each letter.
+     Upper wick: inverted-T (bar at top, stem down to letter top).
+     Lower wick: upright-T    (bar at bottom, stem up to letter bottom).
+     Color follows the letter via currentColor so red/green flip in sync. */
+  .snake-letters .letter::before,
+  .snake-letters .letter::after {
+    content: "";
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    pointer-events: none;
+    /* Two gradients stacked: a short horizontal bar + a vertical stem.
+       Together they draw a T shape. */
+    background-image:
+      linear-gradient(currentColor, currentColor),
+      linear-gradient(currentColor, currentColor);
+    background-repeat: no-repeat;
+    background-position: center top, center top;
+    background-size:
+      var(--wickBar) var(--wickThick),
+      var(--wickThick) 100%;
+    width: var(--wickBar);
+  }
+
+  /* Upper wick — inverted T, bar at the very top, stem meets letter top.
+     bottom:90% means the stem overlaps 10% into the letter body (closer). */
+  .snake-letters .letter::before {
+    height: var(--wickTop, var(--wickLen));
+    bottom: 90%;
+    background-position: center top, center bottom;
+  }
+
+  /* Lower wick — upright T, bar at the very bottom, stem meets letter bottom.
+     top:90% means the stem overlaps 10% into the letter body (closer). */
+  .snake-letters .letter::after {
+    height: var(--wickBot, var(--wickLen));
+    top: 90%;
+    background-position: center bottom, center top;
+  }
+
+  /* MA overlay sits behind the letters; coords are measured in JS so it hides
+     until the first measurement, then fades in. */
+  .ma-lines {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    overflow: visible; /* let stroke ends breathe if a point sits at an edge */
+    pointer-events: none;
+    z-index: 2;
+    opacity: 0;
+    transition: opacity 0.4s ease;
+  }
+  .ma-lines.ready {
+    opacity: 0.75;
+  }
+
+  .ma-line {
+    /* stroke / width set as attributes per-instance */
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .snake-title {
+      /* JS will snap instead of animate; nothing to do here */
+    }
+  }
+</style>
+
+<script>
+  // ---- module-scoped lifecycle registry (cleared across view-transition swaps) ----
+  let intervals: number[] = [];
+  let rafs: number[] = [];
+  let ros: ResizeObserver[] = [];
+
+  function rnd(lo: number, hi: number): number {
+    return Math.random() * (hi - lo) + lo;
+  }
+  // Same multi-frequency wave as the SSR frontmatter, with a `profile` that
+  // controls the frequency mix. All profiles share the same phase so the
+  // big-trend direction stays aligned across candles and every MA line —
+  // but fast profiles swing harder and slow profiles stay smooth, so lines
+  // cross each other constantly (purely cosmetic, no real MA math).
+  type WaveProfile = "candle" | "fast" | "mid" | "slow";
+  function waveHeight(
+    t: number,
+    range: number,
+    phase: number,
+    profile: WaveProfile = "candle",
+  ): number {
+    const slow = Math.sin((t / 48) * Math.PI * 2 + phase);
+    const med = Math.sin((t / 16) * Math.PI * 2 + phase * 1.7);
+    const fast = Math.sin((t / 5.1) * Math.PI * 2 + phase * 2.3);
+    const noise = Math.random() * 2 - 1;
+    let wSlow: number, wMed: number, wFast: number, wNoise: number;
+    switch (profile) {
+      case "fast":
+        wSlow = 0.25; wMed = 0.30; wFast = 0.40; wNoise = 0.05;
+        break;
+      case "mid":
+        wSlow = 0.40; wMed = 0.35; wFast = 0.20; wNoise = 0.05;
+        break;
+      case "slow":
+        wSlow = 0.80; wMed = 0.15; wFast = 0.03; wNoise = 0.02;
+        break;
+      default: // candle
+        wSlow = 0.60; wMed = 0.26; wFast = 0.10; wNoise = 0.04;
+    }
+    const v = wSlow * slow + wMed * med + wFast * fast + wNoise * noise;
+    return +(v * range).toFixed(4);
+  }
+  function profileForPeriod(period: number): WaveProfile {
+    if (period <= 7) return "fast";
+    if (period <= 18) return "mid";
+    return "slow";
+  }
+  function lerp(a: number, b: number, t: number): number {
+    return a + (b - a) * t;
+  }
+  function easeInOutCubic(t: number): number {
+    return t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
+  }
+  // Rolling mean ending at index i (causal MA = standard chart MA). The
+  // first (period-1) points have no full window of history, so a plain MA
+  // is NaN there and the line would only start partway across the title.
+  // To span the WHOLE title (every letter drawn), the warmup zone uses a
+  // growing cumulative mean of vals[0..i] — exactly what charting apps do
+  // when they "extend" the MA back to the first bar. Once i >= period-1 the
+  // fixed N-window takes over, so the displayed line length is the same as
+  // the bars, with full-window values from that point onward.
+  interface LetterData {
+    x: number;
+    cy: number;
+    emPx: number;
+  }
+  interface Instance {
+    container: HTMLElement;
+    letters: HTMLElement[];
+    ld: LetterData[];
+    paths: SVGPathElement[];
+    periods: number[];
+    profiles: WaveProfile[];
+    range: number;
+    colorA: string;
+    colorB: string;
+    offsets: number[]; // candle target heights
+    display: number[]; // candle currently-rendered heights
+    maOffsets: number[][]; // per-MA target heights
+    maDisplay: number[][]; // per-MA currently-rendered heights
+    wickTops: number[]; // per-letter upper wick length target (em)
+    wickBots: number[]; // per-letter lower wick length target (em)
+    wickTopsDisplay: number[]; // per-letter upper wick currently-rendered (em)
+    wickBotsDisplay: number[]; // per-letter lower wick currently-rendered (em)
+    leftGhost: number; // virtual candle to the left of letter 0 (color reference)
+    leftGhostDisplay: number;
+    wickBase: number; // base wick length (em)
+    wickVariance: number; // 0–1 randomness factor
+    wickMinRatio: number; // min wick length as fraction of base
+    t: number; // wave-time counter: next rightmost sample is w(t)
+    phase: number; // shared phase across candles + all MAs
+    gains: number[]; // per-MA amplitude multiplier
+    dys: number[]; // per-MA downward shift (em)
+    raf: number | null;
+  }
+
+  function colorForOffset(offsets: number[], i: number, a: string, b: string, leftGhost: number = 0): string {
+    const left = i === 0 ? leftGhost : offsets[i - 1];
+    // negate: large offset = visually lower = green (colorA)
+    return offsets[i] > left ? a : b;
+  }
+
+  // Builds an SVG path from per-index heights (already gain-adjusted by the
+  // caller) plus a per-line constant downward shift `dyEm` (in em).
+  // NaN/Infinity are skipped (start a new subpath after the break).
+  function buildPath(vals: number[], ld: LetterData[], dyEm: number): string {
+    let d = "";
+    const dyPx = dyEm * (ld.length > 0 ? ld[0].emPx : 0);
+    for (let i = 0; i < vals.length; i++) {
+      if (!Number.isFinite(vals[i])) continue;
+      const x = ld[i].x.toFixed(2);
+      // line center = letter center + (stretched·em) + dy pixels (down is +y)
+      const y = (ld[i].cy + vals[i] * ld[i].emPx + dyPx).toFixed(2);
+      d += d === "" ? `M ${x} ${y}` : ` L ${x} ${y}`;
+    }
+    return d;
+  }
+
+  // Paint letters + all MA lines using current display state.
+  function drawAt(inst: Instance): void {
+    const n = inst.letters.length;
+    // — candles —
+    for (let i = 0; i < n; i++) {
+      inst.letters[i].style.transform = `translateY(${inst.display[i].toFixed(4)}em)`;
+      inst.letters[i].style.color = colorForOffset(inst.display, i, inst.colorA, inst.colorB, inst.leftGhostDisplay);
+      inst.letters[i].style.setProperty("--wickTop", `${inst.wickTopsDisplay[i].toFixed(4)}em`);
+      inst.letters[i].style.setProperty("--wickBot", `${inst.wickBotsDisplay[i].toFixed(4)}em`);
+    }
+    // — MA lines —
+    // Each line is driven by its own independent wave model (same phase,
+    // different frequency mix) multiplied by `gain`. Lines are NOT derived
+    // from the candle heights — that freedom lets us dial crossings up to
+    // 11 for presentation flair.
+    for (let p = 0; p < inst.paths.length; p++) {
+      const g = inst.gains[p] ?? 1;
+      const dyEm = inst.dys[p] ?? 0;
+      const scaled = inst.maDisplay[p].map((v) => +(v * g).toFixed(4));
+      inst.paths[p].setAttribute("d", buildPath(scaled, inst.ld, dyEm));
+    }
+  }
+
+  function animTo(inst: Instance, dur: number): void {
+    const candleFrom = inst.display.slice();
+    const candleTo = inst.offsets;
+    const maFrom = inst.maDisplay.map((a) => a.slice());
+    const maTo = inst.maOffsets;
+    const wickTopFrom = inst.wickTopsDisplay.slice();
+    const wickTopTo = inst.wickTops;
+    const wickBotFrom = inst.wickBotsDisplay.slice();
+    const wickBotTo = inst.wickBots;
+    const leftGhostFrom = inst.leftGhostDisplay;
+    const leftGhostTo = inst.leftGhost;
+    const start = performance.now();
+    if (inst.raf != null) {
+      cancelAnimationFrame(inst.raf);
+      inst.raf = null;
+    }
+    const n = candleFrom.length;
+    const nM = maFrom.length;
+    const step = (now: number) => {
+      const t = dur <= 0 ? 1 : Math.min(1, (now - start) / dur);
+      const e = easeInOutCubic(t);
+      // interpolate candles
+      for (let i = 0; i < n; i++) {
+        inst.display[i] = lerp(candleFrom[i], candleTo[i], e);
+      }
+      // interpolate each MA line
+      for (let p = 0; p < nM; p++) {
+        const src = maFrom[p];
+        const dst = maTo[p];
+        const out = inst.maDisplay[p];
+        for (let i = 0; i < n; i++) {
+          out[i] = lerp(src[i], dst[i], e);
+        }
+      }
+      // interpolate wick lengths so they travel left with the candle body
+      for (let i = 0; i < n; i++) {
+        inst.wickTopsDisplay[i] = lerp(wickTopFrom[i], wickTopTo[i], e);
+        inst.wickBotsDisplay[i] = lerp(wickBotFrom[i], wickBotTo[i], e);
+      }
+      inst.leftGhostDisplay = lerp(leftGhostFrom, leftGhostTo, e);
+      drawAt(inst);
+      if (t < 1) {
+        inst.raf = requestAnimationFrame(step);
+      } else {
+        inst.raf = null;
+      }
+    };
+    inst.raf = requestAnimationFrame(step);
+    rafs.push(inst.raf);
+  }
+
+  function tick(inst: Instance, animDur: number): void {
+    const n = inst.offsets.length;
+    // left ghost takes the old first candle's height — so the first letter's
+    // color reference scrolls left with the rest of the chart.
+    inst.leftGhost = inst.offsets[0];
+    // shift candles left
+    for (let i = 0; i < n - 1; i++) inst.offsets[i] = inst.offsets[i + 1];
+    inst.offsets[n - 1] = waveHeight(inst.t, inst.range, inst.phase, "candle");
+    // shift each MA line left and sample its own profile
+    for (let p = 0; p < inst.maOffsets.length; p++) {
+      const arr = inst.maOffsets[p];
+      for (let i = 0; i < n - 1; i++) arr[i] = arr[i + 1];
+      arr[n - 1] = waveHeight(inst.t, inst.range, inst.phase, inst.profiles[p]);
+    }
+    // shift wicks left and roll new random lengths for the new rightmost letter
+    for (let i = 0; i < n - 1; i++) {
+      inst.wickTops[i] = inst.wickTops[i + 1];
+      inst.wickBots[i] = inst.wickBots[i + 1];
+    }
+    const v = inst.wickVariance;
+    const base = inst.wickBase;
+    const minLen = base * inst.wickMinRatio;
+    const randW = () => +Math.max(minLen, base * (1 + v * (Math.random() * 2 - 1))).toFixed(4);
+    inst.wickTops[n - 1] = randW();
+    inst.wickBots[n - 1] = randW();
+    inst.t += 1;
+    animTo(inst, animDur);
+  }
+
+  function measure(inst: Instance, letters: HTMLElement[]): LetterData[] {
+    const container = inst.container;
+    return letters.map((el) => {
+      const emPx = parseFloat(getComputedStyle(el).fontSize) || 1;
+      // offsetLeft/offsetTop are relative to inst.container (it's the closest
+      // positioned ancestor: position: relative). The .ma-lines SVG sits at
+      // inset:0 of the same container with a 1:1 viewBox, so these px coords
+      // map directly onto the SVG user space.
+      return {
+        x: el.offsetLeft + el.offsetWidth / 2,
+        cy: el.offsetTop + el.offsetHeight / 2,
+        emPx,
+      };
+    });
+  }
+
+  // Sync the SVG viewBox to the container's actual padding-box pixel size so
+  // JS-computed px coords map 1:1 onto user units (without an explicit viewBox
+  // the SVG defaults to a 100×100 user space, and our px values get scaled
+  // down — which is exactly why the lines only showed up on the right half).
+  function syncViewBox(svg: SVGSVGElement, container: HTMLElement): void {
+    const w = container.clientWidth;
+    const h = container.clientHeight;
+    svg.setAttribute("viewBox", `0 0 ${w} ${h}`);
+    svg.setAttribute("preserveAspectRatio", "none");
+  }
+
+  document.addEventListener("astro:page-load", () => {
+    // clear everything from the previous page view (view-transition swap)
+    for (const id of intervals) clearInterval(id);
+    for (const id of rafs) cancelAnimationFrame(id);
+    for (const ro of ros) ro.disconnect();
+    intervals = [];
+    rafs = [];
+    ros = [];
+
+    const containers = [...document.querySelectorAll<HTMLElement>(".snake-chart")];
+    if (containers.length === 0) return;
+
+    const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    const ANIM_DUR = reduce ? 0 : 800;
+
+    const instances: Instance[] = containers.map((container) => {
+      const lettersEl = container.querySelector<HTMLElement>(".snake-letters");
+      const letters = lettersEl
+        ? [...lettersEl.querySelectorAll<HTMLElement>(".letter")]
+        : [];
+      const svg = container.querySelector<SVGSVGElement>(".ma-lines");
+      const paths = svg ? [...svg.querySelectorAll<SVGPathElement>(".ma-line")] : [];
+      const periods = svg
+        ? (JSON.parse(svg.dataset.periods ?? "[]") as number[]) ?? []
+        : [];
+      const profiles = (svg
+        ? (JSON.parse(svg.dataset.profiles ?? "[]") as WaveProfile[]) ?? []
+        : []) as WaveProfile[];
+      const maOffsets = (svg
+        ? (JSON.parse(svg.dataset.offsets ?? "[]") as number[][]) ?? []
+        : []) as number[][];
+      const offsets =
+        (lettersEl && (JSON.parse(lettersEl.dataset.offsets ?? "[]") as number[])) ?? [];
+      const wickTops =
+        (lettersEl && (JSON.parse(lettersEl.dataset.wickTops ?? "[]") as number[])) ?? [];
+      const wickBots =
+        (lettersEl && (JSON.parse(lettersEl.dataset.wickBots ?? "[]") as number[])) ?? [];
+      const wickVariance = parseFloat(lettersEl?.dataset.wickVariance ?? "") || 0;
+      const wickMinRatio = parseFloat(lettersEl?.dataset.wickMinRatio ?? "") || 0;
+      const wickBase =
+        parseFloat(getComputedStyle(container).getPropertyValue("--wickLen").trim()) || 0.35;
+      const range = parseFloat(lettersEl?.dataset.range ?? "") || 0.3;
+      const colorA = getComputedStyle(container).getPropertyValue("--colorA").trim() || "#06806b";
+      const colorB = getComputedStyle(container).getPropertyValue("--colorB").trim() || "#cc2f3c";
+
+      const inst: Instance = {
+        container,
+        letters,
+        ld: [],
+        paths,
+        periods: periods.map((p) => Math.max(2, Math.round(p))),
+        profiles,
+        range,
+        colorA,
+        colorB,
+        offsets,
+        display: offsets.slice(),
+        maOffsets,
+        maDisplay: maOffsets.map((a) => a.slice()),
+        wickTops,
+        wickBots,
+        wickTopsDisplay: wickTops.slice(),
+        wickBotsDisplay: wickBots.slice(),
+        leftGhost: 0,
+        leftGhostDisplay: 0,
+        wickBase,
+        wickVariance,
+        wickMinRatio,
+        // initial SSR offsets sampled the wave at t=0..N-1, so the next live
+        // sample is w(N); pick up the shared phase so the cycle is continuous.
+        t: offsets.length,
+        phase: parseFloat(lettersEl?.dataset.phase ?? "") || 0,
+        gains: (JSON.parse(svg?.dataset.gains ?? "[]") as number[]) ?? [],
+        dys: (JSON.parse(svg?.dataset.dys ?? "[]") as number[]) ?? [],
+        raf: null,
+      };
+      // Size the SVG user space to the container's pixels, then measure the
+      // letters in that same space before the first draw.
+      if (svg) syncViewBox(svg, container);
+      inst.ld = measure(inst, letters);
+      // initial paint (SSR already painted letters, but redraw to be safe + draw MAs)
+      drawAt(inst);
+      svg?.classList.add("ready");
+      return inst;
+    });
+
+    const intervalMs =
+      (parseFloat(containers[0].querySelector(".snake-letters")?.getAttribute("data-interval") ?? "") || 3) * 1000;
+
+    for (const inst of instances) {
+      const id = window.setInterval(() => tick(inst, ANIM_DUR), intervalMs);
+      intervals.push(id);
+    }
+
+    // If the container's box changes (font load, layout shift, window resize,
+    // or the slide scale factor being recomputed), re-sync the SVG user space
+    // and re-measure letters, then repaint so the MA trail stays aligned.
+    for (const inst of instances) {
+      const svg = inst.container.querySelector<SVGSVGElement>(".ma-lines");
+      if (!svg) continue;
+      const ro = new ResizeObserver(() => {
+        syncViewBox(svg, inst.container);
+        inst.ld = measure(inst, inst.letters);
+        drawAt(inst);
+      });
+      ro.observe(inst.container);
+      // observer lives only for this page; tracked for disconnect on swap.
+      ros.push(ro);
+    }
+  });
+</script>
