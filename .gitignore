@@ -4,4 +4,5 @@ node_modules
 .astro/
 
 # Pi coding-agent sessions (persisted in-repo, like a docker volume)
-.pi/sessions/
+# Configured via .pi/settings.json -> sessionDir: "sessions"
+/sessions/

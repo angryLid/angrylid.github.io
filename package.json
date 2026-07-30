@@ -12,7 +12,8 @@
     "format:check": "prettier --check .",
     "lint": "eslint .",
     "typecheck": "astro check",
-    "sandbox": "sbx run --kit ./sandbox/pi/ pi",
+    "sandbox": "sbx run --kit ./sandbox/pi/ --name ${SANDBOX_NAME:-pi} pi",
+    "sandbox:remove": "sbx rm ${SANDBOX_NAME:-pi}",
     "sandbox:validate": "sbx kit validate ./sandbox/pi/"
   },
   "keywords": [],
