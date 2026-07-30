@@ -12,25 +12,31 @@ agent:
 
 network:
   allowedDomains:
-    - registry.npmjs.org
-    - ark.cn-beijing.volces.com
-    - docs.docker.com
+    - "**"
   serviceDomains:
     ark.cn-beijing.volces.com: volcengine
+    opencode.ai: my-opencode-go
   serviceAuth:
     volcengine:
       headerName: x-api-key
       valueFormat: "%s"
+    my-opencode-go:
+      headerName: Authorization
+      valueFormat: "Bearer %s"
 
 credentials:
   sources:
     volcengine:
       env:
         - VOLCENGINE_API_KEY
+    my-opencode-go:
+      env:
+        - MY_OPENCODE_GO_API_KEY
 
 environment:
   proxyManaged:
     - VOLCENGINE_API_KEY
+    - MY_OPENCODE_GO_API_KEY
 
 commands:
   install:
