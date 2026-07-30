@@ -2,3 +2,6 @@ node_modules
 .DS_Store
 /dist
 .astro/
+
+# Pi coding-agent sessions (persisted in-repo, like a docker volume)
+.pi/sessions/
