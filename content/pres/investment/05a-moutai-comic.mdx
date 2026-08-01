@@ -1,0 +1,102 @@
+---
+title: "四格漫画：张三与李四"
+steps: 4
+---
+import Notes from "@components/Notes.astro";
+
+<div style="height: 100%; box-sizing: border-box; display: flex; flex-direction: column; padding: 1rem 3rem;">
+  <h2 style="font-size: 2rem; margin: 0 0 0.8rem 0; color: #333; flex-shrink: 0; text-align: center;">四格漫画 · 张三与李四</h2>
+
+  <div style="flex: 1; min-height: 0; display: grid; grid-template-columns: 1fr 1fr; grid-template-rows: 1fr 1fr; gap: 1rem;">
+
+    {/* 第一格 */}
+    <div data-anim="1" style="background: #fdf6e3; border: 2px solid #e67e22; border-radius: 12px; padding: 1rem; display: flex; flex-direction: column; justify-content: space-between; position: relative;">
+      <div style="position: absolute; top: -0.7rem; left: 1rem; background: #e67e22; color: white; font-size: 0.9rem; padding: 0.1rem 0.6rem; border-radius: 10px; font-weight: 600;">①</div>
+      <div style="flex: 1; display: flex; align-items: center; justify-content: center; gap: 1.5rem; margin-top: 0.5rem;">
+        <div style="text-align: center;">
+          <div style="font-size: 3rem;">🧑</div>
+          <p style="font-size: 1rem; margin: 0.2rem 0 0 0; font-weight: 600;">张三</p>
+        </div>
+        <div style="text-align: center;">
+          <div style="font-size: 2.5rem;">🍶</div>
+          <p style="font-size: 0.9rem; margin: 0.2rem 0 0 0; color: #e67e22; font-weight: 600;">¥2000+</p>
+        </div>
+        <div style="text-align: center;">
+          <div style="font-size: 2.5rem;">🗄️</div>
+        </div>
+      </div>
+      <div style="background: white; border-radius: 8px; padding: 0.5rem 0.8rem; text-align: center;">
+        <p style="font-size: 0.95rem; margin: 0; line-height: 1.4;">张三花两千多买瓶茅台酒<br />放柜子上，然后等待 ⏳</p>
+      </div>
+    </div>
+
+    {/* 第二格 */}
+    <div data-anim="2" style="background: #eafaf1; border: 2px solid #27ae60; border-radius: 12px; padding: 1rem; display: flex; flex-direction: column; justify-content: space-between; position: relative;">
+      <div style="position: absolute; top: -0.7rem; left: 1rem; background: #27ae60; color: white; font-size: 0.9rem; padding: 0.1rem 0.6rem; border-radius: 10px; font-weight: 600;">②</div>
+      <div style="flex: 1; display: flex; align-items: center; justify-content: center; gap: 1.5rem; margin-top: 0.5rem;">
+        <div style="text-align: center;">
+          <div style="font-size: 3rem;">👨‍💼</div>
+          <p style="font-size: 1rem; margin: 0.2rem 0 0 0; font-weight: 600;">李四</p>
+        </div>
+        <div style="text-align: center;">
+          <div style="font-size: 2.5rem;">📈</div>
+          <p style="font-size: 0.9rem; margin: 0.2rem 0 0 0; color: #27ae60; font-weight: 600;">一手茅台 ¥2000+</p>
+        </div>
+        <div style="text-align: center;">
+          <div style="font-size: 2.5rem;">💻</div>
+        </div>
+      </div>
+      <div style="background: white; border-radius: 8px; padding: 0.5rem 0.8rem; text-align: center;">
+        <p style="font-size: 0.95rem; margin: 0; line-height: 1.4;">李四花两千多买一手茅台股票<br />放账户里，然后等待 ⏳</p>
+      </div>
+    </div>
+
+    {/* 第三格 */}
+    <div data-anim="3" style="background: #fef5e7; border: 2px solid #d35400; border-radius: 12px; padding: 1rem; display: flex; flex-direction: column; justify-content: space-between; position: relative;">
+      <div style="position: absolute; top: -0.7rem; left: 1rem; background: #d35400; color: white; font-size: 0.9rem; padding: 0.1rem 0.6rem; border-radius: 10px; font-weight: 600;">③</div>
+      <div style="flex: 1; display: flex; align-items: center; justify-content: center; gap: 1rem; margin-top: 0.5rem;">
+        <div style="text-align: center;">
+          <div style="font-size: 2.5rem;">🧑</div>
+        </div>
+        <div style="position: relative;">
+          <div style="background: white; border: 2px solid #d35400; border-radius: 12px; padding: 0.5rem 0.8rem; font-size: 0.9rem; max-width: 12rem; text-align: center;">
+            <p style="margin: 0; line-height: 1.4;">"茅台股票也会<br/>越放越醇厚吗？"</p>
+          </div>
+          <div style="position: absolute; bottom: -0.6rem; left: 1rem; width: 0; height: 0; border-left: 0.6rem solid transparent; border-right: 0.6rem solid transparent; border-top: 0.6rem solid #d35400;"></div>
+        </div>
+      </div>
+      <div style="text-align: center; font-size: 0.9rem; color: #d35400;">❓ 张三的灵魂拷问</div>
+    </div>
+
+    {/* 第四格 */}
+    <div data-anim="4" style="background: #fdedec; border: 2px solid #c0392b; border-radius: 12px; padding: 1rem; display: flex; flex-direction: column; justify-content: space-between; position: relative;">
+      <div style="position: absolute; top: -0.7rem; left: 1rem; background: #c0392b; color: white; font-size: 0.9rem; padding: 0.1rem 0.6rem; border-radius: 10px; font-weight: 600;">④</div>
+      <div style="flex: 1; display: flex; align-items: center; justify-content: center; gap: 1rem; margin-top: 0.5rem;">
+        <div style="text-align: center;">
+          <div style="font-size: 2.5rem;">👨‍💼</div>
+        </div>
+        <div style="position: relative;">
+          <div style="background: white; border: 2px solid #c0392b; border-radius: 12px; padding: 0.5rem 0.8rem; font-size: 0.9rem; max-width: 12rem; text-align: center;">
+            <p style="margin: 0; line-height: 1.4;">"你不懂。<br/>时间会证明<br/>我们白酒板块的。"</p>
+          </div>
+          <div style="position: absolute; bottom: -0.6rem; left: 1rem; width: 0; height: 0; border-left: 0.6rem solid transparent; border-right: 0.6rem solid transparent; border-top: 0.6rem solid #c0392b;"></div>
+        </div>
+      </div>
+      <div style="text-align: center; font-size: 0.9rem; color: #c0392b;">🤡 自信的金融消费者</div>
+    </div>
+
+  </div>
+</div>
+
+<Notes>
+
+四格漫画，把前面茅台案例的"金融消费者"概念用段子落地，让观众笑着记住。
+
+第一格和第二格是对照：张三买酒放柜子，李四买股票放账户。表面上一个是消费一个是投资，但行为高度相似——都是花了两千多，然后放着等待。
+
+第三格是张三的灵魂拷问：茅台股票也会越放越醇厚吗？这句话把"等待"这件事的荒谬感拉出来了。你买酒放着，酒确实会越陈越香；但你买股票放着，它凭什么自动增值呢？
+
+第四格是李四的回答，也是整段的包袱："你不懂，时间会证明我们白酒板块的。" 这句话听起来很有信仰，很像价投语录，但放在这个漫画语境里就特别讽刺——他自己也不知道为什么，反正就是相信。
+
+这张漫画的目的，是承接上一页茅台案例，引出下一页"金融产品消费"的主题。观众笑完之后，你可以顺势说：所以你看，很多人以为自己在投资，其实和买酒收藏没什么区别——都是花了钱，放着，然后自我安慰。这就是金融产品消费。
+</Notes>
