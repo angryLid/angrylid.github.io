@@ -1,0 +1,193 @@
+---
+title: "投资的三个要义"
+steps: 1
+---
+import Notes from "@components/Notes.astro";
+
+<div style="padding: 2rem 2.5rem; height: 100%; box-sizing: border-box; display: flex; flex-direction: column;">
+  <h2 style="font-size: 2.4rem; margin: 0 0 1.5rem 0; color: #333; text-align: center; flex-shrink: 0;">投资的三个要义</h2>
+  
+  <div style="flex: 1; min-height: 0; display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 2rem;">
+    <div style="display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 1rem;">
+      <svg viewBox="0 0 240 260" style="width: 100%; max-height: 100%;" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <linearGradient id="goldGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+            <stop offset="0%" stop-color="#f9d423"/>
+            <stop offset="100%" stop-color="#e67e22"/>
+          </linearGradient>
+          <linearGradient id="leafGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+            <stop offset="0%" stop-color="#2ecc71"/>
+            <stop offset="100%" stop-color="#27ae60"/>
+          </linearGradient>
+          <linearGradient id="trunkGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+            <stop offset="0%" stop-color="#8B5E3C"/>
+            <stop offset="50%" stop-color="#A67B5B"/>
+            <stop offset="100%" stop-color="#8B5E3C"/>
+          </linearGradient>
+          <linearGradient id="groundGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+            <stop offset="0%" stop-color="#795548"/>
+            <stop offset="100%" stop-color="#5D4037"/>
+          </linearGradient>
+          <filter id="glow">
+            <feGaussianBlur stdDeviation="3" result="coloredBlur"/>
+            <feMerge><feMergeNode in="coloredBlur"/><feMergeNode in="SourceGraphic"/></feMerge>
+          </filter>
+        </defs>
+        <ellipse cx="120" cy="242" rx="95" ry="10" fill="url(#groundGrad)" opacity="0.6"/>
+        <path d="M110 230 Q95 240 80 250 M120 232 Q120 245 120 252 M130 230 Q145 240 160 250 M95 228 Q75 235 60 248 M145 228 Q165 235 180 248" stroke="#6D4C41" stroke-width="3" fill="none" stroke-linecap="round"/>
+        <rect x="108" y="155" width="24" height="75" rx="4" fill="url(#trunkGrad)"/>
+        <path d="M110 165 Q120 172 130 165 M110 185 Q120 192 130 185 M110 205 Q120 212 130 205" stroke="#6D4C41" stroke-width="1.5" fill="none" opacity="0.5"/>
+        <ellipse cx="120" cy="120" rx="72" ry="58" fill="url(#leafGrad)"/>
+        <ellipse cx="85" cy="100" rx="40" ry="35" fill="url(#leafGrad)"/>
+        <ellipse cx="155" cy="100" rx="40" ry="35" fill="url(#leafGrad)"/>
+        <ellipse cx="120" cy="80" rx="45" ry="35" fill="url(#leafGrad)"/>
+        <circle cx="90" cy="115" r="14" fill="url(#goldGrad)" filter="url(#glow)"/>
+        <circle cx="145" cy="105" r="16" fill="url(#goldGrad)" filter="url(#glow)"/>
+        <circle cx="120" cy="78" r="13" fill="url(#goldGrad)" filter="url(#glow)"/>
+        <circle cx="160" cy="130" r="12" fill="url(#goldGrad)" filter="url(#glow)"/>
+        <circle cx="75" cy="140" r="11" fill="url(#goldGrad)" filter="url(#glow)"/>
+        <circle cx="86" cy="110" r="4" fill="#fff" opacity="0.7"/>
+        <circle cx="140" cy="100" r="5" fill="#fff" opacity="0.7"/>
+        <circle cx="116" cy="74" r="4" fill="#fff" opacity="0.7"/>
+      </svg>
+      <div style="text-align: center;">
+        <p style="font-size: 1.5rem; font-weight: 700; color: #27ae60; margin: 0;">好资产</p>
+        <p style="font-size: 0.95rem; color: #666; margin: 0.4rem 0 0 0; line-height: 1.5;">基本面扎实、持续创造价值<br/>根深叶茂，结出硕果</p>
+      </div>
+    </div>
+
+    <div style="display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 1rem;">
+      <svg viewBox="0 0 240 260" style="width: 100%; max-height: 100%;" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <linearGradient id="chartLineGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+            <stop offset="0%" stop-color="#e74c3c"/>
+            <stop offset="100%" stop-color="#27ae60"/>
+          </linearGradient>
+          <linearGradient id="buyGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+            <stop offset="0%" stop-color="#27ae60"/>
+            <stop offset="100%" stop-color="#1e8449"/>
+          </linearGradient>
+          <linearGradient id="safeZoneGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+            <stop offset="0%" stop-color="#27ae60"/>
+            <stop offset="100%" stop-color="#2ecc71"/>
+          </linearGradient>
+          <filter id="buyGlow">
+            <feGaussianBlur stdDeviation="2" result="coloredBlur"/>
+            <feMerge><feMergeNode in="coloredBlur"/><feMergeNode in="SourceGraphic"/></feMerge>
+          </filter>
+        </defs>
+        <line x1="30" y1="50" x2="210" y2="50" stroke="#eee" stroke-width="1" stroke-dasharray="4,3"/>
+        <line x1="30" y1="95" x2="210" y2="95" stroke="#eee" stroke-width="1" stroke-dasharray="4,3"/>
+        <line x1="30" y1="140" x2="210" y2="140" stroke="#eee" stroke-width="1" stroke-dasharray="4,3"/>
+        <line x1="30" y1="185" x2="210" y2="185" stroke="#eee" stroke-width="1" stroke-dasharray="4,3"/>
+        <line x1="30" y1="40" x2="30" y2="205" stroke="#ccc" stroke-width="1.5"/>
+        <line x1="30" y1="205" x2="215" y2="205" stroke="#ccc" stroke-width="1.5"/>
+        <rect x="30" y="155" width="180" height="50" fill="url(#safeZoneGrad)" opacity="0.12"/>
+        <text x="200" y="175" text-anchor="end" font-size="11" fill="#27ae60" font-weight="600">低估区</text>
+        <path d="M35 70 Q60 55 80 80 T120 120 T160 100 T205 170" stroke="#e74c3c" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+        <path d="M35 70 Q60 55 80 80 T120 120 T160 100" stroke="#e74c3c" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+        <path d="M160 100 Q185 120 205 170" stroke="#e74c3c" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+        <circle cx="198" cy="160" r="8" fill="#27ae60" filter="url(#buyGlow)"/>
+        <circle cx="198" cy="160" r="3.5" fill="#fff"/>
+        <path d="M198 175 L198 170 M198 175 L193 170 M198 175 L203 170" stroke="#27ae60" stroke-width="2" fill="none" stroke-linecap="round"/>
+        <rect x="172" y="190" width="40" height="18" rx="4" fill="url(#buyGrad)"/>
+        <text x="192" y="203" text-anchor="middle" font-size="12" font-weight="700" fill="#fff">买入</text>
+        <text x="37" y="68" font-size="13" fill="#e74c3c" font-weight="600">高</text>
+        <text x="37" y="195" font-size="13" fill="#27ae60" font-weight="600">低</text>
+        <g transform="translate(55, 220)">
+          <path d="M0 15 Q0 5 20 5 Q40 5 40 15 L38 30 Q20 38 2 30 Z" fill="#f39c12"/>
+          <ellipse cx="20" cy="5" rx="14" ry="4" fill="#e67e22"/>
+          <text x="20" y="24" text-anchor="middle" font-size="14" font-weight="700" fill="#fff">¥</text>
+        </g>
+      </svg>
+      <div style="text-align: center;">
+        <p style="font-size: 1.5rem; font-weight: 700; color: #27ae60; margin: 0;">好的买入价格</p>
+        <p style="font-size: 0.95rem; color: #666; margin: 0.4rem 0 0 0; line-height: 1.5;">在低估区间进场<br/>安全边际决定收益空间</p>
+      </div>
+    </div>
+
+    <div style="display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 1rem;">
+      <svg viewBox="0 0 240 260" style="width: 100%; max-height: 100%;" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <linearGradient id="sellGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+            <stop offset="0%" stop-color="#e74c3c"/>
+            <stop offset="100%" stop-color="#c0392b"/>
+          </linearGradient>
+          <linearGradient id="peakGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+            <stop offset="0%" stop-color="#e74c3c"/>
+            <stop offset="100%" stop-color="#f39c12"/>
+          </linearGradient>
+          <linearGradient id="dangerZoneGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+            <stop offset="0%" stop-color="#f39c12"/>
+            <stop offset="100%" stop-color="#e74c3c"/>
+          </linearGradient>
+          <filter id="sellGlow">
+            <feGaussianBlur stdDeviation="2" result="coloredBlur"/>
+            <feMerge><feMergeNode in="coloredBlur"/><feMergeNode in="SourceGraphic"/></feMerge>
+          </filter>
+        </defs>
+        <line x1="30" y1="50" x2="210" y2="50" stroke="#eee" stroke-width="1" stroke-dasharray="4,3"/>
+        <line x1="30" y1="95" x2="210" y2="95" stroke="#eee" stroke-width="1" stroke-dasharray="4,3"/>
+        <line x1="30" y1="140" x2="210" y2="140" stroke="#eee" stroke-width="1" stroke-dasharray="4,3"/>
+        <line x1="30" y1="185" x2="210" y2="185" stroke="#eee" stroke-width="1" stroke-dasharray="4,3"/>
+        <line x1="30" y1="40" x2="30" y2="205" stroke="#ccc" stroke-width="1.5"/>
+        <line x1="30" y1="205" x2="215" y2="205" stroke="#ccc" stroke-width="1.5"/>
+        <rect x="30" y="40" width="180" height="50" fill="url(#dangerZoneGrad)" opacity="0.1"/>
+        <text x="200" y="68" text-anchor="end" font-size="11" fill="#e74c3c" font-weight="600">高估区</text>
+        <path d="M35 180 Q65 150 90 140 Q120 125 145 90 Q165 65 185 55 Q200 50 205 58" stroke="#27ae60" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+        <path d="M205 58 Q210 70 208 85" stroke="#e74c3c" stroke-width="2.5" fill="none" stroke-linecap="round" stroke-dasharray="4,3"/>
+        <circle cx="185" cy="55" r="8" fill="#e74c3c" filter="url(#sellGlow)"/>
+        <circle cx="185" cy="55" r="3.5" fill="#fff"/>
+        <path d="M185 38 L185 43 M185 38 L180 43 M185 38 L190 43" stroke="#e74c3c" stroke-width="2" fill="none" stroke-linecap="round"/>
+        <rect x="162" y="18" width="46" height="18" rx="4" fill="url(#sellGrad)"/>
+        <text x="185" y="31" text-anchor="middle" font-size="12" font-weight="700" fill="#fff">卖出</text>
+        <text x="37" y="68" font-size="13" fill="#e74c3c" font-weight="600">高</text>
+        <text x="37" y="195" font-size="13" fill="#27ae60" font-weight="600">低</text>
+        <g transform="translate(40, 215)">
+          <path d="M0 22 Q0 8 28 8 Q56 8 56 22 L53 40 Q28 50 3 40 Z" fill="#f1c40f"/>
+          <ellipse cx="28" cy="8" rx="20" ry="5" fill="#f39c12"/>
+          <text x="28" y="33" text-anchor="middle" font-size="16" font-weight="700" fill="#d35400">$$$</text>
+          <circle cx="10" cy="5" r="4" fill="#f9d423" stroke="#e67e22" stroke-width="1"/>
+          <circle cx="45" cy="3" r="3.5" fill="#f9d423" stroke="#e67e22" stroke-width="1"/>
+          <circle cx="28" cy="-2" r="3" fill="#f9d423" stroke="#e67e22" stroke-width="1"/>
+        </g>
+      </svg>
+      <div style="text-align: center;">
+        <p style="font-size: 1.5rem; font-weight: 700; color: #e74c3c; margin: 0;">好的卖出价格</p>
+        <p style="font-size: 0.95rem; color: #666; margin: 0.4rem 0 0 0; line-height: 1.5;">在高估区间落袋为安<br/>兑现收益，守住利润</p>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<Notes>
+
+投资的三个要义——好资产、好的买入价格、好的卖出价格——是价值投资的核心框架。
+
+1. 好资产（基础）
+   - 指基本面优秀、持续创造现金流的公司或资产
+   - 有护城河、管理层优秀、行业格局清晰
+   - 类比为一棵根深叶茂的果树，每年都能结出果实
+   - 好资产是前提，但好资产 ≠ 好投资（买贵了照样亏）
+
+2. 好的买入价格（安全边际）
+   - 在市场低估、恐慌、冷僻的时候买入
+   - 价格低于内在价值，预留足够的安全边际
+   - 决定了你的潜在收益空间和风险水平
+   - 巴菲特说："价格是你付出的，价值是你得到的"
+
+3. 好的卖出价格（兑现收益）
+   - 在市场高估、狂热、一致看好的时候卖出
+   - 估值显著高于内在价值，或基本面发生变化
+   - 会卖的才是师傅——纸面富贵不是真富贵
+   - 守住利润，落袋为安
+
+三者关系：
+- 没有好资产，再便宜也是价值陷阱（便宜有便宜的道理）
+- 没有好买价，好资产也可能让你长期套牢（如 60 倍 PE 的茅台）
+- 没有好卖价，坐过山车是常态，利润终成泡影
+
+底部的总结句要强调：三者缺一不可，构成完整的投资闭环。
+
+</Notes>
