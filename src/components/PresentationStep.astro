@@ -1,0 +1,39 @@
+---
+interface Props {
+  step: number;
+}
+
+const { step } = Astro.props as Props;
+---
+
+<div class="presentation-step" data-anim={step}>
+  <slot />
+</div>
+
+<script>
+  const initializedSteps = new WeakSet<HTMLElement>();
+
+  function notifyIfVisible(step: HTMLElement): void {
+    if (!step.hasAttribute("data-visible")) return;
+    step.dispatchEvent(new CustomEvent("presentation-step-visible", { bubbles: true }));
+  }
+
+  function initPresentationSteps(): void {
+    document.querySelectorAll<HTMLElement>(".presentation-step").forEach((step) => {
+      if (initializedSteps.has(step)) return;
+      initializedSteps.add(step);
+      notifyIfVisible(step);
+      new MutationObserver(() => notifyIfVisible(step)).observe(step, {
+        attributes: true,
+        attributeFilter: ["data-visible"],
+      });
+    });
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", initPresentationSteps, { once: true });
+  } else {
+    initPresentationSteps();
+  }
+  document.addEventListener("astro:page-load", initPresentationSteps);
+</script>

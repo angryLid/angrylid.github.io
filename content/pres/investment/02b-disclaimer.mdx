@@ -1,14 +1,56 @@
 ---
 title: "免责声明"
-steps: 1
+steps: 5
 ---
 import Notes from "@components/Notes.astro";
+import PresentationStep from "@components/PresentationStep.astro";
+import TypewriterList from "@components/TypewriterList.astro";
 
 <div style="text-align: left; padding: 2.5rem 3rem;">
   <h2 style="font-size: 3.2rem; margin: 0; color: #333;">免责声明</h2>
-  <p style="margin-top: 2rem; font-size: 1.5rem; line-height: 1.9;">本演示文稿的内容仅用于<strong>教育与科普</strong>，<strong>不构成任何投资建议</strong>。</p>
-  <p style="margin-top: 1.5rem; font-size: 1.5rem; line-height: 1.9;">文中提到的任何资产、产品与案例，仅作示例说明，不代表对它们的推荐或暗示。</p>
-  <p style="margin-top: 1.5rem; font-size: 1.4rem; color: var(--gray);">投资有风险，入市需谨慎。做任何投资决策前，请自行判断，或咨询持牌的专业投资顾问。</p>
+  <div style="display: flex; flex-direction: column; gap: 1.5rem; margin-top: 2rem;">
+    <PresentationStep step={0}>
+      <TypewriterList
+        items={["如果没有特别说明，以下内容均为本人的主观意见，不包含任何客观事实。当然也不构成任何投资建议。"]}
+        itemGap="0"
+        fontSize="1.4rem"
+        lineHeight={1.9}
+      />
+    </PresentationStep>
+    <PresentationStep step={1}>
+      <TypewriterList
+        items={["文中提到的任何资产、产品与案例，仅作示例说明，不代表对它们的推荐或暗示。"]}
+        itemGap="0"
+        fontSize="1.4rem"
+        lineHeight={1.9}
+      />
+    </PresentationStep>
+    <PresentationStep step={2}>
+      <TypewriterList
+        items={['如无特别说明，以下当我提及<strong>多头</strong>时，并不是指日本神话中的八歧大蛇、希腊神话中的美杜莎，也不是任何出现在神话里的多首怪物——而是指<strong>预期资产价格上涨、买入并持有（做多）来获利的投资者</strong>。']}
+        itemGap="0"
+        fontSize="1.4rem"
+        lineHeight={1.9}
+      />
+    </PresentationStep>
+    <PresentationStep step={3}>
+      <TypewriterList
+        items={['当我提及<strong>空军</strong>时，并不是指任何政权的空中武装力量，也不是指空手而归的钓鱼佬——而是指<strong>预期价格下跌、卖出或做空来获利的空头投资者</strong>，与"多头"相对。']}
+        itemGap="0"
+        fontSize="1.4rem"
+        lineHeight={1.9}
+      />
+    </PresentationStep>
+    <PresentationStep step={4}>
+      <TypewriterList
+        items={["每个人都是自己财富的第一责任人。"]}
+        itemGap="0"
+        itemColors={["var(--gray)"]}
+        fontSize="1.4rem"
+        lineHeight={1.9}
+      />
+    </PresentationStep>
+  </div>
 </div>
 
 <Notes>
@@ -17,5 +59,6 @@ import Notes from "@components/Notes.astro";
 - 本演示仅供教育与科普，不构成投资建议
 - 提到的资产、产品与案例仅为示例，不构成推荐
 - 投资有风险，决策请自行判断或咨询持牌专业顾问
+- 两个彩蛋段子："多头"不是多首怪物，而是做多获利的投资者；"空军"不是空军部队/钓鱼空军，而是做空的空头投资者
 
 </Notes>

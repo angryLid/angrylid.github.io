@@ -1,0 +1,253 @@
+---
+// TypewriterList — 逐字显示文本，支持有限的富文本标签。
+//
+// 组件只负责自己的打字机效果，不参与幻灯片步骤或 data-anim 系统。
+// 每个列表项会在组件显示后自动开始打字。
+
+interface Props {
+  items: string[];
+  speed?: number;
+  cursor?: boolean;
+  cursorChar?: string;
+  itemGap?: string;
+  fontSize?: string;
+  lineHeight?: number | string;
+  textAlign?: "left" | "center" | "right";
+  color?: string;
+  itemColors?: string[];
+}
+
+const {
+  items,
+  speed = 100,
+  cursor = true,
+  cursorChar = "▌",
+  itemGap = "1.5rem",
+  fontSize = "1.4rem",
+  lineHeight = 1.9,
+  textAlign = "left",
+  color,
+  itemColors,
+} = Astro.props as Props;
+
+type Token =
+  | { kind: "char"; value: string }
+  | { kind: "open"; tag: string }
+  | { kind: "close"; tag: string };
+
+const allowedTags = new Set(["strong", "em", "b", "i", "u", "span", "code", "mark"]);
+
+function escapeHtml(value: string): string {
+  return value
+    .replaceAll("&", "&amp;")
+    .replaceAll("<", "&lt;")
+    .replaceAll(">", "&gt;")
+    .replaceAll('"', "&quot;")
+    .replaceAll("'", "&#39;");
+}
+
+function tokenize(value: string): Token[] {
+  const tokens: Token[] = [];
+  const tagPattern = /<(\/?)\s*([a-zA-Z][a-zA-Z0-9]*)\s*>|([^<]+)/g;
+  let match: RegExpExecArray | null;
+
+  while ((match = tagPattern.exec(value)) !== null) {
+    if (match[3] !== undefined) {
+      for (const char of Array.from(match[3])) {
+        tokens.push({ kind: "char", value: char });
+      }
+      continue;
+    }
+
+    const tag = match[2].toLowerCase();
+    if (allowedTags.has(tag)) {
+      tokens.push({ kind: match[1] ? "close" : "open", tag });
+    } else {
+      for (const char of Array.from(match[0])) {
+        tokens.push({ kind: "char", value: char });
+      }
+    }
+  }
+
+  return tokens;
+}
+
+function renderTokens(tokens: Token[]): { html: string; count: number } {
+  const openTags: string[] = [];
+  let html = "";
+  let count = 0;
+
+  for (const token of tokens) {
+    if (token.kind === "char") {
+      html += `<span class="tw-char">${escapeHtml(token.value)}</span>`;
+      count += 1;
+    } else if (token.kind === "open") {
+      html += `<${token.tag}>`;
+      openTags.push(token.tag);
+    } else {
+      const index = openTags.lastIndexOf(token.tag);
+      if (index !== -1) {
+        html += `</${token.tag}>`;
+        openTags.splice(index, 1);
+      }
+    }
+  }
+
+  while (openTags.length > 0) {
+    html += `</${openTags.pop()}>`;
+  }
+
+  return { html, count };
+}
+
+const renderedItems = items.map((item) => renderTokens(tokenize(item)));
+---
+
+<ul
+  class="typewriter-list"
+  data-speed={Math.max(1, Number(speed) || 100)}
+  data-cursor={cursor ? "1" : "0"}
+  data-cursor-char={cursorChar}
+  style={`
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    font-size: ${String(fontSize)};
+    line-height: ${String(lineHeight)};
+    text-align: ${textAlign};
+    ${color ? `color: ${String(color)};` : ""}
+  `}
+>
+  {
+    renderedItems.map((item, idx) => (
+      <li
+        class="typewriter-item"
+        data-char-count={item.count}
+        style={`
+          margin-top: ${idx === 0 ? "0" : String(itemGap)};
+          ${itemColors?.[idx] ? `color: ${itemColors[idx]};` : ""}
+        `}
+      >
+        <span class="typewriter-inner" set:html={item.html} />
+        {cursor && <span class="tw-cursor" aria-hidden="true">{cursorChar}</span>}
+      </li>
+    ))
+  }
+</ul>
+
+<style>
+  .typewriter-item {
+    opacity: 1;
+  }
+
+  .typewriter-inner {
+    display: inline;
+  }
+
+  .tw-cursor {
+    display: inline-block;
+    margin-left: 0.05em;
+    opacity: 0;
+    font-weight: 100;
+    animation: tw-cursor-blink 1s step-end infinite;
+  }
+
+  .typewriter-item.typing .tw-cursor {
+    opacity: 1;
+  }
+
+  .typewriter-item.done .tw-cursor {
+    display: none;
+  }
+
+  @keyframes tw-cursor-blink {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0; }
+  }
+</style>
+
+<style is:global>
+  .typewriter-list .tw-char {
+    display: none;
+    opacity: 0;
+    transition: opacity 0.05s linear;
+  }
+
+  .typewriter-list .tw-char.revealed {
+    display: inline;
+    opacity: 1;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .typewriter-list .tw-char {
+      transition: none;
+    }
+
+    .tw-cursor {
+      animation: none;
+    }
+  }
+</style>
+
+<script>
+  const typewriterTimers = new WeakMap<HTMLElement, number[]>();
+  const startedLists = new WeakSet<HTMLElement>();
+
+  function startList(list: HTMLElement): void {
+    if (startedLists.has(list)) return;
+    startedLists.add(list);
+    const speed = Number(list.dataset.speed) || 100;
+    list.querySelectorAll<HTMLElement>(".typewriter-item").forEach((item) => startTyping(item, speed));
+  }
+
+  function startTyping(item: HTMLElement, speed: number): void {
+    const previousTimers = typewriterTimers.get(item);
+    previousTimers?.forEach((timer) => window.clearTimeout(timer));
+
+    const chars = [...item.querySelectorAll<HTMLElement>(".tw-char")];
+    const cursor = item.querySelector<HTMLElement>(".tw-cursor");
+    const timers: number[] = [];
+    const actualSpeed = window.matchMedia("(prefers-reduced-motion: reduce)").matches ? 0 : speed;
+
+    item.classList.remove("done");
+    item.classList.add("typing");
+    chars.forEach((char) => char.classList.remove("revealed"));
+
+    chars.forEach((char, index) => {
+      timers.push(window.setTimeout(() => {
+        char.classList.add("revealed");
+        if (index === chars.length - 1) {
+          item.classList.remove("typing");
+          item.classList.add("done");
+        }
+      }, actualSpeed * index));
+    });
+
+    if (chars.length === 0) {
+      item.classList.remove("typing");
+      item.classList.add("done");
+    }
+
+    if (cursor) cursor.textContent = item.closest<HTMLElement>(".typewriter-list")?.dataset.cursorChar ?? "▌";
+    typewriterTimers.set(item, timers);
+  }
+
+  function initTypewriters(): void {
+    document.querySelectorAll<HTMLElement>(".typewriter-list").forEach((list) => {
+      if (list.closest(".presentation-step")) return;
+      startList(list);
+    });
+  }
+
+  document.addEventListener("presentation-step-visible", (event) => {
+    const step = (event.target as HTMLElement).closest(".presentation-step");
+    step?.querySelectorAll<HTMLElement>(".typewriter-list").forEach(startList);
+  });
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", initTypewriters, { once: true });
+  } else {
+    initTypewriters();
+  }
+  document.addEventListener("astro:page-load", initTypewriters);
+</script>

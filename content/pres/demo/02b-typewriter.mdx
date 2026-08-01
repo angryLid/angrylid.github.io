@@ -1,0 +1,31 @@
+---
+title: "打字机效果"
+steps: 1
+---
+import Notes from "@components/Notes.astro";
+import TypewriterList from "@components/TypewriterList.astro";
+
+<div style="text-align: left; padding: 2.5rem 3rem;">
+  <h2 style="font-size: 3.2rem; margin: 0; color: #333;">免责声明</h2>
+  <div style="margin-top: 2rem;">
+    <TypewriterList
+      items={[
+        "如果没有特别说明，以下内容均为本人的主观意见，不包含任何客观事实。当然也不构成任何投资建议。",
+        "文中提到的任何资产、产品与案例，仅作示例说明，不代表对它们的推荐或暗示。",
+        "每个人都是自己财富的第一责任人。",
+      ]}
+      fontSize="1.4rem"
+      lineHeight={1.9}
+      itemGap="1.5rem"
+    />
+  </div>
+</div>
+
+<Notes>
+
+演示 TypewriterList 组件的打字机效果：
+- 按右箭头逐步显示每条内容
+- 每条内容会逐字打出，像打字机一样
+- 带有闪烁的光标效果
+
+</Notes>
