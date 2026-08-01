@@ -1,31 +1,91 @@
 ---
 title: "什么是投资"
-steps: 1
+steps: 3
 ---
 import Notes from "@components/Notes.astro";
 
-<div style="text-align: left; padding: 2.5rem 3rem;">
-  <h2 style="font-size: 3.2rem; margin: 0; color: #333;">什么是投资</h2>
-  <p style="margin-top: 2rem; font-size: 1.5rem; line-height: 1.9;">投资是把资金或资源投入某项资产，期望在未来获得收益或增值的行为。</p>
-  <ul style="margin-top: 1.5rem; font-size: 1.4rem; line-height: 2; list-style: none; padding: 0;">
-    <li><strong>本金</strong> —— 你投入的资金</li>
-    <li><strong>收益</strong> —— 期望的回报</li>
-    <li><strong>时间</strong> —— 需要等待</li>
-    <li><strong>风险</strong> —— 可能亏损</li>
-  </ul>
-  <p style="margin-top: 1.5rem; font-size: 1.4rem; color: var(--gray);">核心取舍：用当下的资金 + 承担风险，换取未来的收益。</p>
+<div style="height: 100%; box-sizing: border-box; display: flex; flex-direction: column; padding: 1.2rem 3rem;">
+  <h2 style="font-size: 2.2rem; margin: 0 0 0.8rem 0; color: #333; flex-shrink: 0;">什么是投资——从做生意说起</h2>
+
+  <div style="flex: 1; min-height: 0; display: flex; flex-direction: column; gap: 0.8rem;">
+
+    {/* 上半部分：做生意 */}
+    <div data-anim="1" style="flex: 1; min-height: 0; background: #f8f9fa; border-radius: 12px; padding: 1.2rem 1.8rem; display: flex; flex-direction: column; border-left: 5px solid #e67e22;">
+      <h3 style="font-size: 1.5rem; margin: 0 0 0.6rem 0; color: #e67e22;">📦 做生意：倒卖球鞋</h3>
+      <div style="flex: 1; display: flex; align-items: center; justify-content: space-around; gap: 1rem;">
+        <div style="text-align: center;">
+          <div style="font-size: 1.8rem;">💰</div>
+          <p style="font-size: 1.1rem; margin: 0.3rem 0 0 0;">低价买入</p>
+        </div>
+        <div style="font-size: 1.5rem; color: #999;">→</div>
+        <div style="text-align: center;">
+          <div style="font-size: 1.8rem;">🚚</div>
+          <p style="font-size: 1.1rem; margin: 0.3rem 0 0 0;">搬运</p>
+        </div>
+        <div style="font-size: 1.5rem; color: #999;">→</div>
+        <div style="text-align: center;">
+          <div style="font-size: 1.8rem;">📣</div>
+          <p style="font-size: 1.1rem; margin: 0.3rem 0 0 0;">营销 / 找客户</p>
+        </div>
+        <div style="font-size: 1.5rem; color: #999;">→</div>
+        <div style="text-align: center;">
+          <div style="font-size: 1.8rem;">💵</div>
+          <p style="font-size: 1.1rem; margin: 0.3rem 0 0 0;">高价卖出</p>
+        </div>
+        <div style="font-size: 1.5rem; color: #999;">=</div>
+        <div style="text-align: center;">
+          <div style="font-size: 1.8rem;">📈</div>
+          <p style="font-size: 1.1rem; margin: 0.3rem 0 0 0; color: #27ae60; font-weight: 600;">赚差价</p>
+        </div>
+      </div>
+    </div>
+
+    {/* 下半部分：投资 */}
+    <div data-anim="2" style="flex: 1; min-height: 0; background: #eafaf1; border-radius: 12px; padding: 1.2rem 1.8rem; display: flex; flex-direction: column; border-left: 5px solid #27ae60;">
+      <h3 style="font-size: 1.5rem; margin: 0 0 0.6rem 0; color: #27ae60;">💹 投资：买一种"特殊商品"</h3>
+      <div style="flex: 1; display: flex; align-items: center; justify-content: space-around; gap: 1rem;">
+        <div style="text-align: center;">
+          <div style="font-size: 1.8rem;">💰</div>
+          <p style="font-size: 1.1rem; margin: 0.3rem 0 0 0;">买入资产</p>
+        </div>
+        <div style="font-size: 1.5rem; color: #999;">→</div>
+        <div style="text-align: center;">
+          <div style="font-size: 1.8rem;">⏳</div>
+          <p style="font-size: 1.1rem; margin: 0.3rem 0 0 0;">等待时间</p>
+        </div>
+        <div style="font-size: 1.5rem; color: #999;">→</div>
+        <div style="text-align: center;">
+          <div style="font-size: 1.8rem;">💵</div>
+          <p style="font-size: 1.1rem; margin: 0.3rem 0 0 0;">卖出</p>
+        </div>
+        <div style="font-size: 1.5rem; color: #999;">=</div>
+        <div style="text-align: center;">
+          <div style="font-size: 1.8rem;">📈</div>
+          <p style="font-size: 1.1rem; margin: 0.3rem 0 0 0; color: #27ae60; font-weight: 600;">赚收益</p>
+        </div>
+      </div>
+      <div data-anim="3" style="margin-top: 0.5rem; padding: 0.5rem 1rem; background: rgba(39, 174, 96, 0.1); border-radius: 8px; text-align: center;">
+        <p style="font-size: 1.05rem; margin: 0; color: #2ecc71;">
+          ✨ 不需要搬运 · 不需要找客户 · 不需要做营销<br />
+          只需要：等待时间证明你是正确的
+        </p>
+      </div>
+    </div>
+
+  </div>
 </div>
 
 <Notes>
 
-投资的本质是跨期资源配置——放弃当下的消费，换取未来更多的购买力。
+比如你做生意，倒卖球鞋，就是花相对低价买入，然后运到另一个地方卖掉。两个价格相减就是你的收益。
 
-四个关键要素：
-- 本金：投入的初始资金
-- 收益：投资产生的回报（利息、股息、价差等）
-- 时间：投资持有期，复利效应的土壤
-- 风险：收益的不确定性，高收益通常伴随高风险
+做生意的流程很长：你要进货、要搬运、要做营销、要找客户，每一步都要操心、都要付出劳动。
 
-强调"核心取舍"这一句话，它是后续所有投资决策的出发点。
+那么投资无非也是买一种特殊的商品。这种特殊的商品，你也不用搬运到另一个地方，也不需要寻找客户，也不需要做营销。
 
+你只需要等待时间证明你是正确的，然后卖掉就可以了。
+
+所以投资的本质是什么？它和做生意一样，都是低买高卖赚差价。但投资把中间所有折腾人的环节都省掉了，只剩下一件事：等待时间。
+
+这就是投资看起来很"简单"，但又很难的原因——难就难在等待。
 </Notes>
