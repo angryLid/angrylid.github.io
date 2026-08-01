@@ -113,28 +113,27 @@ Steps:
    `host.docker.internal`** — Chrome's DevTools server rejects non-localhost
    `Host` headers (500 `Host header is specified and is not an IP address or
    localhost`). `--remote-allow-origins=*` does NOT relax that check (it only
-   affects the WebSocket Origin/CORS check). Instead, run the kit's TCP
-   forwarder (auto-started from `/etc/sandbox-persistent.sh`) and point the
-   server at `127.0.0.1:19222`, which Chrome accepts because the Host header
-   it sees is `localhost`:
+   affects the WebSocket Origin/CORS check). Instead, use a launcher script as
+   the server's `command` that starts the kit's TCP forwarder as a
+   precondition, then execs the real server pointed at `127.0.0.1:19222`
+   (Chrome accepts it because the Host header it sees is `localhost`):
    ```json
    {
      "mcpServers": {
        "chrome-devtools": {
-         "command": "npx",
-         "args": [
-           "-y",
-           "chrome-devtools-mcp@latest",
-           "--browser-url=http://127.0.0.1:19222"
-         ]
+         "command": "/home/agent/.pi/start-chrome-devtools-mcp.sh",
+         "args": []
        }
      }
    }
    ```
-   The forwarder script lives at `sandbox/pi/files/home/.pi/devtools-forward.js`
-   (a zero-dependency Node `net` pipe from `127.0.0.1:19222` →
-   `host.docker.internal:9222`); the guarded launcher is in
-   `sandbox/pi/files/etc/sandbox-persistent.sh`.
+   The launcher (`sandbox/pi/files/home/.pi/start-chrome-devtools-mcp.sh`)
+   probes 127.0.0.1:19222, starts the zero-dep Node `net` pipe
+   (`sandbox/pi/files/home/.pi/devtools-forward.js`, 19222 →
+   `host.docker.internal:9222`) with `setsid` if nothing is listening, then
+   `exec`s `chrome-devtools-mcp@latest --browser-url=http://127.0.0.1:19222`.
+   Making the forwarder a launch precondition (rather than a background
+   daemon) keeps the whole solution self-contained in `mcp.json`.
 4. Validate JSON:
    ```bash
    python3 -c "import json; json.load(open('sandbox/pi/files/home/.pi/agent/mcp.json'))"
