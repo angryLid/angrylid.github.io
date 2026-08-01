@@ -8,5 +8,6 @@ node_modules
 /sessions/
 /.pi/sessions/
 
-# pnpm project — the npm lockfile is not used
+# pnpm project — lockfiles from other package managers are not used
 package-lock.json
+yarn.lock
