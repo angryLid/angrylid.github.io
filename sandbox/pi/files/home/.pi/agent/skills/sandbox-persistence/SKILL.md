@@ -34,6 +34,7 @@ kit", skip this skill and operate on the live VM only.
 | ---------------------- | -------------------------------------------------- | ---------------------------------------------------------------- |
 | Pi skills              | `~/.pi/agent/skills/<name>/SKILL.md`               | `sandbox/pi/files/home/.pi/agent/skills/<name>/SKILL.md`         |
 | Pi installed packages  | `~/.pi/agent/npm/`, `~/.pi/agent/git/`, `~/.pi/agent/settings.json` (`packages: [...]`) | `sandbox/pi/files/home/.pi/agent/settings.json` (add the source string to the existing `packages: []` array) |
+| MCP server config      | `~/.pi/agent/mcp.json`                             | `sandbox/pi/files/home/.pi/agent/mcp.json`                       |
 
 The kit's `sandbox/pi/files/home/...` is overlaid onto `$HOME` at sandbox
 creation, so anything placed there appears at the corresponding live path
@@ -83,6 +84,66 @@ Steps:
 
 Do **not** write the skill to `~/.pi/agent/skills/` and call it done —
 that location is ephemeral. Always write to the kit path.
+
+## Add MCP server config (persistent)
+
+MCP servers are configured via `~/.pi/agent/mcp.json` (Pi-global layer).
+The `pi-mcp-adapter` package reads this file on startup and exposes the
+servers as tools to the LLM.
+
+Steps:
+
+1. Write `mcp.json` to the kit path:
+   ```bash
+   mkdir -p sandbox/pi/files/home/.pi/agent
+   ```
+2. Structure follows the standard MCP config format:
+   ```json
+   {
+     "mcpServers": {
+       "server-name": {
+         "command": "npx",
+         "args": ["-y", "some-mcp-server@latest"]
+       }
+     }
+   }
+   ```
+3. For servers that need to reach a host-side service (e.g. Chrome DevTools
+   with `--remote-debugging-port`), **do NOT point directly at
+   `host.docker.internal`** — Chrome's DevTools server rejects non-localhost
+   `Host` headers (500 `Host header is specified and is not an IP address or
+   localhost`). `--remote-allow-origins=*` does NOT relax that check (it only
+   affects the WebSocket Origin/CORS check). Instead, run the kit's TCP
+   forwarder (auto-started from `/etc/sandbox-persistent.sh`) and point the
+   server at `127.0.0.1:19222`, which Chrome accepts because the Host header
+   it sees is `localhost`:
+   ```json
+   {
+     "mcpServers": {
+       "chrome-devtools": {
+         "command": "npx",
+         "args": [
+           "-y",
+           "chrome-devtools-mcp@latest",
+           "--browser-url=http://127.0.0.1:19222"
+         ]
+       }
+     }
+   }
+   ```
+   The forwarder script lives at `sandbox/pi/files/home/.pi/devtools-forward.js`
+   (a zero-dependency Node `net` pipe from `127.0.0.1:19222` →
+   `host.docker.internal:9222`); the guarded launcher is in
+   `sandbox/pi/files/etc/sandbox-persistent.sh`.
+4. Validate JSON:
+   ```bash
+   python3 -c "import json; json.load(open('sandbox/pi/files/home/.pi/agent/mcp.json'))"
+   ```
+
+> **Note:** The `pi-mcp-adapter` package itself must still be registered in
+> `settings.json → packages[]` (see previous section). The `mcp.json` file
+> only configures *which* MCP servers are available; the adapter is what
+> loads them.
 
 ## Add an extension (persistent)
 
