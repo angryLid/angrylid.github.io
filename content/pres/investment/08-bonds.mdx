@@ -1,0 +1,135 @@
+---
+title: "生息资产 · 债券"
+steps: 1
+---
+import Notes from "@components/Notes.astro";
+
+<div style="padding: 2.5rem 3rem; height: 100%; box-sizing: border-box; display: flex; flex-direction: column;">
+  <div style="display: flex; align-items: center; gap: 1rem; margin-bottom: 1.5rem; flex-shrink: 0;">
+    <div style="width: 56px; height: 56px; border-radius: 50%; background: linear-gradient(135deg, #27ae60, #16a34a); display: flex; align-items: center; justify-content: center;">
+      <span style="font-size: 1.8rem;">📜</span>
+    </div>
+    <div>
+      <p style="font-size: 0.95rem; color: #16a34a; font-weight: 600; margin: 0;">生息资产</p>
+      <h2 style="font-size: 2.2rem; margin: 0.1rem 0 0 0; color: #333;">债券</h2>
+    </div>
+  </div>
+
+  <div style="flex: 1; min-height: 0; display: grid; grid-template-columns: 1fr 1fr; gap: 2rem;">
+    <div style="display: flex; flex-direction: column; justify-content: center; gap: 1.2rem;">
+      <div style="display: flex; gap: 1rem; align-items: flex-start;">
+        <div style="width: 40px; height: 40px; border-radius: 50%; background: #dcfce7; display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
+          <span style="font-size: 1.2rem;">💵</span>
+        </div>
+        <div>
+          <p style="font-size: 1.15rem; font-weight: 600; color: #333; margin: 0;">固定利息收入</p>
+          <p style="font-size: 0.95rem; color: #666; margin: 0.3rem 0 0 0; line-height: 1.5;">定期支付票息，现金流可预测</p>
+        </div>
+      </div>
+
+      <div style="display: flex; gap: 1rem; align-items: flex-start;">
+        <div style="width: 40px; height: 40px; border-radius: 50%; background: #dcfce7; display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
+          <span style="font-size: 1.2rem;">📅</span>
+        </div>
+        <div>
+          <p style="font-size: 1.15rem; font-weight: 600; color: #333; margin: 0;">到期还本</p>
+          <p style="font-size: 0.95rem; color: #666; margin: 0.3rem 0 0 0; line-height: 1.5;">约定到期日，本金确定性返还</p>
+        </div>
+      </div>
+
+      <div style="display: flex; gap: 1rem; align-items: flex-start;">
+        <div style="width: 40px; height: 40px; border-radius: 50%; background: #dcfce7; display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
+          <span style="font-size: 1.2rem;">🛡️</span>
+        </div>
+        <div>
+          <p style="font-size: 1.15rem; font-weight: 600; color: #333; margin: 0;">风险相对较低</p>
+          <p style="font-size: 0.95rem; color: #666; margin: 0.3rem 0 0 0; line-height: 1.5;">国债几乎无风险，企业债看评级</p>
+        </div>
+      </div>
+    </div>
+
+    <div style="display: flex; align-items: center; justify-content: center;">
+      <svg viewBox="0 0 400 320" style="width: 100%; max-height: 100%;" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <linearGradient id="bondGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+            <stop offset="0%" stop-color="#f0fdf4"/>
+            <stop offset="100%" stop-color="#dcfce7"/>
+          </linearGradient>
+          <linearGradient id="bondGold" x1="0%" y1="0%" x2="0%" y2="100%">
+            <stop offset="0%" stop-color="#fde047"/>
+            <stop offset="100%" stop-color="#facc15"/>
+          </linearGradient>
+        </defs>
+
+        {/* 债券证书主体 */}
+        <rect x="60" y="50" width="280" height="220" rx="8" fill="url(#bondGrad)" stroke="#86efac" stroke-width="2"/>
+        <rect x="60" y="50" width="280" height="35" rx="8" fill="#27ae60"/>
+        <rect x="60" y="70" width="280" height="15" fill="#27ae60"/>
+
+        <text x="200" y="75" text-anchor="middle" font-size="16" font-weight="700" fill="#fff">债 券 凭 证</text>
+
+        {/* 票息 */}
+        <text x="200" y="130" text-anchor="middle" font-size="36" font-weight="800" fill="#16a34a">5%</text>
+        <text x="200" y="155" text-anchor="middle" font-size="13" fill="#15803d">年化票息率</text>
+
+        {/* 时间轴 */}
+        <line x1="90" y1="200" x2="310" y2="200" stroke="#86efac" stroke-width="2"/>
+        <circle cx="90" cy="200" r="6" fill="#27ae60"/>
+        <circle cx="200" cy="200" r="6" fill="#27ae60"/>
+        <circle cx="310" cy="200" r="6" fill="#27ae60"/>
+
+        <text x="90" y="225" text-anchor="middle" font-size="11" fill="#333" font-weight="600">买入</text>
+        <text x="90" y="240" text-anchor="middle" font-size="10" fill="#666">-本金</text>
+
+        <text x="200" y="225" text-anchor="middle" font-size="11" fill="#333" font-weight="600">持有期</text>
+        <text x="200" y="240" text-anchor="middle" font-size="10" fill="#27ae60">+利息</text>
+
+        <text x="310" y="225" text-anchor="middle" font-size="11" fill="#333" font-weight="600">到期</text>
+        <text x="310" y="240" text-anchor="middle" font-size="10" fill="#27ae60">+本金</text>
+
+        {/* 装饰印章 */}
+        <circle cx="310" cy="90" r="25" fill="none" stroke="#e74c3c" stroke-width="2" opacity="0.8"/>
+        <text x="310" y="95" text-anchor="middle" font-size="10" fill="#e74c3c" font-weight="700">保本</text>
+      </svg>
+    </div>
+  </div>
+
+  <div style="margin-top: 1rem; padding: 0.8rem 1.2rem; background: #f0fdf4; border-radius: 0.6rem; border-left: 4px solid #27ae60; flex-shrink: 0;">
+    <p style="font-size: 1rem; color: #166534; margin: 0;">
+      <strong>一句话：</strong>债券就是"你借钱给别人，对方按约定付利息、到期还本金"的借条。
+    </p>
+  </div>
+</div>
+
+<Notes>
+
+债券是最基础的生息资产，也是普通人最容易理解的。
+
+核心要点：
+1. 固定利息收入
+   - 票息率是约定好的，比如国债 3%、企业债 5%
+   - 定期支付（通常每年或每半年）
+   - 现金流的确定性是债券最大的特点
+
+2. 到期还本
+   - 有明确的到期日：1年、3年、5年、10年、30年
+   - 到期返还面值（通常100元）
+   - 这是债券"保本"属性的来源
+
+3. 风险等级差异大
+   - 国债：国家背书，几乎无风险（"无风险利率"的基准）
+   - 地方政府债：信用较好
+   - 企业债：看评级，AAA 最安全，垃圾债风险高
+   - 风险和收益成正比：利率越高，信用风险越大
+
+债券投资的本质：
+- 赚的是"钱的时间价值" + "信用风险补偿"
+- 适合追求稳定收益、保值为主的投资者
+- 是资产配置中的"压舱石"
+
+注意：债券也不是完全没风险的
+- 利率风险：市场利率上升，债券价格下跌
+- 信用风险：发行人违约，本金可能亏损
+- 但持有到期的话，利率风险不影响实际收益
+
+</Notes>

@@ -1,0 +1,144 @@
+---
+title: "生息资产 · 红利股"
+steps: 1
+---
+import Notes from "@components/Notes.astro";
+
+<div style="padding: 2.5rem 3rem; height: 100%; box-sizing: border-box; display: flex; flex-direction: column;">
+  <div style="display: flex; align-items: center; gap: 1rem; margin-bottom: 1.5rem; flex-shrink: 0;">
+    <div style="width: 56px; height: 56px; border-radius: 50%; background: linear-gradient(135deg, #27ae60, #16a34a); display: flex; align-items: center; justify-content: center;">
+      <span style="font-size: 1.8rem;">📈</span>
+    </div>
+    <div>
+      <p style="font-size: 0.95rem; color: #16a34a; font-weight: 600; margin: 0;">生息资产</p>
+      <h2 style="font-size: 2.2rem; margin: 0.1rem 0 0 0; color: #333;">股票 · 红利股</h2>
+    </div>
+  </div>
+
+  <div style="flex: 1; min-height: 0; display: grid; grid-template-columns: 1fr 1fr; gap: 2rem;">
+    <div style="display: flex; flex-direction: column; justify-content: center; gap: 1.2rem;">
+      <div style="display: flex; gap: 1rem; align-items: flex-start;">
+        <div style="width: 40px; height: 40px; border-radius: 50%; background: #dcfce7; display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
+          <span style="font-size: 1.2rem;">💰</span>
+        </div>
+        <div>
+          <p style="font-size: 1.15rem; font-weight: 600; color: #333; margin: 0;">分红派息</p>
+          <p style="font-size: 0.95rem; color: #666; margin: 0.3rem 0 0 0; line-height: 1.5;">盈利的一部分分给股东</p>
+        </div>
+      </div>
+
+      <div style="display: flex; gap: 1rem; align-items: flex-start;">
+        <div style="width: 40px; height: 40px; border-radius: 50%; background: #dcfce7; display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
+          <span style="font-size: 1.2rem;">🌱</span>
+        </div>
+        <div>
+          <p style="font-size: 1.15rem; font-weight: 600; color: #333; margin: 0;">成长增值</p>
+          <p style="font-size: 0.95rem; color: #666; margin: 0.3rem 0 0 0; line-height: 1.5;">公司长大，股价和分红同步增长</p>
+        </div>
+      </div>
+
+      <div style="display: flex; gap: 1rem; align-items: flex-start;">
+        <div style="width: 40px; height: 40px; border-radius: 50%; background: #fef2f2; display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
+          <span style="font-size: 1.2rem;">🎢</span>
+        </div>
+        <div>
+          <p style="font-size: 1.15rem; font-weight: 600; color: #333; margin: 0;">波动较大</p>
+          <p style="font-size: 0.95rem; color: #666; margin: 0.3rem 0 0 0; line-height: 1.5;">价格受情绪影响，需承受回撤</p>
+        </div>
+      </div>
+    </div>
+
+    <div style="display: flex; align-items: center; justify-content: center;">
+      <svg viewBox="0 0 400 320" style="width: 100%; max-height: 100%;" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <linearGradient id="stockGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+            <stop offset="0%" stop-color="#f0fdf4"/>
+            <stop offset="100%" stop-color="#dcfce7"/>
+          </linearGradient>
+          <linearGradient id="priceLine" x1="0%" y1="0%" x2="100%" y2="0%">
+            <stop offset="0%" stop-color="#ef4444"/>
+            <stop offset="50%" stop-color="#f59e0b"/>
+            <stop offset="100%" stop-color="#22c55e"/>
+          </linearGradient>
+        </defs>
+
+        {/* 图表背景 */}
+        <rect x="40" y="30" width="320" height="240" rx="8" fill="url(#stockGrad)" stroke="#86efac" stroke-width="1.5"/>
+
+        {/* 网格线 */}
+        <line x1="40" y1="80" x2="360" y2="80" stroke="#bbf7d0" stroke-width="1" stroke-dasharray="4,3"/>
+        <line x1="40" y1="140" x2="360" y2="140" stroke="#bbf7d0" stroke-width="1" stroke-dasharray="4,3"/>
+        <line x1="40" y1="200" x2="360" y2="200" stroke="#bbf7d0" stroke-width="1" stroke-dasharray="4,3"/>
+
+        {/* 股价曲线 - 长期向上但有波动 */}
+        <path d="M50 210 Q80 195 100 180 Q120 165 140 170 Q160 180 175 150 Q195 120 220 130 Q245 140 260 110 Q280 80 300 90 Q320 100 340 70 Q350 60 355 55"
+              stroke="url(#priceLine)" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+
+        {/* 红利金币 - 散布在曲线上方 */}
+        <g transform="translate(100, 168)">
+          <circle r="10" fill="#fbbf24" stroke="#f59e0b" stroke-width="1.5"/>
+          <text y="4" text-anchor="middle" font-size="10" font-weight="700" fill="#92400e">息</text>
+        </g>
+        <g transform="translate(175, 138)">
+          <circle r="11" fill="#fbbf24" stroke="#f59e0b" stroke-width="1.5"/>
+          <text y="4" text-anchor="middle" font-size="11" font-weight="700" fill="#92400e">息</text>
+        </g>
+        <g transform="translate(260, 98)">
+          <circle r="12" fill="#fbbf24" stroke="#f59e0b" stroke-width="1.5"/>
+          <text y="4" text-anchor="middle" font-size="12" font-weight="700" fill="#92400e">息</text>
+        </g>
+        <g transform="translate(340, 58)">
+          <circle r="13" fill="#fbbf24" stroke="#f59e0b" stroke-width="1.5"/>
+          <text y="4" text-anchor="middle" font-size="13" font-weight="700" fill="#92400e">息</text>
+        </g>
+
+        {/* 标注 */}
+        <text x="355" y="250" text-anchor="end" font-size="11" fill="#666">时间 →</text>
+        <text x="50" y="48" font-size="11" fill="#666">价格</text>
+
+        {/* 底部说明 */}
+        <rect x="80" y="275" width="240" height="35" rx="6" fill="#fff" stroke="#86efac"/>
+        <text x="200" y="297" text-anchor="middle" font-size="13" fill="#166534" font-weight="600">分红随公司成长越来越多 💰</text>
+      </svg>
+    </div>
+  </div>
+
+  <div style="margin-top: 1rem; padding: 0.8rem 1.2rem; background: #f0fdf4; border-radius: 0.6rem; border-left: 4px solid #27ae60; flex-shrink: 0;">
+    <p style="font-size: 1rem; color: #166534; margin: 0;">
+      <strong>一句话：</strong>买股票就是当公司的小股东，公司赚钱了分给你红利，公司长大了你手里的股权也更值钱。
+    </p>
+  </div>
+</div>
+
+<Notes>
+
+红利股是生息资产中最有魅力的一类——既有利息收入，又有成长空间。
+
+核心要点：
+1. 分红派息
+   - 上市公司盈利后，拿出一部分利润分给股东（分红）
+   - 红利股：分红比例高、分红稳定的公司（如银行、公用事业、消费龙头）
+   - 股息率 = 年度分红 / 股价，好的红利股股息率能到 4-6%
+
+2. 成长增值
+   - 和债券最大的区别：债券利息是固定的，股票分红可以增长
+   - 公司越做越大 → 利润越来越多 → 分红越来越多 → 股价也越来越高
+   - 复利效应：分红再投资，股数越来越多，分红也越来越多
+
+3. 波动和风险
+   - 股价波动远大于债券，熊市可能回撤 30-50%
+   - 但红利股通常业务成熟、现金流稳定，波动比成长股小
+   - 只要公司基本面没问题，下跌只是账面浮亏，分红还在继续
+
+为什么红利股是很好的投资标的：
+- "躺赚"感：每年分红打到账户，不用卖股票也有现金流
+- 抗通胀：分红随盈利增长，长期跑赢通胀
+- 复利机器：分红再投入，时间越长威力越大
+
+典型代表：
+- A股：长江电力、工商银行、中国神华、贵州茅台
+- 美股：可口可乐、强生、苹果
+
+适合人群：追求稳定现金流 + 长期增值，能承受一定波动的投资者。
+
+</Notes>

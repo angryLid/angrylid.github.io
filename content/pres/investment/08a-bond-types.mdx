@@ -1,0 +1,165 @@
+---
+title: "债券的分类"
+steps: 1
+---
+import Notes from "@components/Notes.astro";
+
+<div style="padding: 2rem 2.5rem; height: 100%; box-sizing: border-box; display: flex; flex-direction: column;">
+  <div style="display: flex; align-items: center; gap: 1rem; margin-bottom: 1.2rem; flex-shrink: 0;">
+    <div style="width: 50px; height: 50px; border-radius: 50%; background: linear-gradient(135deg, #27ae60, #16a34a); display: flex; align-items: center; justify-content: center;">
+      <span style="font-size: 1.5rem;">📜</span>
+    </div>
+    <div>
+      <p style="font-size: 0.9rem; color: #16a34a; font-weight: 600; margin: 0;">生息资产 · 债券</p>
+      <h2 style="font-size: 2rem; margin: 0.1rem 0 0 0; color: #333;">债券的分类</h2>
+    </div>
+  </div>
+
+  <div style="flex: 1; min-height: 0; display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem;">
+
+    {/* 主权债券 */}
+    <div style="display: flex; flex-direction: column; background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%); border-radius: 1rem; padding: 1.4rem 1.3rem; border: 1px solid #bae6fd;">
+      <div style="display: flex; align-items: center; gap: 0.7rem; margin-bottom: 1rem;">
+        <span style="font-size: 1.6rem;">🏛️</span>
+        <div>
+          <p style="font-size: 1.2rem; font-weight: 700; color: #0369a1; margin: 0;">主权债券</p>
+          <p style="font-size: 0.8rem; color: #0284c7; margin: 0;">政府背书，信用等级最高</p>
+        </div>
+      </div>
+      <div style="flex: 1; display: flex; flex-direction: column; gap: 0.6rem;">
+        <div style="background: #fff; border-radius: 0.5rem; padding: 0.7rem 0.9rem; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 1px 2px rgba(0,0,0,0.04);">
+          <div>
+            <p style="font-size: 0.95rem; font-weight: 600; color: #333; margin: 0;">国债</p>
+            <p style="font-size: 0.75rem; color: #888; margin: 0.1rem 0 0 0;">中央政府发行，金边债券</p>
+          </div>
+          <div style="text-align: right;">
+            <p style="font-size: 0.9rem; font-weight: 700; color: #27ae60; margin: 0;">~2-3%</p>
+            <p style="font-size: 0.7rem; color: #999; margin: 0;">10 年期</p>
+          </div>
+        </div>
+        <div style="background: #fff; border-radius: 0.5rem; padding: 0.7rem 0.9rem; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 1px 2px rgba(0,0,0,0.04);">
+          <div>
+            <p style="font-size: 0.95rem; font-weight: 600; color: #333; margin: 0;">地方债</p>
+            <p style="font-size: 0.75rem; color: #888; margin: 0.1rem 0 0 0;">地方政府发行，隐性刚兑</p>
+          </div>
+          <div style="text-align: right;">
+            <p style="font-size: 0.9rem; font-weight: 700; color: #27ae60; margin: 0;">~3-4%</p>
+            <p style="font-size: 0.7rem; color: #999; margin: 0;">一般债</p>
+          </div>
+        </div>
+        <div style="background: #fff; border-radius: 0.5rem; padding: 0.7rem 0.9rem; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 1px 2px rgba(0,0,0,0.04);">
+          <div>
+            <p style="font-size: 0.95rem; font-weight: 600; color: #333; margin: 0;">政策性金融债</p>
+            <p style="font-size: 0.75rem; color: #888; margin: 0.1rem 0 0 0;">国开、农发、口行</p>
+          </div>
+          <div style="text-align: right;">
+            <p style="font-size: 0.9rem; font-weight: 700; color: #27ae60; margin: 0;">~2.5-3.5%</p>
+            <p style="font-size: 0.7rem; color: #999; margin: 0;">10 年期</p>
+          </div>
+        </div>
+      </div>
+      <div style="margin-top: 0.8rem; padding: 0.5rem 0.7rem; background: #fff; border-radius: 0.4rem; text-align: center;">
+        <p style="font-size: 0.78rem; color: #0369a1; margin: 0;">💡 信用风险极低，收益率也较低</p>
+      </div>
+    </div>
+
+    {/* 信用债 */}
+    <div style="display: flex; flex-direction: column; background: linear-gradient(135deg, #fff7ed 0%, #ffedd5 100%); border-radius: 1rem; padding: 1.4rem 1.3rem; border: 1px solid #fed7aa;">
+      <div style="display: flex; align-items: center; gap: 0.7rem; margin-bottom: 1rem;">
+        <span style="font-size: 1.6rem;">🏢</span>
+        <div>
+          <p style="font-size: 1.2rem; font-weight: 700; color: #c2410c; margin: 0;">信用债</p>
+          <p style="font-size: 0.8rem; color: #ea580c; margin: 0;">企业发行，看信用评级</p>
+        </div>
+      </div>
+      <div style="flex: 1; display: flex; flex-direction: column; gap: 0.6rem;">
+        <div style="background: #fff; border-radius: 0.5rem; padding: 0.7rem 0.9rem; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 1px 2px rgba(0,0,0,0.04);">
+          <div>
+            <p style="font-size: 0.95rem; font-weight: 600; color: #333; margin: 0;">AAA 企业债</p>
+            <p style="font-size: 0.75rem; color: #888; margin: 0.1rem 0 0 0;">央企/头部民企，最安全</p>
+          </div>
+          <div style="text-align: right;">
+            <p style="font-size: 0.9rem; font-weight: 700; color: #f59e0b; margin: 0;">~3-5%</p>
+            <p style="font-size: 0.7rem; color: #999; margin: 0;">中票/短融</p>
+          </div>
+        </div>
+        <div style="background: #fff; border-radius: 0.5rem; padding: 0.7rem 0.9rem; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 1px 2px rgba(0,0,0,0.04);">
+          <div>
+            <p style="font-size: 0.95rem; font-weight: 600; color: #333; margin: 0;">AA/A 信用债</p>
+            <p style="font-size: 0.75rem; color: #888; margin: 0.1rem 0 0 0;">评级越低，风险越高</p>
+          </div>
+          <div style="text-align: right;">
+            <p style="font-size: 0.9rem; font-weight: 700; color: #f59e0b; margin: 0;">~5-8%</p>
+            <p style="font-size: 0.7rem; color: #999; margin: 0;">收益高</p>
+          </div>
+        </div>
+        <div style="background: #fff; border-radius: 0.5rem; padding: 0.7rem 0.9rem; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 1px 2px rgba(0,0,0,0.04);">
+          <div>
+            <p style="font-size: 0.95rem; font-weight: 600; color: #333; margin: 0;">可转换债券</p>
+            <p style="font-size: 0.75rem; color: #888; margin: 0.1rem 0 0 0;">可转成股票，股债双重属性</p>
+          </div>
+          <div style="text-align: right;">
+            <p style="font-size: 0.9rem; font-weight: 700; color: #f59e0b; margin: 0;">~不固定</p>
+            <p style="font-size: 0.7rem; color: #999; margin: 0;">带期权</p>
+          </div>
+        </div>
+      </div>
+      <div style="margin-top: 0.8rem; padding: 0.5rem 0.7rem; background: #fff; border-radius: 0.4rem; text-align: center;">
+        <p style="font-size: 0.78rem; color: #c2410c; margin: 0;">⚠️ 信用风险随评级下降而上升</p>
+      </div>
+    </div>
+
+  </div>
+
+  <div style="margin-top: 1rem; padding: 0.7rem 1rem; background: #f0fdf4; border-radius: 0.6rem; border-left: 4px solid #27ae60; flex-shrink: 0;">
+    <p style="font-size: 0.95rem; color: #166534; margin: 0;">
+      <strong>核心规律：</strong>发行主体信用越强 → 利率越低、越安全；信用越弱 → 利率越高、风险越大。收益和风险永远成正比。
+    </p>
+  </div>
+</div>
+
+<Notes>
+
+这张讲债券的分类，帮听众建立一个整体框架。
+
+第一类：主权债券（蓝色系）
+- 本质：政府借的钱，用税收做背书
+- 国债
+  - 中央政府发行，也叫"金边债券"——最安全的债券
+  - 10 年期国债收益率大约 2-3%（2020 年代水平，长期在下行）
+  - 是整个金融市场的"无风险利率"基准
+- 地方债
+  - 地方政府发行，用于基础设施建设等
+  - 有中央隐性背书，实际风险也很低
+  - 收益率比国债略高一点
+- 政策性金融债
+  - 国家开发银行、农业发展银行、进出口银行发行
+  - 这三家是政策性银行，背后也是国家信用
+  - 流动性好，收益率比国债略高（因为国债利息免税）
+
+第二类：信用债（橙色系）
+- 本质：企业借的钱，用企业信用做背书
+- 信用评级是核心：AAA > AA+ > AA > AA- > A ...
+- AAA 企业债
+  - 央企、大国企、头部民企
+  - 违约风险很低，收益率比政策债高 1-2 个点
+- 低评级信用债
+  - 评级越往下，收益率越高，违约风险也越大
+  - AA 以下的债券，偶尔会出现违约（俗称"爆雷"）
+  - 投资低评级信用债，本质是在赚"信用风险补偿"
+- 可转换债券（可转债）
+  - 特殊的信用债：可以在一定条件下转换成公司股票
+  - 下有债底（到期还本付息），上不封顶（跟着股票涨）
+  - 是一种"进可攻退可守"的品种，比较受散户欢迎
+
+核心规律要强调：
+- 债券的收益率和信用等级成反比
+- 想赚更高的利息，就要承担更高的违约风险
+- 没有"高收益、低风险"的债券——如果看起来有，大概率是你没看到风险
+
+补充：普通人怎么投资债券？
+- 直接买债券：门槛高（100万起），不适合散户
+- 债券基金：最适合普通人的方式，专业经理帮你选债、分散风险
+- 国债逆回购：超级安全、流动性好，但收益率也低
+
+</Notes>

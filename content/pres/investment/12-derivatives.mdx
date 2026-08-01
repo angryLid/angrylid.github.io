@@ -1,0 +1,186 @@
+---
+title: "衍生品"
+steps: 1
+---
+import Notes from "@components/Notes.astro";
+
+<div style="padding: 2.5rem 3rem; height: 100%; box-sizing: border-box; display: flex; flex-direction: column;">
+  <div style="display: flex; align-items: center; gap: 1rem; margin-bottom: 1.5rem; flex-shrink: 0;">
+    <div style="width: 56px; height: 56px; border-radius: 50%; background: linear-gradient(135deg, #ef4444, #dc2626); display: flex; align-items: center; justify-content: center;">
+      <span style="font-size: 1.8rem;">⚡</span>
+    </div>
+    <div>
+      <p style="font-size: 0.95rem; color: #dc2626; font-weight: 600; margin: 0;">第三类资产</p>
+      <h2 style="font-size: 2.2rem; margin: 0.1rem 0 0 0; color: #333;">衍生品</h2>
+    </div>
+  </div>
+
+  <div style="flex: 1; min-height: 0; display: grid; grid-template-columns: 1fr 1fr; gap: 2rem;">
+    <div style="display: flex; flex-direction: column; justify-content: center; gap: 1rem;">
+      <div style="display: flex; gap: 1rem; align-items: flex-start;">
+        <div style="width: 40px; height: 40px; border-radius: 50%; background: #fee2e2; display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
+          <span style="font-size: 1.2rem;">🎭</span>
+        </div>
+        <div>
+          <p style="font-size: 1.15rem; font-weight: 600; color: #333; margin: 0;">价值依附于标的</p>
+          <p style="font-size: 0.95rem; color: #666; margin: 0.3rem 0 0 0; line-height: 1.5;">本身无价值，价格由"标的资产"决定</p>
+        </div>
+      </div>
+
+      <div style="display: flex; gap: 1rem; align-items: flex-start;">
+        <div style="width: 40px; height: 40px; border-radius: 50%; background: #fee2e2; display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
+          <span style="font-size: 1.2rem;">💥</span>
+        </div>
+        <div>
+          <p style="font-size: 1.15rem; font-weight: 600; color: #333; margin: 0;">杠杆放大</p>
+          <p style="font-size: 0.95rem; color: #666; margin: 0.3rem 0 0 0; line-height: 1.5;">小资金撬动大收益，也放大亏损</p>
+        </div>
+      </div>
+
+      <div style="display: flex; gap: 1rem; align-items: flex-start;">
+        <div style="width: 40px; height: 40px; border-radius: 50%; background: #fee2e2; display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
+          <span style="font-size: 1.2rem;">🎲</span>
+        </div>
+        <div>
+          <p style="font-size: 1.15rem; font-weight: 600; color: #333; margin: 0;">零和博弈</p>
+          <p style="font-size: 0.95rem; color: #666; margin: 0.3rem 0 0 0; line-height: 1.5;">你赚的就是别人亏的，扣除手续费</p>
+        </div>
+      </div>
+
+      <div style="display: flex; gap: 1rem; align-items: flex-start;">
+        <div style="width: 40px; height: 40px; border-radius: 50%; background: #fef3c7; display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
+          <span style="font-size: 1.2rem;">🛡️</span>
+        </div>
+        <div>
+          <p style="font-size: 1.15rem; font-weight: 600; color: #333; margin: 0;">也可以用来避险</p>
+          <p style="font-size: 0.95rem; color: #666; margin: 0.3rem 0 0 0; line-height: 1.5;">套期保值，对冲风险（原始功能）</p>
+        </div>
+      </div>
+    </div>
+
+    <div style="display: flex; align-items: center; justify-content: center;">
+      <svg viewBox="0 0 400 320" style="width: 100%; max-height: 100%;" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <linearGradient id="derivBg" x1="0%" y1="0%" x2="0%" y2="100%">
+            <stop offset="0%" stop-color="#fef2f2"/>
+            <stop offset="100%" stop-color="#fee2e2"/>
+          </linearGradient>
+          <linearGradient id="leverGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+            <stop offset="0%" stop-color="#f59e0b"/>
+            <stop offset="100%" stop-color="#ef4444"/>
+          </linearGradient>
+        </defs>
+
+        <rect x="30" y="20" width="340" height="280" rx="12" fill="url(#derivBg)" stroke="#fecaca" stroke-width="2"/>
+
+        {/* 杠杆跷跷板 */}
+        {/* 支点 */}
+        <polygon points="200,220 180,250 220,250" fill="#7f1d1d"/>
+        <rect x="192" y="210" width="16" height="15" fill="#991b1b"/>
+
+        {/* 杠杆杆 */}
+        <rect x="80" y="200" width="240" height="8" rx="4" fill="url(#leverGrad)" transform="rotate(-15, 200, 204)"/>
+
+        {/* 左边 - 小投入 */}
+        <g transform="translate(60, 155)">
+          <circle r="18" fill="#27ae60" stroke="#16a34a" stroke-width="2"/>
+          <text y="6" text-anchor="middle" font-size="14" font-weight="700" fill="#fff">小</text>
+          <text x="0" y="42" text-anchor="middle" font-size="11" fill="#166534" font-weight="600">投入</text>
+        </g>
+
+        {/* 右边 - 大收益/大亏损 */}
+        <g transform="translate(340, 130)">
+          <circle r="28" fill="#ef4444" stroke="#dc2626" stroke-width="2"/>
+          <text y="6" text-anchor="middle" font-size="16" font-weight="700" fill="#fff">大</text>
+          <text x="0" y="52" text-anchor="middle" font-size="11" fill="#991b1b" font-weight="600">收益/亏损</text>
+        </g>
+
+        {/* 标的资产（底层） */}
+        <g transform="translate(200, 280)">
+          <rect x="-80" y="-20" width="160" height="30" rx="6" fill="#fff" stroke="#991b1b" stroke-width="1.5"/>
+          <text x="0" y="0" text-anchor="middle" font-size="12" fill="#991b1b" font-weight="600">标的资产：股票 / 黄金 / 利率…</text>
+        </g>
+
+        {/* 箭头表示衍生关系 */}
+        <line x1="200" y1="260" x2="200" y2="245" stroke="#991b1b" stroke-width="2" marker-end="url(#arrowhead)"/>
+        <defs>
+          <marker id="arrowhead" markerWidth="10" markerHeight="7" refX="0" refY="3.5" orient="auto">
+            <polygon points="0 0, 10 3.5, 0 7" fill="#991b1b"/>
+          </marker>
+        </defs>
+
+        {/* 警示标志 */}
+        <g transform="translate(320, 50)">
+          <polygon points="0,-18 18,0 0,18 -18,0" fill="#fbbf24" stroke="#f59e0b" stroke-width="2"/>
+          <text y="5" text-anchor="middle" font-size="14" font-weight="900" fill="#92400e">!</text>
+        </g>
+
+        <text x="200" y="55" text-anchor="middle" font-size="13" fill="#991b1b" font-weight="600">
+          高杠杆 = 高风险 ⚠️
+        </text>
+      </svg>
+    </div>
+  </div>
+
+  <div style="margin-top: 1rem; padding: 0.8rem 1.2rem; background: #fef2f2; border-radius: 0.6rem; border-left: 4px solid #ef4444; flex-shrink: 0;">
+    <p style="font-size: 1rem; color: #991b1b; margin: 0;">
+      <strong>一句话：</strong>衍生品是"依附于其他资产的合约"——它本身不是资产，而是对赌工具。用好了能避险，用不好能爆仓。
+    </p>
+  </div>
+</div>
+
+<Notes>
+
+衍生品是金融市场中最复杂、风险最高的一类产品。
+
+什么是衍生品：
+- 顾名思义：价值是从某个"标的资产"派生出来的
+- 标的可以是股票、指数、利率、汇率、黄金、原油，甚至天气
+- 衍生品本身没有内在价值，它的价格完全取决于标的资产的价格变化
+
+常见品种：
+1. 期货
+   - 约定未来某个时间、以约定价格买卖某种标的
+   - 保证金交易（杠杆），比如 10% 保证金 = 10 倍杠杆
+   - 到期交割，可以买涨也可以买跌
+
+2. 期权
+   - 给你一个"权利"：到期可以选择买或不买、卖或不卖
+   - 买方风险有限（最多亏权利金），收益无限
+   - 卖方收益有限（赚权利金），风险无限
+   - 比期货更灵活，也更复杂
+
+3. 其他
+   - 互换（Swap）：交换不同的现金流
+   - 掉期：类似互换
+   - 结构化产品：银行卖的各种"理财"，底层可能嵌了衍生品
+
+衍生品的双重身份：
+- 避险工具（原始目的）：
+  - 农民卖粮食期货，锁定收获时的卖价
+  - 外贸公司做外汇远期，锁定汇率
+  - 持股机构买入看跌期权，对冲下跌风险
+  - 这叫"套期保值"，是衍生品存在的合理理由
+
+- 投机工具（大多数人参与的方式）：
+  - 用小资金加杠杆，赌价格涨跌
+  - 赌对了赚大钱，赌错了亏光本金甚至倒欠
+  - 这是零和博弈：你赚的就是别人亏的
+
+为什么普通人要远离衍生品投机：
+1. 杠杆是双刃剑——放大收益的同时也放大亏损
+2. 零和博弈，你面对的是专业机构和量化基金
+3. 手续费和滑点长期下来是巨大的损耗
+4. 爆仓风险：期货可能让你亏光还倒欠
+5. 心态容易崩：高波动下很难理性决策
+
+一个数据：期货市场 90% 的散户是亏钱的，剩下 10% 里大部分也只是打平。真正靠衍生品投机稳定盈利的人，百里挑一。
+
+正确的态度：
+- 不懂的不碰
+- 如果要用，只用它的避险功能，而不是投机功能
+- 投资的正道还是生息资产，衍生品只是辅助工具
+
+巴菲特说过："衍生品是金融界的大规模杀伤性武器。"——这话不是危言耸听。
+
+</Notes>

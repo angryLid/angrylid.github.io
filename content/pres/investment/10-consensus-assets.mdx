@@ -1,0 +1,161 @@
+---
+title: "共识类资产 · 老登资产"
+steps: 1
+---
+import Notes from "@components/Notes.astro";
+
+<div style="padding: 2.5rem 3rem; height: 100%; box-sizing: border-box; display: flex; flex-direction: column;">
+  <div style="display: flex; align-items: center; gap: 1rem; margin-bottom: 1.5rem; flex-shrink: 0;">
+    <div style="width: 56px; height: 56px; border-radius: 50%; background: linear-gradient(135deg, #f59e0b, #d97706); display: flex; align-items: center; justify-content: center;">
+      <span style="font-size: 1.8rem;">👴</span>
+    </div>
+    <div>
+      <p style="font-size: 0.95rem; color: #d97706; font-weight: 600; margin: 0;">共识类资产</p>
+      <h2 style="font-size: 2.2rem; margin: 0.1rem 0 0 0; color: #333;">老登资产</h2>
+    </div>
+  </div>
+
+  <div style="flex: 1; min-height: 0; display: grid; grid-template-columns: 1fr 1fr; gap: 2rem;">
+    <div style="display: flex; flex-direction: column; justify-content: center; gap: 1.2rem;">
+      <div style="display: flex; gap: 1rem; align-items: flex-start;">
+        <div style="width: 40px; height: 40px; border-radius: 50%; background: #fef3c7; display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
+          <span style="font-size: 1.2rem;">🤝</span>
+        </div>
+        <div>
+          <p style="font-size: 1.15rem; font-weight: 600; color: #333; margin: 0;">价值 = 共识</p>
+          <p style="font-size: 0.95rem; color: #666; margin: 0.3rem 0 0 0; line-height: 1.5;">大家都觉得它值钱，它就值钱</p>
+        </div>
+      </div>
+
+      <div style="display: flex; gap: 1rem; align-items: flex-start;">
+        <div style="width: 40px; height: 40px; border-radius: 50%; background: #fef3c7; display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
+          <span style="font-size: 1.2rem;">🚫</span>
+        </div>
+        <div>
+          <p style="font-size: 1.15rem; font-weight: 600; color: #333; margin: 0;">不产生现金流</p>
+          <p style="font-size: 0.95rem; color: #666; margin: 0.3rem 0 0 0; line-height: 1.5;">没有利息、没有分红，全靠涨价</p>
+        </div>
+      </div>
+
+      <div style="display: flex; gap: 1rem; align-items: flex-start;">
+        <div style="width: 40px; height: 40px; border-radius: 50%; background: #fef3c7; display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
+          <span style="font-size: 1.2rem;">🎰</span>
+        </div>
+        <div>
+          <p style="font-size: 1.15rem; font-weight: 600; color: #333; margin: 0;">高波动 + 投机性</p>
+          <p style="font-size: 0.95rem; color: #666; margin: 0.3rem 0 0 0; line-height: 1.5;">价格由情绪驱动，容易大起大落</p>
+        </div>
+      </div>
+    </div>
+
+    <div style="display: flex; align-items: center; justify-content: center;">
+      <svg viewBox="0 0 400 320" style="width: 100%; max-height: 100%;" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <linearGradient id="laodengBg" x1="0%" y1="0%" x2="0%" y2="100%">
+            <stop offset="0%" stop-color="#fffbeb"/>
+            <stop offset="100%" stop-color="#fef3c7"/>
+          </linearGradient>
+          <radialGradient id="consensusGlow" cx="50%" cy="50%" r="50%">
+            <stop offset="0%" stop-color="#fbbf24" stop-opacity="0.6"/>
+            <stop offset="100%" stop-color="#fbbf24" stop-opacity="0"/>
+          </radialGradient>
+        </defs>
+
+        <rect x="30" y="20" width="340" height="280" rx="12" fill="url(#laodengBg)" stroke="#fde68a" stroke-width="2"/>
+
+        {/* 中心资产 - 比特币风格图标 */}
+        <circle cx="200" cy="140" r="45" fill="url(#consensusGlow)"/>
+        <circle cx="200" cy="140" r="32" fill="#f59e0b" stroke="#d97706" stroke-width="2"/>
+        <text x="200" y="152" text-anchor="middle" font-size="28" font-weight="900" fill="#fff">₿</text>
+
+        {/* 周围的人 - 代表共识 */}
+        <g transform="translate(80, 90)">
+          <circle cx="15" cy="15" r="14" fill="#fde68a" stroke="#f59e0b" stroke-width="1.5"/>
+          <text x="15" y="20" text-anchor="middle" font-size="14">👴</text>
+        </g>
+        <g transform="translate(300, 90)">
+          <circle cx="15" cy="15" r="14" fill="#fde68a" stroke="#f59e0b" stroke-width="1.5"/>
+          <text x="15" y="20" text-anchor="middle" font-size="14">👵</text>
+        </g>
+        <g transform="translate(60, 190)">
+          <circle cx="15" cy="15" r="14" fill="#fde68a" stroke="#f59e0b" stroke-width="1.5"/>
+          <text x="15" y="20" text-anchor="middle" font-size="14">🧓</text>
+        </g>
+        <g transform="translate(320, 190)">
+          <circle cx="15" cy="15" r="14" fill="#fde68a" stroke="#f59e0b" stroke-width="1.5"/>
+          <text x="15" y="20" text-anchor="middle" font-size="14">👨‍🦳</text>
+        </g>
+
+        {/* 连接线 - 共识网络 */}
+        <line x1="95" y1="105" x2="175" y2="130" stroke="#f59e0b" stroke-width="1.5" stroke-dasharray="4,3" opacity="0.6"/>
+        <line x1="305" y1="105" x2="225" y2="130" stroke="#f59e0b" stroke-width="1.5" stroke-dasharray="4,3" opacity="0.6"/>
+        <line x1="75" y1="205" x2="175" y2="155" stroke="#f59e0b" stroke-width="1.5" stroke-dasharray="4,3" opacity="0.6"/>
+        <line x1="325" y1="205" x2="225" y2="155" stroke="#f59e0b" stroke-width="1.5" stroke-dasharray="4,3" opacity="0.6"/>
+
+        {/* 标注 */}
+        <text x="200" y="210" text-anchor="middle" font-size="14" font-weight="700" fill="#92400e">集体认同 = 价值</text>
+
+        {/* 底部气泡 */}
+        <g transform="translate(140, 240)">
+          <rect x="0" y="0" width="120" height="40" rx="20" fill="#fff" stroke="#f59e0b" stroke-width="1.5"/>
+          <text x="60" y="18" text-anchor="middle" font-size="11" fill="#666">"这东西值钱！"</text>
+          <text x="60" y="32" text-anchor="middle" font-size="11" fill="#666">—— 大家都这么说</text>
+          <polygon points="60,40 50,52 70,52" fill="#fff" stroke="#f59e0b" stroke-width="1.5"/>
+          <polygon points="60,41 52,50 68,50" fill="#fff"/>
+        </g>
+        <g transform="translate(190, 285)">
+          <text x="10" y="0" font-size="14">👆</text>
+        </g>
+      </svg>
+    </div>
+  </div>
+
+  <div style="margin-top: 1rem; padding: 0.8rem 1.2rem; background: #fffbeb; border-radius: 0.6rem; border-left: 4px solid #f59e0b; flex-shrink: 0;">
+    <p style="font-size: 1rem; color: #92400e; margin: 0;">
+      <strong>一句话：</strong>老登资产是"老一代人都认可、代代相传"的价值储存——它本身不生钱，但大家都觉得它值钱。
+    </p>
+  </div>
+</div>
+
+<Notes>
+
+"老登资产"是个通俗说法，指的是那些靠代际共识维持价值的资产。
+
+为什么叫"老登"：
+- 因为这些资产的价值共识，是一代又一代人"登"上去的
+- 爷爷觉得值钱 → 爸爸觉得值钱 → 你也觉得值钱 → 代代相传
+- 共识越老、越广，资产越坚挺
+
+核心特征：
+1. 价值完全来自共识
+   - 本身不产生任何现金流（没有利息、没有分红、没有租金）
+   - 赚钱的唯一方式：卖给下一个愿意出更高价的人
+   - 本质是"博傻"吗？不完全是——共识本身就是价值
+
+2. 不产生现金流
+   - 和生息资产最大的区别：持有它不会给你带来被动收入
+   - 它的价值储存功能，来自于"大家都认"
+   - 估值很难：因为没有现金流可以折现，全靠情绪和信仰
+
+3. 高波动 + 投机性
+   - 价格受市场情绪影响极大
+   - 牛市可以涨上天，熊市可以跌很惨
+   - 共识越弱的品种，波动越大
+
+典型的老登资产：
+- 比特币：数字黄金，年轻一代的共识（能不能成为老登资产还需要时间检验）
+- 古玩字画：需要懂行的小圈子共识
+- 茅台酒（收藏属性）：本身有消费价值，但收藏溢价来自共识
+- 钻石：营销出来的共识（"钻石恒久远"）
+- 限量版球鞋、潮玩：年轻一代的小范围共识
+
+投资共识类资产的关键：
+- 你要判断这个共识会不会持续、会不会扩大
+- 进场时机比什么都重要——共识顶点进场就是接盘
+- 仓位控制：共识类资产在资产配置中比例不宜过高
+
+和生息资产对比：
+- 生息资产：你有一只下蛋的鸡，每天给你下蛋
+- 共识资产：你有一只漂亮的鸡，你指望别人用更高价买走它
+
+</Notes>

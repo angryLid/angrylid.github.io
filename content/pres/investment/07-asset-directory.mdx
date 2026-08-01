@@ -1,0 +1,152 @@
+---
+title: "资产的分类"
+steps: 1
+---
+import Notes from "@components/Notes.astro";
+
+<div style="padding: 2rem 2.5rem; height: 100%; box-sizing: border-box; display: flex; flex-direction: column;">
+  <h2 style="font-size: 2.4rem; margin: 0 0 1.5rem 0; color: #333; text-align: center; flex-shrink: 0;">资产的分类</h2>
+  
+  <div style="flex: 1; min-height: 0; display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 1.8rem;">
+
+    {/* 生息资产 */}
+    <div style="display: flex; flex-direction: column; background: linear-gradient(135deg, #f0fdf4 0%, #dcfce7 100%); border-radius: 1rem; padding: 1.8rem 1.5rem; border: 1px solid #bbf7d0;">
+      <div style="display: flex; align-items: center; gap: 0.8rem; margin-bottom: 1.2rem;">
+        <svg viewBox="0 0 48 48" width="44" height="44" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <linearGradient id="intGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+              <stop offset="0%" stop-color="#27ae60"/>
+              <stop offset="100%" stop-color="#16a34a"/>
+            </linearGradient>
+          </defs>
+          <circle cx="24" cy="24" r="22" fill="url(#intGrad)"/>
+          <path d="M24 12 L24 36 M18 18 L24 12 L30 18" stroke="#fff" stroke-width="3" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+          <circle cx="24" cy="30" r="3" fill="#fff"/>
+        </svg>
+        <div>
+          <p style="font-size: 1.4rem; font-weight: 700; color: #166534; margin: 0;">生息资产</p>
+          <p style="font-size: 0.85rem; color: #15803d; margin: 0.1rem 0 0 0;">能持续产生现金流</p>
+        </div>
+      </div>
+      <div style="flex: 1; display: flex; flex-direction: column; gap: 0.9rem;">
+        <div style="background: #fff; border-radius: 0.6rem; padding: 0.9rem 1rem; display: flex; align-items: center; gap: 0.8rem; box-shadow: 0 1px 3px rgba(0,0,0,0.05);">
+          <span style="font-size: 1.5rem;">📜</span>
+          <div>
+            <p style="font-size: 1.1rem; font-weight: 600; color: #333; margin: 0;">债券</p>
+            <p style="font-size: 0.8rem; color: #888; margin: 0.1rem 0 0 0;">固定收益，到期还本</p>
+          </div>
+        </div>
+        <div style="background: #fff; border-radius: 0.6rem; padding: 0.9rem 1rem; display: flex; align-items: center; gap: 0.8rem; box-shadow: 0 1px 3px rgba(0,0,0,0.05);">
+          <span style="font-size: 1.5rem;">📈</span>
+          <div>
+            <p style="font-size: 1.1rem; font-weight: 600; color: #333; margin: 0;">股票（红利股）</p>
+            <p style="font-size: 0.8rem; color: #888; margin: 0.1rem 0 0 0;">分红派息，分享成长</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    {/* 共识类资产 */}
+    <div style="display: flex; flex-direction: column; background: linear-gradient(135deg, #fffbeb 0%, #fef3c7 100%); border-radius: 1rem; padding: 1.8rem 1.5rem; border: 1px solid #fde68a;">
+      <div style="display: flex; align-items: center; gap: 0.8rem; margin-bottom: 1.2rem;">
+        <svg viewBox="0 0 48 48" width="44" height="44" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <linearGradient id="consensusGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+              <stop offset="0%" stop-color="#f59e0b"/>
+              <stop offset="100%" stop-color="#d97706"/>
+            </linearGradient>
+          </defs>
+          <circle cx="24" cy="24" r="22" fill="url(#consensusGrad)"/>
+          <path d="M14 24 L20 30 L34 16" stroke="#fff" stroke-width="3" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+          <circle cx="24" cy="36" r="2.5" fill="#fff"/>
+        </svg>
+        <div>
+          <p style="font-size: 1.4rem; font-weight: 700; color: #92400e; margin: 0;">共识类资产</p>
+          <p style="font-size: 0.85rem; color: #b45309; margin: 0.1rem 0 0 0;">价值来自集体认同</p>
+        </div>
+      </div>
+      <div style="flex: 1; display: flex; flex-direction: column; gap: 0.9rem;">
+        <div style="background: #fff; border-radius: 0.6rem; padding: 0.9rem 1rem; display: flex; align-items: center; gap: 0.8rem; box-shadow: 0 1px 3px rgba(0,0,0,0.05);">
+          <span style="font-size: 1.5rem;">👴</span>
+          <div>
+            <p style="font-size: 1.1rem; font-weight: 600; color: #333; margin: 0;">老登资产</p>
+            <p style="font-size: 0.8rem; color: #888; margin: 0.1rem 0 0 0;">代代相传的价值储存</p>
+          </div>
+        </div>
+        <div style="background: #fff; border-radius: 0.6rem; padding: 0.9rem 1rem; display: flex; align-items: center; gap: 0.8rem; box-shadow: 0 1px 3px rgba(0,0,0,0.05);">
+          <span style="font-size: 1.5rem;">🥇</span>
+          <div>
+            <p style="font-size: 1.1rem; font-weight: 600; color: #333; margin: 0;">黄金</p>
+            <p style="font-size: 0.8rem; color: #888; margin: 0.1rem 0 0 0;">千年硬通货</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    {/* 衍生品 */}
+    <div style="display: flex; flex-direction: column; background: linear-gradient(135deg, #fef2f2 0%, #fee2e2 100%); border-radius: 1rem; padding: 1.8rem 1.5rem; border: 1px solid #fecaca;">
+      <div style="display: flex; align-items: center; gap: 0.8rem; margin-bottom: 1.2rem;">
+        <svg viewBox="0 0 48 48" width="44" height="44" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <linearGradient id="derivGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+              <stop offset="0%" stop-color="#ef4444"/>
+              <stop offset="100%" stop-color="#dc2626"/>
+            </linearGradient>
+          </defs>
+          <circle cx="24" cy="24" r="22" fill="url(#derivGrad)"/>
+          <path d="M24 10 L28 22 L40 22 L30 30 L34 42 L24 34 L14 42 L18 30 L8 22 L20 22 Z" stroke="#fff" stroke-width="1.5" fill="none" stroke-linejoin="round"/>
+        </svg>
+        <div>
+          <p style="font-size: 1.4rem; font-weight: 700; color: #991b1b; margin: 0;">衍生品</p>
+          <p style="font-size: 0.85rem; color: #b91c1c; margin: 0.1rem 0 0 0;">价值依附于标的资产</p>
+        </div>
+      </div>
+      <div style="flex: 1; display: flex; flex-direction: column; gap: 0.9rem;">
+        <div style="background: #fff; border-radius: 0.6rem; padding: 0.9rem 1rem; display: flex; align-items: center; gap: 0.8rem; box-shadow: 0 1px 3px rgba(0,0,0,0.05);">
+          <span style="font-size: 1.5rem;">🎭</span>
+          <div>
+            <p style="font-size: 1.1rem; font-weight: 600; color: #333; margin: 0;">期权 / 期货</p>
+            <p style="font-size: 0.8rem; color: #888; margin: 0.1rem 0 0 0;">杠杆放大，风险倍增</p>
+          </div>
+        </div>
+        <div style="opacity: 0.5; background: #fff; border-radius: 0.6rem; padding: 0.9rem 1rem; display: flex; align-items: center; gap: 0.8rem; box-shadow: 0 1px 3px rgba(0,0,0,0.05);">
+          <span style="font-size: 1.5rem;">⚖️</span>
+          <div>
+            <p style="font-size: 1.1rem; font-weight: 600; color: #333; margin: 0;">更多品种…</p>
+            <p style="font-size: 0.8rem; color: #888; margin: 0.1rem 0 0 0;">互换、掉期、结构化产品</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<Notes>
+
+这是一张目录页，介绍资产的三大分类。讲的时候要强调分类逻辑，而不是简单念名字。
+
+1. 生息资产（绿色）
+   - 核心特征：本身能产生现金流，像果树结果子一样
+   - 债券：固定利息 + 到期还本，现金流最确定
+   - 股票（红利股）：分红派息，还能分享公司成长
+   - 这类资产的价值有"底"——现金流撑着
+
+2. 共识类资产（金色）
+   - 核心特征：本身不产生收益，价值来自大家"都认它值钱"
+   - 老登资产：比如比特币、古玩字画，需要足够多人的共识
+   - 黄金：最强的共识资产，几千年的人类集体认同
+   - 这类资产的估值难度大，因为没有现金流锚定
+
+3. 衍生品（红色）
+   - 核心特征：本身没有价值，价值依附于某个标的资产
+   - 期权、期货是最常见的
+   - 高杠杆、高风险，是工具而非资产本身
+   - 用红色警示风险——普通人要谨慎
+
+三类资产的对比逻辑：
+- 生息资产 → 看基本面，赚"价值创造"的钱
+- 共识资产 → 看人心，赚"别人认同"的钱
+- 衍生品 → 看博弈，赚"对手盘"的钱
+
+</Notes>
