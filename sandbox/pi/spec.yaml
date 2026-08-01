@@ -15,16 +15,16 @@ network:
     - "**"
   serviceDomains:
     ark.cn-beijing.volces.com: volcengine
-    opencode.ai: my-opencode-go
     api.deepseek.com: deepseek
+    openrouter.ai: my-openrouter
   serviceAuth:
     volcengine:
       headerName: x-api-key
       valueFormat: "%s"
-    my-opencode-go:
+    deepseek:
       headerName: Authorization
       valueFormat: "Bearer %s"
-    deepseek:
+    my-openrouter:
       headerName: Authorization
       valueFormat: "Bearer %s"
 
@@ -33,18 +33,18 @@ credentials:
     volcengine:
       env:
         - VOLCENGINE_API_KEY
-    my-opencode-go:
-      env:
-        - MY_OPENCODE_GO_API_KEY
     deepseek:
       env:
         - MY_DEEPSEEK_API_KEY
+    my-openrouter:
+      env:
+        - MY_OPENROUTER_API_KEY
 
 environment:
   proxyManaged:
     - VOLCENGINE_API_KEY
-    - MY_OPENCODE_GO_API_KEY
     - MY_DEEPSEEK_API_KEY
+    - MY_OPENROUTER_API_KEY
 
 commands:
   install:
