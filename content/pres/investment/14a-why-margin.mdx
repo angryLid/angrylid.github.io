@@ -1,0 +1,167 @@
+---
+title: "为什么需要保证金"
+steps: 1
+---
+import Notes from "@components/Notes.astro";
+
+<div style="position: absolute; inset: 0; overflow: hidden; background: radial-gradient(circle at 18% 12%, rgba(251,191,36,0.15), transparent 42%), radial-gradient(circle at 88% 90%, rgba(245,158,11,0.12), transparent 46%), radial-gradient(circle at 72% 24%, rgba(234,179,8,0.07), transparent 40%), #0a0a0f; color: #e2e8f0; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; display: flex; flex-direction: column; padding: 2.6rem 3.2rem 2rem;">
+  <svg style="position: absolute; inset: 0; width: 100%; height: 100%; opacity: 0.5; pointer-events: none;" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+      <pattern id="grid14a" width="48" height="48" patternUnits="userSpaceOnUse">
+        <path d="M48 0 L0 0 0 48" fill="none" stroke="rgba(251,191,36,0.05)" stroke-width="1"/>
+      </pattern>
+    </defs>
+    <rect width="100%" height="100%" fill="url(#grid14a)"/>
+  </svg>
+
+  <div style="position: relative; flex-shrink: 0;">
+    <div style="display: flex; align-items: center; gap: 0.7rem; margin-bottom: 0.5rem;">
+      <span style="font-family: 'Cascadia Code', monospace; font-size: 0.78rem; letter-spacing: 0.12em; color: #fbbf24; border: 1px solid rgba(251,191,36,0.45); padding: 0.2rem 0.6rem; border-radius: 0.4rem; background: rgba(251,191,36,0.08); box-shadow: 0 0 14px rgba(251,191,36,0.25), inset 0 0 8px rgba(251,191,36,0.08);">02 / 03 · WHY</span>
+      <span style="font-family: 'Cascadia Code', monospace; font-size: 0.72rem; letter-spacing: 0.2em; color: #64748b; text-transform: uppercase;">futures · 期货三部曲</span>
+    </div>
+    <h1 style="font-size: 2.9rem; font-weight: 800; margin: 0; line-height: 1.05; background: linear-gradient(92deg, #fde68a 0%, #fbbf24 45%, #f59e0b 100%); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; color: transparent; filter: drop-shadow(0 0 16px rgba(251,191,36,0.32));">保证金 ≠ 货款</h1>
+    <p style="font-size: 1rem; color: #94a3b8; margin: 0.45rem 0 0; font-weight: 400;">它是"保证你不跑路的押金"--让交易所敢做所有人的对手方</p>
+  </div>
+
+  <div style="position: relative; flex: 1; min-height: 0; display: grid; grid-template-columns: 1.2fr 1fr; gap: 1.6rem; margin-top: 1.4rem;">
+    <div style="background: linear-gradient(160deg, rgba(20,20,30,0.7), rgba(10,10,15,0.5)); border: 1px solid rgba(251,191,36,0.18); border-radius: 1rem; padding: 0.8rem 1rem; display: flex; flex-direction: column; backdrop-filter: blur(6px); box-shadow: 0 0 30px rgba(251,191,36,0.05), inset 0 1px 0 rgba(255,255,255,0.04);">
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.2rem;">
+        <span style="font-size: 0.78rem; color: #64748b; font-family: 'Cascadia Code', monospace; letter-spacing: 0.08em;">CCP · 中央对手方清算</span>
+        <span style="font-size: 0.72rem; color: #fbbf24; font-family: 'Cascadia Code', monospace;">▲ 信用兜底</span>
+      </div>
+      <svg viewBox="0 0 560 320" preserveAspectRatio="xMidYMid meet" style="width: 100%; flex: 1; min-height: 0;" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <filter id="glow14a" x="-50%" y="-50%" width="200%" height="200%">
+            <feGaussianBlur stdDeviation="2.6" result="b"/>
+            <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+          </filter>
+          <linearGradient id="ccpGrad14a" x1="0%" y1="0%" x2="0%" y2="100%">
+            <stop offset="0%" stop-color="#fde68a"/>
+            <stop offset="100%" stop-color="#f59e0b"/>
+          </linearGradient>
+          <linearGradient id="goldArrow14a" x1="0%" y1="0%" x2="100%" y2="0%">
+            <stop offset="0%" stop-color="#fbbf24"/>
+            <stop offset="100%" stop-color="#f59e0b"/>
+          </linearGradient>
+          <marker id="arrowGold14a" markerWidth="9" markerHeight="7" refX="8" refY="3.5" orient="auto">
+            <polygon points="0 0, 9 3.5, 0 7" fill="#fbbf24"/>
+          </marker>
+          <marker id="arrowBack14a" markerWidth="9" markerHeight="7" refX="8" refY="3.5" orient="auto">
+            <polygon points="0 0, 9 3.5, 0 7" fill="#fbbf24" opacity="0.55"/>
+          </marker>
+        </defs>
+
+        <g filter="url(#glow14a)">
+          <path d="M150 70 Q280 70 280 150" stroke="url(#goldArrow14a)" stroke-width="2.2" fill="none" marker-end="url(#arrowGold14a)"/>
+          <path d="M410 70 Q280 70 280 150" stroke="url(#goldArrow14a)" stroke-width="2.2" fill="none" marker-end="url(#arrowGold14a)"/>
+          <path d="M280 195 Q280 245 150 280" stroke="#f59e0b" stroke-width="1.6" fill="none" stroke-dasharray="5 4" marker-end="url(#arrowBack14a)" opacity="0.6"/>
+          <path d="M280 195 Q280 245 410 280" stroke="#f59e0b" stroke-width="1.6" fill="none" stroke-dasharray="5 4" marker-end="url(#arrowBack14a)" opacity="0.6"/>
+        </g>
+
+        <g filter="url(#glow14a)">
+          <polygon points="280,108 322,132 322,180 280,204 238,180 238,132" fill="rgba(251,191,36,0.16)" stroke="url(#ccpGrad14a)" stroke-width="2.2"/>
+          <text x="280" y="150" text-anchor="middle" font-size="13" font-weight="700" fill="#fde68a">结算所</text>
+          <text x="280" y="168" text-anchor="middle" font-size="9" fill="#fbbf24" font-family="Cascadia Code, monospace">CCP</text>
+        </g>
+
+        <g filter="url(#glow14a)">
+          <rect x="92" y="44" width="116" height="52" rx="8" fill="rgba(15,23,42,0.6)" stroke="#34d399" stroke-width="1.6"/>
+          <text x="150" y="68" text-anchor="middle" font-size="12" font-weight="700" fill="#6ee7b7">买方 · 多头</text>
+          <text x="150" y="84" text-anchor="middle" font-size="9" fill="#94a3b8" font-family="Cascadia Code, monospace">买涨 · 怕涨反悔</text>
+        </g>
+        <g filter="url(#glow14a)">
+          <rect x="352" y="44" width="116" height="52" rx="8" fill="rgba(15,23,42,0.6)" stroke="#fb7185" stroke-width="1.6"/>
+          <text x="410" y="68" text-anchor="middle" font-size="12" font-weight="700" fill="#fda4af">卖方 · 空头</text>
+          <text x="410" y="84" text-anchor="middle" font-size="9" fill="#94a3b8" font-family="Cascadia Code, monospace">卖跌 · 怕跌反悔</text>
+        </g>
+
+        <text x="205" y="112" text-anchor="middle" font-size="8.5" fill="#fbbf24" font-family="Cascadia Code, monospace">交保证金</text>
+        <text x="355" y="112" text-anchor="middle" font-size="8.5" fill="#fbbf24" font-family="Cascadia Code, monospace">交保证金</text>
+        <text x="205" y="270" text-anchor="middle" font-size="8.5" fill="#94a3b8" font-family="Cascadia Code, monospace">兜底</text>
+        <text x="355" y="270" text-anchor="middle" font-size="8.5" fill="#94a3b8" font-family="Cascadia Code, monospace">兜底</text>
+
+        <g transform="translate(280, 250)">
+          <rect x="-95" y="-22" width="190" height="44" rx="10" fill="rgba(251,191,36,0.1)" stroke="rgba(251,191,36,0.4)" stroke-width="1.2"/>
+          <text x="0" y="-4" text-anchor="middle" font-size="9.5" fill="#fde68a" font-family="Cascadia Code, monospace" font-weight="600">保证金池 · 履约押金</text>
+          <text x="0" y="13" text-anchor="middle" font-size="9" fill="#94a3b8">亏即扣 / 不足追保 / 强平</text>
+        </g>
+      </svg>
+    </div>
+
+    <div style="display: flex; flex-direction: column; gap: 0.8rem; justify-content: center;">
+      <div style="background: rgba(15,23,42,0.55); border: 1px solid rgba(251,191,36,0.22); border-radius: 0.9rem; padding: 0.9rem 1.1rem;">
+        <p style="margin: 0 0 0.5rem; font-size: 0.7rem; letter-spacing: 0.16em; color: #64748b; font-family: 'Cascadia Code', monospace;">SOYBEAN · 1 手 = 10 吨</p>
+        <div style="display: flex; align-items: baseline; justify-content: space-between; gap: 0.5rem;">
+          <div>
+            <p style="margin: 0; font-size: 0.72rem; color: #94a3b8;">合约价值</p>
+            <p style="margin: 0.1rem 0 0; font-size: 1.7rem; font-weight: 800; color: #e2e8f0; font-family: 'Cascadia Code', monospace;">¥50,000</p>
+            <p style="margin: 0; font-size: 0.68rem; color: #64748b; font-family: 'Cascadia Code', monospace;">10t × ¥5000</p>
+          </div>
+          <span style="font-size: 1.4rem; color: #475569;">vs</span>
+          <div style="text-align: right;">
+            <p style="margin: 0; font-size: 0.72rem; color: #94a3b8;">保证金 (8%)</p>
+            <p style="margin: 0.1rem 0 0; font-size: 1.7rem; font-weight: 800; color: #fbbf24; font-family: 'Cascadia Code', monospace; text-shadow: 0 0 16px rgba(251,191,36,0.5);">¥4,000</p>
+            <p style="margin: 0; font-size: 0.68rem; color: #64748b; font-family: 'Cascadia Code', monospace;">押金，非首付</p>
+          </div>
+        </div>
+      </div>
+
+      <div style="background: linear-gradient(90deg, rgba(251,191,36,0.12), transparent); border-left: 3px solid #fbbf24; border-radius: 0 0.6rem 0.6rem 0; padding: 0.6rem 0.9rem;">
+        <p style="margin: 0; font-size: 0.84rem; color: #e2e8f0;"><span style="color: #fbbf24; font-weight: 700;">每日无负债结算 ·</span> 每天按结算价盯市，盈亏当日结清，亏损直接从保证金里扣。</p>
+      </div>
+
+      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 0.6rem;">
+        <div style="background: rgba(15,23,42,0.5); border: 1px solid rgba(251,191,36,0.2); border-radius: 0.7rem; padding: 0.6rem 0.7rem; text-align: center;">
+          <p style="margin: 0; font-size: 1.4rem;">📥</p>
+          <p style="margin: 0.2rem 0 0; font-size: 0.78rem; font-weight: 700; color: #fde68a;">健康则退还</p>
+          <p style="margin: 0.1rem 0 0; font-size: 0.66rem; color: #94a3b8;">平仓后押金返还</p>
+        </div>
+        <div style="background: rgba(15,23,42,0.5); border: 1px solid rgba(251,113,133,0.25); border-radius: 0.7rem; padding: 0.6rem 0.7rem; text-align: center;">
+          <p style="margin: 0; font-size: 1.4rem;">⚡</p>
+          <p style="margin: 0.2rem 0 0; font-size: 0.78rem; font-weight: 700; color: #fda4af;">不足则强平</p>
+          <p style="margin: 0.1rem 0 0; font-size: 0.66rem; color: #94a3b8;">跌破维持线即砍仓</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div style="position: relative; margin-top: 1.1rem; padding: 0.75rem 1.1rem; background: linear-gradient(90deg, rgba(251,191,36,0.12), rgba(245,158,11,0.04) 70%, transparent); border-left: 3px solid #fbbf24; border-radius: 0 0.6rem 0.6rem 0; box-shadow: 0 0 18px rgba(251,191,36,0.1);">
+    <p style="margin: 0; font-size: 0.95rem; color: #cbd5e1;"><span style="color: #fbbf24; font-weight: 700;">第一性原理 ·</span> 期货是"未来"的合约，怕你到期反悔 -- 保证金 + 每日盯市，把"信用风险"按天清零。</p>
+  </div>
+</div>
+
+<Notes>
+
+这一页讲保证金机制存在的根本原因。
+
+为什么要保证金：
+- 期货是"未来才交割"的合约，期间价格会变
+- 价格一动，亏的一方就有动机违约（"反正还没交割，我跑路不就行了？"）
+- 如果允许违约，这个市场就垮了
+
+交易所怎么解决（中央对手方 CCP）：
+- 交易所（结算所）站在中间，做所有人的对手方
+- 对买方来说，交易所就是卖方；对卖方来说，交易所就是买方
+- 谁也不用信任谁，只要信任交易所
+- 但交易所替所有人兜底违约风险 -> 它需要"担保品" -> 这就是保证金
+
+保证金到底是什么（最容易被误解的点）：
+- 保证金 ≠ 货款的一部分，更不是"首付"
+- 保证金 = 履约担保金（押金），就像租房押金
+- 你账户健康、平仓离场后，这笔押金会退还给你
+- 大豆期货例子：1 手 = 10 吨 × ¥5000 = ¥50,000 的合约，你不需要拿 5 万出来，只需交约 8% = ¥4,000 的押金
+
+配套的"每日无负债结算"：
+- 每个交易日收盘，按当日结算价"盯市"（mark to market）
+- 当天的浮盈浮亏直接结清：赚的进账，亏的从保证金扣
+- 所以"亏"是每天真金白银扣掉的，不是等到期才算
+- 保证金扣到低于"维持保证金"线 -> 要追加保证金（追保）；不补 -> 期货公司强行平仓（强平）
+
+为什么说这是"杠杆"的来源：
+- 你用 ¥4,000 押金，撬动了 ¥50,000 的合约价值 = 12.5 倍杠杆
+- 价格涨跌 8%，你的押金就可能归零
+- 保证金不是"省钱买货"，是"用小押金担保大合约"--放大了收益，也放大了亏损
+
+一句话：保证金是"保证你不跑路的押金"，让交易所敢做你的对手方；每日盯市则把信用风险按天清零。这也是期货能高杠杆运作的底层机制。
+
+</Notes>
