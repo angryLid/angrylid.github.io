@@ -7,3 +7,6 @@ node_modules
 # Configured via .pi/settings.json -> sessionDir: "../sessions" (relative to .pi/)
 /sessions/
 /.pi/sessions/
+
+# pnpm project — the npm lockfile is not used
+package-lock.json

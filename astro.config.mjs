@@ -9,6 +9,11 @@ import react from "@astrojs/react";
 export default defineConfig({
   site: "https://example.com",
 
+  server: {
+    host: true,
+    allowedHosts: true,
+  },
+
   markdown: {
     processor: unified({
       remarkPlugins: [remarkGithubAdmonitions, remarkMath],

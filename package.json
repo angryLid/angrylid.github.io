@@ -14,7 +14,8 @@
     "typecheck": "astro check",
     "sandbox": "sbx run --kit ./sandbox/pi/ --name ${SANDBOX_NAME:-pi} pi",
     "sandbox:remove": "sbx rm ${SANDBOX_NAME:-pi}",
-    "sandbox:validate": "sbx kit validate ./sandbox/pi/"
+    "sandbox:validate": "sbx kit validate ./sandbox/pi/",
+    "chrome:debug": "/Applications/Google\\ Chrome.app/Contents/MacOS/Google\\ Chrome --remote-debugging-port=9222 --remote-allow-origins=* --user-data-dir=\"/tmp/chrome_dev_profile\""
   },
   "keywords": [],
   "author": "",
