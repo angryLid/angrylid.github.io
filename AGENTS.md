@@ -95,6 +95,10 @@ pnpm typecheck
 2. Run `pnpm build` to create production build in `dist/`
 3. Deploy the `dist/` directory to GitHub Pages
 
+## General Instructions
+
+- **Do not** automatically run `pnpm build`, `pnpm lint`, `pnpm typecheck`, or `pnpm format` after making changes. Only run these commands when explicitly asked to do so by the user.
+
 ## Configuration Notes
 
 - Astro config includes remark/rehype plugins (GitHub admonitions, math/KaTeX), the MDX integration, and the React integration; markdown plugins are assembled via `unified()`
@@ -108,7 +112,3 @@ pnpm typecheck
 ## GitHub Pages Deployment
 
 The project includes a `.nojekyll` file to disable GitHub's Jekyll processing, ensuring Astro-generated static files are served directly. The CNAME file suggests custom domain configuration.
-
-## Skills
-
-All skills are saved in `.opencode/skills`.
