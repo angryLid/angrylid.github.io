@@ -14,6 +14,10 @@ export default defineConfig({
     allowedHosts: true,
   },
 
+  devToolbar: {
+    enabled: false,
+  },
+
   markdown: {
     processor: unified({
       remarkPlugins: [remarkGithubAdmonitions, remarkMath],

@@ -98,6 +98,7 @@ pnpm typecheck
 ## General Instructions
 
 - **Do not** automatically run `pnpm build`, `pnpm lint`, `pnpm typecheck`, or `pnpm format` after making changes. Only run these commands when explicitly asked to do so by the user.
+- When the user asks you to do something about Astro / Astro.js, use the `Astro docs` MCP tool (`Astro docs_search_astro_docs`) to search the official [Astro Docs](https://docs.astro.build) first.
 
 ## Configuration Notes
 
