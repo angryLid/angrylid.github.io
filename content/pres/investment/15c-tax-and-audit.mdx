@@ -1,0 +1,143 @@
+---
+title: "盘外招三 · 税率调整和税务稽查"
+steps: 1
+---
+import Notes from "@components/Notes.astro";
+
+<div style="padding: 2rem 2.5rem; height: 100%; box-sizing: border-box; display: flex; flex-direction: column;">
+  <div style="display: flex; align-items: center; gap: 1rem; margin-bottom: 1.2rem; flex-shrink: 0;">
+    <div style="width: 52px; height: 52px; border-radius: 50%; background: linear-gradient(135deg, #6d28d9, #a855f7); display: flex; align-items: center; justify-content: center;">
+      <span style="font-size: 1.6rem;">🧾</span>
+    </div>
+    <div>
+      <p style="font-size: 0.9rem; color: #6d28d9; font-weight: 600; margin: 0;">国家队的盘外招 · 其三</p>
+      <h2 style="font-size: 2rem; margin: 0.1rem 0 0 0; color: #333;">税率调整和税务稽查</h2>
+    </div>
+  </div>
+
+  <div style="flex: 1; min-height: 0; display: grid; grid-template-columns: 1fr 1.1fr; gap: 1.6rem;">
+    <div style="display: flex; flex-direction: column; justify-content: center; gap: 0.9rem;">
+      <div style="display: flex; gap: 0.9rem; align-items: flex-start; padding: 0.85rem 1.1rem; background: #f5f3ff; border-radius: 0.7rem; border-left: 4px solid #7c3aed;">
+        <span style="font-size: 1.3rem;">📱</span>
+        <div>
+          <p style="font-size: 1.05rem; font-weight: 700; color: #5b21b6; margin: 0;">中国移动 · 增值税重分类</p>
+          <p style="font-size: 0.9rem; color: #555; margin: 0.2rem 0 0 0; line-height: 1.5;">2026.2 流量/短信/宽带由"增值电信"改归"基础电信"，税率 6% → 9%，2.6% 利润被抽</p>
+        </div>
+      </div>
+
+      <div style="display: flex; gap: 0.9rem; align-items: flex-start; padding: 0.85rem 1.1rem; background: #fef2f2; border-radius: 0.7rem; border-left: 4px solid #b91c1c;">
+        <span style="font-size: 1.3rem;">🏦</span>
+        <div>
+          <p style="font-size: 1.05rem; font-weight: 700; color: #991b1b; margin: 0;">中国银行 · 审计署点名</p>
+          <p style="font-size: 0.9rem; color: #555; margin: 0.2rem 0 0 0; line-height: 1.5;">2026.6.24 审计署定性"逃避税"近 24 亿，次日 A 股 -3.88%、港股 -5.31%</p>
+        </div>
+      </div>
+
+      <div style="display: flex; gap: 0.9rem; align-items: flex-start; padding: 0.85rem 1.1rem; background: #f0fdf4; border-radius: 0.7rem; border-left: 4px solid #27ae60;">
+        <span style="font-size: 1.3rem;">🍰</span>
+        <div>
+          <p style="font-size: 1.05rem; font-weight: 700; color: #166534; margin: 0;">红利蛋糕被切走</p>
+          <p style="font-size: 0.9rem; color: #555; margin: 0.2rem 0 0 0; line-height: 1.5;">强监管周期下，旱涝保收的红利巨头被税收与审计硬生生切走一块</p>
+        </div>
+      </div>
+    </div>
+
+    <div style="display: flex; align-items: center; justify-content: center;">
+      <svg viewBox="0 0 400 340" style="width: 100%; max-height: 100%;" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <linearGradient id="profitPie" x1="0%" y1="0%" x2="0%" y2="100%">
+            <stop offset="0%" stop-color="#86efac"/>
+            <stop offset="100%" stop-color="#22c55e"/>
+          </linearGradient>
+          <linearGradient id="taxSlice" x1="0%" y1="0%" x2="0%" y2="100%">
+            <stop offset="0%" stop-color="#fca5a5"/>
+            <stop offset="100%" stop-color="#dc2626"/>
+          </linearGradient>
+          <radialGradient id="lensGrad" cx="40%" cy="40%" r="60%">
+            <stop offset="0%" stop-color="#dbeafe" stop-opacity="0.7"/>
+            <stop offset="100%" stop-color="#dbeafe" stop-opacity="0"/>
+          </radialGradient>
+        </defs>
+
+        {/* 顶部标题 */}
+        <text x="200" y="22" text-anchor="middle" font-size="13" font-weight="800" fill="#6d28d9">税收与审计 · 红利股的"切蛋糕"刀</text>
+
+        {/* 左侧：利润饼图（税率上调） */}
+        <g>
+          <text x="110" y="48" text-anchor="middle" font-size="12" font-weight="700" fill="#555">📱 中国移动</text>
+          <text x="110" y="63" text-anchor="middle" font-size="10" fill="#888">增值税 6%→9%</text>
+
+          {/* 整个圆 - 利润/分红 (绿色) */}
+          <circle cx="110" cy="160" r="70" fill="url(#profitPie)" stroke="#166534" stroke-width="1.5" opacity="0.55"/>
+
+          {/* 6% 旧切片虚线（从顶部 12 点顺时针 21.6°）*/}
+          <path d="M110 160 L110 90 A70 70 0 0 1 135.78 96.3" fill="none" stroke="#f59e0b" stroke-width="2" stroke-dasharray="4,3"/>
+          <text x="138" y="92" font-size="9" fill="#b45309" font-weight="700">原 6%</text>
+
+          {/* 9% 新税切片（从顶部 12 点顺时针 32.4°）覆盖在虚线之上 */}
+          <path d="M110 160 L110 90 A70 70 0 0 1 147.5 103.6 Z" fill="url(#taxSlice)" stroke="#991b1b" stroke-width="1.5"/>
+          <text x="128" y="120" text-anchor="middle" font-size="12" font-weight="900" fill="#fff">税</text>
+          <text x="128" y="135" text-anchor="middle" font-size="11" font-weight="900" fill="#fff">9%</text>
+
+          {/* 中心 */}
+          <text x="110" y="164" text-anchor="middle" font-size="11" font-weight="700" fill="#166534">利润</text>
+
+          {/* 下方说明 */}
+          <text x="110" y="250" text-anchor="middle" font-size="10" font-weight="700" fill="#dc2626">含税套餐无法涨价</text>
+          <text x="110" y="266" text-anchor="middle" font-size="9" fill="#991b1b">100 元套餐利润从</text>
+          <text x="110" y="280" text-anchor="middle" font-size="9" fill="#991b1b">94.3 → 91.7 元</text>
+        </g>
+
+        {/* 中间分隔 */}
+        <line x1="215" y1="40" x2="215" y2="320" stroke="#cbd5e1" stroke-width="1" stroke-dasharray="3,4"/>
+
+        {/* 右侧：审计 24亿 */}
+        <g>
+          <text x="312" y="48" text-anchor="middle" font-size="12" font-weight="700" fill="#555">🏦 中国银行</text>
+          <text x="312" y="63" text-anchor="middle" font-size="10" fill="#888">审计署点名</text>
+
+          {/* 放大镜 */}
+          <circle cx="312" cy="160" r="68" fill="url(#lensGrad)" stroke="#475569" stroke-width="6"/>
+          <circle cx="312" cy="160" r="68" fill="none" stroke="#fff" stroke-width="2" opacity="0.6"/>
+          <line x1="361" y1="209" x2="385" y2="233" stroke="#475569" stroke-width="9" stroke-linecap="round"/>
+          <line x1="361" y1="209" x2="385" y2="233" stroke="#cbd5e1" stroke-width="3" stroke-linecap="round"/>
+
+          {/* 放大镜内：钱 + 标记 */}
+          <g>
+            <circle cx="298" cy="148" r="14" fill="#fbbf24" stroke="#d97706" stroke-width="1.5"/>
+            <text x="298" y="153" text-anchor="middle" font-size="14" font-weight="800" fill="#92400e">¥</text>
+            <circle cx="328" cy="170" r="11" fill="#fbbf24" stroke="#d97706" stroke-width="1.2"/>
+            <text x="328" y="174" text-anchor="middle" font-size="11" font-weight="800" fill="#92400e">¥</text>
+            <text x="312" y="195" text-anchor="middle" font-size="10" font-weight="800" fill="#dc2626">!</text>
+          </g>
+
+          {/* 24亿标签 */}
+          <rect x="260" y="242" width="104" height="26" rx="5" fill="#dc2626"/>
+          <text x="312" y="260" text-anchor="middle" font-size="13" font-weight="800" fill="#fff">逃避税 近 24 亿</text>
+
+          {/* 股价反应 */}
+          <text x="312" y="286" text-anchor="middle" font-size="10" fill="#991b1b" font-weight="700">次日 A 股 -3.88% / 港股 -5.31%</text>
+          <text x="312" y="300" text-anchor="middle" font-size="9" fill="#666">对万亿市值巨无霸罕见剧烈</text>
+        </g>
+      </svg>
+    </div>
+  </div>
+
+  <div style="margin-top: 1rem; padding: 0.75rem 1.2rem; background: #f5f3ff; border-radius: 0.6rem; border-left: 4px solid #6d28d9; flex-shrink: 0;">
+    <p style="font-size: 0.95rem; color: #5b21b6; margin: 0;">
+      <strong>一句话：</strong>强监管周期下，税率调整与税务稽查会从"避险天堂"的红利股身上切走一块蛋糕——分红预期随时可能打折。
+    </p>
+  </div>
+</div>
+
+<Notes>
+
+第三种盘外招，是税率调整和税务稽查。
+
+先看中国移动。2026 年 2 月 1 日，三大运营商集体公告，手机流量、短信彩信、宽带这些最赚钱的业务，从"增值电信服务"重分类为"基础电信服务"，增值税从 6% 直接拉到 9%。问题是个人套餐都是含税一口价，没法转嫁给消费者——同样 100 块的套餐，原来能确认 94.3 元营收，现在只剩 91.7 元，2.6% 的利润直接被税收抽走。2 月 2 日开盘中国移动一度跌近 1.5%。
+
+再看中国银行。2026 年 6 月 24 日，国家审计署的报告直接点名中行"逃避税"，涉及近 24 亿。这是利用公募基金分红免税政策违规套利被抓了包。第二天中行 A 股跌 3.88%，港股跌 5.31%，对这种平时每天只波动 0.5% 的巨无霸来说极其罕见。
+
+这两件事异曲同工：在国家加强税收合规的大背景下，原本旱涝保收的红利巨头，被税收政策或审计稽查硬生生切走了一块蛋糕。
+
+</Notes>

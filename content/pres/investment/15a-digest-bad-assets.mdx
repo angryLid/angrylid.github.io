@@ -1,0 +1,126 @@
+---
+title: "盘外招一 · 消化不良资产"
+steps: 1
+---
+import Notes from "@components/Notes.astro";
+
+<div style="padding: 2rem 2.5rem; height: 100%; box-sizing: border-box; display: flex; flex-direction: column;">
+  <div style="display: flex; align-items: center; gap: 1rem; margin-bottom: 1.2rem; flex-shrink: 0;">
+    <div style="width: 52px; height: 52px; border-radius: 50%; background: linear-gradient(135deg, #c0392b, #e74c3c); display: flex; align-items: center; justify-content: center;">
+      <span style="font-size: 1.6rem;">🧱</span>
+    </div>
+    <div>
+      <p style="font-size: 0.9rem; color: #c0392b; font-weight: 600; margin: 0;">国家队的盘外招 · 其一</p>
+      <h2 style="font-size: 2rem; margin: 0.1rem 0 0 0; color: #333;">消化不良资产</h2>
+    </div>
+  </div>
+
+  <div style="flex: 1; min-height: 0; display: grid; grid-template-columns: 1fr 1.1fr; gap: 1.6rem;">
+    <div style="display: flex; flex-direction: column; justify-content: center; gap: 0.9rem;">
+      <div style="display: flex; gap: 0.9rem; align-items: flex-start; padding: 0.85rem 1.1rem; background: #f0fdf4; border-radius: 0.7rem; border-left: 4px solid #27ae60;">
+        <span style="font-size: 1.3rem;">💎</span>
+        <div>
+          <p style="font-size: 1.05rem; font-weight: 700; color: #166534; margin: 0;">摇钱树 · 大秦线</p>
+          <p style="font-size: 0.9rem; color: #555; margin: 0.2rem 0 0 0; line-height: 1.5;">全球最暴利的重载煤运专线，躺赚的现金奶牛</p>
+        </div>
+      </div>
+
+      <div style="display: flex; gap: 0.9rem; align-items: flex-start; padding: 0.85rem 1.1rem; background: #fef2f2; border-radius: 0.7rem; border-left: 4px solid #c0392b;">
+        <span style="font-size: 1.3rem;">📦</span>
+        <div>
+          <p style="font-size: 1.05rem; font-weight: 700; color: #991b1b; margin: 0;">强行塞包袱 · 大秦铁路</p>
+          <p style="font-size: 0.9rem; color: #555; margin: 0.2rem 0 0 0; line-height: 1.5;">2009 年 165 亿定增，反向收购太原局 7 条干线 + 5 条支线（普速客运常年亏损）</p>
+        </div>
+      </div>
+
+      <div style="display: flex; gap: 0.9rem; align-items: flex-start; padding: 0.85rem 1.1rem; background: #fffbeb; border-radius: 0.7rem; border-left: 4px solid #ea580c;">
+        <span style="font-size: 1.3rem;">🐴</span>
+        <div>
+          <p style="font-size: 1.05rem; font-weight: 700; color: #9a3412; margin: 0;">神马拖砖头</p>
+          <p style="font-size: 0.9rem; color: #555; margin: 0.2rem 0 0 0; line-height: 1.5;">百亿客运收入却公益亏损，ROE 与分红被稀释；京沪高铁亦被塞 500 亿京福安徽</p>
+        </div>
+      </div>
+    </div>
+
+    <div style="display: flex; align-items: center; justify-content: center;">
+      <svg viewBox="0 0 400 340" style="width: 100%; max-height: 100%;" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <linearGradient id="chestGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+            <stop offset="0%" stop-color="#fde68a"/>
+            <stop offset="100%" stop-color="#f59e0b"/>
+          </linearGradient>
+          <linearGradient id="brickGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+            <stop offset="0%" stop-color="#fca5a5"/>
+            <stop offset="100%" stop-color="#dc2626"/>
+          </linearGradient>
+        </defs>
+
+        {/* 顶部标题 */}
+        <text x="200" y="24" text-anchor="middle" font-size="13" fill="#c0392b" font-weight="700">165 亿定增 · 328 亿资产强行注入</text>
+
+        {/* 压力箭头 */}
+        <g stroke="#c0392b" stroke-width="2.5" fill="none" stroke-linecap="round">
+          <line x1="130" y1="44" x2="130" y2="72"/>
+          <polyline points="123,64 130,74 137,64"/>
+          <line x1="200" y1="38" x2="200" y2="66"/>
+          <polyline points="193,58 200,68 207,58"/>
+          <line x1="270" y1="44" x2="270" y2="72"/>
+          <polyline points="263,64 270,74 277,64"/>
+        </g>
+
+        {/* 红砖堆 - 亏损线路 */}
+        <g>
+          <rect x="128" y="92" width="62" height="24" rx="3" fill="url(#brickGrad)" stroke="#991b1b" stroke-width="1"/>
+          <text x="159" y="109" text-anchor="middle" font-size="10" fill="#fff" font-weight="700">普速客运</text>
+          <rect x="210" y="92" width="62" height="24" rx="3" fill="url(#brickGrad)" stroke="#991b1b" stroke-width="1"/>
+          <text x="241" y="109" text-anchor="middle" font-size="10" fill="#fff" font-weight="700">亏损支线</text>
+          <rect x="170" y="120" width="62" height="24" rx="3" fill="url(#brickGrad)" stroke="#991b1b" stroke-width="1"/>
+          <text x="201" y="137" text-anchor="middle" font-size="10" fill="#fff" font-weight="700">公益慢车</text>
+        </g>
+
+        {/* 金库 - 大秦线 摇钱树 */}
+        <ellipse cx="200" cy="300" rx="120" ry="11" fill="#000" opacity="0.12"/>
+        <rect x="110" y="190" width="180" height="100" rx="6" fill="url(#chestGrad)" stroke="#b45309" stroke-width="2"/>
+        <path d="M110 190 Q200 150 290 190 Z" fill="url(#chestGrad)" stroke="#b45309" stroke-width="2"/>
+        <rect x="188" y="178" width="24" height="20" rx="3" fill="#b45309"/>
+        <circle cx="150" cy="225" r="14" fill="#fbbf24" stroke="#d97706" stroke-width="1.5"/>
+        <text x="150" y="230" text-anchor="middle" font-size="13" font-weight="800" fill="#92400e">¥</text>
+        <circle cx="250" cy="225" r="14" fill="#fbbf24" stroke="#d97706" stroke-width="1.5"/>
+        <text x="250" y="230" text-anchor="middle" font-size="13" font-weight="800" fill="#92400e">¥</text>
+        <text x="200" y="268" text-anchor="middle" font-size="14" font-weight="800" fill="#92400e">大秦线 · 煤运摇钱树</text>
+
+        {/* 漏出的金币 - 分红被稀释 */}
+        <g>
+          <circle cx="92" cy="265" r="9" fill="#fbbf24" stroke="#d97706" stroke-width="1.2"/>
+          <text x="92" y="269" text-anchor="middle" font-size="9" font-weight="700" fill="#92400e">¥</text>
+          <circle cx="78" cy="290" r="7" fill="#fbbf24" stroke="#d97706" stroke-width="1.2"/>
+          <circle cx="68" cy="310" r="5" fill="#fbbf24" stroke="#d97706" stroke-width="1.2"/>
+          <text x="48" y="288" font-size="12" fill="#c0392b" font-weight="700">分红 ↓</text>
+          <text x="48" y="303" font-size="10" fill="#991b1b">ROE ↓</text>
+        </g>
+      </svg>
+    </div>
+  </div>
+
+  <div style="margin-top: 1rem; padding: 0.75rem 1.2rem; background: #fef2f2; border-radius: 0.6rem; border-left: 4px solid #c0392b; flex-shrink: 0;">
+    <p style="font-size: 0.95rem; color: #991b1b; margin: 0;">
+      <strong>一句话：</strong>大股东把低效亏损资产高价打包塞给上市公司的"摇钱树"，用优质资产倒贴包袱。
+    </p>
+  </div>
+</div>
+
+<Notes>
+
+第一种盘外招，叫做消化不良资产。
+
+大秦铁路本来手里握着大秦线，这是全中国乃至全世界最暴利的重载煤运专线，是一头现金奶牛。
+
+但是 2009 年底，公司抛出方案，要 165 亿定增，反向收购控股股东太原铁路局旗下的运输主业资产，整体作价 328 亿。这里面打包进来的，是南同蒲、北同蒲、京原、石太、太焦、侯月、侯西等 7 条干线，外加一批支线。这些普速客货运线路设备老化、运力饱和，很多常年亏损，还承担着大量公益性的低票价客运。
+
+散户们当时骂声一片，说是"用黄金换垃圾"、"大股东公开抢劫"。但胳膊拧不过大腿，在国资绝对控股下方案强行通过。
+
+所以现在大秦铁路的生态，就是一匹神马拉着一车砖头：大秦线还在躺赚，但上百亿的客运业务和各种亏损支线死死拖着后腿，稀释了 ROE 和分红。
+
+后来京沪高铁上市前也被塞了 500 亿的京福安徽公司，同样的剧本。所以大家怕铁路资产"有前科"。
+
+</Notes>
