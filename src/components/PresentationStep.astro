@@ -10,6 +10,17 @@ const { step } = Astro.props as Props;
   <slot />
 </div>
 
+<style>
+  /* Grid/flex items default to min-height:auto / min-width:auto, which can
+     force the track to grow past its size when the slotted content has a
+     larger min-content height (e.g. a square image inside a fixed grid cell).
+     Reset both so the step box sizes to its parent track, not its content. */
+  .presentation-step {
+    min-height: 0;
+    min-width: 0;
+  }
+</style>
+
 <script>
   const initializedSteps = new WeakSet<HTMLElement>();
 
