@@ -1,0 +1,340 @@
+---
+/**
+ * CaptionedImage.astro
+ *
+ * An image wrapper that
+ *   1. renders a text caption (above the image, or overlaid at the
+ *      bottom-centre of the image via `captionPosition="inside"`), and
+ *   2. can play an entrance effect when the image appears.
+ *
+ * The entrance effect is a self-contained animation that runs on mount
+ * (i.e. when the slide/page loads). It is intentionally independent of the
+ * presentation's step-reveal system (`data-anim` / `data-visible`).
+ *
+ * Currently supported effects:
+ *   - "blinds": horizontal venetian-blind slats that collapse open to reveal
+ *     the image, cascading top-to-bottom.
+ *   - "none"  : no effect (default).
+ *
+ * The `effect` prop is typed as a small union so further effects (fade, slide,
+ * ...) can be added by extending the union and the render switch below.
+ *
+ * Images are passed by `src` (the existing slide pattern:
+ * `import img from "./assets/x.png"; <CaptionedImage src={img.src} ... />`).
+ *
+ * LAYOUT / EFFECT NOTE (blinds, inside caption):
+ * The <img> is laid out purely by its own fit - centred in the media area with
+ * `max-width/max-height:100%; object-fit:contain`, exactly as a plain slide
+ * image would be. The blinds overlay (and, when `captionPosition="inside"`,
+ * the caption overlay) is an absolutely positioned follower: a tiny script
+ * measures the image's rendered rect (its layout box) and sizes / positions
+ * the overlay to match, so the mask/caption tracks the image rather than the
+ * (possibly letterboxed) media box. The animation only starts once the image
+ * has loaded and the mask has been sized.
+ */
+
+export type ImageEffect = "blinds" | "none";
+
+interface Props {
+  /** Image source, e.g. an imported asset's `.src`. */
+  src: string;
+  /** Alt text for the image. */
+  alt: string;
+  /** Text label rendered for the image. Multi-line: pass a string array
+   *  (each element becomes its own line) or a string containing literal
+   *  "\\n". Long lines wrap naturally (white-space: pre-line). */
+  caption?: string | string[];
+  /** Caption placement: "above" renders the label above the image (default);
+   *  "inside" overlays it at the bottom-centre of the image. Multi-line
+   *  captions are supported: long text wraps naturally, and a literal "\\n"
+   *  in the caption becomes a line break (white-space: pre-line). */
+  captionPosition?: "above" | "inside";
+  /** Entrance effect. Defaults to "none". */
+  effect?: ImageEffect;
+  /** Number of blind slats (blinds effect only). More slats = thinner slats. Default 16. */
+  strips?: number;
+  /** Duration of one slat's open animation, in seconds. Default 0.8. */
+  duration?: number;
+  /** Extra delay added to every slat (blinds stagger is `i * stagger + delay`). Default 0. */
+  delay?: number;
+  /** Delay between consecutive slats, in seconds. Default 0.06. */
+  stagger?: number;
+  /** Slat fill colour (blinds only). Default #ffffff. */
+  slatColor?: string;
+}
+
+const {
+  src,
+  alt,
+  caption,
+  captionPosition = "above",
+  effect = "none",
+  strips = 16,
+  duration = 0.8,
+  delay = 0,
+  stagger = 0.06,
+  slatColor = "#ffffff",
+} = Astro.props;
+
+const captionText = Array.isArray(caption) ? caption.join("\n") : caption;
+const useBlinds = effect === "blinds";
+const slatCount = Math.max(1, Math.floor(strips));
+const slats = Array.from({ length: slatCount }, (_, i) => i);
+const blindsStyle = useBlinds
+  ? `--ci-strips:${slatCount};--ci-duration:${duration}s;--ci-delay:${delay}s;--ci-stagger:${stagger}s;--ci-slat-color:${slatColor};`
+  : undefined;
+---
+
+<figure class="captioned-image" data-effect={effect} data-caption-position={captionPosition}>
+  {captionText && captionPosition === "above" && (
+    <figcaption class="ci-caption">{captionText}</figcaption>
+  )}
+  <div class="ci-media">
+    <img src={src} alt={alt} class="ci-img" loading="eager" decoding="async" />
+    {
+      captionText && captionPosition === "inside" && (
+        <div class="ci-caption-inside" aria-hidden="false">
+          <span class="ci-caption-text">{captionText}</span>
+        </div>
+      )
+    }
+    {
+      useBlinds && (
+        <div class="ci-blinds" aria-hidden="true" style={blindsStyle}>
+          {slats.map((i) => (
+            <span class="ci-slat" style={`--i:${i};`} />
+          ))}
+        </div>
+      )
+    }
+  </div>
+</figure>
+
+<style>
+  .captioned-image {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    width: 100%;
+    min-height: 0;
+    margin: 0;
+    gap: 0.8rem;
+  }
+
+  .ci-caption {
+    flex-shrink: 0;
+    text-align: center;
+    font-size: 1.5rem;
+    color: #333;
+    font-weight: 600;
+    line-height: 1.3;
+    /* Multi-line captions (string array / "\n"): each line gets its own
+       row; long lines wrap naturally. */
+    white-space: pre-line;
+  }
+
+  /* "inside" placement: the box is sized by the init script to exactly match
+     the image's rendered rect (like the blinds overlay), so the label sits at
+     the bottom-centre OF THE IMAGE even when the image is letterboxed inside
+     the media area. The text is pre-line: it wraps naturally and "\n" in the
+     caption string becomes a line break. */
+  .ci-caption-inside {
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    align-items: center;
+    overflow: hidden;
+    pointer-events: none;
+  }
+
+  .ci-caption-text {
+    box-sizing: border-box;
+    max-width: 100%;
+    padding: 0.15rem 0.5rem 0.3rem;
+    text-align: center;
+    font-size: 1rem;
+    color: #333;
+    font-weight: 600;
+    line-height: 1.4;
+    white-space: pre-line;
+    background: #fff;
+  }
+
+  /* The media area is a plain flex centre. The <img> fits itself via
+     max-width/max-height + object-fit:contain (the image is the master - its
+     layout is NOT disturbed by the blinds). The .ci-blinds overlay is an
+     absolutely positioned follower whose box is set by JS to match the image. */
+  .ci-media {
+    position: relative;
+    flex: 1 1 auto;
+    min-width: 0;
+    min-height: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+  }
+
+  .ci-img {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+    display: block;
+  }
+
+  /* ---- blinds entrance effect ----
+     N horizontal slats stacked via flex. The overlay box is sized/positioned
+     by the init script to equal the image's rendered rect, so each slat covers
+     a 1/N band of the IMAGE. They start fully covering (scaleY(1)); the
+     `ci-play` class (added once the image has loaded and the mask is sized)
+     starts the scaleY(1) -> scaleY(0) animation (transform-origin: center),
+     collapsing the slats to their centrelines so the image is revealed band by
+     band, cascading top-to-bottom via staggered `animation-delay`. */
+  .ci-blinds {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    pointer-events: none;
+  }
+
+  .ci-slat {
+    flex: 1 1 0;
+    background: var(--ci-slat-color, #ffffff);
+    transform-origin: center;
+    transform: scaleY(1);
+  }
+
+  .ci-blinds.ci-play .ci-slat {
+    animation: ci-blinds-open var(--ci-duration, 0.8s) ease forwards;
+    animation-delay: calc(
+      var(--i, 0) * var(--ci-stagger, 0.06s) + var(--ci-delay, 0s)
+    );
+  }
+
+  @keyframes ci-blinds-open {
+    from {
+      transform: scaleY(1);
+    }
+    to {
+      transform: scaleY(0);
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    /* Respect the user's motion preference: skip the animation entirely and
+       just show the image. The overlay is invisible (slats collapsed). */
+    .ci-slat {
+      transform: scaleY(0);
+    }
+    .ci-blinds.ci-play .ci-slat {
+      animation: none;
+    }
+  }
+</style>
+
+<script>
+  // Sizes/positions the blinds overlay to exactly match the image's rendered
+  // rect, then triggers the open animation. The image lays itself out via its
+  // own fit (flex + max-width/height + object-fit:contain); the mask follows.
+  //
+  // offsetLeft/Top/Width/Height are LAYOUT values (relative to the offsetParent
+  // .ci-media, which is position:relative), so they are correct even though the
+  // presentation scales the whole stage with a transform - both the image and
+  // the overlay live in the same (pre-scale) coordinate space.
+  // Elements that must track the image's rendered rect: the blinds mask and
+  // the "inside" caption overlay. Both live in the same (pre-scale) layout
+  // space as the image (children of the position:relative .ci-media), so
+  // offsetLeft/Top/Width/Height are correct even though the presentation
+  // scales the whole stage with a transform.
+  interface Overlays {
+    blinds: HTMLElement | null;
+    caption: HTMLElement | null;
+  }
+
+  function overlayElements(ci: Element): Overlays {
+    return {
+      blinds: ci.querySelector<HTMLElement>(".ci-blinds"),
+      caption: ci.querySelector<HTMLElement>(".ci-caption-inside"),
+    };
+  }
+
+  function sizeToImage(ov: Overlays, img: HTMLImageElement): boolean {
+    if (!img.complete || img.naturalWidth === 0) return false;
+    const left = img.offsetLeft;
+    const top = img.offsetTop;
+    const width = img.offsetWidth;
+    const height = img.offsetHeight;
+    if (ov.blinds) {
+      ov.blinds.style.left = left + "px";
+      ov.blinds.style.top = top + "px";
+      ov.blinds.style.width = width + "px";
+      ov.blinds.style.height = height + "px";
+    }
+    if (ov.caption) {
+      ov.caption.style.left = left + "px";
+      ov.caption.style.top = top + "px";
+      ov.caption.style.width = width + "px";
+      ov.caption.style.height = height + "px";
+    }
+    return true;
+  }
+
+  function playBlinds(ci: Element): void {
+    const ov = overlayElements(ci);
+    const img = ci.querySelector<HTMLImageElement>(".ci-img");
+    if (!ov.blinds || !img) return;
+
+    const start = (): void => {
+      if (sizeToImage(ov, img)) ov.blinds?.classList.add("ci-play");
+    };
+
+    if (img.complete && img.naturalWidth) {
+      start();
+    } else {
+      img.addEventListener("load", start, { once: true });
+    }
+  }
+
+  function setup(ci: Element): void {
+    const ov = overlayElements(ci);
+    const img = ci.querySelector<HTMLImageElement>(".ci-img");
+    const media = ci.querySelector<HTMLElement>(".ci-media");
+    if (!img || !media) return;
+
+    const measure = (): void => {
+      if (img.complete && img.naturalWidth) sizeToImage(ov, img);
+    };
+    // Re-measure once the image loads and whenever the media box changes size
+    // (e.g. viewport/layout resize). Do not restart an already-played
+    // animation.
+    img.addEventListener("load", measure, { once: true });
+    new ResizeObserver(measure).observe(media);
+  }
+
+  // Bundled module script runs once per session. astro:page-load fires on the
+  // initial load and after every view-transition swap, so each slide that uses
+  // CaptionedImage re-initialises.
+  document.addEventListener("astro:page-load", () => {
+    document.querySelectorAll(".captioned-image").forEach((ci) => {
+      setup(ci);
+      // Inside a PresentationStep the blinds are driven by the step reveal
+      // (see the presentation-step-visible listener below), not by mount.
+      if (!ci.closest(".presentation-step")) playBlinds(ci);
+    });
+  });
+
+  // PresentationStep dispatches this bubbling event when its data-anim wrapper
+  // gains data-visible. Start the blinds for any CaptionedImage inside it —
+  // that is when the image is actually revealed to the audience. (Catch-up
+  // for steps already visible at load is handled by PresentationStep itself.)
+  document.addEventListener("presentation-step-visible", (event) => {
+    (event.target as Element)
+      .querySelectorAll<Element>(".captioned-image")
+      .forEach(playBlinds);
+  });
+</script>
