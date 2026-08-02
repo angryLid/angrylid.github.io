@@ -3,7 +3,7 @@
  * CaptionedImage.astro
  *
  * An image wrapper that
- *   1. renders a text caption (above the image, or overlaid at the
+ *   1. renders a text caption (above or below the image, or overlaid at the
  *      bottom-centre of the image via `captionPosition="inside"`), and
  *   2. can play an entrance effect when the image appears.
  *
@@ -45,10 +45,11 @@ interface Props {
    *  "\\n". Long lines wrap naturally (white-space: pre-line). */
   caption?: string | string[];
   /** Caption placement: "above" renders the label above the image (default);
-   *  "inside" overlays it at the bottom-centre of the image. Multi-line
-   *  captions are supported: long text wraps naturally, and a literal "\\n"
-   *  in the caption becomes a line break (white-space: pre-line). */
-  captionPosition?: "above" | "inside";
+   *  "below" renders it directly below the image; "inside" overlays it at the
+   *  bottom-centre of the image. Multi-line captions are supported: long text
+   *  wraps naturally, and a literal "\\n" in the caption becomes a line break
+   *  (white-space: pre-line). */
+  captionPosition?: "above" | "below" | "inside";
   /** Entrance effect. Defaults to "none". */
   effect?: ImageEffect;
   /** Number of blind slats (blinds effect only). More slats = thinner slats. Default 16. */
@@ -77,6 +78,7 @@ const {
 } = Astro.props;
 
 const captionText = Array.isArray(caption) ? caption.join("\n") : caption;
+const captionLines = captionText?.split("\n") ?? [];
 const useBlinds = effect === "blinds";
 const slatCount = Math.max(1, Math.floor(strips));
 const slats = Array.from({ length: slatCount }, (_, i) => i);
@@ -86,15 +88,31 @@ const blindsStyle = useBlinds
 ---
 
 <figure class="captioned-image" data-effect={effect} data-caption-position={captionPosition}>
-  {captionText && captionPosition === "above" && (
-    <figcaption class="ci-caption">{captionText}</figcaption>
+  {captionText && (captionPosition === "above" || captionPosition === "below") && (
+    <figcaption class:list={["ci-caption", { "ci-caption-below": captionPosition === "below" }]}>
+      {captionLines.map((line, index) =>
+        index === 0 ? (
+          <strong class="ci-caption-line ci-caption-title">{line}</strong>
+        ) : (
+          <span class="ci-caption-line">{line}</span>
+        )
+      )}
+    </figcaption>
   )}
   <div class="ci-media">
     <img src={src} alt={alt} class="ci-img" loading="eager" decoding="async" />
     {
       captionText && captionPosition === "inside" && (
         <div class="ci-caption-inside" aria-hidden="false">
-          <span class="ci-caption-text">{captionText}</span>
+          <span class="ci-caption-text">
+            {captionLines.map((line, index) =>
+              index === 0 ? (
+                <strong class="ci-caption-line ci-caption-title">{line}</strong>
+              ) : (
+                <span class="ci-caption-line">{line}</span>
+              )
+            )}
+          </span>
         </div>
       )
     }
@@ -131,6 +149,21 @@ const blindsStyle = useBlinds
     /* Multi-line captions (string array / "\n"): each line gets its own
        row; long lines wrap naturally. */
     white-space: pre-line;
+  }
+
+  .ci-caption-below {
+    order: 1;
+    font-size: 1rem;
+  }
+
+  .ci-caption-line {
+    display: block;
+    font-weight: 400;
+  }
+
+  .ci-caption-title {
+    font-family: "Noto Serif CJK SC", "Songti SC", "SimSun", serif;
+    font-weight: 900;
   }
 
   /* "inside" placement: the box is sized by the init script to exactly match
