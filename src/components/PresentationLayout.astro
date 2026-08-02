@@ -1,0 +1,61 @@
+---
+interface Props {
+  title: string;
+  eyebrow?: string;
+}
+
+const { title, eyebrow } = Astro.props;
+---
+
+<section class="presentation-layout">
+  <header class="presentation-layout__header">
+    {eyebrow && <p class="presentation-layout__eyebrow">{eyebrow}</p>}
+    <h1>{title}</h1>
+  </header>
+  <div class="presentation-layout__body">
+    <slot />
+  </div>
+</section>
+
+<style>
+  .presentation-layout {
+    width: 100%;
+    height: 100%;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    text-align: left;
+    color: #333;
+  }
+
+  .presentation-layout__header {
+    flex: 0 0 auto;
+    padding: 0;
+    text-align: center;
+  }
+
+  .presentation-layout__eyebrow {
+    margin: 0 0 0.25rem;
+    color: var(--dark-mint, #228b22);
+    font-size: 0.95rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  .presentation-layout h1 {
+    margin: 0;
+    color: #333;
+    font-size: 2.7rem;
+    font-weight: 750;
+    line-height: 1.2;
+    letter-spacing: 0.02em;
+  }
+
+  .presentation-layout__body {
+    flex: 1 1 auto;
+    min-height: 0;
+    overflow: hidden;
+  }
+</style>

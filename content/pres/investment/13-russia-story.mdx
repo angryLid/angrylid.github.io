@@ -5,13 +5,15 @@ steps: 5
 import Notes from "@components/Notes.astro";
 import CaptionedImage from "@components/CaptionedImage.astro";
 import PresentationStep from "@components/PresentationStep.astro";
+import PresentationLayout from "@components/PresentationLayout.astro";
 import avatar1 from "./assets/Russia-story/avatar-1.png";
 import avatar2 from "./assets/Russia-story/avatar-2.png";
 import avatar3 from "./assets/Russia-story/avatar-3.png";
 import avatar4 from "./assets/Russia-story/avatar-4.png";
 
-<div style="height: 100%; box-sizing: border-box; display: flex; align-items: center; justify-content: center; padding: 1rem 1.5rem;">
-  <div style="height: 100%; aspect-ratio: 1 / 1; display: grid; grid-template-columns: 1fr 1fr; grid-template-rows: 1fr 1fr; gap: 1.25rem;">
+<PresentationLayout title="登場人物">
+  <div style="height: 100%; display: flex; align-items: center; justify-content: center;">
+    <div style="height: 100%; aspect-ratio: 1 / 1; display: grid; grid-template-columns: 1fr 1fr; grid-template-rows: 1fr 1fr; gap: 1.25rem;">
     <PresentationStep step={1}>
       <CaptionedImage src={avatar1.src} alt="莫罗佐夫" caption={["莫罗佐夫", "农场主的儿子","深爱着伊万诺夫娜的一切"]} captionPosition="inside" effect="blinds" />
     </PresentationStep>
@@ -24,8 +26,9 @@ import avatar4 from "./assets/Russia-story/avatar-4.png";
     <PresentationStep step={4}>
       <CaptionedImage src={avatar4.src} alt="列宁" caption={["列宁", "不苟言笑的神秘男子", "刚从德国归来"]} captionPosition="inside" effect="blinds" />
     </PresentationStep>
+    </div>
   </div>
-</div>
+</PresentationLayout>
 
 <Notes>
 
