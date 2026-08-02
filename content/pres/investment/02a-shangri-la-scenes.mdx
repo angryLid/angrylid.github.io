@@ -1,31 +1,40 @@
 ---
 title: "香格里拉风光"
-steps: 1
+steps: 3
 ---
 import Notes from "@components/Notes.astro";
+import PresentationLayout from "@components/PresentationLayout.astro";
 import PhotoCollage from "@components/PhotoCollage.astro";
-import pudacuo from "./assets/pudacuo.jpg";
-import dukezong from "./assets/dukezong.jpg";
-import sumtseling from "./assets/sumtseling.jpg";
-import tigerLeapingGorge from "./assets/tiger-leaping-gorge.jpg";
+import pudacuo from "./assets/Shangri-La/pudacuo.jpg";
+import dukezong from "./assets/Shangri-La/dukezong.jpg";
+import sumtseling from "./assets/Shangri-La/sumtseling.jpg";
+import tigerLeapingGorge from "./assets/Shangri-La/tiger-leaping-gorge.jpg";
 
-<PhotoCollage
-  photos={[
-    { src: pudacuo.src, alt: "普达措国家公园", caption: "普达措国家公园", rotate: -3.5, top: 25, left: 135, width: 440, z: 5 },
-    { src: dukezong.src, alt: "独克宗古城", caption: "独克宗古城", rotate: 0.8, top: 10, left: 735, width: 440, z: 6 },
-    { src: sumtseling.src, alt: "噶丹松赞林寺", caption: "噶丹松赞林寺", rotate: 4.1, top: 335, left: 68, width: 440, z: 3 },
-    { src: tigerLeapingGorge.src, alt: "虎跳峡", caption: "虎跳峡", rotate: 2.3, top: 330, left: 675, width: 440, z: 4 },
-  ]}
-/>
+<PresentationLayout title="香格里拉 Shangri-La">
+  <div style="position: absolute; top: 100px; left: 300px; width: 670px; z-index: 1;">
+    <PhotoCollage src={pudacuo.src} alt="普达措国家公园" caption="普达措国家公园" />
+  </div>
+  <div data-anim="1" style="position: absolute; top: 95px; left: 325px; width: 670px; transform: rotate(2.5deg); z-index: 2;">
+    <PhotoCollage src={dukezong.src} alt="独克宗古城" caption="独克宗古城" />
+  </div>
+  <div data-anim="2" style="position: absolute; top: 110px; left: 285px; width: 670px; transform: rotate(5deg); z-index: 3;">
+    <PhotoCollage src={sumtseling.src} alt="噶丹松赞林寺" caption="噶丹松赞林寺" />
+  </div>
+  <div data-anim="3" style="position: absolute; top: 95px; left: 340px; width: 670px; transform: rotate(-2deg); z-index: 4;">
+    <PhotoCollage src={tigerLeapingGorge.src} alt="虎跳峡" caption="虎跳峡" />
+  </div>
+</PresentationLayout>
 
 <Notes>
 
-香格里拉不仅有"英文造词"的名字，还有绝美的风光。四个地标：
-- 普达措国家公园：原始森林与宁静湖泊，适合放松
-- 独克宗古城：古老石板路，世界最大的转经筒
-- 噶丹松赞林寺：云南最大的藏传佛教寺院，建筑宏伟
-- 虎跳峡：世界最深的峡谷之一，水流湍急，景色壮观
+没错，它就是——香格里拉。
 
-这页作为热身答案后的视觉过渡，让听众"看见"香格里拉。
+这个名字出自一位英国作家（詹姆斯·希尔顿 ）1933 年的小说《消失的地平线》，书中描绘了一个虚构的（喜马拉雅）乌托邦山谷，香格里拉。
+
+2001 年，为了发展旅游业。中甸县正式更名为"香格里拉"。它也是中国唯一一个名称源自英语文学造词的城市。
+
+当然这也没有什么稀奇的，自从 1997 年香港回归以后，英语顺理成章的也变成少数民族语言了。
+
+这是香格里拉的一些景区。普达措国家公园，独克宗古城，噶丹松赞林寺，虎跳峡。
 
 </Notes>
