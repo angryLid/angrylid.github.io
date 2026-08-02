@@ -2,12 +2,17 @@
 interface Props {
   title: string;
   eyebrow?: string;
+  /** Narrow mode: adds horizontal padding so content doesn't span the full slide width */
+  narrow?: boolean;
 }
 
-const { title, eyebrow } = Astro.props;
+const { title, eyebrow, narrow = false } = Astro.props;
+const layoutClass = narrow
+  ? "presentation-layout presentation-layout--narrow"
+  : "presentation-layout";
 ---
 
-<section class="presentation-layout">
+<section class={layoutClass}>
   <header class="presentation-layout__header">
     {eyebrow && <p class="presentation-layout__eyebrow">{eyebrow}</p>}
     <h1>{title}</h1>
@@ -27,6 +32,11 @@ const { title, eyebrow } = Astro.props;
     gap: 1.5rem;
     text-align: left;
     color: #333;
+  }
+
+  /* Narrow mode: constrain content width via horizontal padding */
+  .presentation-layout--narrow {
+    padding-inline: 4rem;
   }
 
   .presentation-layout__header {
