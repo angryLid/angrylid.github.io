@@ -1,16 +1,15 @@
 ---
 title: "什么是投资"
-steps: 3
+steps: 1
 ---
 import Notes from "@components/Notes.astro";
+import PresentationLayout from "@components/PresentationLayout.astro";
 
-<div style="height: 100%; box-sizing: border-box; display: flex; flex-direction: column; padding: 1.2rem 3rem;">
-  <h2 style="font-size: 2.2rem; margin: 0 0 0.8rem 0; color: #333; flex-shrink: 0;">什么是投资——从做生意说起</h2>
-
-  <div style="flex: 1; min-height: 0; display: flex; flex-direction: column; gap: 0.8rem;">
+<PresentationLayout title="做生意和投资">
+  <div style="padding: 0 3rem; height: 100%; display: flex; flex-direction: column; gap: 0.8rem;">
 
     {/* 上半部分：做生意 */}
-    <div data-anim="1" style="flex: 1; min-height: 0; background: #f8f9fa; border-radius: 12px; padding: 1.2rem 1.8rem; display: flex; flex-direction: column; border-left: 5px solid #e67e22;">
+    <div style="flex: 1; min-height: 0; background: #f8f9fa; border-radius: 12px; padding: 1.2rem 1.8rem; display: flex; flex-direction: column; border-left: 5px solid #e67e22;">
       <h3 style="font-size: 1.5rem; margin: 0 0 0.6rem 0; color: #e67e22;">📦 做生意：倒卖球鞋</h3>
       <div style="flex: 1; display: flex; align-items: center; justify-content: space-around; gap: 1rem;">
         <div style="text-align: center;">
@@ -41,7 +40,7 @@ import Notes from "@components/Notes.astro";
     </div>
 
     {/* 下半部分：投资 */}
-    <div data-anim="2" style="flex: 1; min-height: 0; background: #eafaf1; border-radius: 12px; padding: 1.2rem 1.8rem; display: flex; flex-direction: column; border-left: 5px solid #27ae60;">
+    <div style="flex: 1; min-height: 0; background: #eafaf1; border-radius: 12px; padding: 1.2rem 1.8rem; display: flex; flex-direction: column; border-left: 5px solid #27ae60;">
       <h3 style="font-size: 1.5rem; margin: 0 0 0.6rem 0; color: #27ae60;">💹 投资：买一种"特殊商品"</h3>
       <div style="flex: 1; display: flex; align-items: center; justify-content: space-around; gap: 1rem;">
         <div style="text-align: center;">
@@ -64,7 +63,7 @@ import Notes from "@components/Notes.astro";
           <p style="font-size: 1.1rem; margin: 0.3rem 0 0 0; color: #27ae60; font-weight: 600;">赚收益</p>
         </div>
       </div>
-      <div data-anim="3" style="margin-top: 0.5rem; padding: 0.5rem 1rem; background: rgba(39, 174, 96, 0.1); border-radius: 8px; text-align: center;">
+      <div style="margin-top: 0.5rem; padding: 0.5rem 1rem; background: rgba(39, 174, 96, 0.1); border-radius: 8px; text-align: center;">
         <p style="font-size: 1.05rem; margin: 0; color: #2ecc71;">
           ✨ 不需要搬运 · 不需要找客户 · 不需要做营销<br />
           只需要：等待时间证明你是正确的
@@ -73,19 +72,14 @@ import Notes from "@components/Notes.astro";
     </div>
 
   </div>
-</div>
+</PresentationLayout>
 
 <Notes>
-
+所以，到底什么是投资呢。这里我不念那些教材的内容了。我们不妨用做生意做一个类比。
 比如你做生意，倒卖球鞋，就是花相对低价买入，然后运到另一个地方卖掉。两个价格相减就是你的收益。
 
 做生意的流程很长：你要进货、要搬运、要做营销、要找客户，每一步都要操心、都要付出劳动。
 
-那么投资无非也是买一种特殊的商品。这种特殊的商品，你也不用搬运到另一个地方，也不需要寻找客户，也不需要做营销。
+那么投资无非也是倒卖一种特殊的商品。那么这种商品你不需要做很多事情。你只需要拿在手上，等待时间证明你是正确的，然后卖掉就可以了。
 
-你只需要等待时间证明你是正确的，然后卖掉就可以了。
-
-所以投资的本质是什么？它和做生意一样，都是低买高卖赚差价。但投资把中间所有折腾人的环节都省掉了，只剩下一件事：等待时间。
-
-这就是投资看起来很"简单"，但又很难的原因——难就难在等待。
 </Notes>
