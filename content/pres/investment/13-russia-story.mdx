@@ -1,15 +1,39 @@
 ---
 title: "俄罗斯的故事"
-steps: 1
+steps: 5
 ---
 import Notes from "@components/Notes.astro";
-import russiaStory from "./assets/russia-story.png";
+import CaptionedImage from "@components/CaptionedImage.astro";
+import PresentationStep from "@components/PresentationStep.astro";
+import avatar1 from "./assets/Russia-story/avatar-1.png";
+import avatar2 from "./assets/Russia-story/avatar-2.png";
+import avatar3 from "./assets/Russia-story/avatar-3.png";
+import avatar4 from "./assets/Russia-story/avatar-4.png";
 
-<div style="height: 100%; box-sizing: border-box; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 1rem 2rem; gap: 0.8rem;">
-  <h2 style="font-size: 2rem; margin: 0; color: #333; flex-shrink: 0;">俄罗斯的故事</h2>
-  <img src={russiaStory.src} alt="俄罗斯的故事" style="max-height: calc(100% - 3.5rem); max-width: 100%; object-fit: contain;" />
+<div style="height: 100%; box-sizing: border-box; display: flex; align-items: center; justify-content: center; padding: 1rem 1.5rem;">
+  <div style="height: 100%; aspect-ratio: 1 / 1; display: grid; grid-template-columns: 1fr 1fr; grid-template-rows: 1fr 1fr; gap: 1.25rem;">
+    <PresentationStep step={1}>
+      <CaptionedImage src={avatar1.src} alt="莫罗佐夫" caption={["莫罗佐夫", "农场主的儿子","深爱着伊万诺夫娜的一切"]} captionPosition="inside" effect="blinds" />
+    </PresentationStep>
+    <PresentationStep step={2}>
+      <CaptionedImage src={avatar2.src} alt="伊万诺夫娜" caption={["伊万诺夫娜", "农奴的女儿","对莫罗佐夫心生情愫"]} captionPosition="inside" effect="blinds" />
+    </PresentationStep>
+    <PresentationStep step={3}>
+      <CaptionedImage src={avatar3.src} alt="古谢夫" caption={["古谢夫", "粮食收购商","觊觎伊万诺夫娜的美貌"]}  captionPosition="inside" effect="blinds" />
+    </PresentationStep>
+    <PresentationStep step={4}>
+      <CaptionedImage src={avatar4.src} alt="列宁" caption={["列宁", "不苟言笑的神秘男子", "刚从德国归来"]} captionPosition="inside" effect="blinds" />
+    </PresentationStep>
+  </div>
 </div>
 
 <Notes>
+
+俄罗斯故事的角色：按 step 逐张揭晓（左上 → 右上 → 左下 → 右下）。
+
+- 莫罗佐夫：沙俄末期农场主之子，刚成年，英俊开朗，衣领与纽扣暗示家境优渥
+- 伊万诺夫娜：农奴之女，头巾素净，神情带一丝稚气的羞涩
+- 古谢夫：粮食收购商人，约 40 岁，体胖、服饰华贵，皮笑肉不笑
+- 列宁：经典形象，对劳苦大众的怜悯与坚定信念
 
 </Notes>
