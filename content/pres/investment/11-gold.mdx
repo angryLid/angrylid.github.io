@@ -3,145 +3,261 @@ title: "共识类资产 · 黄金"
 steps: 1
 ---
 import Notes from "@components/Notes.astro";
+import PresentationLayout from "@components/PresentationLayout.astro";
 
-<div style="padding: 2.5rem 3rem; height: 100%; box-sizing: border-box; display: flex; flex-direction: column;">
-  <div style="display: flex; align-items: center; gap: 1rem; margin-bottom: 1.5rem; flex-shrink: 0;">
-    <div style="width: 56px; height: 56px; border-radius: 50%; background: linear-gradient(135deg, #f59e0b, #d97706); display: flex; align-items: center; justify-content: center;">
-      <span style="font-size: 1.8rem;">🥇</span>
+<PresentationLayout title="黄金 — 为什么是它？" eyebrow="共识类资产">
+  <div
+    style="
+      height: 100%;
+      display: grid;
+      grid-template-columns: 280px 1fr;
+      gap: 3rem;
+      align-items: center;
+    "
+  >
+    {/* 左侧：金锭视觉 */}
+    <div style="display: flex; flex-direction: column; align-items: center; gap: 1.5rem;">
+      {/* 金锭图形 */}
+      <div
+        style="
+          position: relative;
+          width: 220px;
+          height: 260px;
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          justify-content: center;
+        "
+      >
+        {/* 光晕 */}
+        <div
+          style="
+            position: absolute;
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(212,175,55,0.18) 0%, transparent 70%);
+            filter: blur(15px);
+          "
+        />
+
+        {/* 梯形金锭 */}
+        <div
+          style="
+            position: relative;
+            width: 180px;
+            height: 100px;
+            background: linear-gradient(180deg, #f9e07a 0%, #d4af37 40%, #b8860b 100%);
+            clip-path: polygon(8% 0%, 92% 0%, 100% 100%, 0% 100%);
+            border-radius: 4px;
+            box-shadow:
+              0 25px 50px rgba(184,134,11,0.3),
+              inset 0 2px 0 rgba(255,255,255,0.5),
+              inset 0 -3px 0 rgba(0,0,0,0.15);
+          "
+        >
+          <div
+            style="
+              position: absolute;
+              top: 50%;
+              left: 50%;
+              transform: translate(-50%, -50%);
+              color: #5c3d0a;
+              font-weight: 800;
+              font-size: 1.4rem;
+              letter-spacing: 0.08em;
+              text-shadow: 0 1px 0 rgba(255,255,255,0.3);
+            "
+          >
+            999.9
+          </div>
+        </div>
+
+        {/* 元素符号 */}
+        <div
+          style="
+            margin-top: 0.5rem;
+            font-size: 3rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, #d4af37, #b8860b);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            letter-spacing: -0.02em;
+          "
+        >
+          Au
+        </div>
+        <p
+          style="
+            margin: 0;
+            font-size: 0.9rem;
+            color: #888;
+            letter-spacing: 0.1em;
+          "
+        >
+          原子序数 79
+        </p>
+      </div>
+
+      <p
+        style="
+          margin: 0;
+          font-size: 0.95rem;
+          color: #666;
+          text-align: center;
+          line-height: 1.6;
+        "
+      >
+        四种物理特性<br />
+        让它成为<strong style="color: #b8860b;">天然的货币金属</strong>
+      </p>
     </div>
-    <div>
-      <p style="font-size: 0.95rem; color: #d97706; font-weight: 600; margin: 0;">共识类资产</p>
-      <h2 style="font-size: 2.2rem; margin: 0.1rem 0 0 0; color: #333;">黄金 — 共识之王</h2>
+
+    {/* 右侧：四个筛选条件 */}
+    <div style="display: flex; flex-direction: column; gap: 0.6rem;">
+      <p
+        style="
+          margin: 0 0 0.2rem 0;
+          font-size: 0.95rem;
+          font-weight: 600;
+          color: #444;
+        "
+      >
+        一轮一轮筛选下来，只剩黄金了 ↓
+      </p>
+
+      {/* 条件 1 */}
+      <div
+        style="
+          display: flex;
+          align-items: flex-start;
+          gap: 1rem;
+          padding: 0.65rem 1.1rem;
+          background: #fafaf7;
+          border-radius: 8px;
+          border-left: 4px solid #d4af37;
+        "
+      >
+        <span style="font-size: 1.2rem; flex-shrink: 0;">✅</span>
+        <div style="flex: 1;">
+          <div style="display: flex; align-items: baseline; gap: 0.6rem;">
+            <strong style="font-size: 1rem; color: #333;">化学性质极其稳定</strong>
+            <span style="font-size: 0.82rem; color: #999;">不氧化 · 不腐烂 · 千年不变质</span>
+          </div>
+          <p style="margin: 0.2rem 0 0 0; font-size: 0.82rem; color: #888;">
+            <span style="color: #bbb; margin-right: 0.3rem;">✗</span>
+            香烟也是硬通货，但放久了就霉了
+          </p>
+        </div>
+      </div>
+
+      {/* 条件 2 */}
+      <div
+        style="
+          display: flex;
+          align-items: flex-start;
+          gap: 1rem;
+          padding: 0.65rem 1.1rem;
+          background: #fafaf7;
+          border-radius: 8px;
+          border-left: 4px solid #d4af37;
+        "
+      >
+        <span style="font-size: 1.2rem; flex-shrink: 0;">✅</span>
+        <div style="flex: 1;">
+          <div style="display: flex; align-items: baseline; gap: 0.6rem;">
+            <strong style="font-size: 1rem; color: #333;">矿脉分布广泛</strong>
+            <span style="font-size: 0.82rem; color: #999;">全球各大陆都有产出</span>
+          </div>
+          <p style="margin: 0.2rem 0 0 0; font-size: 0.82rem; color: #888;">
+            <span style="color: #bbb; margin-right: 0.3rem;">✗</span>
+            铂、钯几乎全在南非和俄罗斯，太集中
+          </p>
+        </div>
+      </div>
+
+      {/* 条件 3 */}
+      <div
+        style="
+          display: flex;
+          align-items: flex-start;
+          gap: 1rem;
+          padding: 0.65rem 1.1rem;
+          background: #fafaf7;
+          border-radius: 8px;
+          border-left: 4px solid #d4af37;
+        "
+      >
+        <span style="font-size: 1.2rem; flex-shrink: 0;">✅</span>
+        <div style="flex: 1;">
+          <div style="display: flex; align-items: baseline; gap: 0.6rem;">
+            <strong style="font-size: 1rem; color: #333;">储量稀缺且有限</strong>
+            <span style="font-size: 0.82rem; color: #999;">天然稀有 · 几乎无法人造</span>
+          </div>
+          <p style="margin: 0.2rem 0 0 0; font-size: 0.82rem; color: #888;">
+            <span style="color: #bbb; margin-right: 0.3rem;">✗</span>
+            白银储量太大；想人造金？拿镊子从水银里挑原子吧
+          </p>
+        </div>
+      </div>
+
+      {/* 条件 4 */}
+      <div
+        style="
+          display: flex;
+          align-items: flex-start;
+          gap: 1rem;
+          padding: 0.65rem 1.1rem;
+          background: #fafaf7;
+          border-radius: 8px;
+          border-left: 4px solid #d4af37;
+        "
+      >
+        <span style="font-size: 1.2rem; flex-shrink: 0;">✅</span>
+        <div style="flex: 1;">
+          <div style="display: flex; align-items: baseline; gap: 0.6rem;">
+            <strong style="font-size: 1rem; color: #333;">同质化 · 易分割</strong>
+            <span style="font-size: 0.82rem; color: #999;">每克都一样 · 按重量计价</span>
+          </div>
+          <p style="margin: 0.2rem 0 0 0; font-size: 0.82rem; color: #888;">
+            <span style="color: #bbb; margin-right: 0.3rem;">✗</span>
+            宝石一切就贬值，没法分割计价
+          </p>
+        </div>
+      </div>
+
+      {/* 底部结论 */}
+      <div
+        style="
+          margin-top: 0.1rem;
+          padding: 0.4rem 1.1rem;
+          text-align: right;
+          font-size: 0.85rem;
+          color: #777;
+          font-style: italic;
+        "
+      >
+        所以不同文明在历史上，不约而同地选择了黄金作为货币。
+        <br />
+        <span style="font-size: 0.78rem; color: #aaa;">
+          （当然金本位也有它的问题，不过那是另一个话题了）
+        </span>
+      </div>
     </div>
   </div>
-
-  <div style="flex: 1; min-height: 0; display: grid; grid-template-columns: 1fr 1fr; gap: 2rem;">
-    <div style="display: flex; flex-direction: column; justify-content: center; gap: 1rem;">
-      <div style="display: flex; gap: 1rem; align-items: flex-start;">
-        <div style="width: 40px; height: 40px; border-radius: 50%; background: #fef3c7; display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
-          <span style="font-size: 1.2rem;">⏳</span>
-        </div>
-        <div>
-          <p style="font-size: 1.15rem; font-weight: 600; color: #333; margin: 0;">五千年共识</p>
-          <p style="font-size: 0.95rem; color: #666; margin: 0.3rem 0 0 0; line-height: 1.5;">人类历史上最持久的价值共识</p>
-        </div>
-      </div>
-
-      <div style="display: flex; gap: 1rem; align-items: flex-start;">
-        <div style="width: 40px; height: 40px; border-radius: 50%; background: #fef3c7; display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
-          <span style="font-size: 1.2rem;">🏦</span>
-        </div>
-        <div>
-          <p style="font-size: 1.15rem; font-weight: 600; color: #333; margin: 0;">避险之王</p>
-          <p style="font-size: 0.95rem; color: #666; margin: 0.3rem 0 0 0; line-height: 1.5;">乱世买黄金，对抗通胀和危机</p>
-        </div>
-      </div>
-
-      <div style="display: flex; gap: 1rem; align-items: flex-start;">
-        <div style="width: 40px; height: 40px; border-radius: 50%; background: #fef3c7; display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
-          <span style="font-size: 1.2rem;">📊</span>
-        </div>
-        <div>
-          <p style="font-size: 1.15rem; font-weight: 600; color: #333; margin: 0;">长期保值</p>
-          <p style="font-size: 0.95rem; color: #666; margin: 0.3rem 0 0 0; line-height: 1.5;">跑赢通胀，但收益远不如股票</p>
-        </div>
-      </div>
-
-      <div style="display: flex; gap: 1rem; align-items: flex-start;">
-        <div style="width: 40px; height: 40px; border-radius: 50%; background: #fef3c7; display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
-          <span style="font-size: 1.2rem;">🔒</span>
-        </div>
-        <div>
-          <p style="font-size: 1.15rem; font-weight: 600; color: #333; margin: 0;">无对手风险</p>
-          <p style="font-size: 0.95rem; color: #666; margin: 0.3rem 0 0 0; line-height: 1.5;">不依赖任何政府、公司或个人</p>
-        </div>
-      </div>
-    </div>
-
-    <div style="display: flex; align-items: center; justify-content: center;">
-      <svg viewBox="0 0 400 320" style="width: 100%; max-height: 100%;" xmlns="http://www.w3.org/2000/svg">
-        <defs>
-          <linearGradient id="goldBg" x1="0%" y1="0%" x2="0%" y2="100%">
-            <stop offset="0%" stop-color="#fffbeb"/>
-            <stop offset="100%" stop-color="#fef3c7"/>
-          </linearGradient>
-          <radialGradient id="goldShine" cx="35%" cy="35%" r="65%">
-            <stop offset="0%" stop-color="#fde047"/>
-            <stop offset="40%" stop-color="#facc15"/>
-            <stop offset="100%" stop-color="#ca8a04"/>
-          </radialGradient>
-          <linearGradient id="goldPriceLine" x1="0%" y1="0%" x2="100%" y2="0%">
-            <stop offset="0%" stop-color="#a16207"/>
-            <stop offset="100%" stop-color="#f59e0b"/>
-          </linearGradient>
-        </defs>
-
-        <rect x="30" y="20" width="340" height="280" rx="12" fill="url(#goldBg)" stroke="#fde68a" stroke-width="2"/>
-
-        {/* 金块 */}
-        <g transform="translate(80, 80)">
-          <polygon points="0,30 20,10 100,10 120,30 100,50 20,50" fill="url(#goldShine)" stroke="#ca8a04" stroke-width="1.5"/>
-          <polygon points="0,30 20,10 20,50 0,30" fill="#b45309" opacity="0.3"/>
-          <polygon points="20,10 100,10 100,30 20,30" fill="#fde047" opacity="0.5"/>
-          <text x="60" y="35" text-anchor="middle" font-size="11" font-weight="700" fill="#78350f">999.9 纯金</text>
-        </g>
-
-        {/* 时间刻度 - 几千年 */}
-        <line x1="60" y1="180" x2="340" y2="180" stroke="#f59e0b" stroke-width="2"/>
-        <circle cx="60" cy="180" r="5" fill="#ca8a04"/>
-        <circle cx="130" cy="180" r="5" fill="#ca8a04"/>
-        <circle cx="200" cy="180" r="5" fill="#ca8a04"/>
-        <circle cx="270" cy="180" r="5" fill="#ca8a04"/>
-        <circle cx="340" cy="180" r="5" fill="#ca8a04"/>
-
-        <text x="60" y="205" text-anchor="middle" font-size="10" fill="#92400e">古埃及</text>
-        <text x="130" y="205" text-anchor="middle" font-size="10" fill="#92400e">古罗马</text>
-        <text x="200" y="205" text-anchor="middle" font-size="10" fill="#92400e">中世纪</text>
-        <text x="270" y="205" text-anchor="middle" font-size="10" fill="#92400e">近现代</text>
-        <text x="340" y="205" text-anchor="middle" font-size="10" fill="#92400e">今天</text>
-
-        {/* 黄金价格曲线 - 长期缓慢向上 */}
-        <path d="M60 175 Q100 173 150 170 Q200 165 240 160 Q280 150 310 130 Q330 115 340 100"
-              stroke="#d97706" stroke-width="2" fill="none" stroke-dasharray="6,3"/>
-
-        {/* 底部金币堆 */}
-        <g transform="translate(180, 235)">
-          <ellipse cx="0" cy="20" rx="30" ry="6" fill="#b45309" opacity="0.3"/>
-          <circle cx="-15" cy="15" r="18" fill="#facc15" stroke="#ca8a04" stroke-width="1.5"/>
-          <circle cx="10" cy="10" r="20" fill="#fbbf24" stroke="#ca8a04" stroke-width="1.5"/>
-          <circle cx="-5" cy="-5" r="17" fill="#fde047" stroke="#ca8a04" stroke-width="1.5"/>
-          <text x="10" y="15" text-anchor="middle" font-size="12" font-weight="700" fill="#78350f">$</text>
-        </g>
-
-        <text x="200" y="290" text-anchor="middle" font-size="12" fill="#92400e" font-weight="600">
-          穿越王朝更迭、战争、通胀，黄金始终被视为财富
-        </text>
-      </svg>
-    </div>
-  </div>
-
-  <div style="margin-top: 1rem; padding: 0.8rem 1.2rem; background: #fffbeb; border-radius: 0.6rem; border-left: 4px solid #f59e0b; flex-shrink: 0;">
-    <p style="font-size: 1rem; color: #92400e; margin: 0;">
-      <strong>一句话：</strong>黄金是人类最强共识的"硬通货"——它不产生收益，但任何时代、任何地方，人人都认它的价值。
-    </p>
-  </div>
-</div>
+</PresentationLayout>
 
 <Notes>
 
-黄金可能是唯一穿越几千年的共识。
+况且，我们还有更好的选择，那就是黄金。黄金具有
 
-黄金具有如下属性。
-
-- 化学稳定性 （米面虽然也是硬通货但是不耐存储）
+- 极佳的化学稳定性 （香烟虽然也是硬通货但是不耐存储）
 - 矿脉分散于世界各地 （铂或者钯的储量非常集中）
-- 储量非常有限，且几乎无法人造（白银的储量过大）
+- 储量非常有限，（白银的储量过大）且几乎无法人造，当然你可以试试，理论上说，你只需要找一把镊子把水银里面的原子挑出来。
 - 同质化易于分割（宝石无法分割计价）
 
-所以世界各地的不同文明长期以来使用黄金作为货币。
+所以世界各地的不同文明长期以来使用黄金作为货币。当然使用黄金作为货币存在一个问题。那就是人类总财富的增长被迫和黄金的开采速度挂钩。不过这并不是我们今天要讨论的话题。
 
-当然使用黄金作为货币存在一个问题。那就是人类总财富的增长被迫和黄金的开采速度挂钩。
-
-所以黄金在
-
+关于黄金的讨论先告一段落吧。
 </Notes>
