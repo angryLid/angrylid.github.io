@@ -3,18 +3,30 @@ title: "你知道吗"
 steps: 2
 ---
 import Notes from "@components/Notes.astro";
+import PresentationLayout from "@components/PresentationLayout.astro";
 
-<div data-anim="0" style="text-align: left; padding: 2.5rem 3rem;">
-  <h2 style="font-size: 3.2rem; margin: 0; color: #333;">你知道吗</h2>
-  <p style="margin-top: 2rem; font-size: 1.5rem; line-height: 1.9;">中国的地名大多是中文、蒙语、粤语或藏语风格的。</p>
-  <p style="margin-top: 1.5rem; font-size: 1.5rem; line-height: 1.9;">但有<strong>一个城市</strong>是用英文单词命名的。你能猜到是哪个吗？</p>
-</div>
-<p data-anim="1" style="position: absolute; bottom: 4rem; left: 0; right: 0; text-align: center; font-size: 2.4rem; font-weight: 700; color: var(--dark-mint, #2a9d8f);">香格里拉 / Shangri-La</p>
+<PresentationLayout title="城市介绍环节">
+  <div  style="padding: 1rem 3rem 0;">
+    <p data-anim="0" style="margin-top: 1rem; font-size: 2rem; line-height: 2.3;">中国的地名大多是本地居民取的名字，通常是汉语或者是少数民族语言的汉译。</p>
+
+    <ul style="margin-top: 1rem; font-size: 2rem; line-height: 2.3; list-style: disc; padding-left: 2.5rem;">
+      <li data-anim="1">包头：源自蒙古语"包克图"，意为"有鹿的地方"（故称"鹿城"）。</li>
+      <li data-anim="2">哈尔滨：主流认为源自满语/古女真语，意为"晒网场"（或"打鱼场"）。</li>
+      <li data-anim="3">合肥：来自古代山越民的土话，意思是“八百大于十万。”</li>
+    </ul>
+
+    <p data-anim="4" style="margin-top: 1.5rem; font-size: 2rem; line-height: 2.3;">但有个小城市是用英语单词命名的。你能猜到是哪个吗？</p>
+  </div>
+</PresentationLayout>
 
 <Notes>
 
-答案：**香格里拉**——云南省迪庆藏族自治州的一个县级市。
+按照惯例，一开始都要介绍一个跟主题完全没关系的地方。是吧
 
-这个名字出自英国作家詹姆斯·希尔顿 1933 年的小说《消失的地平线》，书中描绘了一个虚构的喜马拉雅乌托邦山谷。2001 年，中甸县正式更名为"香格里拉"以发展旅游。它是中国唯一一个名称源自英语文学造词的城市。
+中国的地名大多是本地居民取的名字，通常是汉语或者是少数民族语言的汉译。
+
+比如说，包头源自蒙古语，意思是"有鹿的地方"。哈尔滨，通常认为是古代女真语晒网打渔的地方。还有合肥：是古代山越民的土话，意思是“八百大于十万。”
+
+然而，国内有一个小城市是用英语单词命名的。你能猜到是哪个吗？
 
 </Notes>
