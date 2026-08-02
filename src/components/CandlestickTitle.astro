@@ -27,14 +27,12 @@
 //   text          — title string (required)
 //   colorA        — color when the letter is LOWER than its left neighbor  (default #06806b)
 //   colorB        — color when the letter is HIGHER than its left neighbor (default #cc2f3c)
-//   offsetRange   — max vertical drift, em, applied both directions (default 0.3)
+//   offsetRange   — max vertical drift, em, applied both directions (default 0.6)
 //   interval      — seconds between snake shifts (default 3)
 //   ma            — [{ period, color }] overlays drawn behind letters.
-//                   Defaults: MA3 (fast, blue) + MA7 (slow, amber).
-//                   NOTE: MA needs period <= text.length; with "INVESTMENT"
-//                   (10 letters) MA30 cannot be computed, hence the smaller
-//                   defaults. Pass a longer text or different periods via
-//                   this prop to taste.
+//                   Defaults: MA30 (slow), MA15 (mid), and MA7 (fast).
+//                   Periods are retained as visual configuration; the lines
+//                   are wave overlays rather than mathematically calculated MAs.
 //   mode          — "auto" (default) uses the random candle direction;
 //                   "manual" uses the mouse's vertical direction instead;
 //                   "hybrid" switches between mouse and timer after idling.
@@ -405,11 +403,10 @@ const colorFor = (i: number): string => {
 </style>
 
 <script>
-  // ---- module-scoped lifecycle registry (cleared across view-transition swaps) ----
-  let intervals: number[] = [];
-  let rafs: number[] = [];
-  let ros: ResizeObserver[] = [];
-  let manualCleanups: (() => void)[] = [];
+  // Instances are recreated after every Astro view transition. Keeping all
+  // timers, observers, and event cleanup functions on each instance prevents
+  // work from the previous page from surviving a DOM swap.
+  let activeInstances: Instance[] = [];
 
   function rnd(lo: number, hi: number): number {
     return Math.random() * (hi - lo) + lo;
@@ -504,6 +501,8 @@ const colorFor = (i: number): string => {
     manualLastTick: number;
     autoTimer: number | null;
     resumeAutoTimer: number | null;
+    resizeObserver: ResizeObserver | null;
+    manualCleanup: (() => void) | null;
   }
 
   function colorForOffset(offsets: number[], i: number, a: string, b: string, leftGhost: number = 0): string {
@@ -599,7 +598,6 @@ const colorFor = (i: number): string => {
       }
     };
     inst.raf = requestAnimationFrame(step);
-    rafs.push(inst.raf);
   }
 
   function tick(inst: Instance, animDur: number): void {
@@ -670,16 +668,25 @@ const colorFor = (i: number): string => {
     svg.setAttribute("preserveAspectRatio", "none");
   }
 
+  function destroyInstance(inst: Instance): void {
+    if (inst.autoTimer != null) window.clearInterval(inst.autoTimer);
+    if (inst.manualTimer != null) window.clearTimeout(inst.manualTimer);
+    if (inst.resumeAutoTimer != null) window.clearTimeout(inst.resumeAutoTimer);
+    if (inst.raf != null) cancelAnimationFrame(inst.raf);
+    inst.resizeObserver?.disconnect();
+    inst.manualCleanup?.();
+    inst.autoTimer = null;
+    inst.manualTimer = null;
+    inst.resumeAutoTimer = null;
+    inst.raf = null;
+    inst.resizeObserver = null;
+    inst.manualCleanup = null;
+  }
+
   document.addEventListener("astro:page-load", () => {
-    // clear everything from the previous page view (view-transition swap)
-    for (const id of intervals) clearInterval(id);
-    for (const id of rafs) cancelAnimationFrame(id);
-    for (const ro of ros) ro.disconnect();
-    for (const cleanup of manualCleanups) cleanup();
-    intervals = [];
-    rafs = [];
-    ros = [];
-    manualCleanups = [];
+    // View-transition navigation replaces the DOM but not this module.
+    for (const inst of activeInstances) destroyInstance(inst);
+    activeInstances = [];
 
     const containers = [...document.querySelectorAll<HTMLElement>(".snake-chart")];
     if (containers.length === 0) return;
@@ -752,6 +759,8 @@ const colorFor = (i: number): string => {
         manualLastTick: 0,
         autoTimer: null,
         resumeAutoTimer: null,
+        resizeObserver: null,
+        manualCleanup: null,
       };
       // Size the SVG user space to the container's pixels, then measure the
       // letters in that same space before the first draw.
@@ -773,7 +782,6 @@ const colorFor = (i: number): string => {
       const startAuto = () => {
         if (inst.autoTimer == null) {
           inst.autoTimer = window.setInterval(() => tick(inst, ANIM_DUR), intervalMs);
-          intervals.push(inst.autoTimer);
         }
       };
       const stopAuto = () => {
@@ -860,7 +868,7 @@ const colorFor = (i: number): string => {
         inst.container.addEventListener("mouseenter", onMouseEnter);
         inst.container.addEventListener("mouseleave", onMouseLeave);
         inst.container.addEventListener("mousemove", onMouseMove);
-        manualCleanups.push(() => {
+        inst.manualCleanup = () => {
           clearManualTimer();
           if (inst.resumeAutoTimer != null) {
             window.clearTimeout(inst.resumeAutoTimer);
@@ -869,7 +877,7 @@ const colorFor = (i: number): string => {
           inst.container.removeEventListener("mouseenter", onMouseEnter);
           inst.container.removeEventListener("mouseleave", onMouseLeave);
           inst.container.removeEventListener("mousemove", onMouseMove);
-        });
+        };
       }
     }
 
@@ -879,14 +887,14 @@ const colorFor = (i: number): string => {
     for (const inst of instances) {
       const svg = inst.container.querySelector<SVGSVGElement>(".ma-lines");
       if (!svg) continue;
-      const ro = new ResizeObserver(() => {
+      inst.resizeObserver = new ResizeObserver(() => {
         syncViewBox(svg, inst.container);
         inst.ld = measure(inst, inst.letters);
         drawAt(inst);
       });
-      ro.observe(inst.container);
-      // observer lives only for this page; tracked for disconnect on swap.
-      ros.push(ro);
+      inst.resizeObserver.observe(inst.container);
     }
+
+    activeInstances = instances;
   });
 </script>
