@@ -6,107 +6,130 @@ import Notes from "@components/Notes.astro";
 import PresentationLayout from "@components/PresentationLayout.astro";
 
 <PresentationLayout title="老登资产" eyebrow="共识类资产">
-  <div style="height: 100%; display: flex; flex-direction: column; gap: 1rem;">
-    <div style="flex: 1; min-height: 0; display: grid; grid-template-columns: 1fr 1fr; gap: 2rem;">
-    <div style="display: flex; flex-direction: column; justify-content: center; gap: 1.2rem;">
-      <div style="display: flex; gap: 1rem; align-items: flex-start;">
-        <div style="width: 40px; height: 40px; border-radius: 50%; background: #fef3c7; display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
-          <span style="font-size: 1.2rem;">🤝</span>
+  <div style="height: 100%; display: flex; flex-direction: column; gap: 0.9rem;">
+
+    {/* 顶部核心定义 */}
+    <div style="display: flex; align-items: stretch; gap: 1.2rem; flex-shrink: 0;">
+      <div style="flex: 1; background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%); border-radius: 0.9rem; padding: 1.1rem 1.3rem; position: relative; overflow: hidden;">
+        <div style="font-size: 1.8rem; margin-bottom: 0.3rem;">🤝 价值 = 共识</div>
+        <div style="font-size: 0.95rem; color: #78350f; line-height: 1.55;">
+          本身<strong>不产生现金流</strong>，全靠大家都觉得它值钱。<br/>
+          共识扩大 → 找到接盘侠；共识破裂 → 砸手里
         </div>
-        <div>
-          <p style="font-size: 1.15rem; font-weight: 600; color: #333; margin: 0;">价值 = 共识</p>
-          <p style="font-size: 0.95rem; color: #666; margin: 0.3rem 0 0 0; line-height: 1.5;">大家都觉得它值钱，它就值钱</p>
-        </div>
+        <div style="position: absolute; right: -10px; bottom: -10px; font-size: 4.5rem; opacity: 0.1; line-height: 1;">💎</div>
       </div>
 
-      <div style="display: flex; gap: 1rem; align-items: flex-start;">
-        <div style="width: 40px; height: 40px; border-radius: 50%; background: #fef3c7; display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
-          <span style="font-size: 1.2rem;">🚫</span>
+      <div style="flex: 1; background: #1f2937; border-radius: 0.9rem; padding: 1.1rem 1.3rem; color: #fff; position: relative; overflow: hidden;">
+        <div style="font-size: 0.85rem; color: #9ca3af; margin-bottom: 0.2rem;">典型代表</div>
+        <div style="font-size: 1.6rem; font-weight: 800; margin-bottom: 0.6rem;">
+          老登资产 <span style="font-size: 0.85rem; color: #fbbf24;">Laodeng Assets</span>
         </div>
-        <div>
-          <p style="font-size: 1.15rem; font-weight: 600; color: #333; margin: 0;">不产生现金流</p>
-          <p style="font-size: 0.95rem; color: #666; margin: 0.3rem 0 0 0; line-height: 1.5;">没有利息、没有分红，全靠涨价</p>
+        <div style="display: flex; flex-wrap: wrap; gap: 0.4rem;">
+          <span style="background: rgba(251, 191, 36, 0.2); color: #fbbf24; padding: 0.2rem 0.7rem; border-radius: 999px; font-size: 0.8rem;">玉石</span>
+          <span style="background: rgba(251, 191, 36, 0.2); color: #fbbf24; padding: 0.2rem 0.7rem; border-radius: 999px; font-size: 0.8rem;">邮票</span>
+          <span style="background: rgba(251, 191, 36, 0.2); color: #fbbf24; padding: 0.2rem 0.7rem; border-radius: 999px; font-size: 0.8rem;">文玩字画</span>
+          <span style="background: rgba(251, 191, 36, 0.2); color: #fbbf24; padding: 0.2rem 0.7rem; border-radius: 999px; font-size: 0.8rem;">红木家具</span>
         </div>
-      </div>
-
-      <div style="display: flex; gap: 1rem; align-items: flex-start;">
-        <div style="width: 40px; height: 40px; border-radius: 50%; background: #fef3c7; display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
-          <span style="font-size: 1.2rem;">🎰</span>
-        </div>
-        <div>
-          <p style="font-size: 1.15rem; font-weight: 600; color: #333; margin: 0;">高波动 + 投机性</p>
-          <p style="font-size: 0.95rem; color: #666; margin: 0.3rem 0 0 0; line-height: 1.5;">价格由情绪驱动，容易大起大落</p>
+        <div style="margin-top: 0.6rem; padding-top: 0.6rem; border-top: 1px dashed #374151;">
+          <div style="font-size: 0.78rem; color: #9ca3af; margin-bottom: 0.3rem;">小登版（下一代不会接盘）</div>
+          <div style="display: flex; flex-wrap: wrap; gap: 0.35rem;">
+            <span style="background: rgba(167, 139, 250, 0.2); color: #a78bfa; padding: 0.15rem 0.55rem; border-radius: 999px; font-size: 0.72rem;">限量球鞋</span>
+            <span style="background: rgba(167, 139, 250, 0.2); color: #a78bfa; padding: 0.15rem 0.55rem; border-radius: 999px; font-size: 0.72rem;">谷子</span>
+            <span style="background: rgba(167, 139, 250, 0.2); color: #a78bfa; padding: 0.15rem 0.55rem; border-radius: 999px; font-size: 0.72rem;">游戏卡牌</span>
+          </div>
         </div>
       </div>
     </div>
 
-    <div style="display: flex; align-items: center; justify-content: center;">
-      <svg viewBox="0 0 400 320" style="width: 100%; max-height: 100%;" xmlns="http://www.w3.org/2000/svg">
-        <defs>
-          <linearGradient id="laodengBg" x1="0%" y1="0%" x2="0%" y2="100%">
-            <stop offset="0%" stop-color="#fffbeb"/>
-            <stop offset="100%" stop-color="#fef3c7"/>
-          </linearGradient>
-          <radialGradient id="consensusGlow" cx="50%" cy="50%" r="50%">
-            <stop offset="0%" stop-color="#fbbf24" stop-opacity="0.6"/>
-            <stop offset="100%" stop-color="#fbbf24" stop-opacity="0"/>
-          </radialGradient>
-        </defs>
+    {/* 三大特性 */}
+    <div style="flex: 1; min-height: 0; background: #f9fafb; border-radius: 0.9rem; padding: 0.9rem 1.2rem; display: flex; flex-direction: column; gap: 0.7rem;">
+      <div style="font-size: 1rem; font-weight: 700; color: #111827; display: flex; align-items: center; gap: 0.4rem; flex-shrink: 0;">
+        <span>🔍</span> 为什么这些东西能形成共识？三大特性
+      </div>
+      <div style="flex: 1; min-height: 0; display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 0.9rem;">
+        {/* 特性1 */}
+        <div style="background: #fff; border-radius: 0.8rem; border: 2px solid #dbeafe; position: relative; display: flex; flex-direction: column; overflow: hidden;">
+          <div style="background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%); color: #fff; padding: 0.8rem 1rem; display: flex; align-items: center; gap: 0.6rem;">
+            <div style="width: 32px; height: 32px; background: rgba(255,255,255,0.2); border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 1.3rem;">🛠️</div>
+            <div>
+              <div style="font-size: 0.7rem; opacity: 0.8; letter-spacing: 0.5px;">CHARACTERISTIC 01</div>
+              <div style="font-size: 1.1rem; font-weight: 800;">实用价值</div>
+            </div>
+          </div>
+          <div style="flex: 1; padding: 0.9rem 1rem; display: flex; flex-direction: column; justify-content: center; gap: 0.6rem;">
+            <div style="display: flex; align-items: flex-start; gap: 0.5rem;">
+              <span style="color: #3b82f6; font-weight: 800; flex-shrink: 0;">✓</span>
+              <span style="font-size: 0.88rem; color: #334155; line-height: 1.5;">不是凭空炒作的无用之物</span>
+            </div>
+            <div style="display: flex; align-items: flex-start; gap: 0.5rem;">
+              <span style="color: #3b82f6; font-weight: 800; flex-shrink: 0;">✓</span>
+              <span style="font-size: 0.88rem; color: #334155; line-height: 1.5;">本身具备实际功能和用途</span>
+            </div>
+            <div style="margin-top: 0.3rem; padding: 0.5rem 0.7rem; background: #eff6ff; border-radius: 0.4rem; font-size: 0.78rem; color: #1e40af; line-height: 1.4;">
+              💡 能用，是共识的基础底线
+            </div>
+          </div>
+        </div>
 
-        <rect x="30" y="20" width="340" height="280" rx="12" fill="url(#laodengBg)" stroke="#fde68a" stroke-width="2"/>
+        {/* 特性2 */}
+        <div style="background: #fff; border-radius: 0.8rem; border: 2px solid #fde68a; position: relative; display: flex; flex-direction: column; overflow: hidden;">
+          <div style="background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%); color: #fff; padding: 0.8rem 1rem; display: flex; align-items: center; gap: 0.6rem;">
+            <div style="width: 32px; height: 32px; background: rgba(255,255,255,0.2); border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 1.3rem;">✨</div>
+            <div>
+              <div style="font-size: 0.7rem; opacity: 0.8; letter-spacing: 0.5px;">CHARACTERISTIC 02</div>
+              <div style="font-size: 1.1rem; font-weight: 800;">稀缺性</div>
+            </div>
+          </div>
+          <div style="flex: 1; padding: 0.9rem 1rem; display: flex; flex-direction: column; justify-content: center; gap: 0.6rem;">
+            <div style="display: flex; align-items: flex-start; gap: 0.5rem;">
+              <span style="color: #f59e0b; font-weight: 800; flex-shrink: 0;">✓</span>
+              <span style="font-size: 0.88rem; color: #334155; line-height: 1.5;">不是唾手可得的大路货</span>
+            </div>
+            <div style="display: flex; align-items: flex-start; gap: 0.5rem;">
+              <span style="color: #f59e0b; font-weight: 800; flex-shrink: 0;">✓</span>
+              <span style="font-size: 0.88rem; color: #334155; line-height: 1.5;">物以稀为贵的心理基础</span>
+            </div>
+            <div style="margin-top: 0.3rem; padding: 0.5rem 0.7rem; background: #fffbeb; border-radius: 0.4rem; font-size: 0.78rem; color: #92400e; line-height: 1.4;">
+              💡 越少，越让人觉得值钱
+            </div>
+          </div>
+        </div>
 
-        {/* 中心资产 - 比特币风格图标 */}
-        <circle cx="200" cy="140" r="45" fill="url(#consensusGlow)"/>
-        <circle cx="200" cy="140" r="32" fill="#f59e0b" stroke="#d97706" stroke-width="2"/>
-        <text x="200" y="152" text-anchor="middle" font-size="28" font-weight="900" fill="#fff">₿</text>
-
-        {/* 周围的人 - 代表共识 */}
-        <g transform="translate(80, 90)">
-          <circle cx="15" cy="15" r="14" fill="#fde68a" stroke="#f59e0b" stroke-width="1.5"/>
-          <text x="15" y="20" text-anchor="middle" font-size="14">👴</text>
-        </g>
-        <g transform="translate(300, 90)">
-          <circle cx="15" cy="15" r="14" fill="#fde68a" stroke="#f59e0b" stroke-width="1.5"/>
-          <text x="15" y="20" text-anchor="middle" font-size="14">👵</text>
-        </g>
-        <g transform="translate(60, 190)">
-          <circle cx="15" cy="15" r="14" fill="#fde68a" stroke="#f59e0b" stroke-width="1.5"/>
-          <text x="15" y="20" text-anchor="middle" font-size="14">🧓</text>
-        </g>
-        <g transform="translate(320, 190)">
-          <circle cx="15" cy="15" r="14" fill="#fde68a" stroke="#f59e0b" stroke-width="1.5"/>
-          <text x="15" y="20" text-anchor="middle" font-size="14">👨‍🦳</text>
-        </g>
-
-        {/* 连接线 - 共识网络 */}
-        <line x1="95" y1="105" x2="175" y2="130" stroke="#f59e0b" stroke-width="1.5" stroke-dasharray="4,3" opacity="0.6"/>
-        <line x1="305" y1="105" x2="225" y2="130" stroke="#f59e0b" stroke-width="1.5" stroke-dasharray="4,3" opacity="0.6"/>
-        <line x1="75" y1="205" x2="175" y2="155" stroke="#f59e0b" stroke-width="1.5" stroke-dasharray="4,3" opacity="0.6"/>
-        <line x1="325" y1="205" x2="225" y2="155" stroke="#f59e0b" stroke-width="1.5" stroke-dasharray="4,3" opacity="0.6"/>
-
-        {/* 标注 */}
-        <text x="200" y="210" text-anchor="middle" font-size="14" font-weight="700" fill="#92400e">集体认同 = 价值</text>
-
-        {/* 底部气泡 */}
-        <g transform="translate(140, 240)">
-          <rect x="0" y="0" width="120" height="40" rx="20" fill="#fff" stroke="#f59e0b" stroke-width="1.5"/>
-          <text x="60" y="18" text-anchor="middle" font-size="11" fill="#666">"这东西值钱！"</text>
-          <text x="60" y="32" text-anchor="middle" font-size="11" fill="#666">—— 大家都这么说</text>
-          <polygon points="60,40 50,52 70,52" fill="#fff" stroke="#f59e0b" stroke-width="1.5"/>
-          <polygon points="60,41 52,50 68,50" fill="#fff"/>
-        </g>
-        <g transform="translate(190, 285)">
-          <text x="10" y="0" font-size="14">👆</text>
-        </g>
-      </svg>
+        {/* 特性3 */}
+        <div style="background: #fff; border-radius: 0.8rem; border: 2px solid #a7f3d0; position: relative; display: flex; flex-direction: column; overflow: hidden;">
+          <div style="background: linear-gradient(135deg, #10b981 0%, #059669 100%); color: #fff; padding: 0.8rem 1rem; display: flex; align-items: center; gap: 0.6rem;">
+            <div style="width: 32px; height: 32px; background: rgba(255,255,255,0.2); border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 1.3rem;">🏺</div>
+            <div>
+              <div style="font-size: 0.7rem; opacity: 0.8; letter-spacing: 0.5px;">CHARACTERISTIC 03</div>
+              <div style="font-size: 1.1rem; font-weight: 800;">可长期保存</div>
+            </div>
+          </div>
+          <div style="flex: 1; padding: 0.9rem 1rem; display: flex; flex-direction: column; justify-content: center; gap: 0.6rem;">
+            <div style="display: flex; align-items: flex-start; gap: 0.5rem;">
+              <span style="color: #10b981; font-weight: 800; flex-shrink: 0;">✓</span>
+              <span style="font-size: 0.88rem; color: #334155; line-height: 1.5;">不会轻易损坏或变质</span>
+            </div>
+            <div style="display: flex; align-items: flex-start; gap: 0.5rem;">
+              <span style="color: #10b981; font-weight: 800; flex-shrink: 0;">✓</span>
+              <span style="font-size: 0.88rem; color: #334155; line-height: 1.5;">能够跨越代际传递下去</span>
+            </div>
+            <div style="margin-top: 0.3rem; padding: 0.5rem 0.7rem; background: #ecfdf5; border-radius: 0.4rem; font-size: 0.78rem; color: #065f46; line-height: 1.4;">
+              💡 传得久，共识才稳
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
-  </div>
 
-    <div style="padding: 0.8rem 1.2rem; background: #fffbeb; border-radius: 0.6rem; border-left: 4px solid #f59e0b; flex-shrink: 0;">
-      <p style="font-size: 1rem; color: #92400e; margin: 0;">
-        <strong>一句话：</strong>老登资产是"老一代人都认可、代代相传"的价值储存——它本身不生钱，但大家都觉得它值钱。
-      </p>
+    {/* 底部结论 */}
+    <div style="background: linear-gradient(90deg, #fef2f2 0%, #fffbeb 100%); border-radius: 0.7rem; padding: 0.7rem 1rem; border-left: 4px solid #ef4444; flex-shrink: 0;">
+      <div style="font-size: 0.92rem; color: #991b1b; margin: 0; line-height: 1.5;">
+        <strong style="color: #b91c1c;">💡 核心结论：</strong>
+        这三大属性也只是让这些东西<strong>比一般消费品更保值</strong>而已——
+        拉长时间线看，共识总会转移，无一例外都要砸手里。
+      </div>
     </div>
+
   </div>
 </PresentationLayout>
 
@@ -119,8 +142,17 @@ import PresentationLayout from "@components/PresentationLayout.astro";
 - 如果说共识扩大了，你就可以找到下一个接盘侠，把这个东西脱手。
 - 反之，如果共识破裂了，就彻底砸手上了。
 
-包括但不限于玉石，邮票，文玩字画，红木家具。老一辈爱不释手，但是年轻人完全不感冒。
+包括但不限于玉石，邮票，文玩字画，红木家具。无数案例证明，这类东西短期内共识会扩大，但是拉长时间线看无一例外都要砸手里。
 
-所以我们这些小登也把这类东西称作是"老登资产"
+年轻人把这类上一辈炒作的东西称作是"老登资产"。当然小登自己手上也有一些像是限量球鞋，谷子，游戏卡牌这种 20 后肯定不会接盘的东西。
+
+那么，为什么这些东西能够产生共识呢？
+我们可以抽象出这些东西的三大特性。
+
+1. 比如说他们有一定的实用价值；
+2. 有一定的稀缺性；
+3. 而且总体来说是可以长期保存的。
+
+但是归根结底，这三大属性也只能让这些东西比一般的消费品更保值。
 
 </Notes>
