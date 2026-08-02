@@ -16,7 +16,7 @@ import CandlestickTitle from "@components/CandlestickTitle.astro";
       colorB="#cc2f3c"
       offsetRange={0.5}
       interval={1}
-      mode="manual"
+      mode="keys"
     />
   </div>
   <p style="margin-top: 1rem; font-size: 2.8rem; font-weight: 400; color: var(--gray);">Presented by Mason</p>
@@ -24,6 +24,16 @@ import CandlestickTitle from "@components/CandlestickTitle.astro";
 
 <Notes>
 
-欢迎。介绍投资主题以及听众将要了解的内容，然后按右箭头开始。
+今天，我依然想讨论的是一个严肃的话题。
+
+**K 线（蜡烛图）简介：**
+- K 线由每根柱体的「实体」和「上下影线」组成，分别代表开盘价、收盘价、最高价、最低价
+- 收盘价高于开盘价为阳线（通常显示为绿色或空心），反之为阴线（通常显示为红色或实心）
+- 单根 K 线反映一个时间周期内的多空博弈；连续的 K 线组合能揭示趋势反转或延续信号
+
+**均线（移动平均线）简介：**
+- 均线是将一段时期内的收盘价取平均值并连接成线，用来平滑价格波动、识别趋势方向
+- 常用周期包括 5 日、10 日、20 日、60 日、120 日、250 日均线，分别对应短线到长线的趋势判断
+- 价格在均线上方视为多头趋势，下方视为空头趋势；多条均线多头排列（短在上、长在下）是强势信号
 
 </Notes>

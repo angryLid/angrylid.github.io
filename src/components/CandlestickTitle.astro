@@ -4,17 +4,21 @@
 // moving-average-style lines (MA7/MA15/MA30) are overlaid BEHIND the letters.
 //
 // IMPORTANT — the MA lines are NOT mathematically derived from the candle
-// heights. Each line has its own wave model (same phase, different
-// frequency mix) so we can freely dial amplitude and smoothness for maximum
-// visual drama. Fast lines swing hard, slow lines drift gently — they cross
-// constantly (golden-cross / death-cross patterns) purely for presentation
-// flair. Directions stay aligned because all profiles share one phase.
+// heights. Each line FOLLOWS the candle series' step direction: every new
+// sample moves up exactly when the newest candle moved up (and down when it
+// moved down), by a small per-line step. So the direction ALWAYS matches —
+// a rising run of candles never shows a falling MA. Different step sizes
+// make fast lines overtake slow ones and keep crossing (golden-cross /
+// death-cross patterns) purely for presentation flair.
 //
 // Color rule (visual height = NEGATION of translateY offset, since +v moves
 // down on screen):
 //   letter lower than its left neighbor → colorA (green #06806b)
 //   letter higher than its left neighbor → colorB (red   #cc2f3c)
 //   leftmost letter is compared to baseline 0.
+//   Equal heights (flat / limit-stall) lose the direction signal, so color
+//   falls back to the price LEVEL: at/above baseline → colorB (red,
+//   limit-up look), below baseline → colorA (green, limit-down look).
 //
 // Every `interval` seconds (default 3) the whole "chart" shifts left by one:
 // letter i takes letter i+1's height; the rightmost takes the NEXT sample of a
@@ -33,11 +37,13 @@
 //                   Defaults: MA30 (slow), MA15 (mid), and MA7 (fast).
 //                   Periods are retained as visual configuration; the lines
 //                   are wave overlays rather than mathematically calculated MAs.
-//   mode          — "auto" (default) uses the random candle direction;
-//                   "manual" uses the mouse's vertical direction instead;
-//                   "hybrid" switches between mouse and timer after idling.
-//   idleDuration  — milliseconds of pointer inactivity before hybrid mode
-//                   resumes the automatic timer (default 1500).
+//   mode          — "auto" (default) runs the timer; "keys" adds keyboard
+//                   overrides for presentations: ArrowDown plays a 5-second
+//                   set-piece — one instant surge to the top then a uniform
+//                   10-candle descent; ArrowUp plays the reverse (instant
+//                   crash then a uniform 10-candle climb); either stops the
+//                   timer, Space resumes it. Keys are caught in the capture
+//                   phase so they don't fall through to slide navigation.
 //   minDuration / maxDuration — unused (kept for API compat; no-op)
 
 interface MA {
@@ -63,10 +69,8 @@ interface Props {
   colorB?: string;
   offsetRange?: number;
   interval?: number;
-  /** Chart control mode. Default "auto"; "manual" controls candle direction with the mouse. */
-  mode?: "auto" | "manual" | "hybrid";
-  /** Pointer inactivity in hybrid mode before automatic updates resume. */
-  idleDuration?: number;
+  /** Chart control mode. Default "auto" (timer); "keys" adds presentation keyboard overrides: ArrowDown = surge to top then uniform 10-candle descent (5s), ArrowUp = crash to bottom then uniform 10-candle climb (5s), Space resumes the timer. */
+  mode?: "auto" | "keys";
   ma?: MA[];
   minDuration?: number;
   maxDuration?: number;
@@ -89,7 +93,6 @@ const {
   offsetRange = 0.6,
   interval = 3,
   mode = "auto",
-  idleDuration = 1500,
   ma,
   minDuration,
   maxDuration,
@@ -160,9 +163,9 @@ const maList: MA[] =
 //
 // `profile` controls the mix of frequencies:
 //   "candle" — default, balanced (the letter / candlestick wave)
-//   "fast"   — mostly high freq, very twitchy (for MA7-style fast lines)
-//   "mid"    — mid-weighted (for MA15-style medium lines)
-//   "slow"   — almost all low freq, very smooth (for MA30-style slow lines)
+//   "fast"   — mostly high freq, very twitchy
+//   "mid"    — mid-weighted
+//   "slow"   — almost all low freq, very smooth
 type WaveProfile = "candle" | "fast" | "mid" | "slow";
 function waveHeight(
   t: number,
@@ -194,15 +197,14 @@ function waveHeight(
   return +(v * range).toFixed(4);
 }
 
-// Map MA period → wave profile + gain adjustment factor.
-// Fast MAs use the "fast" profile (lots of ripple, big swings); slow MAs
-// use "slow" (smooth). This is entirely cosmetic — lines are NOT computed
-// from the candle data, so we can make them cross as dramatically as we
-// want while still sharing the same underlying phase (so directions agree).
-function profileForPeriod(period: number): WaveProfile {
-  if (period <= 7) return "fast";
-  if (period <= 18) return "mid";
-  return "slow";
+// Per-line step (em) an MA moves per candle, in the direction the newest
+// candle moved. Fast lines take bigger steps than slow ones, so they
+// overtake each other (crossings) while staying direction-locked to the
+// candles.
+function followStep(period: number): number {
+  if (period <= 7) return 0.045;
+  if (period <= 18) return 0.028;
+  return 0.015;
 }
 
 // SSR initial heights + colors: sample the wave at t=0..N-1 so the FIRST
@@ -229,26 +231,41 @@ const randWick = () => {
 const wickTops = letters.map(randWick);
 const wickBots = letters.map(randWick);
 
-// Each MA line gets its OWN height array, sampled from a wave with the same
-// phase but a different frequency profile. This way lines share the same
-// big-trend direction but swing with independent amplitudes — producing
-// frequent, visually dramatic crossings. Gain is baked into the SSR sample
-// so the initial paint matches the client's first measurement.
-const maOffsetsList: number[][] = maList.map((m) =>
-  letters.map((_, i) => waveHeight(i, range, phase, profileForPeriod(m.period))),
-);
+// Each MA line gets its OWN height array that follows the candle series'
+// step direction: every sample moves up/down exactly when the candle did,
+// by a small per-line step. Direction always matches the candles (a rising
+// run never shows a falling MA); different step sizes make fast lines
+// overtake slow ones (golden-cross / death-cross) for flair. `gain` is
+// applied at paint time, so these are the unscaled line heights.
+const maOffsetsList: number[][] = maList.map((m) => {
+  const s = followStep(m.period);
+  const arr: number[] = [0];
+  for (let i = 1; i < letters.length; i++) {
+    const d = offsets[i] - offsets[i - 1];
+    arr[i] = Math.max(
+      -range,
+      Math.min(range, arr[i - 1] + (d > 0 ? s : d < 0 ? -s : 0)),
+    );
+  }
+  return arr;
+});
 
 // Visual height is the negation of the offset (translateY +v moves down):
 //   offsets[i] > left → visually lower → colorA (green)
-//   offsets[i] <= left → visually higher → colorB (red)
+//   offsets[i] < left → visually higher → colorB (red)
+//   offsets[i] == left → no direction; level fallback: at/above baseline →
+//   colorB (red, limit-up), below baseline → colorA (green, limit-down)
 const colorFor = (i: number): string => {
   const left = i === 0 ? 0 : offsets[i - 1];
-  return offsets[i] > left ? A : B;
+  const cur = offsets[i];
+  if (cur > left) return A;
+  if (cur < left) return B;
+  return cur > 0 ? A : B;
 };
 ---
 
 <div class="snake-chart" style={`--colorA:${A};--colorB:${B};--wickLen:${Number(wickLength) || 0}em;--wickBar:${Number(wickBarWidth) || 0}em;--wickThick:${Number(wickThickness) || 0.06}em;${wicks ? "":"--wickLen:0;"}padding-block:1.0em 1.4em;`}>
-  <svg class="ma-lines" data-periods={JSON.stringify(maList.map((m) => m.period))} data-profiles={JSON.stringify(maList.map((m) => profileForPeriod(m.period)))} data-gains={JSON.stringify(maList.map((m) => m.gain ?? 1))} data-dys={JSON.stringify(maList.map((m) => m.dy ?? 0))} data-offsets={JSON.stringify(maOffsetsList)}>
+  <svg class="ma-lines" data-periods={JSON.stringify(maList.map((m) => m.period))} data-gains={JSON.stringify(maList.map((m) => m.gain ?? 1))} data-dys={JSON.stringify(maList.map((m) => m.dy ?? 0))} data-offsets={JSON.stringify(maOffsetsList)}>
     {
       maList.map((m, i) => (
         <path
@@ -271,7 +288,6 @@ const colorFor = (i: number): string => {
       data-range={range}
       data-interval={Number(interval) || 3}
       data-mode={mode}
-      data-idle-duration={Math.max(0, Number(idleDuration) || 1500)}
       data-phase={phase}
       data-offsets={JSON.stringify(offsets)}
       data-wick-tops={JSON.stringify(wickTops)}
@@ -411,11 +427,10 @@ const colorFor = (i: number): string => {
   function rnd(lo: number, hi: number): number {
     return Math.random() * (hi - lo) + lo;
   }
-  // Same multi-frequency wave as the SSR frontmatter, with a `profile` that
-  // controls the frequency mix. All profiles share the same phase so the
-  // big-trend direction stays aligned across candles and every MA line —
-  // but fast profiles swing harder and slow profiles stay smooth, so lines
-  // cross each other constantly (purely cosmetic, no real MA math).
+  // Same multi-frequency wave as the SSR frontmatter, used for the candle
+  // heights (default "candle" profile). The other profiles are retained for
+  // API compatibility but are no longer used — MA lines now follow the
+  // candles' step direction instead of sampling this wave.
   type WaveProfile = "candle" | "fast" | "mid" | "slow";
   function waveHeight(
     t: number,
@@ -444,10 +459,10 @@ const colorFor = (i: number): string => {
     const v = wSlow * slow + wMed * med + wFast * fast + wNoise * noise;
     return +(v * range).toFixed(4);
   }
-  function profileForPeriod(period: number): WaveProfile {
-    if (period <= 7) return "fast";
-    if (period <= 18) return "mid";
-    return "slow";
+  function followStep(period: number): number {
+    if (period <= 7) return 0.045;
+    if (period <= 18) return 0.028;
+    return 0.015;
   }
   function lerp(a: number, b: number, t: number): number {
     return a + (b - a) * t;
@@ -474,7 +489,6 @@ const colorFor = (i: number): string => {
     ld: LetterData[];
     paths: SVGPathElement[];
     periods: number[];
-    profiles: WaveProfile[];
     range: number;
     colorA: string;
     colorB: string;
@@ -496,19 +510,22 @@ const colorFor = (i: number): string => {
     gains: number[]; // per-MA amplitude multiplier
     dys: number[]; // per-MA downward shift (em)
     raf: number | null;
-    manualDirection: number; // -1 = upward, +1 = downward, 0 = automatic
-    manualTimer: number | null;
-    manualLastTick: number;
     autoTimer: number | null;
-    resumeAutoTimer: number | null;
     resizeObserver: ResizeObserver | null;
-    manualCleanup: (() => void) | null;
+    keyCleanup: (() => void) | null;
   }
 
   function colorForOffset(offsets: number[], i: number, a: string, b: string, leftGhost: number = 0): string {
     const left = i === 0 ? leftGhost : offsets[i - 1];
+    const cur = offsets[i];
     // negate: large offset = visually lower = green (colorA)
-    return offsets[i] > left ? a : b;
+    if (cur > left) return a; // visually lower than left → green
+    if (cur < left) return b; // visually higher than left → red
+    // Equal heights (flat / limit-stall) — no direction signal, so fall back
+    // to the price LEVEL: at/above baseline → red (limit-up), below → green
+    // (limit-down). Keeps a limit-up pin (top) red and a limit-down pin
+    // bottom) green instead of an arbitrary tie color.
+    return cur > 0 ? a : b;
   }
 
   // Builds a smooth SVG path from per-index heights (already gain-adjusted by
@@ -640,31 +657,54 @@ const colorFor = (i: number): string => {
     inst.raf = requestAnimationFrame(step);
   }
 
-  function tick(inst: Instance, animDur: number): void {
+  // One snake-shift: everything slides left one position and a new candle
+  // (plus per-MA samples + fresh wicks) arrives on the right.
+  // `dir` — 0 = automatic (height from the random wave); -1 = forced up;
+  // +1 = forced down. Manual mode only replaces the direction of the newly
+  // arriving candle; its magnitude still comes from the wave sample, so a
+  // run of same-direction candles marches organically (not a straight line).
+  function shiftOne(inst: Instance, dir: number, steady = 0): void {
     const n = inst.offsets.length;
     // left ghost takes the old first candle's height — so the first letter's
     // color reference scrolls left with the rest of the chart.
     inst.leftGhost = inst.offsets[0];
+    const prevCandle = inst.offsets[n - 1]; // rightmost height before the shift
     // shift candles left
     for (let i = 0; i < n - 1; i++) inst.offsets[i] = inst.offsets[i + 1];
     const nextCandle = waveHeight(inst.t, inst.range, inst.phase, "candle");
-    if (inst.manualDirection !== 0) {
-      // Manual mode only replaces the direction of the newly arriving candle;
-      // its magnitude still comes from the normal random wave sample. The
-      // existing candles continue to scroll and animate as in auto mode.
+    if (steady > 0) {
+      // Steady fill (keyboard mode): each new candle moves a fixed step from
+      // its left neighbor, clamped to the range — every candle is uniformly
+      // bullish (red) or bearish (green). At the limits the clamp produces
+      // equal heights, which the level-based color fallback paints red at
+      // the top (limit-up) and green at the bottom (limit-down).
       const previous = inst.offsets[n - 2] ?? 0;
-      const available =
-        inst.manualDirection < 0 ? previous + inst.range : inst.range - previous;
+      inst.offsets[n - 1] = Math.max(
+        -inst.range,
+        Math.min(inst.range, previous + dir * steady),
+      );
+    } else if (dir !== 0) {
+      const previous = inst.offsets[n - 2] ?? 0;
+      const available = dir < 0 ? previous + inst.range : inst.range - previous;
       const amount = Math.min(available, Math.max(0.01, Math.abs(nextCandle)));
-      inst.offsets[n - 1] = previous + inst.manualDirection * amount;
+      inst.offsets[n - 1] = previous + dir * amount;
     } else {
       inst.offsets[n - 1] = nextCandle;
     }
-    // shift each MA line left and sample its own profile
+    // Shift each MA line left; the new rightmost sample steps in the SAME
+    // direction the newest candle just moved (scaled per line), so the
+    // line's direction always matches the candles — a rising run never
+    // shows a falling MA. A flat candle (kDelta === 0) holds the line flat.
+    const kDelta = inst.offsets[n - 1] - prevCandle;
     for (let p = 0; p < inst.maOffsets.length; p++) {
       const arr = inst.maOffsets[p];
+      const prev = arr[n - 1];
       for (let i = 0; i < n - 1; i++) arr[i] = arr[i + 1];
-      arr[n - 1] = waveHeight(inst.t, inst.range, inst.phase, inst.profiles[p]);
+      const s = followStep(inst.periods[p]);
+      arr[n - 1] = Math.max(
+        -inst.range,
+        Math.min(inst.range, prev + (kDelta > 0 ? s : kDelta < 0 ? -s : 0)),
+      );
     }
     // shift wicks left and roll new random lengths for the new rightmost letter
     for (let i = 0; i < n - 1; i++) {
@@ -678,7 +718,19 @@ const colorFor = (i: number): string => {
     inst.wickTops[n - 1] = randW();
     inst.wickBots[n - 1] = randW();
     inst.t += 1;
+  }
+
+  // Shift `count` positions at once (a burst from one pointer sweep), then
+  // animate once — so a big upward flick slides the whole snake left by N
+  // positions and N bullish candles arrive in a single glide, not N jerks.
+  function tickMany(inst: Instance, count: number, dir: number, animDur: number): void {
+    for (let k = 0; k < count; k++) shiftOne(inst, dir);
     animTo(inst, animDur);
+  }
+
+  // Automatic timer tick: one candle from the random wave.
+  function tick(inst: Instance, animDur: number): void {
+    tickMany(inst, 1, 0, animDur);
   }
 
   function measure(inst: Instance, letters: HTMLElement[]): LetterData[] {
@@ -710,17 +762,13 @@ const colorFor = (i: number): string => {
 
   function destroyInstance(inst: Instance): void {
     if (inst.autoTimer != null) window.clearInterval(inst.autoTimer);
-    if (inst.manualTimer != null) window.clearTimeout(inst.manualTimer);
-    if (inst.resumeAutoTimer != null) window.clearTimeout(inst.resumeAutoTimer);
     if (inst.raf != null) cancelAnimationFrame(inst.raf);
     inst.resizeObserver?.disconnect();
-    inst.manualCleanup?.();
+    inst.keyCleanup?.();
     inst.autoTimer = null;
-    inst.manualTimer = null;
-    inst.resumeAutoTimer = null;
     inst.raf = null;
     inst.resizeObserver = null;
-    inst.manualCleanup = null;
+    inst.keyCleanup = null;
   }
 
   document.addEventListener("astro:page-load", () => {
@@ -744,9 +792,6 @@ const colorFor = (i: number): string => {
       const periods = svg
         ? (JSON.parse(svg.dataset.periods ?? "[]") as number[]) ?? []
         : [];
-      const profiles = (svg
-        ? (JSON.parse(svg.dataset.profiles ?? "[]") as WaveProfile[]) ?? []
-        : []) as WaveProfile[];
       const maOffsets = (svg
         ? (JSON.parse(svg.dataset.offsets ?? "[]") as number[][]) ?? []
         : []) as number[][];
@@ -770,7 +815,6 @@ const colorFor = (i: number): string => {
         ld: [],
         paths,
         periods: periods.map((p) => Math.max(2, Math.round(p))),
-        profiles,
         range,
         colorA,
         colorB,
@@ -794,13 +838,9 @@ const colorFor = (i: number): string => {
         gains: (JSON.parse(svg?.dataset.gains ?? "[]") as number[]) ?? [],
         dys: (JSON.parse(svg?.dataset.dys ?? "[]") as number[]) ?? [],
         raf: null,
-        manualDirection: 0,
-        manualTimer: null,
-        manualLastTick: 0,
         autoTimer: null,
-        resumeAutoTimer: null,
         resizeObserver: null,
-        manualCleanup: null,
+        keyCleanup: null,
       };
       // Size the SVG user space to the container's pixels, then measure the
       // letters in that same space before the first draw.
@@ -814,9 +854,7 @@ const colorFor = (i: number): string => {
 
     for (const inst of instances) {
       const lettersEl = inst.container.querySelector<HTMLElement>(".snake-letters");
-      const mode = lettersEl?.dataset.mode === "manual" || lettersEl?.dataset.mode === "hybrid"
-        ? lettersEl.dataset.mode
-        : "auto";
+      const mode = lettersEl?.dataset.mode === "keys" ? "keys" : "auto";
       const intervalMs =
         (parseFloat(lettersEl?.dataset.interval ?? "") || 3) * 1000;
       const startAuto = () => {
@@ -830,93 +868,79 @@ const colorFor = (i: number): string => {
           inst.autoTimer = null;
         }
       };
-      if (mode === "auto") startAuto();
+      // Both modes run the automatic market on load; "keys" lets the
+      // presenter pause it and drive the candles by hand.
+      if (mode === "auto" || mode === "keys") startAuto();
 
-      if (mode === "manual" || mode === "hybrid") {
-        // In manual mode each mouse movement drives the next candle. Hybrid
-        // mode uses the same pointer path while active. Throttle bursts of
-        // mousemove events so a fast pointer
-        // does not create an unusably dense stream of candles, while still
-        // keeping the chart responsive (at most one new candle per 500ms).
-        let lastY: number | null = null;
-        const throttleMs = 500;
-        const idleMs = Math.max(
-          0,
-          parseFloat(lettersEl?.dataset.idleDuration ?? "") || 1500,
-        );
-        const clearManualTimer = () => {
-          if (inst.manualTimer != null) {
-            window.clearTimeout(inst.manualTimer);
-            inst.manualTimer = null;
+      if (mode === "keys") {
+        // Presentation keyboard override — one 5-second set-piece per press:
+        //   ArrowDown — one instant surge to the top (limit-up, red), then a
+        //     uniform 10-candle descent to the bottom, exactly 5s total.
+        //   ArrowUp   — one instant crash to the bottom (limit-down, green),
+        //     then a uniform 10-candle climb back to the top, 5s total.
+        //   Space     — resumes the timer (auto mode).
+        // Timing is uniform: the 10 trend candles are spaced evenly (STEP_MS)
+        // and each steps the same height fraction (2×range/10), so both the
+        // time between fills and the height difference between fills are
+        // constant. Total = surge 500ms + 10×450ms = 5000ms. Held keys are
+        // ignored (one sequence per press); a new press restarts the whole
+        // sequence. Listened in the CAPTURE phase at document level so we
+        // can stop propagation before the event bubbles to
+        // Presentation.astro's slide navigation (ArrowUp/Down = prev/next).
+        const SURGE_MS = 500; // surge/crash animation length
+        const STEP_MS = 450; // per-candle interval of the trend run
+        const TREND_STEPS = 10; // candles in the trend run (= letter count)
+        const surgeStep = inst.range * 2; // one candle that goes straight to the extreme
+        const trendStep = (inst.range * 2) / TREND_STEPS; // equal height step per candle
+        let seqStartTimer: number | null = null;
+        let seqTimer: number | null = null;
+        let seqCount = 0;
+        const clearSeq = () => {
+          if (seqStartTimer != null) {
+            window.clearTimeout(seqStartTimer);
+            seqStartTimer = null;
           }
-        };
-        const createCandle = () => {
-          inst.manualTimer = null;
-          if (inst.manualDirection !== 0) {
-            inst.manualLastTick = performance.now();
-            tick(inst, ANIM_DUR);
+          if (seqTimer != null) {
+            window.clearInterval(seqTimer);
+            seqTimer = null;
           }
+          seqCount = 0;
         };
-        const requestCandle = () => {
-          const elapsed = performance.now() - inst.manualLastTick;
-          if (elapsed >= throttleMs) {
-            createCandle();
-          } else if (inst.manualTimer == null) {
-            inst.manualTimer = window.setTimeout(createCandle, throttleMs - elapsed);
-          }
-        };
-        const scheduleAutoResume = () => {
-          if (mode !== "hybrid") return;
-          if (inst.resumeAutoTimer != null) window.clearTimeout(inst.resumeAutoTimer);
-          inst.resumeAutoTimer = window.setTimeout(() => {
-            inst.resumeAutoTimer = null;
-            startAuto();
-          }, idleMs);
-        };
-        const onMouseEnter = (event: MouseEvent) => {
-          lastY = event.clientY;
-          if (mode === "hybrid") {
+        const onKeyDown = (event: KeyboardEvent) => {
+          if (event.key === "ArrowUp" || event.key === "ArrowDown") {
+            event.preventDefault();
+            event.stopPropagation();
+            if (event.repeat) return; // held key = one sequence, no restarts
             stopAuto();
-            scheduleAutoResume();
+            clearSeq();
+            // ArrowDown: surge UP (bullish) then 10 candles down (bearish);
+            // ArrowUp: crash DOWN (bearish) then 10 candles up (bullish).
+            const seqDir = event.key === "ArrowUp" ? -1 : 1; // trend direction
+            // 1) the instant surge/crash — one oversized candle straight to
+            //    the extreme (offset -dir×range); MA follows via shiftOne.
+            shiftOne(inst, -seqDir, surgeStep);
+            animTo(inst, SURGE_MS);
+            // 2) the uniform trend run: 10 candles, evenly timed & spaced.
+            seqStartTimer = window.setTimeout(() => {
+              seqStartTimer = null;
+              seqCount = 0;
+              seqTimer = window.setInterval(() => {
+                shiftOne(inst, seqDir, trendStep);
+                animTo(inst, STEP_MS);
+                seqCount++;
+                if (seqCount >= TREND_STEPS) clearSeq();
+              }, STEP_MS);
+            }, SURGE_MS);
+          } else if (event.key === " " || event.code === "Space") {
+            event.preventDefault();
+            clearSeq();
+            startAuto();
           }
         };
-        const onMouseLeave = () => {
-          lastY = null;
-          clearManualTimer();
-          inst.manualDirection = 0;
-          // A pointer outside the chart is also inactive, so hybrid mode can
-          // return to automatic updates after the same idle period.
-          scheduleAutoResume();
-        };
-        const onMouseMove = (event: MouseEvent) => {
-          if (lastY == null) {
-            lastY = event.clientY;
-            return;
-          }
-          const deltaY = event.clientY - lastY;
-          lastY = event.clientY;
-          // clientY decreasing means the pointer moved up, so the next
-          // candle must move up. The candle is generated from this movement.
-          if (deltaY < 0) inst.manualDirection = -1;
-          else if (deltaY > 0) inst.manualDirection = 1;
-          if (deltaY !== 0) {
-            if (mode === "hybrid") stopAuto();
-            requestCandle();
-            scheduleAutoResume();
-          }
-        };
-        inst.container.addEventListener("mouseenter", onMouseEnter);
-        inst.container.addEventListener("mouseleave", onMouseLeave);
-        inst.container.addEventListener("mousemove", onMouseMove);
-        inst.manualCleanup = () => {
-          clearManualTimer();
-          if (inst.resumeAutoTimer != null) {
-            window.clearTimeout(inst.resumeAutoTimer);
-            inst.resumeAutoTimer = null;
-          }
-          inst.container.removeEventListener("mouseenter", onMouseEnter);
-          inst.container.removeEventListener("mouseleave", onMouseLeave);
-          inst.container.removeEventListener("mousemove", onMouseMove);
+        document.addEventListener("keydown", onKeyDown, true);
+        inst.keyCleanup = () => {
+          clearSeq();
+          document.removeEventListener("keydown", onKeyDown, true);
         };
       }
     }
