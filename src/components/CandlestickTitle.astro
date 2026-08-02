@@ -35,6 +35,8 @@
 //                   (10 letters) MA30 cannot be computed, hence the smaller
 //                   defaults. Pass a longer text or different periods via
 //                   this prop to taste.
+//   mode          — "auto" (default) uses the random candle direction;
+//                   "manual" uses the mouse's vertical direction instead.
 //   minDuration / maxDuration — unused (kept for API compat; no-op)
 
 interface MA {
@@ -60,6 +62,8 @@ interface Props {
   colorB?: string;
   offsetRange?: number;
   interval?: number;
+  /** Chart control mode. Default "auto"; "manual" controls candle direction with the mouse. */
+  mode?: "auto" | "manual";
   ma?: MA[];
   minDuration?: number;
   maxDuration?: number;
@@ -81,6 +85,7 @@ const {
   colorB = "#cc2f3c",
   offsetRange = 0.6,
   interval = 3,
+  mode = "auto",
   ma,
   minDuration,
   maxDuration,
@@ -261,6 +266,7 @@ const colorFor = (i: number): string => {
       class="snake-letters"
       data-range={range}
       data-interval={Number(interval) || 3}
+      data-mode={mode}
       data-phase={phase}
       data-offsets={JSON.stringify(offsets)}
       data-wick-tops={JSON.stringify(wickTops)}
@@ -396,6 +402,7 @@ const colorFor = (i: number): string => {
   let intervals: number[] = [];
   let rafs: number[] = [];
   let ros: ResizeObserver[] = [];
+  let manualCleanups: (() => void)[] = [];
 
   function rnd(lo: number, hi: number): number {
     return Math.random() * (hi - lo) + lo;
@@ -485,6 +492,9 @@ const colorFor = (i: number): string => {
     gains: number[]; // per-MA amplitude multiplier
     dys: number[]; // per-MA downward shift (em)
     raf: number | null;
+    manualDirection: number; // -1 = upward, +1 = downward, 0 = automatic
+    manualTimer: number | null;
+    manualLastTick: number;
   }
 
   function colorForOffset(offsets: number[], i: number, a: string, b: string, leftGhost: number = 0): string {
@@ -590,7 +600,19 @@ const colorFor = (i: number): string => {
     inst.leftGhost = inst.offsets[0];
     // shift candles left
     for (let i = 0; i < n - 1; i++) inst.offsets[i] = inst.offsets[i + 1];
-    inst.offsets[n - 1] = waveHeight(inst.t, inst.range, inst.phase, "candle");
+    const nextCandle = waveHeight(inst.t, inst.range, inst.phase, "candle");
+    if (inst.manualDirection !== 0) {
+      // Manual mode only replaces the direction of the newly arriving candle;
+      // its magnitude still comes from the normal random wave sample. The
+      // existing candles continue to scroll and animate as in auto mode.
+      const previous = inst.offsets[n - 2] ?? 0;
+      const available =
+        inst.manualDirection < 0 ? previous + inst.range : inst.range - previous;
+      const amount = Math.min(available, Math.max(0.01, Math.abs(nextCandle)));
+      inst.offsets[n - 1] = previous + inst.manualDirection * amount;
+    } else {
+      inst.offsets[n - 1] = nextCandle;
+    }
     // shift each MA line left and sample its own profile
     for (let p = 0; p < inst.maOffsets.length; p++) {
       const arr = inst.maOffsets[p];
@@ -644,9 +666,11 @@ const colorFor = (i: number): string => {
     for (const id of intervals) clearInterval(id);
     for (const id of rafs) cancelAnimationFrame(id);
     for (const ro of ros) ro.disconnect();
+    for (const cleanup of manualCleanups) cleanup();
     intervals = [];
     rafs = [];
     ros = [];
+    manualCleanups = [];
 
     const containers = [...document.querySelectorAll<HTMLElement>(".snake-chart")];
     if (containers.length === 0) return;
@@ -714,6 +738,9 @@ const colorFor = (i: number): string => {
         gains: (JSON.parse(svg?.dataset.gains ?? "[]") as number[]) ?? [],
         dys: (JSON.parse(svg?.dataset.dys ?? "[]") as number[]) ?? [],
         raf: null,
+        manualDirection: 0,
+        manualTimer: null,
+        manualLastTick: 0,
       };
       // Size the SVG user space to the container's pixels, then measure the
       // letters in that same space before the first draw.
@@ -725,12 +752,75 @@ const colorFor = (i: number): string => {
       return inst;
     });
 
-    const intervalMs =
-      (parseFloat(containers[0].querySelector(".snake-letters")?.getAttribute("data-interval") ?? "") || 3) * 1000;
-
     for (const inst of instances) {
-      const id = window.setInterval(() => tick(inst, ANIM_DUR), intervalMs);
-      intervals.push(id);
+      const lettersEl = inst.container.querySelector<HTMLElement>(".snake-letters");
+      const mode = lettersEl?.dataset.mode === "manual" ? "manual" : "auto";
+      const intervalMs =
+        (parseFloat(lettersEl?.dataset.interval ?? "") || 3) * 1000;
+      if (mode === "auto") {
+        const id = window.setInterval(() => tick(inst, ANIM_DUR), intervalMs);
+        intervals.push(id);
+      }
+
+      if (mode === "manual") {
+        // In manual mode there is no interval: each mouse movement drives the
+        // next candle. Throttle bursts of mousemove events so a fast pointer
+        // does not create an unusably dense stream of candles, while still
+        // keeping the chart responsive (at most one new candle per 500ms).
+        let lastY: number | null = null;
+        const throttleMs = 500;
+        const clearManualTimer = () => {
+          if (inst.manualTimer != null) {
+            window.clearTimeout(inst.manualTimer);
+            inst.manualTimer = null;
+          }
+        };
+        const createCandle = () => {
+          inst.manualTimer = null;
+          if (inst.manualDirection !== 0) {
+            inst.manualLastTick = performance.now();
+            tick(inst, ANIM_DUR);
+          }
+        };
+        const requestCandle = () => {
+          const elapsed = performance.now() - inst.manualLastTick;
+          if (elapsed >= throttleMs) {
+            createCandle();
+          } else if (inst.manualTimer == null) {
+            inst.manualTimer = window.setTimeout(createCandle, throttleMs - elapsed);
+          }
+        };
+        const onMouseEnter = (event: MouseEvent) => {
+          lastY = event.clientY;
+        };
+        const onMouseLeave = () => {
+          lastY = null;
+          clearManualTimer();
+          inst.manualDirection = 0;
+        };
+        const onMouseMove = (event: MouseEvent) => {
+          if (lastY == null) {
+            lastY = event.clientY;
+            return;
+          }
+          const deltaY = event.clientY - lastY;
+          lastY = event.clientY;
+          // clientY decreasing means the pointer moved up, so the next
+          // candle must move up. The candle is generated from this movement.
+          if (deltaY < 0) inst.manualDirection = -1;
+          else if (deltaY > 0) inst.manualDirection = 1;
+          if (deltaY !== 0) requestCandle();
+        };
+        inst.container.addEventListener("mouseenter", onMouseEnter);
+        inst.container.addEventListener("mouseleave", onMouseLeave);
+        inst.container.addEventListener("mousemove", onMouseMove);
+        manualCleanups.push(() => {
+          clearManualTimer();
+          inst.container.removeEventListener("mouseenter", onMouseEnter);
+          inst.container.removeEventListener("mouseleave", onMouseLeave);
+          inst.container.removeEventListener("mousemove", onMouseMove);
+        });
+      }
     }
 
     // If the container's box changes (font load, layout shift, window resize,
