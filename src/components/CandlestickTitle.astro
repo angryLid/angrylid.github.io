@@ -36,7 +36,10 @@
 //                   defaults. Pass a longer text or different periods via
 //                   this prop to taste.
 //   mode          — "auto" (default) uses the random candle direction;
-//                   "manual" uses the mouse's vertical direction instead.
+//                   "manual" uses the mouse's vertical direction instead;
+//                   "hybrid" switches between mouse and timer after idling.
+//   idleDuration  — milliseconds of pointer inactivity before hybrid mode
+//                   resumes the automatic timer (default 1500).
 //   minDuration / maxDuration — unused (kept for API compat; no-op)
 
 interface MA {
@@ -63,7 +66,9 @@ interface Props {
   offsetRange?: number;
   interval?: number;
   /** Chart control mode. Default "auto"; "manual" controls candle direction with the mouse. */
-  mode?: "auto" | "manual";
+  mode?: "auto" | "manual" | "hybrid";
+  /** Pointer inactivity in hybrid mode before automatic updates resume. */
+  idleDuration?: number;
   ma?: MA[];
   minDuration?: number;
   maxDuration?: number;
@@ -86,6 +91,7 @@ const {
   offsetRange = 0.6,
   interval = 3,
   mode = "auto",
+  idleDuration = 1500,
   ma,
   minDuration,
   maxDuration,
@@ -267,6 +273,7 @@ const colorFor = (i: number): string => {
       data-range={range}
       data-interval={Number(interval) || 3}
       data-mode={mode}
+      data-idle-duration={Math.max(0, Number(idleDuration) || 1500)}
       data-phase={phase}
       data-offsets={JSON.stringify(offsets)}
       data-wick-tops={JSON.stringify(wickTops)}
@@ -495,6 +502,8 @@ const colorFor = (i: number): string => {
     manualDirection: number; // -1 = upward, +1 = downward, 0 = automatic
     manualTimer: number | null;
     manualLastTick: number;
+    autoTimer: number | null;
+    resumeAutoTimer: number | null;
   }
 
   function colorForOffset(offsets: number[], i: number, a: string, b: string, leftGhost: number = 0): string {
@@ -741,6 +750,8 @@ const colorFor = (i: number): string => {
         manualDirection: 0,
         manualTimer: null,
         manualLastTick: 0,
+        autoTimer: null,
+        resumeAutoTimer: null,
       };
       // Size the SVG user space to the container's pixels, then measure the
       // letters in that same space before the first draw.
@@ -754,21 +765,37 @@ const colorFor = (i: number): string => {
 
     for (const inst of instances) {
       const lettersEl = inst.container.querySelector<HTMLElement>(".snake-letters");
-      const mode = lettersEl?.dataset.mode === "manual" ? "manual" : "auto";
+      const mode = lettersEl?.dataset.mode === "manual" || lettersEl?.dataset.mode === "hybrid"
+        ? lettersEl.dataset.mode
+        : "auto";
       const intervalMs =
         (parseFloat(lettersEl?.dataset.interval ?? "") || 3) * 1000;
-      if (mode === "auto") {
-        const id = window.setInterval(() => tick(inst, ANIM_DUR), intervalMs);
-        intervals.push(id);
-      }
+      const startAuto = () => {
+        if (inst.autoTimer == null) {
+          inst.autoTimer = window.setInterval(() => tick(inst, ANIM_DUR), intervalMs);
+          intervals.push(inst.autoTimer);
+        }
+      };
+      const stopAuto = () => {
+        if (inst.autoTimer != null) {
+          window.clearInterval(inst.autoTimer);
+          inst.autoTimer = null;
+        }
+      };
+      if (mode === "auto") startAuto();
 
-      if (mode === "manual") {
-        // In manual mode there is no interval: each mouse movement drives the
-        // next candle. Throttle bursts of mousemove events so a fast pointer
+      if (mode === "manual" || mode === "hybrid") {
+        // In manual mode each mouse movement drives the next candle. Hybrid
+        // mode uses the same pointer path while active. Throttle bursts of
+        // mousemove events so a fast pointer
         // does not create an unusably dense stream of candles, while still
         // keeping the chart responsive (at most one new candle per 500ms).
         let lastY: number | null = null;
         const throttleMs = 500;
+        const idleMs = Math.max(
+          0,
+          parseFloat(lettersEl?.dataset.idleDuration ?? "") || 1500,
+        );
         const clearManualTimer = () => {
           if (inst.manualTimer != null) {
             window.clearTimeout(inst.manualTimer);
@@ -790,13 +817,28 @@ const colorFor = (i: number): string => {
             inst.manualTimer = window.setTimeout(createCandle, throttleMs - elapsed);
           }
         };
+        const scheduleAutoResume = () => {
+          if (mode !== "hybrid") return;
+          if (inst.resumeAutoTimer != null) window.clearTimeout(inst.resumeAutoTimer);
+          inst.resumeAutoTimer = window.setTimeout(() => {
+            inst.resumeAutoTimer = null;
+            startAuto();
+          }, idleMs);
+        };
         const onMouseEnter = (event: MouseEvent) => {
           lastY = event.clientY;
+          if (mode === "hybrid") {
+            stopAuto();
+            scheduleAutoResume();
+          }
         };
         const onMouseLeave = () => {
           lastY = null;
           clearManualTimer();
           inst.manualDirection = 0;
+          // A pointer outside the chart is also inactive, so hybrid mode can
+          // return to automatic updates after the same idle period.
+          scheduleAutoResume();
         };
         const onMouseMove = (event: MouseEvent) => {
           if (lastY == null) {
@@ -809,13 +851,21 @@ const colorFor = (i: number): string => {
           // candle must move up. The candle is generated from this movement.
           if (deltaY < 0) inst.manualDirection = -1;
           else if (deltaY > 0) inst.manualDirection = 1;
-          if (deltaY !== 0) requestCandle();
+          if (deltaY !== 0) {
+            if (mode === "hybrid") stopAuto();
+            requestCandle();
+            scheduleAutoResume();
+          }
         };
         inst.container.addEventListener("mouseenter", onMouseEnter);
         inst.container.addEventListener("mouseleave", onMouseLeave);
         inst.container.addEventListener("mousemove", onMouseMove);
         manualCleanups.push(() => {
           clearManualTimer();
+          if (inst.resumeAutoTimer != null) {
+            window.clearTimeout(inst.resumeAutoTimer);
+            inst.resumeAutoTimer = null;
+          }
           inst.container.removeEventListener("mouseenter", onMouseEnter);
           inst.container.removeEventListener("mouseleave", onMouseLeave);
           inst.container.removeEventListener("mousemove", onMouseMove);
