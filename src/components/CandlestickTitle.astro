@@ -511,20 +511,60 @@ const colorFor = (i: number): string => {
     return offsets[i] > left ? a : b;
   }
 
-  // Builds an SVG path from per-index heights (already gain-adjusted by the
-  // caller) plus a per-line constant downward shift `dyEm` (in em).
-  // NaN/Infinity are skipped (start a new subpath after the break).
+  // Builds a smooth SVG path from per-index heights (already gain-adjusted by
+  // the caller) plus a per-line constant downward shift `dyEm` (in em).
+  // Catmull-Rom-style cubic Bézier controls keep the path passing through
+  // every sample while removing the sharp corners of a polyline.
   function buildPath(vals: number[], ld: LetterData[], dyEm: number): string {
-    let d = "";
     const dyPx = dyEm * (ld.length > 0 ? ld[0].emPx : 0);
+    const points: { x: number; y: number }[][] = [];
+    let segment: { x: number; y: number }[] = [];
+
+    const flush = () => {
+      if (segment.length > 0) points.push(segment);
+      segment = [];
+    };
+
     for (let i = 0; i < vals.length; i++) {
-      if (!Number.isFinite(vals[i])) continue;
-      const x = ld[i].x.toFixed(2);
-      // line center = letter center + (stretched·em) + dy pixels (down is +y)
-      const y = (ld[i].cy + vals[i] * ld[i].emPx + dyPx).toFixed(2);
-      d += d === "" ? `M ${x} ${y}` : ` L ${x} ${y}`;
+      if (!Number.isFinite(vals[i])) {
+        flush();
+        continue;
+      }
+      // Line center = letter center + (stretched·em) + dy pixels (down is +y).
+      segment.push({
+        x: ld[i].x,
+        y: ld[i].cy + vals[i] * ld[i].emPx + dyPx,
+      });
     }
-    return d;
+    flush();
+
+    return points
+      .map((segment) => {
+        if (segment.length === 1) {
+          return `M ${segment[0].x.toFixed(2)} ${segment[0].y.toFixed(2)}`;
+        }
+
+        let path = `M ${segment[0].x.toFixed(2)} ${segment[0].y.toFixed(2)}`;
+        for (let i = 0; i < segment.length - 1; i++) {
+          const current = segment[i];
+          const next = segment[i + 1];
+          const previous = segment[i - 1] ?? current;
+          const afterNext = segment[i + 2] ?? next;
+          const control1 = {
+            x: current.x + (next.x - previous.x) / 6,
+            y: current.y + (next.y - previous.y) / 6,
+          };
+          const control2 = {
+            x: next.x - (afterNext.x - current.x) / 6,
+            y: next.y - (afterNext.y - current.y) / 6,
+          };
+          path += ` C ${control1.x.toFixed(2)} ${control1.y.toFixed(2)},` +
+            ` ${control2.x.toFixed(2)} ${control2.y.toFixed(2)},` +
+            ` ${next.x.toFixed(2)} ${next.y.toFixed(2)}`;
+        }
+        return path;
+      })
+      .join(" ");
   }
 
   // Paint letters + all MA lines using current display state.
