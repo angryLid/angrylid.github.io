@@ -4,6 +4,7 @@ steps: 5
 ---
 import Notes from "@components/Notes.astro";
 import CaptionedImage from "@components/CaptionedImage.astro";
+import Blinds from "@components/Blinds.astro";
 import PresentationStep from "@components/PresentationStep.astro";
 import PresentationLayout from "@components/PresentationLayout.astro";
 import avatar1 from "./assets/Russia-story/avatar-1.png";
@@ -12,22 +13,20 @@ import avatar3 from "./assets/Russia-story/avatar-3.png";
 import avatar4 from "./assets/Russia-story/avatar-4.png";
 
 <PresentationLayout title="登場人物">
-  <div style="height: 100%; display: flex; align-items: center; justify-content: center;">
-    <div style="height: 100%; aspect-ratio: 1 / 1; display: grid; grid-template-columns: 1fr 1fr; grid-template-rows: 1fr 1fr; gap: 1.25rem;">
+    <div class="character-grid" style="height: 100%; aspect-ratio: 1 / 1; display: grid; grid-template-columns: 1fr 1fr; grid-template-rows: 1fr 1fr; gap: 10px; margin: auto;">
     <PresentationStep step={1}>
-      <CaptionedImage src={avatar1.src} alt="莫罗佐夫" caption={["莫罗佐夫", "农场主的儿子","深爱着伊万诺夫娜的一切"]} captionPosition="below" effect="blinds" />
+      <CaptionedImage src={avatar1.src} alt="莫罗佐夫" caption={["莫罗佐夫", "农场主的儿子","深爱着伊万诺夫娜的一切"]} captionPosition="below"  />
     </PresentationStep>
     <PresentationStep step={2}>
-      <CaptionedImage src={avatar2.src} alt="伊万诺夫娜" caption={["伊万诺夫娜", "农奴的女儿","对莫罗佐夫心生情愫"]} captionPosition="below" effect="blinds" />
+      <CaptionedImage src={avatar2.src} alt="伊万诺夫娜" caption={["伊万诺夫娜", "农奴的女儿","对莫罗佐夫心生情愫"]} captionPosition="below"  />
     </PresentationStep>
     <PresentationStep step={3}>
-      <CaptionedImage src={avatar3.src} alt="古谢夫" caption={["古谢夫", "粮食收购商","觊觎伊万诺夫娜的美貌"]}  captionPosition="below" effect="blinds" />
+      <CaptionedImage src={avatar3.src} alt="古谢夫" caption={["古谢夫", "粮食收购商","觊觎伊万诺夫娜的美貌"]} captionPosition="below"  />
     </PresentationStep>
     <PresentationStep step={4}>
-      <CaptionedImage src={avatar4.src} alt="列宁" caption={["列宁", "不苟言笑的神秘男子", "刚从德国归来"]} captionPosition="below" effect="blinds" />
+      <CaptionedImage src={avatar4.src} alt="列宁" caption={["列宁", "不苟言笑的神秘男子", "刚从德国归来"]} captionPosition="below" />
     </PresentationStep>
     </div>
-  </div>
 </PresentationLayout>
 
 <Notes>

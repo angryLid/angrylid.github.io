@@ -4,24 +4,23 @@ steps: 1
 ---
 import Notes from "@components/Notes.astro";
 import CaptionedImage from "@components/CaptionedImage.astro";
+import Blinds from "@components/Blinds.astro";
 import yangtzeHydropower from "../investment/assets/yangtze-hydropower.png";
 
 <div
-  style="height: 100%; box-sizing: border-box; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 1rem 2rem;"
+  style="height: 100%; box-sizing: border-box; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 1rem 2rem; gap:4px;"
 >
-  <CaptionedImage
-    src={yangtzeHydropower.src}
-    alt="长江电力"
-    caption="红利股案例 · 长江电力"
-    effect="blinds"
-    strips={16}
-    duration={0.8}
-    stagger={0.06}
-  />
+  <Blinds strips={16} duration={0.8} stagger={0.06}>
+    <CaptionedImage
+      src={yangtzeHydropower.src}
+      alt="长江电力"
+      caption="红利股案例 · 长江电力"
+    />
+  </Blinds>
 </div>
 
 <Notes>
 
-演示 CaptionedImage 组件的百叶窗入场特效：图像上方贴说明文字，图像出现时水平百叶窗由上至下展开。
+演示使用 Blinds 包装器为任意组件添加百叶窗入场特效：图像上方贴说明文字，图像出现时水平百叶窗由上至下展开。
 
 </Notes>
