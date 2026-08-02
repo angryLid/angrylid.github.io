@@ -98,6 +98,38 @@ MDX/JSX 中的 `style` 属性值必须是对象，不是字符串：
 <div style={{ color: 'red' }}>
 ```
 
+## 5. 不要在 MDX 中使用 `<style>` 块
+
+**原因：** MDX 解析器会把 `{...}` 当作 JSX 表达式交给 acorn 解析。CSS 大量使用 `{` `}` 语法(尤其是 `@keyframes` 的 `from { ... } to { ... }`、`@media (...) { ... }`、常规选择器块),会立即触发 acorn 解析失败:
+
+```
+Could not parse expression with acorn
+MDXmicromark-extension-mdx-expression:acorn
+```
+
+**错误示例：**
+```mdx
+<style>
+  @keyframes open {
+    from { opacity: 0; }   /* ← acorn 试图把 { opacity: 0; } 当 JSX 表达式解析,失败 */
+    to { opacity: 1; }
+  }
+</style>
+```
+
+**注意：** 不仅仅是 `@keyframes` —— **任何**包含 `{` `}` 的 CSS 块都会触发此错误,例如:
+- 任何普通选择器 `selector { ... }`
+- `@media (...) { ... }`
+- `@supports ... { ... }`
+- `:root { ... }`
+
+所以在 MDX 中使用 `<style>` 块**实际上不可能**完全避免该错误,直接不用 `<style>` 块即可。
+
+**替代方案：**
+- **首选**:把样式移到该 slide 用到的 `.astro` 组件里。`.astro` 文件中的 `<style>` 由 Astro 框架专门处理(自动 scoped,不会污染全局 CSS),不会被 MDX 解析器看见
+- **次选**:使用独立的 `.css` 文件,在 layout 中 `import` 引入
+- **次选**:使用 inline `style={{...}}` 属性(仅适合简单样式)
+
 ## 快速检查清单
 
 在保存 MDX 文件前，快速过一遍：
@@ -106,5 +138,6 @@ MDX/JSX 中的 `style` 属性值必须是对象，不是字符串：
 - [ ] 没有内联 `<script>` 标签
 - [ ] JSX 布局内没有无意义的空行（避免意外 `<p>`）
 - [ ] `style` 属性使用的是对象语法
+- [ ] 没有内联 `<style>` 块（CSS 中的 `{}` 会被 acorn 当 JSX 表达式解析失败）
 - [ ] `import` 语句都在顶部
 - [ ] 花括号用途正确（表达式 vs 文本）
