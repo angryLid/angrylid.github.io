@@ -3,18 +3,20 @@ title: "红利股案例 · 长江电力（一）"
 steps: 1
 ---
 import Notes from "@components/Notes.astro";
+import PresentationLayout from "@components/PresentationLayout.astro";
 import yangtzeHydropower from "./assets/yangtze-hydropower.png";
 
-<div style="height: 100%; box-sizing: border-box; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 1rem 2rem; gap: 0.8rem;">
-  <h2 style="font-size: 2rem; margin: 0; color: #333; flex-shrink: 0;">红利股案例 · 长江电力（一）</h2>
-  <img src={yangtzeHydropower.src} alt="长江电力" style="max-height: calc(100% - 3.5rem); max-width: 100%; object-fit: contain;" />
-</div>
+<PresentationLayout title="红利股案例 · 长江电力（一）">
+  <div style="height: 100%; display: flex; align-items: center; justify-content: center;">
+    <img src={yangtzeHydropower.src} alt="长江电力" style="max-width: 100%; max-height: 100%; object-fit: contain;" />
+  </div>
+</PresentationLayout>
 
 <Notes>
 
-但是有时候市场规模不是无限增长的。
+但是有一些公司的市场规模已经见顶了。
 
-比如长江电力公司，我们知道长江的干流一共也才发展出了重庆，武汉，南京，上海四座大城市。但是这家公司在长江上有 6 座大型水电站。
+比如长江电力公司，我们知道长江的干流一共也才哺育了重庆，武汉，南京，上海四座大城市。但是这家公司在长江上有足足 6 座大型水电站。
 
 有一天公司的董事长忧心忡忡地找到总工程师，说，长江的发电量已经见顶了，公司账上怎么多钱要怎么办呢。
 

@@ -3,19 +3,11 @@ title: "共识类资产 · 老登资产"
 steps: 1
 ---
 import Notes from "@components/Notes.astro";
+import PresentationLayout from "@components/PresentationLayout.astro";
 
-<div style="padding: 2.5rem 3rem; height: 100%; box-sizing: border-box; display: flex; flex-direction: column;">
-  <div style="display: flex; align-items: center; gap: 1rem; margin-bottom: 1.5rem; flex-shrink: 0;">
-    <div style="width: 56px; height: 56px; border-radius: 50%; background: linear-gradient(135deg, #f59e0b, #d97706); display: flex; align-items: center; justify-content: center;">
-      <span style="font-size: 1.8rem;">👴</span>
-    </div>
-    <div>
-      <p style="font-size: 0.95rem; color: #d97706; font-weight: 600; margin: 0;">共识类资产</p>
-      <h2 style="font-size: 2.2rem; margin: 0.1rem 0 0 0; color: #333;">老登资产</h2>
-    </div>
-  </div>
-
-  <div style="flex: 1; min-height: 0; display: grid; grid-template-columns: 1fr 1fr; gap: 2rem;">
+<PresentationLayout title="老登资产" eyebrow="共识类资产">
+  <div style="height: 100%; display: flex; flex-direction: column; gap: 1rem;">
+    <div style="flex: 1; min-height: 0; display: grid; grid-template-columns: 1fr 1fr; gap: 2rem;">
     <div style="display: flex; flex-direction: column; justify-content: center; gap: 1.2rem;">
       <div style="display: flex; gap: 1rem; align-items: flex-start;">
         <div style="width: 40px; height: 40px; border-radius: 50%; background: #fef3c7; display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
@@ -110,22 +102,24 @@ import Notes from "@components/Notes.astro";
     </div>
   </div>
 
-  <div style="margin-top: 1rem; padding: 0.8rem 1.2rem; background: #fffbeb; border-radius: 0.6rem; border-left: 4px solid #f59e0b; flex-shrink: 0;">
-    <p style="font-size: 1rem; color: #92400e; margin: 0;">
-      <strong>一句话：</strong>老登资产是"老一代人都认可、代代相传"的价值储存——它本身不生钱，但大家都觉得它值钱。
-    </p>
+    <div style="padding: 0.8rem 1.2rem; background: #fffbeb; border-radius: 0.6rem; border-left: 4px solid #f59e0b; flex-shrink: 0;">
+      <p style="font-size: 1rem; color: #92400e; margin: 0;">
+        <strong>一句话：</strong>老登资产是"老一代人都认可、代代相传"的价值储存——它本身不生钱，但大家都觉得它值钱。
+      </p>
+    </div>
   </div>
-</div>
+</PresentationLayout>
 
 <Notes>
 
-刚才我们说的是那些资产，你拿着就能产生现金。
+刚才我们说的那些资产，你拿着就能产生现金。
 
-还有一些资产是不会产生现金的。他是基于共识的。如果说共识扩大了，你就可以找到下一个接盘侠，把这个东西脱手。
+还有一些资产是不会产生现金的。他是基于共识的。
 
-反之，如果共识破裂了，就彻底砸手上了。
+- 如果说共识扩大了，你就可以找到下一个接盘侠，把这个东西脱手。
+- 反之，如果共识破裂了，就彻底砸手上了。
 
-因为这类资产很多都是一代人玩，但是下一代人认为这些东西没有价值。包括但不限于玉石，邮票，文玩字画，红木家具。
+包括但不限于玉石，邮票，文玩字画，红木家具。老一辈爱不释手，但是年轻人完全不感冒。
 
 所以我们这些小登也把这类东西称作是"老登资产"
 

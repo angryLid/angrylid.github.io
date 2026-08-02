@@ -3,19 +3,11 @@ title: "生息资产 · 债券"
 steps: 1
 ---
 import Notes from "@components/Notes.astro";
+import PresentationLayout from "@components/PresentationLayout.astro";
 
-<div style="padding: 2.5rem 3rem; height: 100%; box-sizing: border-box; display: flex; flex-direction: column;">
-  <div style="display: flex; align-items: center; gap: 1rem; margin-bottom: 1.5rem; flex-shrink: 0;">
-    <div style="width: 56px; height: 56px; border-radius: 50%; background: linear-gradient(135deg, #27ae60, #16a34a); display: flex; align-items: center; justify-content: center;">
-      <span style="font-size: 1.8rem;">📜</span>
-    </div>
-    <div>
-      <p style="font-size: 0.95rem; color: #16a34a; font-weight: 600; margin: 0;">生息资产</p>
-      <h2 style="font-size: 2.2rem; margin: 0.1rem 0 0 0; color: #333;">债券</h2>
-    </div>
-  </div>
-
-  <div style="flex: 1; min-height: 0; display: grid; grid-template-columns: 1fr 1fr; gap: 2rem;">
+<PresentationLayout title="债券" eyebrow="生息资产">
+  <div style="height: 100%; display: flex; flex-direction: column; gap: 1rem;">
+    <div style="flex: 1; min-height: 0; display: grid; grid-template-columns: 1fr 1fr; gap: 2rem;">
     <div style="display: flex; flex-direction: column; justify-content: center; gap: 1.2rem;">
       <div style="display: flex; gap: 1rem; align-items: flex-start;">
         <div style="width: 40px; height: 40px; border-radius: 50%; background: #dcfce7; display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
@@ -136,12 +128,13 @@ import Notes from "@components/Notes.astro";
     </div>
   </div>
 
-  <div style="margin-top: 1rem; padding: 0.8rem 1.2rem; background: #f0fdf4; border-radius: 0.6rem; border-left: 4px solid #27ae60; flex-shrink: 0;">
-    <p style="font-size: 1rem; color: #166534; margin: 0;">
-      <strong>一句话：</strong>债券就是"你借钱给别人，对方按约定付利息、到期还本金"的借条。
-    </p>
+    <div style="padding: 0.8rem 1.2rem; background: #f0fdf4; border-radius: 0.6rem; border-left: 4px solid #27ae60; flex-shrink: 0;">
+      <p style="font-size: 1rem; color: #166534; margin: 0;">
+        <strong>一句话：</strong>债券就是"你借钱给别人，对方按约定付利息、到期还本金"的借条。
+      </p>
+    </div>
   </div>
-</div>
+</PresentationLayout>
 
 <Notes>
 
@@ -153,14 +146,14 @@ import Notes from "@components/Notes.astro";
 2. 债券的付息方式
   a. 债券的面值，规定了债券到期以后要归还多少本金，
   b. 期限，规定了什么时候应该支付本金和利息，
-  c. 计息方式和利率，规定了利息的计算
+  c. 债券的利率和计算利率的方法。
 
-3. 当然现实中的债券是一份晚辈的合同，上面还会附带信用评级，抵押和其他条款
+3. 当然现实中的债券是一份完备的合同，上面还会附带信用评级，抵押和其他条款
 
-其实绝大多数人都间接地持有债券，我想应该没有人只把钱存银行定期吧。
+其实绝大多数人都间接地持有债券，我想应该没有人会把钱全部存银行定期吧。
 
-像余额宝这样的产品，实际上就是货币基金产品。
+比如余额宝这样的产品，实际上就是货币基金产品。
 
-货币基金产品则是由一系列信用非常好的短期债券和银行存单等资产构成的。
+货币基金产品就是由一系列信用非常好的短期债券和银行存单等资产构成的。
 
 </Notes>

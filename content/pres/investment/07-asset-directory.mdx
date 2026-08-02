@@ -3,11 +3,10 @@ title: "资产的分类"
 steps: 1
 ---
 import Notes from "@components/Notes.astro";
+import PresentationLayout from "@components/PresentationLayout.astro";
 
-<div style="padding: 2rem 2.5rem; height: 100%; box-sizing: border-box; display: flex; flex-direction: column;">
-  <h2 style="font-size: 2.4rem; margin: 0 0 1.5rem 0; color: #333; text-align: center; flex-shrink: 0;">资产的分类</h2>
-  
-  <div style="flex: 1; min-height: 0; display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 1.8rem;">
+<PresentationLayout title="资产的分类">
+  <div style="height: 100%; display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 1.8rem;">
 
     {/* 生息资产 */}
     <div style="display: flex; flex-direction: column; background: linear-gradient(135deg, #f0fdf4 0%, #dcfce7 100%); border-radius: 1rem; padding: 1.8rem 1.5rem; border: 1px solid #bbf7d0;">
@@ -120,14 +119,16 @@ import Notes from "@components/Notes.astro";
     </div>
 
   </div>
-</div>
+</PresentationLayout>
 
 <Notes>
 
-所以断定什么是好资产之前，有必要说明白资产的一些基本性质。
+所以断定什么是好资产之前，还是有必要说明白资产的一些基本性质。
 
-这是我的一个非常野鸡的分类方法。那么我把资产分成生息类资产和共识类资产。生息类资产就是你拿在手上，他就能给你产生现金。共识类资产就是你必须找到下一个傻子接盘。
+这里介绍我的一个野鸡的分类方法。我把资产分成两种。生息类资产和共识类资产。生息类资产就是你拿在手上，他就能给你产生现金。共识类资产则反过来，是一种不会产生现金，但持有人依然坚信它有价值的东西。
 
-还有一种东西是衍生品，衍生品是依附于资产存在的一种东西。但是我认为很多资产其实具有衍生品的性质，后面我会详细说。
+另外还有一种东西是衍生品，衍生品是依附于资产存在的一种东西。
+
+但是我认为很多资产本身就具有衍生品的性质，后面再详细说吧。
 
 </Notes>

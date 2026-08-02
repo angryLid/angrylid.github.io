@@ -3,19 +3,11 @@ title: "生息资产 · 红利股"
 steps: 1
 ---
 import Notes from "@components/Notes.astro";
+import PresentationLayout from "@components/PresentationLayout.astro";
 
-<div style="padding: 2.5rem 3rem; height: 100%; box-sizing: border-box; display: flex; flex-direction: column;">
-  <div style="display: flex; align-items: center; gap: 1rem; margin-bottom: 1.5rem; flex-shrink: 0;">
-    <div style="width: 56px; height: 56px; border-radius: 50%; background: linear-gradient(135deg, #27ae60, #16a34a); display: flex; align-items: center; justify-content: center;">
-      <span style="font-size: 1.8rem;">📈</span>
-    </div>
-    <div>
-      <p style="font-size: 0.95rem; color: #16a34a; font-weight: 600; margin: 0;">生息资产</p>
-      <h2 style="font-size: 2.2rem; margin: 0.1rem 0 0 0; color: #333;">股票 · 红利股</h2>
-    </div>
-  </div>
-
-  <div style="flex: 1; min-height: 0; display: grid; grid-template-columns: 1fr 1fr; gap: 2rem;">
+<PresentationLayout title="股票 · 红利股" eyebrow="生息资产">
+  <div style="height: 100%; display: flex; flex-direction: column; gap: 1rem;">
+    <div style="flex: 1; min-height: 0; display: grid; grid-template-columns: 1fr 1fr; gap: 2rem;">
     <div style="display: flex; flex-direction: column; justify-content: center; gap: 1.2rem;">
       <div style="display: flex; gap: 1rem; align-items: flex-start;">
         <div style="width: 40px; height: 40px; border-radius: 50%; background: #dcfce7; display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
@@ -103,23 +95,22 @@ import Notes from "@components/Notes.astro";
     </div>
   </div>
 
-  <div style="margin-top: 1rem; padding: 0.8rem 1.2rem; background: #f0fdf4; border-radius: 0.6rem; border-left: 4px solid #27ae60; flex-shrink: 0;">
-    <p style="font-size: 1rem; color: #166534; margin: 0;">
-      <strong>一句话：</strong>买股票就是当公司的小股东，公司赚钱了分给你红利，公司长大了你手里的股权也更值钱。
-    </p>
+    <div style="padding: 0.8rem 1.2rem; background: #f0fdf4; border-radius: 0.6rem; border-left: 4px solid #27ae60; flex-shrink: 0;">
+      <p style="font-size: 1rem; color: #166534; margin: 0;">
+        <strong>一句话：</strong>买股票就是当公司的小股东，公司赚钱了分给你红利，公司长大了你手里的股权也更值钱。
+      </p>
+    </div>
   </div>
-</div>
+</PresentationLayout>
 
 <Notes>
 
-倘若，你觉得债券的收益比较低。
+当然很多人觉得债券的收益比较低。那我介绍你一种更高收益的投资品，那就是股票。不过我这里特指的是红利股。
 
-那么你可以把视野放得更远一点，去看看股票，不过我这里特指的是红利股。
+红利股的意思，就是说一家公司。赚到了钱，发完了员工工资，结清了欠款，剩下的这些钱，属于公司的主人。
 
-红利股的意思，就是说一家公司。赚到了钱，发完了员工工资，结清了欠款，剩下的这些钱，就属于公司的主人。
+当然很多公司都会讲，我们把客户当成上帝，我们把员工当成兄弟。但是公司真正的主人实际上是公司的全体股东。
 
-当然很多公司都会讲，我们把客户当成上帝，我们把员工当成兄弟。但是公司真正的主人其实是全体股东。
-
-剩下的这些钱，可以用来扩大规模，争夺更多的市场份额。
+有些公司会用钱，来扩大规模，争夺更多的市场份额。
 
 </Notes>

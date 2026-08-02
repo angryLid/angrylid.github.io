@@ -3,14 +3,10 @@ title: "债券小故事 · 张三与李四"
 steps: 4
 ---
 import Notes from "@components/Notes.astro";
+import PresentationLayout from "@components/PresentationLayout.astro";
 
-<div style="padding: 2rem 3rem; height: 100%; box-sizing: border-box; display: flex; flex-direction: column;">
-  <div style="flex-shrink: 0;">
-    <p style="font-size: 0.95rem; color: #16a34a; font-weight: 600; margin: 0;">债券小故事</p>
-    <h2 style="font-size: 2rem; margin: 0.2rem 0 0 0; color: #333;">张三借钱给李四</h2>
-  </div>
-
-  <div style="flex: 1; min-height: 0; position: relative;">
+<PresentationLayout title="张三借钱给李四" eyebrow="债券小故事">
+  <div style="height: 100%; position: relative;">
     <svg viewBox="0 0 900 520" style="width: 100%; height: 100%;" xmlns="http://www.w3.org/2000/svg">
       <defs>
         <linearGradient id="bgGrad" x1="0%" y1="0%" x2="0%" y2="100%">
@@ -233,19 +229,14 @@ import Notes from "@components/Notes.astro";
         <rect x="710" y="405" width="140" height="28" rx="14" fill="#fef3c7" stroke="#fcd34d" stroke-width="1"/>
         <text x="780" y="424" text-anchor="middle" font-size="13" font-weight="700" fill="#b45309">李四：信用++ ⭐</text>
       </g>
-
-      {/* 底部对比结论 */}
-      <g data-anim="3">
-        <rect x="460" y="455" width="420" height="45" rx="10" fill="#065f46"/>
-        <text x="670" y="484" text-anchor="middle" font-size="15" font-weight="700" fill="#ecfdf5">💡 债券就是：按约定付利息、到期还本金的"借条"</text>
-      </g>
     </svg>
   </div>
-</div>
+</PresentationLayout>
 
 <Notes>
 
-我们首要要了解的就是债券。
+关于生息类的资产，首先要了解的就是债券。
+
 债券，通俗一点讲也就是借据，再通俗一点讲就是欠条。
 
 比如说，张三借给李四 100 元钱，约定 1 年后还钱。那么到了 1 年以后，李四就以赖账的手段赚取了 100 元。

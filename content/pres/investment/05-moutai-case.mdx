@@ -3,29 +3,18 @@ title: "案例：贵州茅台"
 steps: 1
 ---
 import Notes from "@components/Notes.astro";
+import PresentationLayout from "@components/PresentationLayout.astro";
 import moutaiChart from "./assets/moutai-chart.svg";
 
-<div style="padding: 1.5rem 3rem; height: 100%; box-sizing: border-box; display: flex; flex-direction: column;">
-  <h2 style="font-size: 2rem; margin: 0 0 1rem 0; color: #333; flex-shrink: 0;">案例：贵州茅台（600519）</h2>
-  
-  <div style="flex: 1; min-height: 0; display: grid; grid-template-columns: 2fr 1fr; gap: 1.5rem;">
-    <div style="display: flex; align-items: center; justify-content: center; min-height: 0;">
-      <img src={moutaiChart.src} alt="贵州茅台月线收盘价" style="width: 100%; max-height: 100%; object-fit: contain;" />
-    </div>
-    <div style="display: flex; flex-direction: column; justify-content: center; gap: 0.7rem; text-align: right;">
-      <p style="font-size: 1.05rem; line-height: 1.5; margin: 0; color: #27ae60; font-weight: 600;">2019 初　买入 ~690</p>
-      <p style="font-size: 1.05rem; line-height: 1.5; margin: 0; color: #e67e22; font-weight: 600;">2021.02　卖出 ~2120　+200%</p>
-      <p style="font-size: 1.05rem; line-height: 1.5; margin: 0; color: #c0392b; font-weight: 600;">2021.02　追高 ~2120</p>
-      <p style="font-size: 1.05rem; line-height: 1.5; margin: 0; color: #27ae60; font-weight: 600;">2022.10　抄底 ~1350</p>
-      <p style="font-size: 1.05rem; line-height: 1.5; margin: 0; color: #e67e22; font-weight: 600;">2023 初　卖出 ~1850　+37%</p>
-      <p style="font-size: 1.05rem; line-height: 1.5; margin: 0; color: #c0392b; font-weight: 600;">2026 中　持有至今 ~1185　-44%</p>
-    </div>
+<PresentationLayout title="案例：贵州茅台">
+  <div style="height: 100%; display: flex; align-items: center; justify-content: center;">
+    <img src={moutaiChart.src} alt="贵州茅台月线收盘价" style="max-width: 100%; max-height: 100%; object-fit: contain;" />
   </div>
-</div>
+</PresentationLayout>
 
 <Notes>
 
-当然更多的时候呢，对于市场上大多数的投资者，时间并不会证明他们是对的。
+当然更多的时候呢，对于市场上大多数的散户朋友，时间并不会证明他们是对的。时间只能证明他们是固执的。
 
 我们不妨以贵州茅台的股票为例子。市场上有这样三种人。
 
@@ -33,9 +22,8 @@ import moutaiChart from "./assets/moutai-chart.svg";
 
 第二类是投机者，比如是在 2022 年末，由于一连串的事件，茅台股票暴跌。投机者们认识到这很可能是一个好的机会，于是在趋势反转的时候买入，在顶部信号出现后逃顶。那么这些人也赚到钱了。
 
-还有就是第三类，如果是在 2021 年，市场情绪最高胀狂热的时候，冲进去接盘的那些人。至今还在山顶站岗。
+还有就是第三类，如果是在 2021 年，市场情绪最高胀狂热的时候，冲进去接盘又舍不得及时割肉的那些人。至今还在山顶站岗。
 
-所以我们散户朋友到头来就自嘲说，我们既不是投资者，也不是投机者，最终才发现我们其实是金融产品的消费者。
-
+所以很多网友到头来就自嘲说，我们既不是投资者，也不是投机者，最终才发现我们其实是金融产品的消费者。
 
 </Notes>
