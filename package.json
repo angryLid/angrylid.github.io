@@ -12,8 +12,8 @@
     "format:check": "prettier --check .",
     "lint": "eslint .",
     "typecheck": "astro check",
-    "agent:build": "podman compose -f ../caged/compose.yml build",
-    "agent": "podman compose -f ../caged/compose.yml run --rm pi",
+    "agent:build": "podman compose -f ../caged/compose.yaml build",
+    "agent": "podman compose -f ../caged/compose.yaml run --rm pi",
     "chrome": "open -na \"Google Chrome\" --args --remote-debugging-port=9222 '--remote-allow-origins=*' --user-data-dir=\"$HOME/.caged-chrome-devtools\" --no-first-run"
   },
   "keywords": [],
