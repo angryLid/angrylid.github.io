@@ -12,9 +12,8 @@
     "format:check": "prettier --check .",
     "lint": "eslint .",
     "typecheck": "astro check",
-    "sandbox": "sbx run --kit ./sandbox/pi/ --name ${SANDBOX_NAME:-pi} pi",
-    "sandbox:remove": "sbx rm ${SANDBOX_NAME:-pi}",
-    "sandbox:validate": "sbx kit validate ./sandbox/pi/",
+    "agent:build": "podman compose -f ../caged/compose.yml build",
+    "agent": "podman compose -f ../caged/compose.yml run --rm pi",
     "chrome": "open -na \"Google Chrome\" --args --remote-debugging-port=9222 '--remote-allow-origins=*' --user-data-dir=\"$HOME/.caged-chrome-devtools\" --no-first-run"
   },
   "keywords": [],
