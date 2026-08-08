@@ -1,0 +1,50 @@
+---
+title: "一千零一夜 · 新编（二）"
+steps: 5
+---
+import Notes from "@components/Notes.astro";
+import PresentationLayout from "@components/PresentationLayout.astro";
+import PresentationStep from "@components/PresentationStep.astro";
+import comic5 from "./assets/1001-night/comic-5.png";
+import comic6 from "./assets/1001-night/comic-6.png";
+import comic7 from "./assets/1001-night/comic-7.png";
+import comic8 from "./assets/1001-night/comic-8.png";
+
+<PresentationLayout title="一千零一夜 · 新编（二）">
+  <div style="height: 100%; width: 680px; margin: auto; display: grid; grid-template-columns: 1fr 1fr; grid-template-rows: 1fr 1fr; gap: 1.25rem;">
+      <PresentationStep step={1} effect="fade">
+        <div style="position: relative; width: 100%; height: 100%; overflow: hidden;">
+          <img src={comic5.src} alt="第五格：王后回想伤心往事" style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; transform: scale(1.25); transform-origin: center;" />
+          <div style="position: absolute; bottom: 0; left: 0; z-index: 2; padding: 0.4rem 0.7rem; background: #fff; color: #000; border: 2px solid #000; font-size: 1.05rem; font-weight: 600; line-height: 1.3;">其实我是从几百年后的东方来的</div>
+        </div>
+      </PresentationStep>
+      <PresentationStep step={2} effect="fade">
+        <div style="position: relative; width: 100%; height: 100%; overflow: hidden;">
+          <img src={comic6.src} alt="第六格：王后双手捂脸" style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; transform: scale(1.25); transform-origin: center;" />
+          <div style="position: absolute; top: 0; left: 0; z-index: 2; padding: 0.4rem 0.7rem; background: #fff; color: #000; border: 2px solid #000; font-size: 1.05rem; font-weight: 600; line-height: 1.3;">我原来炒股票 还不起高利贷跳楼了</div>
+        </div>
+      </PresentationStep>
+      <PresentationStep step={3} effect="fade">
+        <div style="position: relative; width: 100%; height: 100%; overflow: hidden;">
+          <img src={comic7.src} alt="第七格：国王沉思" style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; transform: scale(1.25); transform-origin: center;" />
+        </div>
+      </PresentationStep>
+      <PresentationStep step={4} effect="fade">
+        <div style="position: relative; width: 100%; height: 100%; overflow: hidden;">
+          <img src={comic8.src} alt="第八格：国王皱眉发怒" style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; transform: scale(1.25); transform-origin: center;" />
+          <div style="position: absolute; right: 0; bottom: 0; z-index: 2; padding: 0.4rem 0.7rem; background: #fff; color: #000; border: 2px solid #000; font-size: 1.05rem; font-weight: 600; line-height: 1.3;">你瞎编 深圳不过是个小渔村<br/> 哪里来的什么市场</div>
+        </div>
+      </PresentationStep>
+  </div>
+</PresentationLayout>
+
+<Notes>
+
+一千零一夜 · 新编 —— 第二折（四格）。
+
+- 第 5 格：王后眼神低垂，回想伤心往事："其实我是从几百年后的东方来的。"
+- 第 6 格：王后双手捂住脸，手肘撑膝："我原来炒股票，还不起高利贷跳楼了。"
+- 第 7 格：国王手托下巴，陷入沉思。
+- 第 8 格：国王皱眉发怒："你瞎编！深圳不过是个小渔村，哪里来的什么市场。"王后惊讶，放下了手。
+
+</Notes>
