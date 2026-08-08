@@ -3,111 +3,143 @@ title: "盘外招一 · 消化不良资产"
 steps: 1
 ---
 import Notes from "@components/Notes.astro";
+import PresentationLayout from "@components/PresentationLayout.astro";
 
-<div style="padding: 2rem 2.5rem; height: 100%; box-sizing: border-box; display: flex; flex-direction: column;">
-  <div style="display: flex; align-items: center; gap: 1rem; margin-bottom: 1.2rem; flex-shrink: 0;">
-    <div style="width: 52px; height: 52px; border-radius: 50%; background: linear-gradient(135deg, #c0392b, #e74c3c); display: flex; align-items: center; justify-content: center;">
-      <span style="font-size: 1.6rem;">🧱</span>
-    </div>
-    <div>
-      <p style="font-size: 0.9rem; color: #c0392b; font-weight: 600; margin: 0;">国家队的盘外招 · 其一</p>
-      <h2 style="font-size: 2rem; margin: 0.1rem 0 0 0; color: #333;">消化不良资产</h2>
-    </div>
-  </div>
+<PresentationLayout
+  eyebrow="国家队的盘外招 · 其一"
+  title="消化不良资产"
+  narrow
+>
+  <div style="height: 100%; display: flex; flex-direction: column;">
+    <div style="flex: 1; min-height: 0; display: grid; grid-template-columns: 1fr 1.1fr; gap: 1.6rem;">
+      <div style="display: flex; flex-direction: column; justify-content: center; gap: 0.9rem;">
+        <div style="display: flex; gap: 0.9rem; align-items: flex-start; padding: 0.85rem 1.1rem; background: #f0fdf4; border-radius: 0.7rem; border-left: 4px solid #27ae60;">
+          <span style="font-size: 1.3rem;">💎</span>
+          <div>
+            <p style="font-size: 1.05rem; font-weight: 700; color: #166534; margin: 0;">大秦线 · 核心盈利资产</p>
+            <p style="font-size: 0.9rem; color: #555; margin: 0.2rem 0 0 0; line-height: 1.5;">全球最暴利的重载煤运专线，现金流长期稳定充沛</p>
+          </div>
+        </div>
 
-  <div style="flex: 1; min-height: 0; display: grid; grid-template-columns: 1fr 1.1fr; gap: 1.6rem;">
-    <div style="display: flex; flex-direction: column; justify-content: center; gap: 0.9rem;">
-      <div style="display: flex; gap: 0.9rem; align-items: flex-start; padding: 0.85rem 1.1rem; background: #f0fdf4; border-radius: 0.7rem; border-left: 4px solid #27ae60;">
-        <span style="font-size: 1.3rem;">💎</span>
-        <div>
-          <p style="font-size: 1.05rem; font-weight: 700; color: #166534; margin: 0;">摇钱树 · 大秦线</p>
-          <p style="font-size: 0.9rem; color: #555; margin: 0.2rem 0 0 0; line-height: 1.5;">全球最暴利的重载煤运专线，躺赚的现金奶牛</p>
+        <div style="display: flex; gap: 0.9rem; align-items: flex-start; padding: 0.85rem 1.1rem; background: #fef2f2; border-radius: 0.7rem; border-left: 4px solid #c0392b;">
+          <span style="font-size: 1.3rem;">📦</span>
+          <div>
+            <p style="font-size: 1.05rem; font-weight: 700; color: #991b1b; margin: 0;">大秦铁路 · 被注入低效资产</p>
+            <p style="font-size: 0.9rem; color: #555; margin: 0.2rem 0 0 0; line-height: 1.5;">2009 年 165 亿定增，反向收购太原局 7 条干线 + 5 条支线（普速客运常年亏损）</p>
+          </div>
+        </div>
+
+        <div style="display: flex; gap: 0.9rem; align-items: flex-start; padding: 0.85rem 1.1rem; background: #fffbeb; border-radius: 0.7rem; border-left: 4px solid #ea580c;">
+          <span style="font-size: 1.3rem;">📉</span>
+          <div>
+            <p style="font-size: 1.05rem; font-weight: 700; color: #9a3412; margin: 0;">优质资产 · 被低效包袱拖累</p>
+            <p style="font-size: 0.9rem; color: #555; margin: 0.2rem 0 0 0; line-height: 1.5;">百亿客运收入却公益亏损，ROE 与分红被稀释；京沪高铁亦被注入 500 亿京福安徽</p>
+          </div>
         </div>
       </div>
 
-      <div style="display: flex; gap: 0.9rem; align-items: flex-start; padding: 0.85rem 1.1rem; background: #fef2f2; border-radius: 0.7rem; border-left: 4px solid #c0392b;">
-        <span style="font-size: 1.3rem;">📦</span>
-        <div>
-          <p style="font-size: 1.05rem; font-weight: 700; color: #991b1b; margin: 0;">强行塞包袱 · 大秦铁路</p>
-          <p style="font-size: 0.9rem; color: #555; margin: 0.2rem 0 0 0; line-height: 1.5;">2009 年 165 亿定增，反向收购太原局 7 条干线 + 5 条支线（普速客运常年亏损）</p>
-        </div>
-      </div>
+      <div style="display: flex; align-items: center; justify-content: center;">
+        <svg viewBox="0 0 400 340" style="width: 100%; max-height: 100%;" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <linearGradient id="chestGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+              <stop offset="0%" stop-color="#fde68a"/>
+              <stop offset="100%" stop-color="#b45309"/>
+            </linearGradient>
+            <linearGradient id="chestInner" x1="0%" y1="0%" x2="0%" y2="100%">
+              <stop offset="0%" stop-color="#78350f"/>
+              <stop offset="100%" stop-color="#451a03"/>
+            </linearGradient>
+            <linearGradient id="binGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+              <stop offset="0%" stop-color="#9ca3af"/>
+              <stop offset="100%" stop-color="#4b5563"/>
+            </linearGradient>
+            <radialGradient id="coinShine" cx="35%" cy="30%" r="60%">
+              <stop offset="0%" stop-color="#fef08a"/>
+              <stop offset="100%" stop-color="#d97706"/>
+            </radialGradient>
+          </defs>
 
-      <div style="display: flex; gap: 0.9rem; align-items: flex-start; padding: 0.85rem 1.1rem; background: #fffbeb; border-radius: 0.7rem; border-left: 4px solid #ea580c;">
-        <span style="font-size: 1.3rem;">🐴</span>
-        <div>
-          <p style="font-size: 1.05rem; font-weight: 700; color: #9a3412; margin: 0;">神马拖砖头</p>
-          <p style="font-size: 0.9rem; color: #555; margin: 0.2rem 0 0 0; line-height: 1.5;">百亿客运收入却公益亏损，ROE 与分红被稀释；京沪高铁亦被塞 500 亿京福安徽</p>
-        </div>
+          {/* 地面阴影 */}
+          <ellipse cx="200" cy="320" rx="120" ry="8" fill="#000" opacity="0.12"/>
+
+          {/* 宝箱 - 底部箱体 */}
+          <rect x="100" y="220" width="200" height="90" rx="6" fill="url(#chestGrad)" stroke="#78350f" stroke-width="2.5"/>
+          {/* 宝箱内部深色 */}
+          <rect x="108" y="228" width="184" height="82" rx="3" fill="url(#chestInner)"/>
+          {/* 宝箱中部横箍 */}
+          <rect x="100" y="260" width="200" height="6" fill="#78350f"/>
+          {/* 宝箱锁扣 */}
+          <rect x="188" y="260" width="24" height="28" rx="3" fill="#b45309" stroke="#78350f" stroke-width="1.5"/>
+          <circle cx="200" cy="274" r="4" fill="#78350f"/>
+
+          {/* 宝箱内金币 */}
+          <circle cx="140" cy="256" r="16" fill="url(#coinShine)" stroke="#b45309" stroke-width="1.2"/>
+          <circle cx="172" cy="246" r="13" fill="url(#coinShine)" stroke="#b45309" stroke-width="1"/>
+          <circle cx="205" cy="252" r="15" fill="url(#coinShine)" stroke="#b45309" stroke-width="1"/>
+          <circle cx="240" cy="244" r="14" fill="url(#coinShine)" stroke="#b45309" stroke-width="1"/>
+          <circle cx="260" cy="255" r="12" fill="url(#coinShine)" stroke="#b45309" stroke-width="1"/>
+
+          {/* 宝箱内已经混入的垃圾 */}
+          <rect x="120" y="238" width="22" height="14" rx="2" fill="#9ca3af" stroke="#4b5563" stroke-width="1" transform="rotate(-18 131 245)"/>
+          <rect x="220" y="235" width="20" height="12" rx="2" fill="#a8a29e" stroke="#57534e" stroke-width="1" transform="rotate(12 230 241)"/>
+          <circle cx="185" cy="238" r="5" fill="#6b7280"/>
+
+          {/* 宝箱盖子 - 向后翻开靠在箱后 */}
+          <path d="M100 220 Q200 165 300 220 L300 230 Q200 175 100 230 Z" fill="url(#chestGrad)" stroke="#78350f" stroke-width="2.5"/>
+
+          {/* 倾斜的垃圾桶 - 右上，往宝箱方向倒垃圾 */}
+          <g transform="translate(318, 55) rotate(32)">
+            {/* 桶身（上宽下窄梯形） */}
+            <path d="M2 0 L58 0 L52 76 L8 76 Z" fill="url(#binGrad)" stroke="#1f2937" stroke-width="2"/>
+            {/* 桶口加厚边 */}
+            <rect x="-3" y="-6" width="66" height="10" rx="2" fill="#6b7280" stroke="#1f2937" stroke-width="2"/>
+            {/* 桶内深色 */}
+            <ellipse cx="30" cy="0" rx="28" ry="4" fill="#1f2937"/>
+            {/* 桶底椭圆 */}
+            <ellipse cx="30" cy="76" rx="22" ry="3.5" fill="#1f2937" opacity="0.5"/>
+            {/* 提手 */}
+            <path d="M12 -6 Q30 -24 48 -6" fill="none" stroke="#1f2937" stroke-width="2.5" stroke-linecap="round"/>
+            {/* 竖向纹理 */}
+            <line x1="18" y1="4" x2="16" y2="73" stroke="#6b7280" stroke-width="1" opacity="0.5"/>
+            <line x1="30" y1="4" x2="30" y2="73" stroke="#6b7280" stroke-width="1" opacity="0.5"/>
+            <line x1="42" y1="4" x2="44" y2="73" stroke="#6b7280" stroke-width="1" opacity="0.5"/>
+          </g>
+
+          {/* 从桶口倾泻而出的垃圾 - 沿弧线落入宝箱 */}
+          <g>
+            {/* 大块破损物 */}
+            <rect x="282" y="80" width="22" height="15" rx="2" fill="#9ca3af" stroke="#4b5563" stroke-width="1" transform="rotate(-30 293 87)"/>
+            <rect x="258" y="112" width="20" height="13" rx="2" fill="#a8a29e" stroke="#57534e" stroke-width="1" transform="rotate(20 268 118)"/>
+            <rect x="235" y="142" width="24" height="16" rx="2" fill="#9ca3af" stroke="#4b5563" stroke-width="1" transform="rotate(-16 247 150)"/>
+            <rect x="212" y="172" width="21" height="14" rx="2" fill="#a8a29e" stroke="#57534e" stroke-width="1" transform="rotate(28 222 179)"/>
+            <rect x="190" y="200" width="19" height="12" rx="2" fill="#9ca3af" stroke="#4b5563" stroke-width="1" transform="rotate(-22 199 206)"/>
+
+            {/* 小碎屑 */}
+            <circle cx="270" cy="98" r="4" fill="#6b7280"/>
+            <circle cx="246" cy="128" r="3" fill="#78716c"/>
+            <circle cx="222" cy="158" r="5" fill="#6b7280"/>
+            <circle cx="200" cy="188" r="4" fill="#78716c"/>
+            <rect x="178" y="214" width="10" height="6" rx="1.5" fill="#9ca3af" transform="rotate(35 183 217)"/>
+
+            {/* 刚要落入宝箱的 */}
+            <rect x="170" y="226" width="18" height="11" rx="2" fill="#a8a29e" stroke="#57534e" stroke-width="1" transform="rotate(-10 179 231)"/>
+          </g>
+
+          {/* 从宝箱左侧漏出的金币 - 表示价值被稀释 */}
+          <circle cx="88" cy="280" r="10" fill="url(#coinShine)" stroke="#b45309" stroke-width="1.2"/>
+          <circle cx="72" cy="302" r="7" fill="url(#coinShine)" stroke="#b45309" stroke-width="1"/>
+          <circle cx="60" cy="320" r="5" fill="url(#coinShine)" stroke="#b45309" stroke-width="0.8"/>
+        </svg>
       </div>
     </div>
 
-    <div style="display: flex; align-items: center; justify-content: center;">
-      <svg viewBox="0 0 400 340" style="width: 100%; max-height: 100%;" xmlns="http://www.w3.org/2000/svg">
-        <defs>
-          <linearGradient id="chestGrad" x1="0%" y1="0%" x2="0%" y2="100%">
-            <stop offset="0%" stop-color="#fde68a"/>
-            <stop offset="100%" stop-color="#f59e0b"/>
-          </linearGradient>
-          <linearGradient id="brickGrad" x1="0%" y1="0%" x2="0%" y2="100%">
-            <stop offset="0%" stop-color="#fca5a5"/>
-            <stop offset="100%" stop-color="#dc2626"/>
-          </linearGradient>
-        </defs>
-
-        {/* 顶部标题 */}
-        <text x="200" y="24" text-anchor="middle" font-size="13" fill="#c0392b" font-weight="700">165 亿定增 · 328 亿资产强行注入</text>
-
-        {/* 压力箭头 */}
-        <g stroke="#c0392b" stroke-width="2.5" fill="none" stroke-linecap="round">
-          <line x1="130" y1="44" x2="130" y2="72"/>
-          <polyline points="123,64 130,74 137,64"/>
-          <line x1="200" y1="38" x2="200" y2="66"/>
-          <polyline points="193,58 200,68 207,58"/>
-          <line x1="270" y1="44" x2="270" y2="72"/>
-          <polyline points="263,64 270,74 277,64"/>
-        </g>
-
-        {/* 红砖堆 - 亏损线路 */}
-        <g>
-          <rect x="128" y="92" width="62" height="24" rx="3" fill="url(#brickGrad)" stroke="#991b1b" stroke-width="1"/>
-          <text x="159" y="109" text-anchor="middle" font-size="10" fill="#fff" font-weight="700">普速客运</text>
-          <rect x="210" y="92" width="62" height="24" rx="3" fill="url(#brickGrad)" stroke="#991b1b" stroke-width="1"/>
-          <text x="241" y="109" text-anchor="middle" font-size="10" fill="#fff" font-weight="700">亏损支线</text>
-          <rect x="170" y="120" width="62" height="24" rx="3" fill="url(#brickGrad)" stroke="#991b1b" stroke-width="1"/>
-          <text x="201" y="137" text-anchor="middle" font-size="10" fill="#fff" font-weight="700">公益慢车</text>
-        </g>
-
-        {/* 金库 - 大秦线 摇钱树 */}
-        <ellipse cx="200" cy="300" rx="120" ry="11" fill="#000" opacity="0.12"/>
-        <rect x="110" y="190" width="180" height="100" rx="6" fill="url(#chestGrad)" stroke="#b45309" stroke-width="2"/>
-        <path d="M110 190 Q200 150 290 190 Z" fill="url(#chestGrad)" stroke="#b45309" stroke-width="2"/>
-        <rect x="188" y="178" width="24" height="20" rx="3" fill="#b45309"/>
-        <circle cx="150" cy="225" r="14" fill="#fbbf24" stroke="#d97706" stroke-width="1.5"/>
-        <text x="150" y="230" text-anchor="middle" font-size="13" font-weight="800" fill="#92400e">¥</text>
-        <circle cx="250" cy="225" r="14" fill="#fbbf24" stroke="#d97706" stroke-width="1.5"/>
-        <text x="250" y="230" text-anchor="middle" font-size="13" font-weight="800" fill="#92400e">¥</text>
-        <text x="200" y="268" text-anchor="middle" font-size="14" font-weight="800" fill="#92400e">大秦线 · 煤运摇钱树</text>
-
-        {/* 漏出的金币 - 分红被稀释 */}
-        <g>
-          <circle cx="92" cy="265" r="9" fill="#fbbf24" stroke="#d97706" stroke-width="1.2"/>
-          <text x="92" y="269" text-anchor="middle" font-size="9" font-weight="700" fill="#92400e">¥</text>
-          <circle cx="78" cy="290" r="7" fill="#fbbf24" stroke="#d97706" stroke-width="1.2"/>
-          <circle cx="68" cy="310" r="5" fill="#fbbf24" stroke="#d97706" stroke-width="1.2"/>
-          <text x="48" y="288" font-size="12" fill="#c0392b" font-weight="700">分红 ↓</text>
-          <text x="48" y="303" font-size="10" fill="#991b1b">ROE ↓</text>
-        </g>
-      </svg>
+    <div style="margin-top: 1rem; padding: 0.75rem 1.2rem; background: #fef2f2; border-radius: 0.6rem; border-left: 4px solid #c0392b; flex-shrink: 0;">
+      <p style="font-size: 0.95rem; color: #991b1b; margin: 0;">
+        <strong>一句话：</strong>大股东把低效亏损资产高价打包注入上市公司，用优质资产的收益填补低效资产的亏损，稀释原有股东回报。
+      </p>
     </div>
   </div>
-
-  <div style="margin-top: 1rem; padding: 0.75rem 1.2rem; background: #fef2f2; border-radius: 0.6rem; border-left: 4px solid #c0392b; flex-shrink: 0;">
-    <p style="font-size: 0.95rem; color: #991b1b; margin: 0;">
-      <strong>一句话：</strong>大股东把低效亏损资产高价打包塞给上市公司的"摇钱树"，用优质资产倒贴包袱。
-    </p>
-  </div>
-</div>
+</PresentationLayout>
 
 <Notes>
 
