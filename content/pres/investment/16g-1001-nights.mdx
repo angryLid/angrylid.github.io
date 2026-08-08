@@ -11,31 +11,35 @@ import comic3 from "./assets/1001-night/comic-3.png";
 import comic4 from "./assets/1001-night/comic-4.png";
 
 <PresentationLayout title="一千零一夜 · 新编">
-  <div style="height: 100%; width: 680px; margin: auto; display: grid; grid-template-columns: 1fr 1fr; grid-template-rows: 1fr 1fr; gap: 1.25rem;">
+  <div style="height: 100%; margin: auto; display: flex; flex-direction: column; gap: 1.25rem;">
+    <div style="flex: 1 1 0; min-height: 0; display: flex; gap: 1.25rem; justify-content: center;">
       <PresentationStep step={1} effect="fade">
-        <div style="position: relative; width: 100%; height: 100%; overflow: hidden;">
+        <div style="position: relative; height: 100%; aspect-ratio: 4 / 3; overflow: hidden;">
           <img src={comic1.src} alt="第一格：王后捧书，欲续讲昨夜故事" style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; transform: scale(1.25); transform-origin: center;" />
           <div style="position: absolute; top: 0; right: 0; z-index: 2; padding: 0.4rem 0.7rem; background: #fff; color: #000; border: 2px solid #000; font-size: 1.05rem; font-weight: 600; line-height: 1.3;">让我接着讲完昨天的故事</div>
         </div>
       </PresentationStep>
       <PresentationStep step={2} effect="fade">
-        <div style="position: relative; width: 100%; height: 100%; overflow: hidden;">
+        <div style="position: relative; height: 100%; aspect-ratio: 4 / 3; overflow: hidden;">
           <img src={comic2.src} alt="第二格：国王睁眼，质问王后身世" style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; transform: scale(1.25); transform-origin: center;" />
           <div style="position: absolute; top: 0; left: 0; z-index: 2; padding: 0.4rem 0.7rem; background: #fff; color: #000; border: 2px solid #000; font-size: 1.05rem; font-weight: 600; line-height: 1.3;">你不是在本地长大的对不对</div>
         </div>
       </PresentationStep>
+    </div>
+    <div style="flex: 1 1 0; min-height: 0; display: flex; gap: 1.25rem; justify-content: center;">
       <PresentationStep step={3} effect="fade">
-        <div style="position: relative; width: 100%; height: 100%; overflow: hidden;">
+        <div style="position: relative; height: 100%; aspect-ratio: 4 / 3; overflow: hidden;">
           <img src={comic3.src} alt="第三格：王后神色慌张" style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; transform: scale(1.25); transform-origin: center;" />
           <div style="position: absolute; left: 0; bottom: 0; z-index: 2; padding: 0.4rem 0.7rem; background: #fff; color: #000; border: 2px solid #000; font-size: 1.05rem; font-weight: 600; line-height: 1.3;">陛下从什么时候察觉到了呢</div>
         </div>
       </PresentationStep>
       <PresentationStep step={4} effect="fade">
-        <div style="position: relative; width: 100%; height: 100%; overflow: hidden;">
+        <div style="position: relative; height: 100%; aspect-ratio: 4 / 3; overflow: hidden;">
           <img src={comic4.src} alt="第四格：国王抚肩安抚" style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; transform: scale(1.25); transform-origin: center;" />
           <div style="position: absolute; left: 0; bottom: 0; z-index: 2; padding: 0.4rem 0.7rem; background: #fff; color: #000; border: 2px solid #000; font-size: 1.05rem; font-weight: 600; line-height: 1.3;">从两天前的那个故事开始</div>
         </div>
       </PresentationStep>
+    </div>
   </div>
 </PresentationLayout>
 
