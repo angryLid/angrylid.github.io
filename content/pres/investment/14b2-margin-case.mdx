@@ -1,0 +1,110 @@
+---
+title: "一个实际的案例"
+steps: 1
+---
+import Notes from "@components/Notes.astro";
+import PresentationLayout from "@components/PresentationLayout.astro";
+
+<PresentationLayout title="一个实际的案例" eyebrow="FUTURES · 期货三部曲 · WHY" narrow>
+  <div style="height: 100%; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 1rem; padding: 0.5rem 2.5rem 1.2rem; text-align: center;">
+    <p style="margin: 0; font-size: 1.05rem; color: #555;">
+      案例 · 大豆期货 1 手 = 10 吨，保证金率 10%。老李开多、小王开空，各交 <strong>¥5,000</strong> 押金。
+    </p>
+
+    <div style="flex: 1; min-height: 0; width: 100%; border: 1px solid #e2e2e2; border-radius: 0.4rem; background: #fafafa; overflow: hidden;">
+      <table style="width: 100%; height: 100%; border-collapse: collapse; table-layout: fixed;">
+        <colgroup>
+          <col style="width: 32%;" />
+          <col style="width: 22.7%;" />
+          <col style="width: 22.7%;" />
+          <col style="width: 22.6%;" />
+        </colgroup>
+        <thead>
+          <tr style="background: #f3f4f6;">
+            <th scope="col" style="font-size: 1.35rem; color: #9ca3af; text-align: left; padding: 0.55rem 1.1rem; font-weight: 400;">交易日</th>
+            <th scope="col" style="font-size: 1.35rem; color: #9ca3af; text-align: center; padding: 0.55rem 1.1rem; font-weight: 400;">合约价</th>
+            <th scope="col" style="font-size: 1.35rem; color: #15803d; font-weight: 700; text-align: center; padding: 0.55rem 1.1rem;">多头保证金</th>
+            <th scope="col" style="font-size: 1.35rem; color: #b91c1c; font-weight: 700; text-align: center; padding: 0.55rem 1.1rem;">空头保证金</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td style="font-size: 1.35rem; color: #666; text-align: left; padding: 0.7rem 1.1rem; border-top: 1px solid #e2e2e2;">第 1 天 · 开仓</td>
+            <td style="font-size: 1.35rem; font-weight: 700; font-family: 'Cascadia Code', monospace; text-align: center; padding: 0.7rem 1.1rem; border-top: 1px solid #e2e2e2;">¥5000</td>
+            <td style="font-size: 1.35rem; font-family: 'Cascadia Code', monospace; text-align: center; padding: 0.7rem 1.1rem; border-top: 1px solid #e2e2e2;">¥5,000</td>
+            <td style="font-size: 1.35rem; font-family: 'Cascadia Code', monospace; text-align: center; padding: 0.7rem 1.1rem; border-top: 1px solid #e2e2e2;">¥5,000</td>
+          </tr>
+          <tr>
+            <td style="font-size: 1.35rem; color: #666; text-align: left; padding: 0.7rem 1.1rem; border-top: 1px solid #e2e2e2;">第 2 天 · 结算</td>
+            <td style="font-size: 1.35rem; font-weight: 700; font-family: 'Cascadia Code', monospace; text-align: center; padding: 0.7rem 1.1rem; border-top: 1px solid #e2e2e2;"><span style="color:#b91c1c;">¥4900</span></td>
+            <td style="font-size: 1.35rem; font-family: 'Cascadia Code', monospace; text-align: center; padding: 0.7rem 1.1rem; border-top: 1px solid #e2e2e2;"><span style="color:#b91c1c; font-weight:800;">¥4,000</span></td>
+            <td style="font-size: 1.35rem; font-family: 'Cascadia Code', monospace; text-align: center; padding: 0.7rem 1.1rem; border-top: 1px solid #e2e2e2;"><span style="color:#15803d; font-weight:800;">¥6,000</span></td>
+          </tr>
+          <tr>
+            <td colspan="4" style="font-size: 1.35rem; color: #9ca3af; text-align: center; padding: 0.3rem 1.1rem; border-top: 1px solid #e2e2e2;">假设这 6 天行情逆转，合约价格一路上涨</td>
+          </tr>
+          <tr style="background: #fff7f3;">
+            <td style="font-size: 1.35rem; color: #666; text-align: left; padding: 0.7rem 1.1rem; border-top: 1px solid #e2e2e2;">第 9 天 · 逼近强平</td>
+            <td style="font-size: 1.35rem; font-weight: 700; font-family: 'Cascadia Code', monospace; text-align: center; padding: 0.7rem 1.1rem; border-top: 1px solid #e2e2e2;"><span style="color:#b91c1c;">¥5450</span></td>
+            <td style="font-size: 1.35rem; font-family: 'Cascadia Code', monospace; text-align: center; padding: 0.7rem 1.1rem; border-top: 1px solid #e2e2e2;"><span style="color:#15803d; font-weight:800;">¥9,500</span></td>
+            <td style="font-size: 1.35rem; font-family: 'Cascadia Code', monospace; text-align: center; padding: 0.7rem 1.1rem; border-top: 1px solid #e2e2e2;"><span style="color:#b91c1c; font-weight:800;">¥500 · 逼近</span></td>
+          </tr>
+          <tr style="background: #fff7f3;">
+            <td style="font-size: 1.35rem; color: #666; text-align: left; padding: 0.7rem 1.1rem; border-top: 1px solid #e2e2e2;">第 10 天 · 大涨</td>
+            <td style="font-size: 1.35rem; font-weight: 700; font-family: 'Cascadia Code', monospace; text-align: center; padding: 0.7rem 1.1rem; border-top: 1px solid #e2e2e2;"><span style="color:#b91c1c;">¥5500</span></td>
+            <td style="font-size: 1.35rem; font-family: 'Cascadia Code', monospace; text-align: center; padding: 0.7rem 1.1rem; border-top: 1px solid #e2e2e2;"><span style="color:#15803d; font-weight:800;">¥10,000</span></td>
+            <td style="font-size: 1.35rem; font-family: 'Cascadia Code', monospace; text-align: center; padding: 0.7rem 1.1rem; border-top: 1px solid #e2e2e2;"><span style="color:#b91c1c; font-weight:800;">¥0 · 强平</span></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div style="flex: 0 0 auto; border-left: 3px solid #333; padding: 0.7rem 1rem; background: #fafafa; border-radius: 0 0.5rem 0.5rem 0; width: 100%;">
+      <p style="margin: 0; font-size: 0.92rem; color: #333; line-height: 1.6;">
+        <strong>关键在于 ·</strong> 价格大涨，空头小王的保证金跌破<strong>维持线</strong>先<strong>追保</strong>，不补就<strong>强平</strong>——在归零前就被平仓，正常不会变成负数；只有极端行情（跳空、连续涨跌停平不掉）才会<strong>穿仓</strong>变负。保证金 + 每日盯市，把违约风险按天清零，交易所才敢做所有人的对手方。
+      </p>
+    </div>
+  </div>
+</PresentationLayout>
+
+<Notes>
+
+这一页讲保证金机制存在的根本原因，用一个具体案例说明。
+
+案例设定：
+- 大豆期货 1 手 = 10 吨，保证金率 10%
+- 老李买入开仓（多头），小王卖出开仓（空头）
+- 双方各交 ¥5,000 保证金（押金），不是货款
+
+第 1 天 · 开仓：
+- 合约价 ¥5000，双方按此价成交，建立到期的买卖义务
+- 多头老李交 ¥5,000，空头小王交 ¥5,000
+
+第 2 天 · 盯市结算（mark to market）：
+- 结算价跌到 ¥4900，跌了 100
+- 多头老李亏：(5000 - 4900) × 10 = ¥1,000，从保证金里扣 → ¥5,000 变 ¥4,000
+- 空头小王赚：(5000 - 4900) × 10 = ¥1,000，滚入保证金 → ¥5,000 变 ¥6,000
+- 盈亏当日结清，不是等到期才算
+
+第 9 天 · 逼近强平：
+- 合约价涨到 ¥5450，累计涨了 450
+- 多头老李赚：(5450 - 5000) × 10 = ¥4,500，滚入保证金 → ¥5,000 变 ¥9,500
+- 空头小王亏：(5450 - 5000) × 10 = ¥4,500，从保证金扣 → ¥5,000 只剩 ¥500
+- 保证金已极度靠近维持线，期货公司盘中持续提示风险、催告追保
+
+第 10 天 · 价格大涨：
+- 合约价进一步涨到 ¥5500，累计涨了 500
+- 多头老李赚：(5500 - 5000) × 10 = ¥5,000，滚入保证金 → ¥5,000 变 ¥10,000
+- 空头小王亏：(5500 - 5000) × 10 = ¥5,000，从保证金扣 → ¥5,000 归零
+- 但实际流程是：保证金跌破维持线时期货公司就通知追保（不会等到归零），不补则强平——所以正常情形下亏损在归零前就被切断
+- 只有极端行情（隔夜跳空、连续涨停/跌停导致平仓无法成交）才会穿仓，账户变负数、交易者倒欠期货公司钱
+
+为什么这就是"保证金"要存在的理由：
+- 亏的一方保证金被逐日扣薄，一旦触及"维持保证金"线，就要追保
+- 不补就被强平，亏损锁在可控范围，不会无限拖下去
+- 因为每天亏的钱当天就真金白银扣掉，想"赖账跑路"也没用——所以交易所敢做所有人的对手方
+- 这也是杠杆的来源：¥5,000 押金撬动 ¥50,000 合约（10 倍），价格反向波动 10% 押金就归零
+
+一句话：保证金是"保证你不跑路的押金"；每日盯市把信用风险按天清零，这是期货能高杠杆运作的底层机制。
+
+</Notes>
