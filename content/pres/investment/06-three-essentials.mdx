@@ -5,155 +5,48 @@ steps: 1
 import Notes from "@components/Notes.astro";
 import PresentationLayout from "@components/PresentationLayout.astro";
 
-<PresentationLayout title="投资的三个要义">
-  <div style="height: 100%; display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 2rem;">
-    <div style="display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 1rem;">
-      <svg viewBox="0 0 240 260" style="width: 100%; max-height: 100%;" xmlns="http://www.w3.org/2000/svg">
-        <defs>
-          <linearGradient id="goldGrad" x1="0%" y1="0%" x2="0%" y2="100%">
-            <stop offset="0%" stop-color="#f9d423"/>
-            <stop offset="100%" stop-color="#e67e22"/>
-          </linearGradient>
-          <linearGradient id="leafGrad" x1="0%" y1="0%" x2="0%" y2="100%">
-            <stop offset="0%" stop-color="#2ecc71"/>
-            <stop offset="100%" stop-color="#27ae60"/>
-          </linearGradient>
-          <linearGradient id="trunkGrad" x1="0%" y1="0%" x2="100%" y2="0%">
-            <stop offset="0%" stop-color="#8B5E3C"/>
-            <stop offset="50%" stop-color="#A67B5B"/>
-            <stop offset="100%" stop-color="#8B5E3C"/>
-          </linearGradient>
-          <linearGradient id="groundGrad" x1="0%" y1="0%" x2="0%" y2="100%">
-            <stop offset="0%" stop-color="#795548"/>
-            <stop offset="100%" stop-color="#5D4037"/>
-          </linearGradient>
-          <filter id="glow">
-            <feGaussianBlur stdDeviation="3" result="coloredBlur"/>
-            <feMerge><feMergeNode in="coloredBlur"/><feMergeNode in="SourceGraphic"/></feMerge>
-          </filter>
-        </defs>
-        <ellipse cx="120" cy="242" rx="95" ry="10" fill="url(#groundGrad)" opacity="0.6"/>
-        <path d="M110 230 Q95 240 80 250 M120 232 Q120 245 120 252 M130 230 Q145 240 160 250 M95 228 Q75 235 60 248 M145 228 Q165 235 180 248" stroke="#6D4C41" stroke-width="3" fill="none" stroke-linecap="round"/>
-        <rect x="108" y="155" width="24" height="75" rx="4" fill="url(#trunkGrad)"/>
-        <path d="M110 165 Q120 172 130 165 M110 185 Q120 192 130 185 M110 205 Q120 212 130 205" stroke="#6D4C41" stroke-width="1.5" fill="none" opacity="0.5"/>
-        <ellipse cx="120" cy="120" rx="72" ry="58" fill="url(#leafGrad)"/>
-        <ellipse cx="85" cy="100" rx="40" ry="35" fill="url(#leafGrad)"/>
-        <ellipse cx="155" cy="100" rx="40" ry="35" fill="url(#leafGrad)"/>
-        <ellipse cx="120" cy="80" rx="45" ry="35" fill="url(#leafGrad)"/>
-        <circle cx="90" cy="115" r="14" fill="url(#goldGrad)" filter="url(#glow)"/>
-        <circle cx="145" cy="105" r="16" fill="url(#goldGrad)" filter="url(#glow)"/>
-        <circle cx="120" cy="78" r="13" fill="url(#goldGrad)" filter="url(#glow)"/>
-        <circle cx="160" cy="130" r="12" fill="url(#goldGrad)" filter="url(#glow)"/>
-        <circle cx="75" cy="140" r="11" fill="url(#goldGrad)" filter="url(#glow)"/>
-        <circle cx="86" cy="110" r="4" fill="#fff" opacity="0.7"/>
-        <circle cx="140" cy="100" r="5" fill="#fff" opacity="0.7"/>
-        <circle cx="116" cy="74" r="4" fill="#fff" opacity="0.7"/>
-      </svg>
-      <div style="text-align: center;">
-        <p style="font-size: 1.5rem; font-weight: 700; color: #27ae60; margin: 0;">好资产</p>
-        <p style="font-size: 0.95rem; color: #666; margin: 0.4rem 0 0 0; line-height: 1.5;">基本面扎实、持续创造价值<br/>根深叶茂，结出硕果</p>
+<PresentationLayout title="投资的三个要义" eyebrow="简单，但不容易" narrow>
+  <div style={{ height: "100%", display: "flex", flexDirection: "column", gap: "1.25rem" }}>
+    {/* 三个要义：三张卡片 */}
+    <div style={{ flex: "0 1 auto", minHeight: 0, display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: "1.5rem" }}>
+      <div style={{ border: "1px solid #e0e0e0", borderRadius: "14px", padding: "1.75rem 1.5rem", display: "flex", flexDirection: "column", justifyContent: "center", gap: "0.6rem" }}>
+        <div style={{ fontSize: "0.85rem", color: "#999", fontWeight: 700, letterSpacing: "0.08em" }}>条件 01</div>
+        <div style={{ fontSize: "1.7rem", fontWeight: 750, color: "#111" }}>好资产</div>
+        <div style={{ fontSize: "0.95rem", color: "#666", lineHeight: 1.6 }}>基本面扎实，持续创造价值</div>
+      </div>
+      <div style={{ border: "1px solid #e0e0e0", borderRadius: "14px", padding: "1.75rem 1.5rem", display: "flex", flexDirection: "column", justifyContent: "center", gap: "0.6rem" }}>
+        <div style={{ fontSize: "0.85rem", color: "#999", fontWeight: 700, letterSpacing: "0.08em" }}>条件 02</div>
+        <div style={{ fontSize: "1.7rem", fontWeight: 750, color: "#111" }}>好的买入价格</div>
+        <div style={{ fontSize: "0.95rem", color: "#666", lineHeight: 1.6 }}>低估区间进场，留足安全边际</div>
+      </div>
+      <div style={{ border: "1px solid #e0e0e0", borderRadius: "14px", padding: "1.75rem 1.5rem", display: "flex", flexDirection: "column", justifyContent: "center", gap: "0.6rem" }}>
+        <div style={{ fontSize: "0.85rem", color: "#999", fontWeight: 700, letterSpacing: "0.08em" }}>条件 03</div>
+        <div style={{ fontSize: "1.7rem", fontWeight: 750, color: "#111" }}>好的卖出价格</div>
+        <div style={{ fontSize: "0.95rem", color: "#666", lineHeight: 1.6 }}>高估区间落袋，兑现并守住收益</div>
       </div>
     </div>
 
-    <div style="display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 1rem;">
-      <svg viewBox="0 0 240 260" style="width: 100%; max-height: 100%;" xmlns="http://www.w3.org/2000/svg">
-        <defs>
-          <linearGradient id="chartLineGrad" x1="0%" y1="0%" x2="0%" y2="100%">
-            <stop offset="0%" stop-color="#e74c3c"/>
-            <stop offset="100%" stop-color="#27ae60"/>
-          </linearGradient>
-          <linearGradient id="buyGrad" x1="0%" y1="0%" x2="0%" y2="100%">
-            <stop offset="0%" stop-color="#27ae60"/>
-            <stop offset="100%" stop-color="#1e8449"/>
-          </linearGradient>
-          <linearGradient id="safeZoneGrad" x1="0%" y1="0%" x2="0%" y2="100%">
-            <stop offset="0%" stop-color="#27ae60"/>
-            <stop offset="100%" stop-color="#2ecc71"/>
-          </linearGradient>
-          <filter id="buyGlow">
-            <feGaussianBlur stdDeviation="2" result="coloredBlur"/>
-            <feMerge><feMergeNode in="coloredBlur"/><feMergeNode in="SourceGraphic"/></feMerge>
-          </filter>
-        </defs>
-        <line x1="30" y1="50" x2="210" y2="50" stroke="#eee" stroke-width="1" stroke-dasharray="4,3"/>
-        <line x1="30" y1="95" x2="210" y2="95" stroke="#eee" stroke-width="1" stroke-dasharray="4,3"/>
-        <line x1="30" y1="140" x2="210" y2="140" stroke="#eee" stroke-width="1" stroke-dasharray="4,3"/>
-        <line x1="30" y1="185" x2="210" y2="185" stroke="#eee" stroke-width="1" stroke-dasharray="4,3"/>
-        <line x1="30" y1="40" x2="30" y2="205" stroke="#ccc" stroke-width="1.5"/>
-        <line x1="30" y1="205" x2="215" y2="205" stroke="#ccc" stroke-width="1.5"/>
-        <rect x="30" y="155" width="180" height="50" fill="url(#safeZoneGrad)" opacity="0.12"/>
-        <text x="200" y="175" text-anchor="end" font-size="11" fill="#27ae60" font-weight="600">低估区</text>
-        <path d="M35 70 Q60 55 80 80 T120 120 T160 100 T205 170" stroke="#e74c3c" stroke-width="2.5" fill="none" stroke-linecap="round"/>
-        <path d="M35 70 Q60 55 80 80 T120 120 T160 100" stroke="#e74c3c" stroke-width="2.5" fill="none" stroke-linecap="round"/>
-        <path d="M160 100 Q185 120 205 170" stroke="#e74c3c" stroke-width="2.5" fill="none" stroke-linecap="round"/>
-        <circle cx="198" cy="160" r="8" fill="#27ae60" filter="url(#buyGlow)"/>
-        <circle cx="198" cy="160" r="3.5" fill="#fff"/>
-        <path d="M198 175 L198 170 M198 175 L193 170 M198 175 L203 170" stroke="#27ae60" stroke-width="2" fill="none" stroke-linecap="round"/>
-        <rect x="172" y="190" width="40" height="18" rx="4" fill="url(#buyGrad)"/>
-        <text x="192" y="203" text-anchor="middle" font-size="12" font-weight="700" fill="#fff">买入</text>
-        <text x="37" y="68" font-size="13" fill="#e74c3c" font-weight="600">高</text>
-        <text x="37" y="195" font-size="13" fill="#27ae60" font-weight="600">低</text>
-        <g transform="translate(55, 220)">
-          <path d="M0 15 Q0 5 20 5 Q40 5 40 15 L38 30 Q20 38 2 30 Z" fill="#f39c12"/>
-          <ellipse cx="20" cy="5" rx="14" ry="4" fill="#e67e22"/>
-          <text x="20" y="24" text-anchor="middle" font-size="14" font-weight="700" fill="#fff">¥</text>
-        </g>
-      </svg>
-      <div style="text-align: center;">
-        <p style="font-size: 1.5rem; font-weight: 700; color: #27ae60; margin: 0;">好的买入价格</p>
-        <p style="font-size: 0.95rem; color: #666; margin: 0.4rem 0 0 0; line-height: 1.5;">在低估区间进场<br/>安全边际决定收益空间</p>
+    {/* 转折：简单，但不容易 */}
+    <div style={{ display: "flex", alignItems: "center", gap: "1.25rem", padding: "0.5rem 0" }}>
+      <div style={{ fontSize: "2.4rem", fontWeight: 800, color: "#c0392b", lineHeight: 1 }}>但</div>
+      <div style={{ fontSize: "1.15rem", color: "#333", lineHeight: 1.6 }}>
+        三个条件说起来都简单，难的是全都能做对 — 核心难点在于<span style={{ fontWeight: 750, color: "#c0392b" }}>预测未来</span>。
       </div>
     </div>
 
-    <div style="display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 1rem;">
-      <svg viewBox="0 0 240 260" style="width: 100%; max-height: 100%;" xmlns="http://www.w3.org/2000/svg">
-        <defs>
-          <linearGradient id="sellGrad" x1="0%" y1="0%" x2="0%" y2="100%">
-            <stop offset="0%" stop-color="#e74c3c"/>
-            <stop offset="100%" stop-color="#c0392b"/>
-          </linearGradient>
-          <linearGradient id="peakGrad" x1="0%" y1="0%" x2="0%" y2="100%">
-            <stop offset="0%" stop-color="#e74c3c"/>
-            <stop offset="100%" stop-color="#f39c12"/>
-          </linearGradient>
-          <linearGradient id="dangerZoneGrad" x1="0%" y1="0%" x2="0%" y2="100%">
-            <stop offset="0%" stop-color="#f39c12"/>
-            <stop offset="100%" stop-color="#e74c3c"/>
-          </linearGradient>
-          <filter id="sellGlow">
-            <feGaussianBlur stdDeviation="2" result="coloredBlur"/>
-            <feMerge><feMergeNode in="coloredBlur"/><feMergeNode in="SourceGraphic"/></feMerge>
-          </filter>
-        </defs>
-        <line x1="30" y1="50" x2="210" y2="50" stroke="#eee" stroke-width="1" stroke-dasharray="4,3"/>
-        <line x1="30" y1="95" x2="210" y2="95" stroke="#eee" stroke-width="1" stroke-dasharray="4,3"/>
-        <line x1="30" y1="140" x2="210" y2="140" stroke="#eee" stroke-width="1" stroke-dasharray="4,3"/>
-        <line x1="30" y1="185" x2="210" y2="185" stroke="#eee" stroke-width="1" stroke-dasharray="4,3"/>
-        <line x1="30" y1="40" x2="30" y2="205" stroke="#ccc" stroke-width="1.5"/>
-        <line x1="30" y1="205" x2="215" y2="205" stroke="#ccc" stroke-width="1.5"/>
-        <rect x="30" y="40" width="180" height="50" fill="url(#dangerZoneGrad)" opacity="0.1"/>
-        <text x="200" y="68" text-anchor="end" font-size="11" fill="#e74c3c" font-weight="600">高估区</text>
-        <path d="M35 180 Q65 150 90 140 Q120 125 145 90 Q165 65 185 55 Q200 50 205 58" stroke="#27ae60" stroke-width="2.5" fill="none" stroke-linecap="round"/>
-        <path d="M205 58 Q210 70 208 85" stroke="#e74c3c" stroke-width="2.5" fill="none" stroke-linecap="round" stroke-dasharray="4,3"/>
-        <circle cx="185" cy="55" r="8" fill="#e74c3c" filter="url(#sellGlow)"/>
-        <circle cx="185" cy="55" r="3.5" fill="#fff"/>
-        <path d="M185 38 L185 43 M185 38 L180 43 M185 38 L190 43" stroke="#e74c3c" stroke-width="2" fill="none" stroke-linecap="round"/>
-        <rect x="162" y="18" width="46" height="18" rx="4" fill="url(#sellGrad)"/>
-        <text x="185" y="31" text-anchor="middle" font-size="12" font-weight="700" fill="#fff">卖出</text>
-        <text x="37" y="68" font-size="13" fill="#e74c3c" font-weight="600">高</text>
-        <text x="37" y="195" font-size="13" fill="#27ae60" font-weight="600">低</text>
-        <g transform="translate(40, 215)">
-          <path d="M0 22 Q0 8 28 8 Q56 8 56 22 L53 40 Q28 50 3 40 Z" fill="#f1c40f"/>
-          <ellipse cx="28" cy="8" rx="20" ry="5" fill="#f39c12"/>
-          <text x="28" y="33" text-anchor="middle" font-size="16" font-weight="700" fill="#d35400">$$$</text>
-          <circle cx="10" cy="5" r="4" fill="#f9d423" stroke="#e67e22" stroke-width="1"/>
-          <circle cx="45" cy="3" r="3.5" fill="#f9d423" stroke="#e67e22" stroke-width="1"/>
-          <circle cx="28" cy="-2" r="3" fill="#f9d423" stroke="#e67e22" stroke-width="1"/>
-        </g>
-      </svg>
-      <div style="text-align: center;">
-        <p style="font-size: 1.5rem; font-weight: 700; color: #e74c3c; margin: 0;">好的卖出价格</p>
-        <p style="font-size: 0.95rem; color: #666; margin: 0.4rem 0 0 0; line-height: 1.5;">在高估区间落袋为安<br/>兑现收益，守住利润</p>
+    {/* 为什么难：三条证据 */}
+    <div style={{ display: "flex", flexDirection: "column", gap: "0.7rem" }}>
+      <div style={{ display: "flex", gap: "0.9rem", alignItems: "flex-start" }}>
+        <div style={{ flex: "0 0 auto", width: "1.7rem", height: "1.7rem", borderRadius: "50%", background: "#c0392b", color: "#fff", display: "flex", alignItems: "center", justifyContent: "center", fontSize: "0.9rem", fontWeight: 700 }}>1</div>
+        <p style={{ margin: 0, fontSize: "1rem", color: "#444", lineHeight: 1.6 }}>专家的判断也只基于当下 — 巴菲特看好苹果、可口可乐，段永平看好茅台、腾讯，今天确实是好资产，但未来的市场与基本面如何变化，无人可知。</p>
+      </div>
+      <div style={{ display: "flex", gap: "0.9rem", alignItems: "flex-start" }}>
+        <div style={{ flex: "0 0 auto", width: "1.7rem", height: "1.7rem", borderRadius: "50%", background: "#c0392b", color: "#fff", display: "flex", alignItems: "center", justifyContent: "center", fontSize: "0.9rem", fontWeight: 700 }}>2</div>
+        <p style={{ margin: 0, fontSize: "1rem", color: "#444", lineHeight: 1.6 }}>连管理层自己都没把握 — 茅台董事长一边说“年轻人到了年纪自然会喝白酒”，一边又放下身段去跟 9.9 元的瑞幸咖啡联名。</p>
+      </div>
+      <div style={{ display: "flex", gap: "0.9rem", alignItems: "flex-start" }}>
+        <div style={{ flex: "0 0 auto", width: "1.7rem", height: "1.7rem", borderRadius: "50%", background: "#c0392b", color: "#fff", display: "flex", alignItems: "center", justifyContent: "center", fontSize: "0.9rem", fontWeight: 700 }}>3</div>
+        <p style={{ margin: 0, fontSize: "1rem", color: "#444", lineHeight: 1.6 }}>信息不足时的预测，长期期望为负 — 没有内幕消息时赌球是负期望；散户在信息不充分下预测未来，与赌球并无差别。</p>
       </div>
     </div>
   </div>
@@ -169,7 +62,7 @@ import PresentationLayout from "@components/PresentationLayout.astro";
 
 因为预测未来是一件非常非常困难的事情。
 
-比如巴菲特会跟你说，苹果是好资产，可口可乐是好资产。段永平会说茅台是好资产，腾讯是好资产。我们也知道这些公司都是好资产。但是我们并不知道未来的市场会如何变化。我们也不知道这些公司的基本面会如何变化。
+比如巴菲特会跟你说，苹果是好资产，可口可乐是好资产。段永平会说茅台是好资产，腾讯是好资产。我们也知道这些公司当下都是好资产。但是我们并不知道未来的市场会如何变化。我们也不知道这些公司的基本面会如何变化。
 
 你如果问茅台的董事长，未来 10 年茅台公司会变成什么样子，他一边拍着胸脯跟你说年轻人到了年纪一定会成为白酒的受众，然后另一边又自降身段跑去跟 9.9 一杯的瑞幸咖啡搞联名。公司的管理层对于未来的发展也并没有十足的把握。
 
