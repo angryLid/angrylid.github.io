@@ -1,43 +1,89 @@
 ---
-title: "长期国债的风险"
-steps: 1
+title: "长期国债的风险 · 利率敞口"
 ---
 import Notes from "@components/Notes.astro";
+import PresentationLayout from "@components/PresentationLayout.astro";
 
-<div style="position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 2rem 3rem; background: linear-gradient(135deg, #eff6ff 0%, #bfdbfe 60%, #93c5fd 100%); font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;">
-  <div style="position: absolute; top: 1.6rem; left: 0; right: 0; text-align: center;">
-    <p style="font-size: 0.9rem; color: #1e40af; font-weight: 600; margin: 0; letter-spacing: 0.16em;">WIP · 待补充</p>
-    <h2 style="font-size: 2.6rem; margin: 0.4rem 0 0 0; color: #1e3a8a; font-weight: 800;">长期国债的风险</h2>
-  </div>
+<PresentationLayout
+  eyebrow="资产风险档案 · 债券"
+  title="长期国债的利率敞口"
+  narrow
+>
+  <div style="height: 100%; display: flex; flex-direction: column; gap: 1rem;">
 
-  <div style="position: relative; display: flex; flex-direction: column; align-items: center; gap: 1.4rem;">
-    <svg viewBox="0 0 240 240" width="200" height="200" xmlns="http://www.w3.org/2000/svg" style="opacity: 0.45;">
-      <defs>
-        <linearGradient id="wipB1" x1="0%" y1="0%" x2="0%" y2="100%">
-          <stop offset="0%" stop-color="#60a5fa"/>
-          <stop offset="100%" stop-color="#1d4ed8"/>
-        </linearGradient>
-      </defs>
-      <rect x="50" y="60" width="140" height="140" rx="8" fill="url(#wipB1)" stroke="#1e3a8a" stroke-width="3"/>
-      <text x="120" y="100" text-anchor="middle" font-size="18" font-weight="800" fill="#fff">国债</text>
-      <text x="120" y="135" text-anchor="middle" font-size="14" font-weight="700" fill="#dbeafe">30Y</text>
-      <line x1="70" y1="155" x2="170" y2="155" stroke="#dbeafe" stroke-width="2"/>
-      <line x1="70" y1="170" x2="150" y2="170" stroke="#dbeafe" stroke-width="2"/>
-      <line x1="70" y1="185" x2="130" y2="185" stroke="#dbeafe" stroke-width="2"/>
-    </svg>
-
-    <div style="background: rgba(255,255,255,0.85); border: 3px dashed #2563eb; border-radius: 1rem; padding: 1.4rem 2.6rem; box-shadow: 0 8px 32px rgba(37,99,235,0.18);">
-      <p style="font-size: 4.2rem; font-weight: 900; color: #1d4ed8; margin: 0; letter-spacing: 0.18em; text-shadow: 0 2px 8px rgba(29,78,216,0.25);">WIP</p>
+    {/* 核心公式 */}
+    <div style="padding: 0.9rem 1.4rem; background: #fff; border: 1px solid #dbe3ef; border-radius: 0.6rem; box-shadow: 0 1px 3px rgba(0,0,0,0.06); text-align: center;">
+      <p style="margin: 0 0 0.3rem 0; font-size: 0.8rem; color: #7f8c8d; letter-spacing: 0.08em; text-transform: uppercase;">价格波动的简化公式</p>
+      <p style="margin: 0; font-size: 1.9rem; font-weight: 800; color: #1e40af; line-height: 1.2; letter-spacing: 0.02em;">
+        价格波动&nbsp;≈&nbsp;久期&nbsp;×&nbsp;利率变动
+      </p>
+      <p style="margin: 0.35rem 0 0 0; font-size: 0.95rem; color: #666; line-height: 1.4;">
+        三十年期国债久期约 20 年 → 利率变动 1% → 价格波动约 <b>20 × 1% = 20%</b>
+      </p>
     </div>
 
-    <p style="font-size: 1.1rem; color: #1e3a8a; margin: 0; opacity: 0.7;">本页内容稍后补充</p>
+    {/* 长债 vs 短债 */}
+    <div style="flex: 1; min-height: 0; display: grid; grid-template-columns: 1fr 1fr; gap: 1.4rem;">
+
+      {/* 左：长债 */}
+      <div style="display: flex; flex-direction: column; height: 100%; padding: 1.1rem 1.3rem; background: #fff; border-left: 5px solid #c0392b; box-shadow: 0 1px 3px rgba(0,0,0,0.08);">
+        <p style="margin: 0 0 0.2rem 0; font-size: 0.8rem; color: #999; letter-spacing: 0.08em; text-transform: uppercase;">长期国债 · 30Y</p>
+        <p style="margin: 0 0 0.7rem 0; font-size: 1.5rem; font-weight: 800; color: #c0392b; line-height: 1.1;">久期 ≈ 20 年</p>
+        <p style="margin: 0 0 0.6rem 0; font-size: 0.82rem; color: #555; line-height: 1.5;">价格波动 ≈ <b>20 × 利率变动</b></p>
+
+        <div style="display: flex; gap: 1rem; align-items: baseline; margin-top: auto;">
+          <div style="flex: 1;">
+            <p style="margin: 0 0 0.3rem 0; font-size: 0.78rem; color: #666; line-height: 1.4;">利率<b>上行 1%</b><br/>价格约<b> ↓ 20%</b></p>
+          </div>
+          <div style="flex: 1;">
+            <p style="margin: 0; font-size: 0.78rem; color: #666; line-height: 1.4;">利率<b>下行 1%</b><br/>价格约<b> ↑ 20%</b></p>
+          </div>
+        </div>
+      </div>
+
+      {/* 右：短债 */}
+      <div style="display: flex; flex-direction: column; height: 100%; padding: 1.1rem 1.3rem; background: #fff; border-left: 5px solid #7f8c8d; box-shadow: 0 1px 3px rgba(0,0,0,0.08);">
+        <p style="margin: 0 0 0.2rem 0; font-size: 0.8rem; color: #999; letter-spacing: 0.08em; text-transform: uppercase;">短债 · 1Y 以内</p>
+        <p style="margin: 0 0 0.7rem 0; font-size: 1.5rem; font-weight: 800; color: #34495e; line-height: 1.1;">久期 ≈ 1 年</p>
+        <p style="margin: 0 0 0.6rem 0; font-size: 0.82rem; color: #555; line-height: 1.5;">价格波动 ≈ <b>1 × 利率变动</b></p>
+
+        <div style="display: flex; gap: 1rem; align-items: baseline; margin-top: auto;">
+          <div style="flex: 1;">
+            <p style="margin: 0 0 0.3rem 0; font-size: 0.78rem; color: #666; line-height: 1.4;">利率<b>上行 1%</b><br/>价格约<b> ↓ 1%</b></p>
+          </div>
+          <div style="flex: 1;">
+            <p style="margin: 0; font-size: 0.78rem; color: #666; line-height: 1.4;">利率<b>下行 1%</b><br/>价格约<b> ↑ 1%</b></p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    {/* 结论 */}
+    <div style="padding: 0.85rem 1.2rem; background: #fef2f2; border-left: 4px solid #c0392b;">
+      <p style="margin: 0; font-size: 0.98rem; color: #7f1d1d; line-height: 1.55;">
+        <strong>一句话：</strong>同是国债、违约风险同样为零，但期限越长、久期越大，价格的利率敞口就越大——乘数从短债的"1 倍"放大到长债的"约 20 倍"，利率一旦逆转，账面浮亏随之放大。所谓"无风险"只指违约，不指价格。
+      </p>
+    </div>
   </div>
-</div>
+</PresentationLayout>
 
 <Notes>
 
-WIP —— 本页稍后补充内容：讨论长期国债（30Y 等）的风险。
+这张讲长期国债真正被普通人低估的风险——利率敞口。国债常被奉为"无风险资产"，但这里的"无风险"只指违约风险为零，绝不等于价格不会波动。
 
-（占位笔记，后续填写）
+关键在于"久期"(duration)。先给一个简化公式：
+
+价格波动 ≈ 久期 × 利率变动
+
+久期可以粗略理解为资金加权平均回笼的年限，它决定了债券价格对利率有多敏感。把具体数字代进去：
+
+- 30 年期长期国债，久期大概 20 年。利率每变动 1 个百分点，价格波动 ≈ 20 × 1% = 20%——这就是为什么"利率 1%、长债 20%"：不是利率本身，而是久期这个乘数把它放大了 20 倍。
+- 1 年期以内的短债（货币基金、存单、短期国债），久期大约 1 年。利率每变动 1 个百分点，价格波动 ≈ 1 × 1% = 1%。
+
+所以同样 1% 的利率变动，长债价格的波动幅度是短债的约 20 倍。公式里那个"久期"就是利率敞口的来源。
+
+它对两类人尤其危险。一类是把长期国债当"存款"买、准备到期拿本息的普通人——他们以为自己拿的是稳定的票息和本金，却没意识到在到期前，只要利率上行，账面上的净值已经按放大 20 倍左右缩水，中途需要用钱或被迫赎回时就会"实亏"。另一类是过去几年利率持续下行、在长债上赚到甜头的资金——他们赚的是"利率下行带来的资本利得"，一旦利率掉头向上，同样的久期乘数会让亏损以同样甚至更大的幅度砸回来。
+
+所以看待长期国债，别只盯着"零违约"的光环，更要把"久期"当成敞口来管理：公式里乘数越大，价格对利率越敏感。
 
 </Notes>
