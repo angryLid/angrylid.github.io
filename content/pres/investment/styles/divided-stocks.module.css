@@ -1,0 +1,160 @@
+.root {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.mainGrid {
+  flex: 1;
+  min-height: 0;
+  display: grid;
+  grid-template-columns: 1fr 1.1fr;
+  gap: 1.6rem;
+}
+
+.leftCol {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 0.9rem;
+}
+
+.card {
+  display: flex;
+  gap: 0.9rem;
+  align-items: flex-start;
+  padding: 0.85rem 1.1rem;
+  border-left: 4px solid;
+}
+
+.cardGood {
+  background: #fef2f2;
+  border-left-color: #c0392b;
+}
+.cardGood .cardTitle {
+  color: #991b1b;
+}
+
+.cardBad {
+  background: #fff7ed;
+  border-left-color: #ea580c;
+}
+.cardBad .cardTitle {
+  color: #9a3412;
+}
+
+.cardMixed {
+  background: #f8fafc;
+  border-left-color: #dc2626;
+}
+.cardMixed .cardTitle {
+  color: #334155;
+}
+
+.cardRed {
+  background: #fef2f2;
+  border-left-color: #dc2626;
+}
+.cardRed .cardTitle {
+  color: #991b1b;
+}
+
+.cardAmber {
+  background: #fffbeb;
+  border-left-color: #ea580c;
+}
+.cardAmber .cardTitle {
+  color: #9a3412;
+}
+
+.cardNeutral {
+  background: #f8fafc;
+  border-left-color: #cbd5e1;
+}
+.cardNeutral .cardTitle {
+  color: #334155;
+}
+
+.cardPurple {
+  background: #f5f3ff;
+  border-left-color: #6d28d9;
+}
+.cardPurple .cardTitle {
+  color: #5b21b6;
+}
+
+.cardIcon {
+  font-size: 1.3rem;
+}
+
+.cardTitle {
+  font-size: 1.05rem;
+  font-weight: 700;
+  margin: 0;
+}
+
+.cardDesc {
+  font-size: 0.9rem;
+  color: #555;
+  margin: 0.2rem 0 0 0;
+  line-height: 1.5;
+}
+
+.rightCol {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.svg {
+  width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+}
+
+.footer {
+  margin-top: 1rem;
+  padding: 0.75rem 1.2rem;
+  flex-shrink: 0;
+}
+
+.footerGreen {
+  background: #f0fdf4;
+  border-left: 4px solid #27ae60;
+}
+
+.footerRed {
+  background: #f8fafc;
+  border-left: 4px solid #dc2626;
+}
+
+.footerBlue {
+  background: #eff6ff;
+  border-left: 4px solid #2563eb;
+}
+
+.footerNeutral {
+  background: #f8fafc;
+  border-left: 4px solid #cbd5e1;
+}
+
+.footerText {
+  font-size: 0.95rem;
+  margin: 0;
+}
+
+.footerTextGreen {
+  color: #166534;
+}
+
+.footerTextRed {
+  color: #334155;
+}
+
+.footerTextBlue {
+  color: #1e40af;
+}
+
+.footerTextNeutral {
+  color: #334155;
+}

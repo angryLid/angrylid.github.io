@@ -4,124 +4,49 @@ steps: 1
 ---
 import Notes from "@components/Notes.astro";
 import PresentationLayout from "@components/PresentationLayout.astro";
+import styles from "./styles/divided-stocks.module.css";
+import layoutSvg from "./assets/divided-stocks/tax-audit.svg";
 
 <PresentationLayout
   eyebrow="国家队的盘外招 · 其三"
   title="税率调整和税务稽查"
   narrow
 >
-  <div style="height: 100%; display: flex; flex-direction: column;">
-    <div style="flex: 1; min-height: 0; display: grid; grid-template-columns: 1fr 1.1fr; gap: 1.6rem;">
-      <div style="display: flex; flex-direction: column; justify-content: center; gap: 0.9rem;">
-        <div style="display: flex; gap: 0.9rem; align-items: flex-start; padding: 0.85rem 1.1rem; background: #f8fafc; border-left: 4px solid #cbd5e1;">
-          <span style="font-size: 1.3rem;">📱</span>
+  <div class={styles.root}>
+    <div class={styles.mainGrid}>
+      <div class={styles.leftCol}>
+        <div class:list={[styles.card, styles.cardNeutral]}>
+          <span class={styles.cardIcon}>📱</span>
           <div>
-            <p style="font-size: 1.05rem; font-weight: 700; color: #334155; margin: 0;">中国移动 · 增值税重分类</p>
-            <p style="font-size: 0.9rem; color: #555; margin: 0.2rem 0 0 0; line-height: 1.5;">2026.2 流量/短信/宽带由"增值电信"改归"基础电信"，税率 6% → 9%，2.6% 利润被抽</p>
+            <p class={styles.cardTitle}>中国移动 · 增值税重分类</p>
+            <p class={styles.cardDesc}>2026.2 流量/短信/宽带由"增值电信"改归"基础电信"，税率 6% → 9%，2.6% 利润被抽</p>
           </div>
         </div>
 
-        <div style="display: flex; gap: 0.9rem; align-items: flex-start; padding: 0.85rem 1.1rem; background: #fef2f2; border-left: 4px solid #dc2626;">
-          <span style="font-size: 1.3rem;">🏦</span>
+        <div class:list={[styles.card, styles.cardRed]}>
+          <span class={styles.cardIcon}>🏦</span>
           <div>
-            <p style="font-size: 1.05rem; font-weight: 700; color: #991b1b; margin: 0;">中国银行 · 审计署点名</p>
-            <p style="font-size: 0.9rem; color: #555; margin: 0.2rem 0 0 0; line-height: 1.5;">2026.6.24 审计署定性"逃避税"近 24 亿，次日 A 股 -3.88%、港股 -5.31%</p>
+            <p class={styles.cardTitle}>中国银行 · 审计署点名</p>
+            <p class={styles.cardDesc}>2026.6.24 审计署定性"逃避税"近 24 亿，次日 A 股 -3.88%、港股 -5.31%</p>
           </div>
         </div>
 
-        <div style="display: flex; gap: 0.9rem; align-items: flex-start; padding: 0.85rem 1.1rem; background: #fffbeb; border-left: 4px solid #ea580c;">
-          <span style="font-size: 1.3rem;">📉</span>
+        <div class:list={[styles.card, styles.cardAmber]}>
+          <span class={styles.cardIcon}>📉</span>
           <div>
-            <p style="font-size: 1.05rem; font-weight: 700; color: #9a3412; margin: 0;">红利蛋糕被切走</p>
-            <p style="font-size: 0.9rem; color: #555; margin: 0.2rem 0 0 0; line-height: 1.5;">强监管周期下，旱涝保收的红利巨头被税收与审计硬生生切走一块</p>
+            <p class={styles.cardTitle}>红利蛋糕被切走</p>
+            <p class={styles.cardDesc}>强监管周期下，旱涝保收的红利巨头被税收与审计硬生生切走一块</p>
           </div>
         </div>
       </div>
 
-      <div style="display: flex; align-items: center; justify-content: center;">
-        <svg viewBox="0 0 400 340" style="width: 100%; max-height: 100%;" xmlns="http://www.w3.org/2000/svg">
-          <defs>
-            <linearGradient id="barGrad" x1="0%" y1="0%" x2="0%" y2="100%">
-              <stop offset="0%" stop-color="#86efac"/>
-              <stop offset="100%" stop-color="#22c55e"/>
-            </linearGradient>
-            <radialGradient id="lensGrad" cx="40%" cy="40%" r="60%">
-              <stop offset="0%" stop-color="#e5e7eb" stop-opacity="0.7"/>
-              <stop offset="100%" stop-color="#e5e7eb" stop-opacity="0"/>
-            </radialGradient>
-          </defs>
-
-          {/* 顶部标题 */}
-          <text x="200" y="22" text-anchor="middle" font-size="13" font-weight="800" fill="#5b21b6">税收与审计 · 红利股的"切蛋糕"刀</text>
-
-          {/* 左侧：柱状图（税率上调 → 营收缩水） */}
-          <g>
-            <text x="110" y="48" text-anchor="middle" font-size="12" font-weight="700" fill="#555">📱 中国移动</text>
-            <text x="110" y="63" text-anchor="middle" font-size="10" fill="#888">100 元含税套餐 · 确认营收</text>
-
-            {/* 柱状图：纵轴范围 88~96 元，柱底 y=250，总高 175px */}
-            {/* 基线 */}
-            <line x1="28" y1="250" x2="192" y2="250" stroke="#cbd5e1" stroke-width="1.5"/>
-
-            {/* 左柱：税率 6%，营收 94.3 元 → 高 137.8px，顶 y=112.2 */}
-            <rect x="48" y="112" width="50" height="138" rx="3" fill="url(#barGrad)" stroke="#166534" stroke-width="1.2"/>
-            <text x="73" y="104" text-anchor="middle" font-size="13" font-weight="800" fill="#166534">94.3</text>
-            <text x="73" y="268" text-anchor="middle" font-size="10" font-weight="700" fill="#6b7280">原 6%</text>
-
-            {/* 右柱：税率 9%，营收 91.7 元 → 高 80.9px，顶 y=169.1 */}
-            <rect x="122" y="169" width="50" height="81" rx="3" fill="url(#barGrad)" stroke="#166534" stroke-width="1.2" opacity="0.75"/>
-            <text x="147" y="161" text-anchor="middle" font-size="13" font-weight="800" fill="#166534">91.7</text>
-            <text x="147" y="268" text-anchor="middle" font-size="10" font-weight="700" fill="#6b7280">现 9%</text>
-
-            {/* 红色差值标注：被税收抽走 2.6 元 */}
-            <line x1="172" y1="112" x2="172" y2="169" stroke="#dc2626" stroke-width="2"/>
-            <line x1="169" y1="112" x2="175" y2="112" stroke="#dc2626" stroke-width="2"/>
-            <line x1="169" y1="169" x2="175" y2="169" stroke="#dc2626" stroke-width="2"/>
-            <text x="183" y="138" text-anchor="start" font-size="10" font-weight="800" fill="#dc2626">被抽走</text>
-            <text x="183" y="152" text-anchor="start" font-size="11" font-weight="900" fill="#dc2626">2.6 元</text>
-
-            {/* 下方说明 */}
-            <text x="110" y="292" text-anchor="middle" font-size="10" font-weight="700" fill="#6b7280">含税套餐无法涨价</text>
-            <text x="110" y="308" text-anchor="middle" font-size="9" fill="#6b7280">增值税从 6% → 9%，利润被抽走 2.6%</text>
-          </g>
-
-          {/* 中间分隔 */}
-          <line x1="215" y1="40" x2="215" y2="320" stroke="#cbd5e1" stroke-width="1" stroke-dasharray="3,4"/>
-
-          {/* 右侧：审计 24亿 */}
-          <g>
-            <text x="312" y="48" text-anchor="middle" font-size="12" font-weight="700" fill="#555">🏦 中国银行</text>
-            <text x="312" y="63" text-anchor="middle" font-size="10" fill="#888">审计署点名</text>
-
-            {/* 放大镜 */}
-            <circle cx="312" cy="160" r="68" fill="url(#lensGrad)" stroke="#4b5563" stroke-width="6"/>
-            <circle cx="312" cy="160" r="68" fill="none" stroke="#fff" stroke-width="2" opacity="0.6"/>
-            <line x1="361" y1="209" x2="385" y2="233" stroke="#4b5563" stroke-width="9" stroke-linecap="round"/>
-            <line x1="361" y1="209" x2="385" y2="233" stroke="#d1d5db" stroke-width="3" stroke-linecap="round"/>
-
-            {/* 放大镜内：钱 + 标记 */}
-            <g>
-              <circle cx="298" cy="148" r="14" fill="#e5e7eb" stroke="#9ca3af" stroke-width="1.5"/>
-              <text x="298" y="153" text-anchor="middle" font-size="14" font-weight="800" fill="#6b7280">¥</text>
-              <circle cx="328" cy="170" r="11" fill="#e5e7eb" stroke="#9ca3af" stroke-width="1.2"/>
-              <text x="328" y="174" text-anchor="middle" font-size="11" font-weight="800" fill="#6b7280">¥</text>
-              <text x="312" y="195" text-anchor="middle" font-size="10" font-weight="800" fill="#dc2626">!</text>
-            </g>
-
-            {/* 24亿标签 */}
-            <rect x="260" y="242" width="104" height="26" rx="5" fill="#dc2626"/>
-            <text x="312" y="260" text-anchor="middle" font-size="13" font-weight="800" fill="#fff">逃避税 近 24 亿</text>
-
-            {/* 股价反应 */}
-            <text x="312" y="286" text-anchor="middle" font-size="10" fill="#4b5563" font-weight="700">次日 A 股 -3.88% / 港股 -5.31%</text>
-            <text x="312" y="300" text-anchor="middle" font-size="9" fill="#6b7280">对万亿市值巨无霸罕见剧烈</text>
-          </g>
-        </svg>
+      <div class={styles.rightCol}>
+        <img src={layoutSvg.src} alt="税率调整与审计对红利股切蛋糕" class={styles.svg} />
       </div>
     </div>
 
-    <div style="margin-top: 1rem; padding: 0.75rem 1.2rem; background: #eff6ff; border-left: 4px solid #2563eb; flex-shrink: 0;">
-      <p style="font-size: 0.95rem; color: #1e40af; margin: 0;">
+    <div class:list={[styles.footer, styles.footerBlue]}>
+      <p class:list={[styles.footerText, styles.footerTextBlue]}>
         <strong>一句话：</strong>强监管周期下，税率调整与税务稽查会从"避险天堂"的红利股身上切走一块蛋糕——分红预期随时可能打折。
       </p>
     </div>
