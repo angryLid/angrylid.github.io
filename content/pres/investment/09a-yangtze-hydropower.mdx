@@ -3,45 +3,21 @@ title: "红利股案例 · 长江电力（一）"
 steps: 4
 ---
 import Notes from "@components/Notes.astro";
-import PresentationLayout from "@components/PresentationLayout.astro";
-import PresentationStep from "@components/PresentationStep.astro";
+import ComicLayout from "@components/ComicLayout.astro";
 import comic1 from "./assets/yangtze-hydropower/comic-1.png";
 import comic2 from "./assets/yangtze-hydropower/comic-2.png";
 import comic3 from "./assets/yangtze-hydropower/comic-3.png";
 import comic4 from "./assets/yangtze-hydropower/comic-4.png";
 
-<PresentationLayout title="红利股案例 · 长江电力（一）">
-  <div style="height: 100%; margin: auto; display: flex; flex-direction: column; gap: 1.25rem;">
-    <div style="flex: 1 1 0; min-height: 0; display: flex; gap: 1.25rem; justify-content: center;">
-      <PresentationStep step={1} effect="fade">
-        <div style="position: relative; height: 100%; aspect-ratio: 4 / 3; overflow: hidden;">
-          <img src={comic1.src} alt="第一格：董事长与总工程师对话，窗外是水坝" style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; transform: scale(1.25); transform-origin: center;" />
-          <div style="position: absolute; right: 0; bottom: 0; z-index: 2; padding: 0.4rem 0.7rem; background: #fff; color: #000; border: 2px solid #000; font-size: 1.05rem; font-weight: 600; line-height: 1.3;">这么多钱应该怎么花呢</div>
-        </div>
-      </PresentationStep>
-      <PresentationStep step={2} effect="fade">
-        <div style="position: relative; height: 100%; aspect-ratio: 4 / 3; overflow: hidden;">
-          <img src={comic2.src} alt="第二格：总工程师双手托腮思考" style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; transform: scale(1.25); transform-origin: center;" />
-          <div style="position: absolute; left: 0; bottom: 0; z-index: 2; padding: 0.4rem 0.7rem; background: #fff; color: #000; border: 2px solid #000; font-size: 1.05rem; font-weight: 600; line-height: 1.3;">或许我们可以把目光投向亚马逊</div>
-        </div>
-      </PresentationStep>
-    </div>
-    <div style="flex: 1 1 0; min-height: 0; display: flex; gap: 1.25rem; justify-content: center;">
-      <PresentationStep step={3} effect="fade">
-        <div style="position: relative; height: 100%; aspect-ratio: 4 / 3; overflow: hidden;">
-          <img src={comic3.src} alt="第三格：董事长握拳，气泡浮现机房画面" style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; transform: scale(1.25); transform-origin: center;" />
-          <div style="position: absolute; right: 0; bottom: 0; z-index: 2; padding: 0.4rem 0.7rem; background: #fff; color: #000; border: 2px solid #000; font-size: 1.05rem; font-weight: 600; line-height: 1.3;">好方略，我们应该修机房。</div>
-        </div>
-      </PresentationStep>
-      <PresentationStep step={4} effect="fade">
-        <div style="position: relative; height: 100%; aspect-ratio: 4 / 3; overflow: hidden;">
-          <img src={comic4.src} alt="第四格：总工程师尴尬欲言又止" style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; transform: scale(1.25); transform-origin: center;" />
-          <div style="position: absolute; top: 0; left: 0; z-index: 2; padding: 0.4rem 0.7rem; background: #fff; color: #000; border: 2px solid #000; font-size: 1.05rem; font-weight: 600; line-height: 1.3;">我是说我们可以去亚马逊修水电站</div>
-        </div>
-      </PresentationStep>
-    </div>
-  </div>
-</PresentationLayout>
+<ComicLayout
+  title="红利股案例 · 长江电力（一）"
+  panels={[
+    { image: comic1, alt: "第一格：董事长与总工程师对话，窗外是水坝", caption: { text: "这么多钱应该怎么花呢", position: "br" } },
+    { image: comic2, alt: "第二格：总工程师双手托腮思考", caption: { text: "或许我们可以把目光投向亚马逊", position: "bl" } },
+    { image: comic3, alt: "第三格：董事长握拳，气泡浮现机房画面", caption: { text: "好方略，我们应该修机房。", position: "br" } },
+    { image: comic4, alt: "第四格：总工程师尴尬欲言又止", caption: { text: "我是说我们可以去亚马逊修水电站", position: "tl" } },
+  ]}
+/>
 
 <Notes>
 

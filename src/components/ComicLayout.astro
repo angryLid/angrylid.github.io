@@ -1,0 +1,148 @@
+---
+import PresentationLayout from "@components/PresentationLayout.astro";
+import PresentationStep from "@components/PresentationStep.astro";
+
+type Corner = "tl" | "tr" | "bl" | "br" | "bc";
+
+interface Caption {
+  /** Caption text. May contain HTML (e.g. <br/>) — rendered as-is. */
+  text: string;
+  /** Which corner of the panel the caption floats in. Defaults to "bl". */
+  position?: Corner;
+}
+
+type CaptionSpec = string | Caption | Caption[];
+
+export interface ComicPanel {
+  /** Astro image import (ImageMetadata). */
+  image: ImageMetadata;
+  /** Alt text for the image. */
+  alt: string;
+  /** Reveal step (1-based). Defaults to the panel's position in the array. */
+  step?: number;
+  /** Caption text / caption(s) overlaid on the panel. */
+  caption?: CaptionSpec;
+  /** Enter effect for the panel. Defaults to "fade". */
+  effect?: "none" | "fade" | "fly" | "blinds";
+  /** Image zoom. Defaults to 1.25. */
+  scale?: number;
+  /** Image transform-origin. Defaults to "center". */
+  transformOrigin?: string;
+}
+
+interface Props {
+  title: string;
+  /** Panels laid out left-to-right, top-to-bottom (2 per row). */
+  panels: ComicPanel[];
+  /** Gap between panels & rows, in any CSS length. Defaults to "1.25rem". */
+  gap?: string;
+}
+
+const { title, panels, gap = "1.25rem" } = Astro.props;
+
+function toCaptions(spec: CaptionSpec | undefined): Caption[] {
+  if (!spec) return [];
+  if (typeof spec === "string") return [{ text: spec, position: "bl" }];
+  if (Array.isArray(spec)) return spec;
+  return [spec];
+}
+
+// Group panels into rows of 2 (the canonical 2×2 comic grid).
+const rows: ComicPanel[][] = [];
+for (let i = 0; i < panels.length; i += 2) {
+  rows.push(panels.slice(i, i + 2));
+}
+---
+
+<PresentationLayout title={title}>
+  <div class="comic-grid" style={`--comic-gap: ${gap};`}>
+    {rows.map((row, r) => (
+      <div class="comic-grid__row">
+        {row.map((panel, i) => {
+          const index = r * 2 + i; // absolute position in the array
+          const step = panel.step ?? index + 1;
+          const effect = panel.effect ?? "fade";
+          const scale = panel.scale ?? 1.25;
+          const transformOrigin = panel.transformOrigin ?? "center";
+          const captions = toCaptions(panel.caption);
+          return (
+            <PresentationStep step={step} effect={effect}>
+              <div
+                class="comic-panel"
+                style={`--panel-scale: ${scale}; --panel-origin: ${transformOrigin};`}
+              >
+                <img class="comic-panel__img" src={panel.image.src} alt={panel.alt} />
+                {captions.map((c) => (
+                  <div
+                    class:list={["comic-caption", `comic-caption--${c.position ?? "bl"}`]}
+                    set:html={c.text}
+                  />
+                ))}
+              </div>
+            </PresentationStep>
+          );
+        })}
+      </div>
+    ))}
+  </div>
+</PresentationLayout>
+
+<style>
+  /* 2×2 grid: rows stacked with a gap, panels centered per row */
+  .comic-grid {
+    height: 100%;
+    margin: auto;
+    display: flex;
+    flex-direction: column;
+    gap: var(--comic-gap, 1.25rem);
+  }
+
+  .comic-grid__row {
+    flex: 1 1 0;
+    min-height: 0;
+    display: flex;
+    gap: var(--comic-gap, 1.25rem);
+    justify-content: center;
+  }
+
+  /* One panel: a 4:3 box that crops the full-bleed image */
+  .comic-panel {
+    position: relative;
+    height: 100%;
+    aspect-ratio: 4 / 3;
+    overflow: hidden;
+  }
+
+  .comic-panel__img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transform: scale(var(--panel-scale, 1.25));
+    transform-origin: var(--panel-origin, center);
+  }
+
+  /* Speech-caption chip: white box, black border, floats in a corner */
+  .comic-caption {
+    position: absolute;
+    z-index: 2;
+    padding: 0.4rem 0.7rem;
+    background: #fff;
+    color: #000;
+    border: 2px solid #000;
+    font-size: 1.05rem;
+    font-weight: 600;
+    line-height: 1.3;
+  }
+
+  .comic-caption--tl { top: 0; left: 0; }
+  .comic-caption--tr { top: 0; right: 0; }
+  .comic-caption--bl { left: 0; bottom: 0; }
+  .comic-caption--br { right: 0; bottom: 0; }
+  .comic-caption--bc {
+    left: 50%;
+    bottom: 0;
+    transform: translateX(-50%);
+  }
+</style>

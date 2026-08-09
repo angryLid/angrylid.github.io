@@ -3,46 +3,28 @@ title: "消费与金融消费"
 steps: 4
 ---
 import Notes from "@components/Notes.astro";
-import PresentationLayout from "@components/PresentationLayout.astro";
-import PresentationStep from "@components/PresentationStep.astro";
+import ComicLayout from "@components/ComicLayout.astro";
 import comic1 from "./assets/maotai/comic-1.png";
 import comic2 from "./assets/maotai/comic-2.png";
 import comic3 from "./assets/maotai/comic-3.png";
 import comic4 from "./assets/maotai/comic-4.png";
 
-<PresentationLayout title="四格漫画 · 张三与李四">
-  <div style="height: 100%; margin: auto; display: flex; flex-direction: column; gap: 1.25rem;">
-    <div style="flex: 1 1 0; min-height: 0; display: flex; gap: 1.25rem; justify-content: center;">
-      <PresentationStep step={1} effect="fade">
-        <div style="position: relative; height: 100%; aspect-ratio: 4 / 3; overflow: hidden;">
-          <img src={comic1.src} alt="第一格：张三在橱柜前把茅台酒放进去" style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; transform: scale(1.25); transform-origin: center;" />
-          <div style="position: absolute; top: 0; left: 0; z-index: 2; padding: 0.4rem 0.7rem; background: #fff; color: #000; border: 2px solid #000; font-size: 1.05rem; font-weight: 600; line-height: 1.3;">先收进柜子里，慢慢陈</div>
-        </div>
-      </PresentationStep>
-      <PresentationStep step={2} effect="fade">
-        <div style="position: relative; height: 100%; aspect-ratio: 4 / 3; overflow: hidden;">
-          <img src={comic2.src} alt="第二格：李四操作笔记本上的证券账户" style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; transform: scale(1.25); transform-origin: center;" />
-          <div style="position: absolute; left: 0; bottom: 0; z-index: 2; padding: 0.4rem 0.7rem; background: #fff; color: #000; border: 2px solid #000; font-size: 1.05rem; font-weight: 600; line-height: 1.3;">买一手，放账户里慢慢等</div>
-        </div>
-      </PresentationStep>
-    </div>
-    <div style="flex: 1 1 0; min-height: 0; display: flex; gap: 1.25rem; justify-content: center;">
-      <PresentationStep step={3} effect="fade">
-        <div style="position: relative; height: 100%; aspect-ratio: 4 / 3; overflow: hidden;">
-          <img src={comic3.src} alt="第三格：张三和李四坐在沙发上，张三疑惑，李四玩手机" style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; transform: scale(1.25); transform-origin: center;" />
-          <div style="position: absolute; left: 0; bottom: 0; z-index: 2; padding: 0.4rem 0.7rem; background: #fff; color: #000; border: 2px solid #000; font-size: 1.05rem; font-weight: 600; line-height: 1.3;">你的股票也会越放越醇厚吗</div>
-        </div>
-      </PresentationStep>
-      <PresentationStep step={4} effect="fade">
-        <div style="position: relative; height: 100%; aspect-ratio: 4 / 3; overflow: hidden;">
-          <img src={comic4.src} alt="第四格：李四敞手仰脸，闭目悠然自得" style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; transform: scale(1.25); transform-origin: center;" />
-          <div style="position: absolute; left: 0; bottom: 0; z-index: 2; padding: 0.4rem 0.7rem; background: #fff; color: #000; border: 2px solid #000; font-size: 1.05rem; font-weight: 600; line-height: 1.3;">短期缺库存，长期缺品牌，永远缺故事</div>
-          <div style="position: absolute; top: 0; right: 0; z-index: 2; padding: 0.4rem 0.7rem; background: #fff; color: #000; border: 2px solid #000; font-size: 1.05rem; font-weight: 600; line-height: 1.3;">时间会证明我们白酒板块的</div>
-        </div>
-      </PresentationStep>
-    </div>
-  </div>
-</PresentationLayout>
+<ComicLayout
+  title="四格漫画 · 张三与李四"
+  panels={[
+    { image: comic1, alt: "第一格：张三在橱柜前把茅台酒放进去", caption: { text: "先收进柜子里，慢慢陈", position: "tl" } },
+    { image: comic2, alt: "第二格：李四操作笔记本上的证券账户", caption: { text: "买一手，放账户里慢慢等", position: "bl" } },
+    { image: comic3, alt: "第三格：张三和李四坐在沙发上，张三疑惑，李四玩手机", caption: { text: "你的股票也会越放越醇厚吗", position: "bl" } },
+    {
+      image: comic4,
+      alt: "第四格：李四敞手仰脸，闭目悠然自得",
+      caption: [
+        { text: "短期缺库存，长期缺品牌，永远缺故事", position: "bl" },
+        { text: "时间会证明我们白酒板块的", position: "tr" },
+      ],
+    },
+  ]}
+/>
 
 <Notes>
 
