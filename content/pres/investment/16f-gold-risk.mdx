@@ -1,39 +1,84 @@
 ---
-title: "黄金的风险"
+title: "黄金的风险 · 不创造价值"
 steps: 1
 ---
 import Notes from "@components/Notes.astro";
+import PresentationLayout from "@components/PresentationLayout.astro";
 
-<div style="position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 2rem 3rem; background: linear-gradient(135deg, #fffbeb 0%, #fde68a 60%, #fcd34d 100%); font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;">
-  <div style="position: absolute; top: 1.6rem; left: 0; right: 0; text-align: center;">
-    <p style="font-size: 0.9rem; color: #92400e; font-weight: 600; margin: 0; letter-spacing: 0.16em;">WIP · 待补充</p>
-    <h2 style="font-size: 2.6rem; margin: 0.4rem 0 0 0; color: #78350f; font-weight: 800;">黄金的风险</h2>
-  </div>
+<PresentationLayout
+  eyebrow="资产风险档案 · 黄金"
+  title="黄金不创造价值"
+  narrow
+>
+  <div style="height: 100%; display: flex; flex-direction: column; gap: 1rem;">
 
-  <div style="position: relative; display: flex; flex-direction: column; align-items: center; gap: 1.4rem;">
-    <svg viewBox="0 0 240 240" width="200" height="200" xmlns="http://www.w3.org/2000/svg" style="opacity: 0.45;">
-      <defs>
-        <radialGradient id="wipY1" cx="50%" cy="40%" r="60%">
-          <stop offset="0%" stop-color="#fde68a"/>
-          <stop offset="100%" stop-color="#b45309"/>
-        </radialGradient>
-      </defs>
-      <circle cx="120" cy="120" r="80" fill="url(#wipY1)" stroke="#78350f" stroke-width="3"/>
-      <text x="120" y="140" text-anchor="middle" font-size="80" font-weight="900" fill="#fef3c7" font-family="serif">Au</text>
-    </svg>
-
-    <div style="background: rgba(255,255,255,0.85); border: 3px dashed #d97706; border-radius: 1rem; padding: 1.4rem 2.6rem; box-shadow: 0 8px 32px rgba(217,119,6,0.18);">
-      <p style="font-size: 4.2rem; font-weight: 900; color: #b45309; margin: 0; letter-spacing: 0.18em; text-shadow: 0 2px 8px rgba(180,83,9,0.25);">WIP</p>
+    {/* 第一层：黄金本身不产生现金流 */}
+    <div style="padding: 0.9rem 1.4rem; background: #fff; border: 1px solid #e5e0d0; box-shadow: 0 1px 3px rgba(0,0,0,0.06);">
+      <p style="margin: 0; font-size: 1.28rem; font-weight: 800; color: #333; line-height: 1.35;">
+        <span style="color: #b8860b; margin-right: 0.5rem;">①</span>黄金本身，不创造任何价值
+      </p>
+      <p style="margin: 0.4rem 0 0 0; font-size: 1.05rem; color: #666; line-height: 1.55;">
+        它不付利息、不分红、不产生现金流。持有一公斤黄金，一年后还是一公斤——它不会自己多生出半克。
+        <br />
+        <span style="color: #999;">反观股票让人参加劳动创造利润、债券让资金生息，黄金只是静静地躺在那里。</span>
+      </p>
     </div>
 
-    <p style="font-size: 1.1rem; color: #78350f; margin: 0; opacity: 0.7;">本页内容稍后补充</p>
+    {/* 第二层：超开采成本的部分是短期供需 */}
+    <div style="padding: 0.9rem 1.4rem; background: #fff; border: 1px solid #e5e0d0; box-shadow: 0 1px 3px rgba(0,0,0,0.06);">
+      <p style="margin: 0; font-size: 1.28rem; font-weight: 800; color: #333; line-height: 1.35;">
+        <span style="color: #b8860b; margin-right: 0.5rem;">②</span>超过开采成本的部分，更多是短期供需
+      </p>
+      <p style="margin: 0.4rem 0 0 0; font-size: 1.05rem; color: #666; line-height: 1.55;">
+        黄金的"生产成本"（开采 + 加工）是它价值的锚之一。但价格高出成本的那一大截，
+        更多由避险情绪、通胀预期、央行购金等<b>短期供需</b>驱动，而非内在产出。
+      </p>
+    </div>
+
+    {/* 第三层：安全边际可能不足 */}
+    <div style="padding: 0.9rem 1.4rem; background: #fbf7ef; border-left: 5px solid #c0392b;">
+      <p style="margin: 0; font-size: 1.28rem; font-weight: 800; color: #7f1d1d; line-height: 1.35;">
+        <span style="margin-right: 0.5rem;">③</span>结论：安全边际，可能不足
+      </p>
+      <p style="margin: 0.4rem 0 0 0; font-size: 1.05rem; color: #7f1d1d; line-height: 1.55;">
+        价值投资讲究"以低于内在价值的价格买入"。黄金没有利息、没有盈利、没有现金流去锚定内在价值，
+        若仅仅因为"大家都在买"而追高，价格又远超成本，<b>你并不清楚自己买的是不是溢价</b>。
+      </p>
+    </div>
+
+    {/* 底部一句话 */}
+    <div style="padding: 0.7rem 1.2rem; background: #fef2f2; border: 1px dashed #e5b8b3;">
+      <p style="margin: 0; font-size: 0.98rem; color: #7f1d1d; line-height: 1.55;">
+        <strong>一句话：</strong>黄金不会创造价值，它只是价值的储存器；价格超过开采成本的部分由短期供需决定——当安全感来自情绪而非产出，安全边际就可能不足。
+      </p>
+    </div>
   </div>
-</div>
+</PresentationLayout>
 
 <Notes>
+我们注意到黄金其实是没有什么避险作用的。
+比如说现在你陷入到了一场内战当中。你陷入了，粮食短缺当中。这时候你发现你的邻居戴夫在自己的前院里面种植了向日葵和豌豆。即便到了这个时候，戴夫依然在研究性状分离定律。
 
-WIP —— 本页稍后补充内容：讨论黄金作为资产的风险。
+所以，你想，是不是可以用手上这枚金币，去隔壁换一把铁锹和一袋种子呢。
 
-（占位笔记，后续填写）
+于是最后你的金币没有了，还挨了一铁锹。
+
+然后你就会想。本来你可以用那些钱买一车罐头，好几箱绷带，药品和抗生素，然后你选择买了一枚金币，因为金币能避险。
+
+---
+
+我们要注意到 黄金本身是通过和开采价格的联系来抵御信用货币通货膨胀。所以黄金确实是可以传给子孙后代的资产，长期来看不管是懂黄金还是不懂黄金的，在黄金上都赚到了现金。但是长期到底是多长，长期来看所有人都死了。
+
+---
+
+这一张讲黄金作为资产真正的风险，与前面"黄金为什么是它"形成对照。核心论点一句话：黄金不会创造价值，所以它的"安全边际"很难被验证。
+
+先说第一层。股票是让劳动者参与创造利润、债券是用资金生息，它们都能产生现金流；而黄金不付息、不分红、不产生任何现金流。持有一公斤黄金，一年后还是一公斤，它不会自己长出半克。物以稀为贵没错，但"稀缺"只回答"它为什么值钱"，并不回答"它该值多少钱"。
+
+第二层，关于价格由什么决定。黄金有一个客观的锚——开采成本。挖矿、冶炼、运输是有真实成本的，这部分承载了黄金的"价值底线"。可一旦价格明显高出开采成本，那多出来的部分不是由产出支撑的，而是由避险情绪、通胀预期、央行购金这些短期供需决定的。供需可以很猛烈地把它推上去，也能同样猛烈地把它打下来。
+
+第三层，落到安全边际。价值投资的铁律是"以明显低于内在价值的价格买入"。但黄金没有利息、没有盈利、没有可折现的现金流，你很难给它一个可信的内在价值。如果你只是看到"大家都在买、价格在涨"就追进去，而价格又已经远超开采成本，那么你其实是在为情绪和供需付钱——你并不知道自己是不是买在了溢价上。当安全感来自情绪而非产出时，所谓安全边际可能并不存在。
+
+收个尾：黄金适合作为"价值的储存器"和小比例配置，但把它当作"稳赚的避险"、重仓追高，就忽略了它不创造价值的本质。真正决定它长期价值的，是稀缺与共识，而不是它自己产出的收益。
 
 </Notes>
