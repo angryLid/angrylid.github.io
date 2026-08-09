@@ -13,24 +13,24 @@ import PresentationLayout from "@components/PresentationLayout.astro";
 
     <div style="flex: 1; min-height: 0; width: 100%; display: grid; grid-template-columns: 1fr 1fr; gap: 1.1rem;">
       <div style="display: flex; flex-direction: column; gap: 0.5rem;">
-        <div style="flex: 1; min-height: 0; border: 1px solid #e2e2e2; border-radius: 0.4rem; background: #fafafa; padding: 0.55rem 1rem; text-align: left; display: flex; flex-direction: column; justify-content: center;">
+        <div style="flex: 1; min-height: 0; border: 1px solid #e2e2e2; background: #fafafa; padding: 0.55rem 1rem; text-align: left; display: flex; flex-direction: column; justify-content: center;">
           <p style="margin: 0 0 0.3rem; font-size: 0.68rem; letter-spacing: 0.12em; color: #9ca3af; font-family: 'Cascadia Code', monospace;">CUT · 为什么股价会除权</p>
           <p style="margin: 0; font-size: 0.95rem; font-weight: 700; color: #333;">除权 = 账面调整，不是公司变差了</p>
           <p style="margin: 0.3rem 0 0; font-size: 0.85rem; color: #444; line-height: 1.5;">分红是把你股份里的<span style="color:#15803d; font-weight:700;">一部分价值换成现金</span>发给你：账上现金少了，股价就按分掉的<span style="font-family:'Cascadia Code', monospace;">¥X</span>名义下调。公司本身一个铜板都没少。</p>
         </div>
-        <div style="flex: 1; min-height: 0; border: 1px solid #e2e2e2; border-radius: 0.4rem; background: #fafafa; padding: 0.55rem 1rem; text-align: left; display: flex; flex-direction: column; justify-content: center;">
+        <div style="flex: 1; min-height: 0; border: 1px solid #e2e2e2; background: #fafafa; padding: 0.55rem 1rem; text-align: left; display: flex; flex-direction: column; justify-content: center;">
           <p style="margin: 0 0 0.3rem; font-size: 0.68rem; letter-spacing: 0.12em; color: #9ca3af; font-family: 'Cascadia Code', monospace;">FILL · 为什么市场会填权</p>
           <p style="margin: 0; font-size: 0.95rem; font-weight: 700; color: #333;">股价 = 未来盈利的折现，不是现值</p>
           <p style="margin: 0.3rem 0 0; font-size: 0.85rem; color: #444; line-height: 1.5;">公司的<span style="color:#15803d; font-weight:700;">赚钱能力没变</span>，明年还能赚同样多的钱、继续分红。除权留下的缺口，被市场用"未来现金流"重新定价<span style="color:#15803d; font-weight:700;">买回去</span>——这就是<span style="font-family:'Cascadia Code', monospace;">填权</span>。</p>
         </div>
-        <div style="flex: 1; min-height: 0; border: 1px solid #e2e2e2; border-radius: 0.4rem; background: #fafafa; padding: 0.55rem 1rem; text-align: left; display: flex; flex-direction: column; justify-content: center;">
+        <div style="flex: 1; min-height: 0; border: 1px solid #e2e2e2; background: #fafafa; padding: 0.55rem 1rem; text-align: left; display: flex; flex-direction: column; justify-content: center;">
           <p style="margin: 0 0 0.3rem; font-size: 0.68rem; letter-spacing: 0.12em; color: #9ca3af; font-family: 'Cascadia Code', monospace;">TRAP · 什么时候不填权</p>
           <p style="margin: 0; font-size: 0.95rem; font-weight: 700; color: #b91c1c;">赚不到钱、吐光家底式分红</p>
           <p style="margin: 0.3rem 0 0; font-size: 0.85rem; color: #444; line-height: 1.5;">如果公司<span style="color:#b91c1c; font-weight:700;">不再赚钱</span>，只是把家底连本带利分光，市场不会再为它定价 → <span style="color:#b91c1c; font-weight:700;">除权后一路阴跌、永不填权</span>。分红起决定作用的，是"未来还能不能赚"。</p>
         </div>
       </div>
 
-      <div style="border: 1px solid #e2e2e2; border-radius: 0.4rem; background: #fafafa; padding: 0.8rem 1rem; display: flex; flex-direction: column; min-height: 0;">
+      <div style="border: 1px solid #e2e2e2; background: #fafafa; padding: 0.8rem 1rem; display: flex; flex-direction: column; min-height: 0;">
         <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.2rem;">
           <span style="font-size: 0.72rem; color: #9ca3af; font-family: 'Cascadia Code', monospace; letter-spacing: 0.08em;">EX-DIVIDEND · 除权 → 填权</span>
           <span style="font-size: 0.68rem; color: #6b7280; font-family: 'Cascadia Code', monospace;">股价 = 未来现金流</span>
@@ -81,7 +81,7 @@ import PresentationLayout from "@components/PresentationLayout.astro";
       </div>
     </div>
 
-    <div style="flex: 0 0 auto; border-left: 3px solid #333; padding: 0.7rem 1rem; background: #fafafa; border-radius: 0 0.5rem 0.5rem 0; width: 100%;">
+    <div style="flex: 0 0 auto; border-left: 3px solid #333; padding: 0.7rem 1rem; background: #fafafa; width: 100%;">
       <p style="margin: 0; font-size: 0.92rem; color: #333; line-height: 1.6;">
         <strong>本质 ·</strong> 股价是<b>未来现金流的折现</b>。除权只把"账上现金"换成"你口袋里的现金"，不改变公司<strong>持续赚钱的能力</strong>——所以市场会把除权缺口<strong>填回去</strong>；只有赚不到钱的公司，才填不回来。
       </p>

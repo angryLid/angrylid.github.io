@@ -8,14 +8,14 @@ import PresentationLayout from "@components/PresentationLayout.astro";
 <PresentationLayout title="为什么需要保证金" eyebrow="FUTURES · 期货三部曲 · WHY" narrow>
   <div style="height: 100%; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 1rem; padding: 0.5rem 2.5rem 1.2rem; text-align: center;">
     <p style="margin: 0; font-size: 1.05rem; color: #555;">保证金 + 每日盯市，把"信用风险"按天清零——交易所才敢做所有人的对手方。</p>
-    <div style="flex: 0 0 auto; width: 100%; border: 1px solid #fda4af; border-radius: 0.4rem; background: #fff7f3; padding: 0.8rem 1.1rem; text-align: left;">
+    <div style="flex: 0 0 auto; width: 100%; border: 1px solid #fda4af; background: #fff7f3; padding: 0.8rem 1.1rem; text-align: left;">
       <p style="margin: 0 0 0.4rem; font-size: 0.95rem; font-weight: 700; color: #b91c1c;">如果不每天结算，会怎样？—— 一个赖账的例子</p>
       <p style="margin: 0 0 0.4rem; font-size: 0.9rem; color: #444; line-height: 1.7;">老张开多买进 1 手大豆（10 吨），合约价 ¥5000。价格跌到 <strong>¥4500</strong>，账面已亏 <strong>¥5,000</strong>。</p>
       <p style="margin: 0 0 0.4rem; font-size: 0.9rem; color: #444; line-height: 1.7;">但因为是"到期才结算"，他不急着认账：<em>反正还没到交割日，先拖着；真到期亏这么大，干脆不买、跑路。</em></p>
       <p style="margin: 0; font-size: 0.9rem; color: #444; line-height: 1.7;">于是亏损像滚雪球越滚越大，开仓那点保证金盖不住窟窿，老张到交割日直接违约——<strong>交易所替他垫付，风险甩给整个市场</strong>。</p>
     </div>
     <div style="flex: 1; min-height: 0; width: 100%; display: grid; grid-template-columns: 1fr 1fr; gap: 1.1rem;">
-      <div style="border: 1px solid #e2e2e2; border-radius: 0.4rem; background: #fafafa; padding: 1rem 1.1rem; text-align: left; display: flex; flex-direction: column; gap: 0.7rem;">
+      <div style="border: 1px solid #e2e2e2; background: #fafafa; padding: 1rem 1.1rem; text-align: left; display: flex; flex-direction: column; gap: 0.7rem;">
         <p style="margin: 0; font-size: 1rem; font-weight: 700; color: #333;">所以要有每日盯市制度</p>
         <div style="display: flex; gap: 0.6rem; align-items: flex-start;">
           <span style="color:#b91c1c; font-weight:800; font-family:'Cascadia Code', monospace; flex-shrink:0;">1.</span>
@@ -34,7 +34,7 @@ import PresentationLayout from "@components/PresentationLayout.astro";
           <p style="margin: 0; font-size: 0.92rem; color: #444; line-height: 1.6;">跌破维持线就<strong>追保 / 强平</strong>，亏损锁在当天、不无限累积</p>
         </div>
       </div>
-      <div style="border: 1px solid #e2e2e2; border-radius: 0.4rem; background: #fafafa; padding: 1rem 1.1rem; text-align: left; display: flex; flex-direction: column; gap: 0.7rem;">
+      <div style="border: 1px solid #e2e2e2; background: #fafafa; padding: 1rem 1.1rem; text-align: left; display: flex; flex-direction: column; gap: 0.7rem;">
         <p style="margin: 0; font-size: 1rem; font-weight: 700; color: #333;">为什么按合约价结算，而非现货价</p>
         <div style="display: flex; gap: 0.6rem; align-items: flex-start;">
           <span style="color:#b91c1c; font-weight:800; font-family:'Cascadia Code', monospace; flex-shrink:0;">1.</span>
@@ -54,7 +54,7 @@ import PresentationLayout from "@components/PresentationLayout.astro";
         </div>
       </div>
     </div>
-    <div style="flex: 0 0 auto; border-left: 3px solid #333; padding: 0.7rem 1rem; background: #fafafa; border-radius: 0 0.5rem 0.5rem 0; width: 100%;">
+    <div style="flex: 0 0 auto; border-left: 3px solid #333; padding: 0.7rem 1rem; background: #fafafa; width: 100%;">
       <p style="margin: 0; font-size: 0.92rem; color: #333; line-height: 1.6;"><strong>本质 ·</strong> 保证金把"违约风险"用一个押金兜底，盯市则用<strong>统一的合约结算价</strong>把风险<strong>按天清零</strong>——两者缺一不可，期货才能高杠杆运作。</p>
     </div>
   </div>
