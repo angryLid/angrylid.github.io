@@ -1,45 +1,131 @@
 ---
 title: "股票 · 成长股的性质"
-steps: 1
+steps: 3
 ---
 import Notes from "@components/Notes.astro";
+import PresentationLayout from "@components/PresentationLayout.astro";
 
-<div style="position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 2rem 3rem; background: linear-gradient(135deg, #f0fdf4 0%, #bbf7d0 60%, #86efac 100%); font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;">
-  <div style="position: absolute; top: 1.6rem; left: 0; right: 0; text-align: center;">
-    <p style="font-size: 0.9rem; color: #166534; font-weight: 600; margin: 0; letter-spacing: 0.16em;">WIP · 待补充</p>
-    <h2 style="font-size: 2.6rem; margin: 0.4rem 0 0 0; color: #14532d; font-weight: 800;">股票 · 成长股的性质</h2>
-  </div>
+<PresentationLayout title="成长股 — 一份对未来的赌注" eyebrow="股票 · 成长股的性质" narrow>
+  <div style="height: 100%; display: flex; flex-direction: column; gap: 0.9rem;">
 
-  <div style="position: relative; display: flex; flex-direction: column; align-items: center; gap: 1.4rem;">
-    <svg viewBox="0 0 240 240" width="200" height="200" xmlns="http://www.w3.org/2000/svg" style="opacity: 0.45;">
-      <defs>
-        <linearGradient id="wipG1" x1="0%" y1="0%" x2="0%" y2="100%">
-          <stop offset="0%" stop-color="#34d399"/>
-          <stop offset="100%" stop-color="#047857"/>
-        </linearGradient>
-      </defs>
-      <polyline points="20,200 60,170 90,180 120,140 150,150 180,90 220,60" fill="none" stroke="url(#wipG1)" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
-      <circle cx="20" cy="200" r="5" fill="#047857"/>
-      <circle cx="60" cy="170" r="5" fill="#047857"/>
-      <circle cx="90" cy="180" r="5" fill="#047857"/>
-      <circle cx="120" cy="140" r="5" fill="#047857"/>
-      <circle cx="150" cy="150" r="5" fill="#047857"/>
-      <circle cx="180" cy="90" r="5" fill="#047857"/>
-      <circle cx="220" cy="60" r="6" fill="#10b981" stroke="#047857" stroke-width="2"/>
-    </svg>
-
-    <div style="background: rgba(255,255,255,0.85); border: 3px dashed #16a34a; border-radius: 1rem; padding: 1.4rem 2.6rem; box-shadow: 0 8px 32px rgba(22,163,74,0.18);">
-      <p style="font-size: 4.2rem; font-weight: 900; color: #15803d; margin: 0; letter-spacing: 0.18em; text-shadow: 0 2px 8px rgba(21,128,61,0.25);">WIP</p>
+    {/* 顶部核心观点 */}
+    <div style="display: flex; align-items: center; gap: 1rem; background: #effaf3; border: 1px solid #bfe3c9; border-left: 4px solid #15803d; padding: 0.8rem 1.2rem; flex-shrink: 0;">
+      <span style="font-size: 1.6rem;">🌱</span>
+      <div style="font-size: 1.18rem; color: #14532d; line-height: 1.5;">
+        成长股不是「现在赚钱的公司」，而是一份<strong>对未来的衍生品</strong> ——
+        价格锚定的是<strong>爆发式增长预期</strong>，不是当下的盈利。
+      </div>
     </div>
 
-    <p style="font-size: 1.1rem; color: #14532d; margin: 0; opacity: 0.7;">本页内容稍后补充</p>
+    {/* 三个阶段横向流程 */}
+    <div style="flex: 1; min-height: 0; display: flex; align-items: stretch; gap: 0.5rem;">
+
+      {/* ===== 阶段一：什么是成长股 ===== */}
+      <div data-anim="0" style="flex: 1; min-width: 0; display: flex; flex-direction: column; background: #fff; border: 1px solid #bfe3c9; position: relative; overflow: hidden;">
+        <div style="background: #16a34a; color: #fff; padding: 0.8rem 1rem; display: flex; align-items: center; gap: 0.6rem;">
+          <span style="font-size: 0.7rem; opacity: 0.85; letter-spacing: 0.5px; flex-shrink: 0;">第一步</span>
+          <span style="font-size: 1.35rem; font-weight: 800; flex: 1;">什么是成长股</span>
+        </div>
+        <div style="flex: 1; padding: 1rem; display: flex; flex-direction: column; justify-content: center; gap: 0.7rem;">
+          <div style="font-size: 1.5rem; font-weight: 800; color: #14532d;">利润没起来，价格先上天</div>
+          <p style="margin: 0; font-size: 1.12rem; color: #57534e; line-height: 1.55;">
+            公司现在<strong>赚得不多</strong>，但市场押注它未来<strong>爆发式增长</strong>。股价里绝大部分，是给「未来」开的价。
+          </p>
+          <div style="padding: 0.5rem 0.7rem; background: #f0fdf4; border-radius: 0; font-size: 1.05rem; color: #166534; line-height: 1.4;">
+            💡 锚点是增长率 —— 未来能长多快
+          </div>
+        </div>
+      </div>
+
+      {/* 箭头 1 */}
+      <div data-anim="1" style="align-self: center; font-size: 2rem; color: #15803d; flex-shrink: 0; padding: 0 0.1rem;">➜</div>
+
+      {/* ===== 阶段二：衍生品特性 ===== */}
+      <div data-anim="1" style="flex: 1; min-width: 0; display: flex; flex-direction: column; background: #fff; border: 1px solid #bfe3c9; position: relative; overflow: hidden;">
+        <div style="background: #15803d; color: #fff; padding: 0.8rem 1rem; display: flex; align-items: center; gap: 0.6rem;">
+          <span style="font-size: 0.7rem; opacity: 0.85; letter-spacing: 0.5px; flex-shrink: 0;">第二步</span>
+          <span style="font-size: 1.35rem; font-weight: 800; flex: 1;">衍生品特性</span>
+        </div>
+        <div style="flex: 1; padding: 1rem; display: flex; flex-direction: column; justify-content: center; gap: 0.7rem;">
+          <div style="font-size: 1.5rem; font-weight: 800; color: #14532d;">对预期加杠杆</div>
+          <p style="margin: 0; font-size: 1.12rem; color: #57534e; line-height: 1.55;">
+            价格由<strong>远期预期</strong>决定，且被放大：增长预期抖一抖，股价就剧烈波动 —— 像期权/期货，赌的是「未来这张走势」，不是当下值多少。
+          </p>
+          <div style="padding: 0.5rem 0.7rem; background: #f0fdf4; border-radius: 0; font-size: 1.05rem; color: #166534; line-height: 1.4;">
+            💡 锚点变成预期 —— 以后能涨到多少
+          </div>
+        </div>
+      </div>
+
+      {/* 箭头 2 */}
+      <div data-anim="2" style="align-self: center; font-size: 2rem; color: #14532d; flex-shrink: 0; padding: 0 0.1rem;">➜</div>
+
+      {/* ===== 阶段三：终局结算 ===== */}
+      <div data-anim="2" style="flex: 1; min-width: 0; display: flex; flex-direction: column; background: #fff; border: 1px solid #bfe3c9; position: relative; overflow: hidden;">
+        <div style="background: #14532d; color: #fff; padding: 0.8rem 1rem; display: flex; align-items: center; gap: 0.6rem;">
+          <span style="font-size: 0.7rem; opacity: 0.85; letter-spacing: 0.5px; flex-shrink: 0;">终局</span>
+          <span style="font-size: 1.35rem; font-weight: 800; flex: 1;">到期结算</span>
+        </div>
+        <div style="flex: 1; padding: 1rem; display: flex; flex-direction: column; justify-content: center; gap: 0.55rem;">
+          <div style="font-size: 1.5rem; font-weight: 800; color: #14532d;">增长到顶的那一天</div>
+          <p style="margin: 0; font-size: 1.12rem; color: #57534e; line-height: 1.5;">
+            赌注终要<strong>结算</strong>，成败两条路。
+          </p>
+          <div style="padding: 0.5rem 0.7rem; background: #f0fdf4; border: 1px solid #bfe3c9; border-radius: 0; font-size: 1.02rem; color: #166534; line-height: 1.4;">
+            <strong>✅ 成功</strong> —— 增长到顶后<strong>稳定分红</strong>，或被<strong>收购</strong>兑现
+          </div>
+          <div style="padding: 0.5rem 0.7rem; background: #fef2f2; border: 1px solid #fecaca; border-radius: 0; font-size: 1.02rem; color: #b91c1c; line-height: 1.4;">
+            <strong>❌ 失败</strong> —— <strong>泡泡戳破</strong>；或到顶却陷入<strong>恶性竞争</strong>、利润微薄
+          </div>
+        </div>
+      </div>
+    </div>
+
+    {/* 底部结论 */}
+    <div style="background: #effaf3; border: 1px solid #bfe3c9; border-radius: 0; padding: 0.7rem 1rem; border-left: 4px solid #15803d; flex-shrink: 0;">
+      <div style="font-size: 0.98rem; color: #14532d; margin: 0; line-height: 1.5;">
+        <strong>💡 核心结论：</strong>
+        成长的<strong>「预期」</strong>本质是衍生品 —— 它把「未来的一笔账」提前折到现在定价。终局<strong>有赢有输</strong>：要么稳定分红/被收购，要么<strong>泡泡戳破</strong>栽在预期上。
+      </div>
+    </div>
+
   </div>
-</div>
+</PresentationLayout>
 
 <Notes>
 
-WIP —— 本页稍后补充内容：讨论成长股作为资产的性质。
+这一页介绍成长股，并点明它的衍生品特性。
 
-（占位笔记，后续填写）
+先定义成长股是什么：
+- 成长股不是"现在就很赚钱"的公司，而是"利润还没起来、但市场押注它未来会爆发式增长"的公司
+- 所以它的股价里，绝大部分不是当下的盈利，而是给"未来"开的价
+- 锚点不是"现在能收多少"，而是"未来能长多快"——是增长率，不是现金流
+
+为什么说它有衍生品特性：
+- 衍生品（期权/期货）的价格，不锚定现货本身，而是锚定"对未来的某个结果"的赌注
+- 成长股也一样：它挂靠的不是当下现金流，而是"这家公司未来会爆发"这个远期预期
+- 而且这个预期被"杠杆化"了：预期只要抖动一点点，股价的波动就远大于基本面本身的变化
+- 就像期权对波动率极度敏感、期货对远期价格极度敏感一样，成长股对"增长预期"极度敏感——预期一改，估值剧烈重排
+
+所以成长股本质上是"一份对未来的衍生品"。
+
+关键的一步：赌注终有一天要"到期结算"。而结算不是只有赢——它分成败两条路。
+
+成功路径（预期被兑现）：
+- 要么一家业务增长到顶、开始稳定分红的企业（成长股变成红利股，"赌未来"退化成"吃利息"）
+- 要么被其他企业收购合并（预期被一个具体的买家价格"兑现"掉）
+
+失败路径（预期落空）：
+- 泡泡戳破：市场给的增长预期远高于实际，预期一旦发现兑现不了，股价不是慢慢跌，而是直接崩
+- 到顶即平庸：规模虽然到顶了，但公司陷入恶性竞争，利润依然微薄，永远分不出像样的红利，也等不到被收购——"长大了"但"不赚钱"
+
+这两种结局，都是"衍生品"回到"资产"本身的过程：那个悬在未来的增长预期，最终被落实成一份确定的现金流、一个确定的收购价——或者一个被证伪的泡泡。所以买成长股，真正下注的是"将来能不能赢"，而不是"现在涨得多好看"。
+
+这也是为什么成长股和上一页房地产的"衍生品阶段"是同一个逻辑——锚点都在"未来预期"，区别只是成长股最终会"结算"（无论输赢），而纯共识资产可能永远等不到结算。
+
+用一句话收束：
+- 成长股 = 一份对未来的衍生品，价格锚定的是增长预期
+- 预期被杠杆放大 → 波动远大于基本面
+- 终局有赢有输：赢是稳定分红或收购，输是泡泡戳破、或到顶却陷入恶性竞争利润微薄
 
 </Notes>
