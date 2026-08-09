@@ -1,42 +1,122 @@
 ---
 title: "不动产 · 房地产的性质"
-steps: 1
+steps: 3
 ---
 import Notes from "@components/Notes.astro";
+import PresentationLayout from "@components/PresentationLayout.astro";
 
-<div style="position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 2rem 3rem; background: linear-gradient(135deg, #fff7ed 0%, #fed7aa 60%, #fdba74 100%); font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;">
-  <div style="position: absolute; top: 1.6rem; left: 0; right: 0; text-align: center;">
-    <p style="font-size: 0.9rem; color: #9a3412; font-weight: 600; margin: 0; letter-spacing: 0.16em;">WIP · 待补充</p>
-    <h2 style="font-size: 2.6rem; margin: 0.4rem 0 0 0; color: #7c2d12; font-weight: 800;">不动产 · 房地产的性质</h2>
-  </div>
+<PresentationLayout title="房地产 — 三种身份" eyebrow="不动产 · 房地产的性质" narrow>
+  <div style="height: 100%; display: flex; flex-direction: column; gap: 0.9rem;">
 
-  <div style="position: relative; display: flex; flex-direction: column; align-items: center; gap: 1.4rem;">
-    <svg viewBox="0 0 240 240" width="200" height="200" xmlns="http://www.w3.org/2000/svg" style="opacity: 0.45;">
-      <defs>
-        <linearGradient id="wipH1" x1="0%" y1="0%" x2="0%" y2="100%">
-          <stop offset="0%" stop-color="#fb923c"/>
-          <stop offset="100%" stop-color="#c2410c"/>
-        </linearGradient>
-      </defs>
-      <path d="M40 130 L120 60 L200 130 L200 200 L40 200 Z" fill="url(#wipH1)" stroke="#7c2d12" stroke-width="3" stroke-linejoin="round"/>
-      <rect x="60" y="140" width="30" height="60" fill="#7c2d12"/>
-      <rect x="105" y="140" width="30" height="40" fill="#7c2d12"/>
-      <rect x="150" y="140" width="30" height="40" fill="#7c2d12"/>
-      <rect x="105" y="55" width="30" height="20" fill="#7c2d12"/>
-    </svg>
-
-    <div style="background: rgba(255,255,255,0.85); border: 3px dashed #ea580c; border-radius: 1rem; padding: 1.4rem 2.6rem; box-shadow: 0 8px 32px rgba(234,88,12,0.18);">
-      <p style="font-size: 4.2rem; font-weight: 900; color: #c2410c; margin: 0; letter-spacing: 0.18em; text-shadow: 0 2px 8px rgba(194,65,12,0.25);">WIP</p>
+    {/* 顶部核心观点 */}
+    <div style="display: flex; align-items: center; gap: 1rem; background: #fdf3e3; border: 1px solid #ecd4a8; border-left: 4px solid #c2410c; padding: 0.8rem 1.2rem; flex-shrink: 0;">
+      <span style="font-size: 1.6rem;">🏠</span>
+      <div style="font-size: 1.18rem; color: #7c2d12; line-height: 1.5;">
+        同一套房，随着市场阶段推进，会扮演<strong>三种截然不同的资产身份</strong> ——
+        生息资产 → 衍生品 → 纯共识资产
+      </div>
     </div>
 
-    <p style="font-size: 1.1rem; color: #7c2d12; margin: 0; opacity: 0.7;">本页内容稍后补充</p>
+    {/* 引出例子 */}
+    <div data-anim="0" style="flex-shrink: 0;">
+      <span style="font-size: 1.05rem; color: #9a3412; font-weight: 600;">—— 以罗马尼亚的卡拉什-塞维林县（Caraș-Severin）为例</span>
+    </div>
+
+    {/* 三个阶段横向流程 */}
+    <div style="flex: 1; min-height: 0; display: flex; align-items: stretch; gap: 0.5rem;">
+
+      {/* ===== 阶段一：类债券 ===== */}
+      <div data-anim="0" style="flex: 1; min-width: 0; display: flex; flex-direction: column; background: #fff; border: 1px solid #e8c27a; position: relative; overflow: hidden;">
+        <div style="background: #f59e0b; color: #fff; padding: 0.8rem 1rem; display: flex; align-items: center; gap: 0.6rem;">
+          <span style="font-size: 0.7rem; opacity: 0.85; letter-spacing: 0.5px; flex-shrink: 0;">阶段 01</span>
+          <span style="font-size: 1.35rem; font-weight: 800; flex: 1;">类债券资产</span>
+        </div>
+        <div style="flex: 1; padding: 1rem; display: flex; flex-direction: column; justify-content: center; gap: 0.7rem;">
+          <div style="font-size: 1.5rem; font-weight: 800; color: #78350f;">收房租 = 利息</div>
+          <p style="margin: 0; font-size: 1.12rem; color: #57534e; line-height: 1.55;">
+            把它当成一张<strong>「长着砖头的债券」</strong>：买房靠稳定收租回本，租金就是利息。
+          </p>
+          <div style="padding: 0.5rem 0.7rem; background: #fef3cd; border-radius: 0; font-size: 1.05rem; color: #92400e; line-height: 1.4;">
+            💡 锚点是现金流 —— 现在能收多少租
+          </div>
+        </div>
+      </div>
+
+      {/* 箭头 1 */}
+      <div data-anim="1" style="align-self: center; font-size: 2rem; color: #c2410c; flex-shrink: 0; padding: 0 0.1rem;">➜</div>
+
+      {/* ===== 阶段二：衍生品特性 ===== */}
+      <div data-anim="1" style="flex: 1; min-width: 0; display: flex; flex-direction: column; background: #fff; border: 1px solid #e8c27a; position: relative; overflow: hidden;">
+        <div style="background: #d97706; color: #fff; padding: 0.8rem 1rem; display: flex; align-items: center; gap: 0.6rem;">
+          <span style="font-size: 0.7rem; opacity: 0.85; letter-spacing: 0.5px; flex-shrink: 0;">阶段 02</span>
+          <span style="font-size: 1.35rem; font-weight: 800; flex: 1;">衍生品特性</span>
+        </div>
+        <div style="flex: 1; padding: 1rem; display: flex; flex-direction: column; justify-content: center; gap: 0.7rem;">
+          <div style="font-size: 1.5rem; font-weight: 800; color: #78350f;">押注未来的城市</div>
+          <p style="margin: 0; font-size: 1.12rem; color: #57534e; line-height: 1.55;">
+            交易开始脱离当下租金，押的是<strong>「远期预期」</strong>：预设这座城市未来会有大量人口涌入。
+          </p>
+          <div style="padding: 0.5rem 0.7rem; background: #fde8c8; border-radius: 0; font-size: 1.05rem; color: #92400e; line-height: 1.4;">
+            💡 锚点变成预期 —— 以后能涨到多少
+          </div>
+        </div>
+      </div>
+
+      {/* 箭头 2 */}
+      <div data-anim="2" style="align-self: center; font-size: 2rem; color: #9a3412; flex-shrink: 0; padding: 0 0.1rem;">➜</div>
+
+      {/* ===== 阶段三：共识类资产 ===== */}
+      <div data-anim="2" style="flex: 1; min-width: 0; display: flex; flex-direction: column; background: #fff; border: 1px solid #e8c27a; position: relative; overflow: hidden;">
+        <div style="background: #c2410c; color: #fff; padding: 0.8rem 1rem; display: flex; align-items: center; gap: 0.6rem;">
+          <span style="font-size: 0.7rem; opacity: 0.85; letter-spacing: 0.5px; flex-shrink: 0;">阶段 03</span>
+          <span style="font-size: 1.35rem; font-weight: 800; flex: 1;">共识类资产</span>
+        </div>
+        <div style="flex: 1; padding: 1rem; display: flex; flex-direction: column; justify-content: center; gap: 0.7rem;">
+          <div style="font-size: 1.5rem; font-weight: 800; color: #7c2d12;">幽默的击鼓传花</div>
+          <p style="margin: 0; font-size: 1.12rem; color: #57534e; line-height: 1.55;">
+            到这里，它既不产生现金流，也未必真有人住。决定价格的是<strong>「共识」</strong>：共识在就涨，共识散就砸在手里。
+          </p>
+          <div style="padding: 0.5rem 0.7rem; background: #fde3d0; border-radius: 0; font-size: 1.05rem; color: #9a3412; line-height: 1.4;">
+            💡 与「老登资产」殊途同归
+          </div>
+        </div>
+      </div>
+    </div>
+
+    {/* 底部结论 */}
+    <div style="background: #fdf3e3; border: 1px solid #ecd4a8; border-radius: 0; padding: 0.7rem 1rem; border-left: 4px solid #9a3412; flex-shrink: 0;">
+      <div style="font-size: 0.98rem; color: #7c2d12; margin: 0; line-height: 1.5;">
+        <strong>💡 核心结论：</strong>
+        房子本身没变，但市场阶段越往后，它的身份越从<strong>「生息资产」滑向「纯共识资产」</strong>——
+        风险也随之逐级放大。
+      </div>
+    </div>
+
   </div>
-</div>
+</PresentationLayout>
 
 <Notes>
 
-WIP —— 本页稍后补充内容：讨论不动产 / 房地产作为资产的性质。
+房地产这个东西很有意思。同样一套房子，随着市场阶段的不同，它会扮演三种截然不同的资产身份。
 
-（占位笔记，后续填写）
+第一阶段，它是一个类似债券的资产。你把它当成一张长着砖头的债券来看：买房靠稳定的租金回本，租金就是利息。这时候持有者看重的是现金流 —— 现在能收多少租。
+
+第二阶段，它开始出现衍生品的特性。交易的锚点不再停留在当下的租金，而是押注一个远期预期：预设这座城市未来会有大量人口涌入。这时候价格锚定的是"以后能涨到多少"，而不是"现在能收多少租"。
+
+第三阶段，它沦为了纯粹的共识类资产 —— 而且是有点幽默的那种。它既不产生现金流，也未必真有人住。决定价格的就只有"共识"：共识在就涨，共识破裂就彻底砸在手里。走到这一步，它和前面说的"老登资产"其实是殊途同归。
+
+所以总结：房子本身没变，但市场越往后，它的身份越从"生息资产"滑向"纯共识资产"，风险也逐级放大。
+
+---
+
+补充：官方其实也在用类似的框架给住房"定性"。
+
+2026 年 7 月 13 日，国务院批复首份以"扩大消费"为核心主题的五年专项规划 ——《扩大消费"十五五"规划》。规划在"推动商品消费扩容升级"部分提出"促进大宗耐用商品消费"，并把住房消费放在这一条的首要位置，把住房与汽车、家居家电一道正式纳入"大宗耐用消费品"体系。
+
+也就是说，官方把住房从"投资品"逻辑（关心涨不涨、能不能保值增值）重新定位为"耐用消费品"逻辑（关心好不好用、能不能提升生活品质）。媒体据此报道"房子正式归入大宗耐用消费品 / 不再是投资品"。
+
+但要注意措辞：这是通过规划的分类定位实现的，并非一份单独宣布"商品房不具有投资属性"的法规定性文件。官方仍保留"房住不炒"定位，同时《规划》也承认"房地产市场持续健康发展是增加居民财产性收入的重要支撑" —— 即它并不完全否定住房的财富/财产属性，而是强调稳定与消费定位。
+
+这正好呼应本页的三阶段：当市场走到第三阶段"纯共识资产"时，官方用"回归居住/消费属性"来对冲那个"幽默的击鼓传花"。
 
 </Notes>
