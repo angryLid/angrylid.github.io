@@ -1,235 +1,90 @@
 ---
-title: "债券小故事 · 张三与李四"
-steps: 4
+title: "债券是什么 · 一张欠条"
+steps: 3
 ---
 import Notes from "@components/Notes.astro";
 import PresentationLayout from "@components/PresentationLayout.astro";
 
-<PresentationLayout title="张三借钱给李四" eyebrow="债券小故事">
-  <div style="height: 100%; position: relative;">
-    <svg viewBox="0 0 900 520" style="width: 100%; height: 100%;" xmlns="http://www.w3.org/2000/svg">
-      <defs>
-        <linearGradient id="bgGrad" x1="0%" y1="0%" x2="0%" y2="100%">
-          <stop offset="0%" stop-color="#fafafa"/>
-          <stop offset="100%" stop-color="#f0fdf4"/>
-        </linearGradient>
-        <linearGradient id="coinGrad" x1="0%" y1="0%" x2="0%" y2="100%">
-          <stop offset="0%" stop-color="#fde047"/>
-          <stop offset="100%" stop-color="#f59e0b"/>
-        </linearGradient>
-      </defs>
+<PresentationLayout title="认识生息资产 · 债券" eyebrow="债券入门">
+  <div style="height: 100%; display: flex; flex-direction: column; justify-content: flex-start; gap: 1.6rem; padding: 2rem 3rem;">
 
-      <rect x="0" y="0" width="900" height="520" rx="16" fill="url(#bgGrad)" stroke="#e5e7eb" stroke-width="1"/>
 
-      {/* ===== STEP 0: 张三和李四出场 ===== */}
-      {/* 张三（左边） */}
-      <g data-anim="0" transform="translate(180, 200)">
-        {/* 头 */}
-        <circle cx="0" cy="0" r="42" fill="#fde68a" stroke="#d97706" stroke-width="2"/>
-        {/* 眼睛 */}
-        <circle cx="-14" cy="-6" r="4" fill="#333"/>
-        <circle cx="14" cy="-6" r="4" fill="#333"/>
-        {/* 嘴 — 微笑 */}
-        <path d="M -14 12 Q 0 26 14 12" stroke="#333" stroke-width="3" fill="none" stroke-linecap="round"/>
-        {/* 头发 */}
-        <path d="M -38 -28 Q -30 -55 0 -58 Q 30 -55 38 -28 Q 35 -38 20 -42 Q 0 -48 -20 -42 Q -35 -38 -38 -28" fill="#4b3621"/>
-        {/* 身体 */}
-        <rect x="-50" y="42" width="100" height="90" rx="12" fill="#3b82f6"/>
-        {/* 衣服领子 */}
-        <path d="M -20 42 L 0 68 L 20 42 Z" fill="#2563eb"/>
-        {/* 名牌 */}
-        <rect x="-35" y="60" width="70" height="22" rx="4" fill="#fff" stroke="#93c5fd" stroke-width="1"/>
-        <text x="0" y="76" text-anchor="middle" font-size="13" font-weight="700" fill="#1e40af">张三</text>
-        {/* 钱袋图标在旁边 */}
-        <g transform="translate(-80, 80)">
-          <ellipse cx="0" cy="0" rx="28" ry="24" fill="#a16207"/>
-          <ellipse cx="0" cy="-12" rx="16" ry="8" fill="#78350f"/>
-          <text x="0" y="6" text-anchor="middle" font-size="16" font-weight="800" fill="#fde047">¥</text>
-        </g>
-      </g>
+    {/* ===== STEP 1：前提（第一行）===== */}
+    <div>
+      <div style="display: grid; grid-template-columns: 1fr; gap: 1rem;">
 
-      {/* 李四（右边） */}
-      <g data-anim="0" transform="translate(720, 200)">
-        {/* 头 */}
-        <circle cx="0" cy="0" r="42" fill="#fed7aa" stroke="#c2410c" stroke-width="2"/>
-        {/* 眼睛 */}
-        <circle cx="-14" cy="-6" r="4" fill="#333"/>
-        <circle cx="14" cy="-6" r="4" fill="#333"/>
-        {/* 嘴 — 坏笑 */}
-        <path d="M -12 10 Q 0 20 12 10" stroke="#333" stroke-width="3" fill="none" stroke-linecap="round"/>
-        {/* 头发（寸头） */}
-        <path d="M -38 -20 Q -35 -50 0 -52 Q 35 -50 38 -20" fill="#1f2937"/>
-        {/* 胡子 */}
-        <path d="M -8 18 L -4 24 M 8 18 L 4 24" stroke="#4b3621" stroke-width="2" stroke-linecap="round"/>
-        {/* 身体 */}
-        <rect x="-50" y="42" width="100" height="90" rx="12" fill="#dc2626"/>
-        {/* 衣服领子 */}
-        <path d="M -20 42 L 0 68 L 20 42 Z" fill="#b91c1c"/>
-        {/* 名牌 */}
-        <rect x="-35" y="60" width="70" height="22" rx="4" fill="#fff" stroke="#fca5a5" stroke-width="1"/>
-        <text x="0" y="76" text-anchor="middle" font-size="13" font-weight="700" fill="#991b1b">李四</text>
-        {/* 空口袋 */}
-        <g transform="translate(80, 80)">
-          <ellipse cx="0" cy="0" rx="28" ry="24" fill="#6b7280" opacity="0.3" stroke="#6b7280" stroke-width="2" stroke-dasharray="4 3"/>
-          <text x="0" y="6" text-anchor="middle" font-size="12" fill="#6b7280" font-weight="600">空空</text>
-        </g>
-      </g>
+        {/* 前提 行，第一步出现 */}
+        <div data-anim="0" style="display: flex; align-items: center; justify-content: space-between; gap: 1rem; padding: 1rem 1.8rem; background: #fffdf4; border: 1px solid #e7e0cd; box-shadow: 0 4px 12px rgba(30, 41, 59, .06);">
+          <div style="font-size: 1.05rem; font-weight: 800; color: #1e293b;">前提</div>
 
-      {/* 标题文字 */}
-      <text data-anim="0" x="450" y="70" text-anchor="middle" font-size="22" font-weight="700" fill="#333">张三有 100 元，李四需要借钱</text>
+          {/* 示意图：张三愁眉苦脸 → 李四笑脸 */}
+          <div style="flex: 1; display: flex; align-items: center; justify-content: center; gap: 1.2rem;">
+            <div style="text-align: center;">
+              <div style="font-size: 2.6rem;">😟</div>
+              <div style="font-size: .85rem; font-weight: 700; color: #334155; margin-top: .2rem;">张三</div>
+              <div style="font-size: .8rem; color: #64748b;">出借 · 愁眉苦脸</div>
+            </div>
+            <div style="text-align: center; line-height: 1;">
+              <div style="font-size: 1.5rem; color: #b45309; font-weight: 800;">¥100</div>
+              <div style="font-size: 1.8rem; color: #f59e0b;">→</div>
+            </div>
+            <div style="text-align: center;">
+              <div style="font-size: 2.6rem;">😊</div>
+              <div style="font-size: .85rem; font-weight: 700; color: #334155; margin-top: .2rem;">李四</div>
+              <div style="font-size: .8rem; color: #64748b;">借到 · 笑脸</div>
+            </div>
+          </div>
 
-      {/* ===== STEP 1: 张三借钱给李四 ===== */}
-      {/* 借条飘出来 */}
-      <g data-anim="1" transform="translate(450, 150)">
-        <rect x="-55" y="-35" width="110" height="70" rx="6" fill="#fef3c7" stroke="#f59e0b" stroke-width="2"/>
-        <line x1="-55" y1="-18" x2="55" y2="-18" stroke="#f59e0b" stroke-width="1" stroke-dasharray="3 2"/>
-        <text x="0" y="-6" text-anchor="middle" font-size="13" font-weight="700" fill="#92400e">借 条</text>
-        <text x="0" y="14" text-anchor="middle" font-size="12" fill="#78350f">借款：¥100</text>
-        <text x="0" y="28" text-anchor="middle" font-size="11" fill="#78350f">期限：1 年</text>
-      </g>
+          <div style="font-size: .9rem; color: #94a3b8; white-space: nowrap;">约定 1 年后还</div>
+        </div>
 
-      {/* 箭头：钱从张三到李四 */}
-      <g data-anim="1">
-        <path d="M 260 240 Q 450 180 640 240" stroke="#22c55e" stroke-width="4" fill="none" stroke-dasharray="8 4" stroke-linecap="round" marker-end="url(#arrowGreen)"/>
-        <g transform="translate(450, 205)">
-          <circle cx="0" cy="0" r="22" fill="url(#coinGrad)" stroke="#d97706" stroke-width="2"/>
-          <text x="0" y="7" text-anchor="middle" font-size="20" font-weight="800" fill="#78350f">¥</text>
-        </g>
-      </g>
+        {/* 结果 行 */}
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
 
-      <defs>
-        <marker id="arrowGreen" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="8" markerHeight="8" orient="auto">
-          <path d="M 0 0 L 10 5 L 0 10 z" fill="#22c55e"/>
-        </marker>
-      </defs>
+          {/* 结果 1：赖账，第二步出现 */}
+          <div data-anim="1" style="border: 2px dashed #fca5a5; background: #fef2f2; padding: 1rem 1.4rem; text-align: center; position: relative; overflow: hidden;">
+            <div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%) rotate(-16deg); font-size: 2.6rem; font-weight: 900; color: rgba(220,38,38,.16); letter-spacing: .18em; white-space: nowrap;">作　废</div>
+            <div style="font-size: 1.05rem; font-weight: 800; color: #dc2626; margin-bottom: .6rem;">结果 1 · 李四赖账</div>
+            <div style="display: flex; justify-content: space-around;">
+              <div>
+                <div style="font-size: 1.8rem;">😏</div>
+                <div style="font-weight: 800; color: #16a34a; font-size: 1.15rem;">+¥100</div>
+                <div style="color: #334155; font-weight: 700; margin-top: .2rem;">李四</div>
+                <div style="color: #16a34a; font-size: .9rem;">赖账得手</div>
+              </div>
+              <div>
+                <div style="font-size: 1.8rem;">😭</div>
+                <div style="font-weight: 800; color: #dc2626; font-size: 1.15rem;">−¥100</div>
+                <div style="color: #334155; font-weight: 700; margin-top: .2rem;">张三</div>
+                <div style="color: #dc2626; font-size: .9rem;">血本无归</div>
+              </div>
+            </div>
+          </div>
 
-      <text data-anim="1" x="450" y="420" text-anchor="middle" font-size="20" font-weight="700" fill="#16a34a">张三借给李四 100 元，约定 1 年后归还</text>
+          {/* 结果 2：还本付息，第三步出现 */}
+          <div data-anim="2" style="border: 2px solid #86efac; background: #f0fdf4; padding: 1rem 1.4rem; text-align: center;">
+            <div style="font-size: 1.05rem; font-weight: 800; color: #16a34a; margin-bottom: .6rem;">结果 2 · 还本付息</div>
+            <div style="display: flex; justify-content: space-around; align-items: center; gap: .6rem;">
+              <div style="text-align: center;">
+                <div style="font-size: 1.7rem;">🙂</div>
+                <div style="color: #334155; font-size: .95rem; font-weight: 700; margin-top: .2rem;">李四</div>
+                <div style="color: #475569; font-size: .9rem;">还本金 ¥100</div>
+                <div style="color: #475569; font-size: .9rem;">付利息 <span style="font-weight: 800; color: #16a34a;">¥10</span></div>
+              </div>
+              <div style="font-size: 1.6rem; color: #16a34a;">⟶</div>
+              <div style="text-align: center;">
+                <div style="font-size: 1.7rem;">😄</div>
+                <div style="color: #334155; font-size: .95rem; font-weight: 700; margin-top: .2rem;">张三</div>
+                <div style="color: #16a34a; font-size: .95rem; font-weight: 800;">净赚 ¥10 利息</div>
+              </div>
+            </div>
+          </div>
 
-      {/* ===== STEP 2: 结局 A — 赖账 ===== */}
-      <g data-anim="2">
-        {/* 左侧变暗遮罩表示"结局A"场景 */}
-        <rect x="20" y="120" width="420" height="320" rx="12" fill="#fef2f2" stroke="#fca5a5" stroke-width="2" stroke-dasharray="6 3"/>
-        <text x="230" y="150" text-anchor="middle" font-size="16" font-weight="700" fill="#dc2626">结局 A：李四赖账 💸</text>
+        </div>
+      </div>
 
-        {/* 张三 — 哭 */}
-        <g transform="translate(130, 260)">
-          <circle cx="0" cy="0" r="36" fill="#fde68a" stroke="#d97706" stroke-width="2"/>
-          {/* 哭的眼睛 */}
-          <path d="M -14 -6 Q -10 -1 -6 -6" stroke="#333" stroke-width="2.5" fill="none" stroke-linecap="round"/>
-          <path d="M 6 -6 Q 10 -1 14 -6" stroke="#333" stroke-width="2.5" fill="none" stroke-linecap="round"/>
-          {/* 眼泪 */}
-          <ellipse cx="-16" cy="10" rx="4" ry="7" fill="#60a5fa"/>
-          <ellipse cx="16" cy="10" rx="4" ry="7" fill="#60a5fa"/>
-          {/* 嘴 — 难过 */}
-          <path d="M -12 20 Q 0 10 12 20" stroke="#333" stroke-width="2.5" fill="none" stroke-linecap="round"/>
-          {/* 头发 */}
-          <path d="M -32 -22 Q -25 -46 0 -48 Q 25 -46 32 -22 Q 30 -32 16 -36 Q 0 -42 -16 -36 Q -30 -32 -32 -22" fill="#4b3621"/>
-          {/* 身体 */}
-          <rect x="-42" y="36" width="84" height="72" rx="10" fill="#3b82f6"/>
-          <text x="0" y="128" text-anchor="middle" font-size="13" font-weight="700" fill="#1e40af">张三</text>
-          {/* 空钱袋 */}
-          <g transform="translate(55, 60)">
-            <ellipse cx="0" cy="0" rx="22" ry="18" fill="#6b7280" opacity="0.4" stroke="#6b7280" stroke-width="2" stroke-dasharray="3 2"/>
-            <text x="0" y="5" text-anchor="middle" font-size="10" fill="#6b7280" font-weight="600">空了</text>
-          </g>
-        </g>
+    </div>
 
-        {/* 李四 — 得意地跑了 */}
-        <g transform="translate(330, 260)">
-          <circle cx="0" cy="0" r="36" fill="#fed7aa" stroke="#c2410c" stroke-width="2"/>
-          {/* 坏笑眼睛 */}
-          <path d="M -14 -8 L -6 -2" stroke="#333" stroke-width="2.5" stroke-linecap="round"/>
-          <path d="M 14 -8 L 6 -2" stroke="#333" stroke-width="2.5" stroke-linecap="round"/>
-          {/* 得意的嘴 */}
-          <path d="M -14 8 Q 0 24 14 8" stroke="#333" stroke-width="2.5" fill="none" stroke-linecap="round"/>
-          {/* 头发 */}
-          <path d="M -32 -16 Q -30 -42 0 -44 Q 30 -42 32 -16" fill="#1f2937"/>
-          {/* 身体 */}
-          <rect x="-42" y="36" width="84" height="72" rx="10" fill="#dc2626"/>
-          <text x="0" y="128" text-anchor="middle" font-size="13" font-weight="700" fill="#991b1b">李四</text>
-          {/* 满满钱袋 */}
-          <g transform="translate(55, 60)">
-            <ellipse cx="0" cy="0" rx="24" ry="20" fill="#a16207"/>
-            <ellipse cx="0" cy="-10" rx="13" ry="6" fill="#78350f"/>
-            <text x="0" y="5" text-anchor="middle" font-size="13" font-weight="800" fill="#fde047">¥</text>
-          </g>
-        </g>
-
-        {/* 结果标签 */}
-        <rect x="60" y="405" width="130" height="28" rx="14" fill="#fee2e2" stroke="#fca5a5" stroke-width="1"/>
-        <text x="125" y="424" text-anchor="middle" font-size="13" font-weight="700" fill="#dc2626">张三：-¥100 💔</text>
-
-        <rect x="270" y="405" width="130" height="28" rx="14" fill="#dcfce7" stroke="#86efac" stroke-width="1"/>
-        <text x="335" y="424" text-anchor="middle" font-size="13" font-weight="700" fill="#16a34a">李四：+¥100 😏</text>
-      </g>
-
-      {/* ===== STEP 3: 结局 B — 还本付息 ===== */}
-      <g data-anim="3">
-        {/* 右侧高亮遮罩表示"结局B"场景 */}
-        <rect x="460" y="120" width="420" height="320" rx="12" fill="#f0fdf4" stroke="#86efac" stroke-width="2"/>
-        <text x="670" y="150" text-anchor="middle" font-size="16" font-weight="700" fill="#16a34a">结局 B：还本付息 ✅</text>
-
-        {/* 箭头：钱+利息从李四回到张三 */}
-        <g>
-          <path d="M 760 280 Q 600 230 540 280" stroke="#22c55e" stroke-width="4" fill="none" stroke-dasharray="8 4" stroke-linecap="round" marker-end="url(#arrowGreen)"/>
-          <g transform="translate(630, 245)">
-            <circle cx="-18" cy="0" r="18" fill="url(#coinGrad)" stroke="#d97706" stroke-width="2"/>
-            <text x="-18" y="6" text-anchor="middle" font-size="16" font-weight="800" fill="#78350f">¥</text>
-            <circle cx="18" cy="8" r="14" fill="url(#coinGrad)" stroke="#d97706" stroke-width="2"/>
-            <text x="18" y="13" text-anchor="middle" font-size="13" font-weight="800" fill="#78350f">¥</text>
-          </g>
-          <text x="640" y="218" text-anchor="middle" font-size="13" font-weight="700" fill="#16a34a">¥110（本金+利息）</text>
-        </g>
-
-        {/* 张三 — 开心收钱 */}
-        <g transform="translate(530, 320)">
-          <circle cx="0" cy="0" r="36" fill="#fde68a" stroke="#d97706" stroke-width="2"/>
-          {/* 笑眼 */}
-          <path d="M -16 -4 Q -10 -14 -4 -4" stroke="#333" stroke-width="2.5" fill="none" stroke-linecap="round"/>
-          <path d="M 16 -4 Q 10 -14 4 -4" stroke="#333" stroke-width="2.5" fill="none" stroke-linecap="round"/>
-          {/* 开心的嘴 */}
-          <path d="M -14 8 Q 0 28 14 8" stroke="#333" stroke-width="2.5" fill="none" stroke-linecap="round"/>
-          {/* 头发 */}
-          <path d="M -32 -22 Q -25 -46 0 -48 Q 25 -46 32 -22 Q 30 -32 16 -36 Q 0 -42 -16 -36 Q -30 -32 -32 -22" fill="#4b3621"/>
-          {/* 身体 */}
-          <rect x="-42" y="36" width="84" height="72" rx="10" fill="#3b82f6"/>
-          <text x="0" y="128" text-anchor="middle" font-size="13" font-weight="700" fill="#1e40af">张三</text>
-          {/* 鼓起来的钱袋 */}
-          <g transform="translate(55, 55)">
-            <ellipse cx="0" cy="0" rx="26" ry="22" fill="#a16207"/>
-            <ellipse cx="0" cy="-11" rx="15" ry="7" fill="#78350f"/>
-            <text x="0" y="6" text-anchor="middle" font-size="14" font-weight="800" fill="#fde047">¥</text>
-          </g>
-        </g>
-
-        {/* 李四 — 守信 */}
-        <g transform="translate(770, 320)">
-          <circle cx="0" cy="0" r="36" fill="#fed7aa" stroke="#c2410c" stroke-width="2"/>
-          {/* 正常眼睛 */}
-          <circle cx="-12" cy="-4" r="3.5" fill="#333"/>
-          <circle cx="12" cy="-4" r="3.5" fill="#333"/>
-          {/* 微笑 */}
-          <path d="M -10 12 Q 0 22 10 12" stroke="#333" stroke-width="2.5" fill="none" stroke-linecap="round"/>
-          {/* 头发 */}
-          <path d="M -32 -16 Q -30 -42 0 -44 Q 30 -42 32 -16" fill="#1f2937"/>
-          {/* 身体 */}
-          <rect x="-42" y="36" width="84" height="72" rx="10" fill="#dc2626"/>
-          <text x="0" y="128" text-anchor="middle" font-size="13" font-weight="700" fill="#991b1b">李四</text>
-          {/* 守信徽章 */}
-          <g transform="translate(-55, 55)">
-            <circle cx="0" cy="0" r="18" fill="#fef3c7" stroke="#f59e0b" stroke-width="2"/>
-            <text x="0" y="6" text-anchor="middle" font-size="16">👍</text>
-          </g>
-        </g>
-
-        {/* 结果标签 */}
-        <rect x="490" y="405" width="140" height="28" rx="14" fill="#dcfce7" stroke="#86efac" stroke-width="1"/>
-        <text x="560" y="424" text-anchor="middle" font-size="13" font-weight="700" fill="#16a34a">张三：+¥10 利息 💰</text>
-
-        <rect x="710" y="405" width="140" height="28" rx="14" fill="#fef3c7" stroke="#fcd34d" stroke-width="1"/>
-        <text x="780" y="424" text-anchor="middle" font-size="13" font-weight="700" fill="#b45309">李四：信用++ ⭐</text>
-      </g>
-    </svg>
   </div>
 </PresentationLayout>
 
