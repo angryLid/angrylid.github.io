@@ -34,7 +34,7 @@
 }
 
 .defBody {
-  font-size: 1.15rem;
+  font-size: 1.35rem;
   color: #6b5416;
   line-height: 1.55;
 }
@@ -70,11 +70,6 @@
   font-weight: 800;
 }
 
-.panelTitleSmall {
-  font-size: 1.1rem;
-  font-weight: 800;
-}
-
 .panelTitleEn {
   font-size: 0.85rem;
   color: #f5f0e8;
@@ -93,28 +88,15 @@
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 0.4rem 0.6rem;
+  margin-top: 0.8rem;
 }
 
 .darkChip {
   background: rgba(255, 255, 255, 0.12);
   color: #fff;
   padding: 0.3rem 0.7rem;
-  font-size: 0.95rem;
+  font-size: 1.14rem;
   text-align: center;
-}
-
-.darkChipSmall {
-  background: rgba(255, 255, 255, 0.1);
-  color: #fff;
-  padding: 0.3rem 0.7rem;
-  font-size: 0.85rem;
-  text-align: center;
-}
-
-.darkChipWrap {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.35rem;
 }
 
 .sectionHeader {
@@ -142,58 +124,48 @@
   position: relative;
   display: flex;
   flex-direction: column;
-  overflow: hidden;
 }
 
+/* Top-left horizontal ribbon badge with the feature number.
+   Left edge is straight/vertical; right edge tapers to a "<" chevron. */
 .featureHeader {
   background: #4a7c59;
   color: #fff;
   padding: 0.8rem 1rem;
   display: flex;
   align-items: center;
-  gap: 0.6rem;
-}
-
-.featureHeaderTitle {
-  display: flex;
-  align-items: baseline;
-  gap: 0.5rem;
-}
-
-.featureIndex {
-  font-size: 0.7rem;
-  opacity: 0.7;
-  letter-spacing: 0.5px;
-}
-
-.featureTitle {
   font-size: 1.4rem;
   font-weight: 800;
 }
-
 .featureBody {
   flex: 1;
   padding: 0.9rem 1rem;
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  gap: 0.6rem;
+  justify-content: flex-start;
+  gap: 0.55rem;
 }
 
-.featureCheckText {
-  font-size: 1.26rem;
+.featureItem {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.5rem;
+  font-size: 1.2rem;
   color: #463a2a;
-  line-height: 1.5;
+  line-height: 1.45;
+  padding-left: 0.4rem;
+  word-break: break-word;
+  overflow-wrap: anywhere;
 }
 
-/* Lightbox tip inside feature card */
-.tipBox {
-  margin-top: 0.3rem;
-  padding: 0.5rem 0.7rem;
-  background: #e9f0e6;
-  font-size: 1.4rem;
-  color: #3a5c45;
-  line-height: 1.4;
+.featureItem::before {
+  content: "";
+  flex-shrink: 0;
+  width: 0.5rem;
+  height: 0.5rem;
+  margin-top: 0.55rem;
+  background: #4a7c59;
+  border-radius: 50%;
 }
 
 /* ---- Bottom conclusion footer ---- */

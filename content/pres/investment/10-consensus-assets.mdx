@@ -1,5 +1,5 @@
 ---
-title: "共识类资产 · 老登资产"
+title: "共识类资产 · 长者资产"
 steps: 1
 ---
 import Notes from "@components/Notes.astro";
@@ -7,7 +7,7 @@ import PresentationLayout from "@components/PresentationLayout.astro";
 import shared from "./styles/shared.module.css";
 import styles from "./styles/10-consensus-assets.module.css";
 
-<PresentationLayout title="老登资产" eyebrow="共识类资产" narrow>
+<PresentationLayout title="长者资产" eyebrow="共识类资产" narrow>
   <div class={styles.root}>
 
     {/* 顶部核心定义 */}
@@ -21,18 +21,21 @@ import styles from "./styles/10-consensus-assets.module.css";
       </div>
 
       <div class={styles.darkPanel}>
-        {/* 老登资产 列 */}
+        {/* 长者资产 列 */}
         <div class={styles.panelCol}>
           <div>
             <div class={styles.panelLabel}>典型代表</div>
             <div class={styles.panelTitleLaodeng}>
-              老登资产 <span class={styles.panelTitleEn}>Laodeng Assets</span>
+              长者资产 <span class={styles.panelTitleEn}>Laodeng Assets</span>
             </div>
           </div>
           <div class={styles.darkChipGrid}>
             <span class={styles.darkChip}>玉石</span>
-            <span class={styles.darkChip}>邮票</span>
+
             <span class={styles.darkChip}>文玩字画</span>
+            <span class={styles.darkChip}>名茶名酒</span>
+            <span class={styles.darkChip}>邮票</span>
+            <span class={styles.darkChip}>天珠佛牌</span>
             <span class={styles.darkChip}>红木家具</span>
           </div>
         </div>
@@ -44,12 +47,17 @@ import styles from "./styles/10-consensus-assets.module.css";
         <div class={styles.panelCol}>
           <div>
             <div class={styles.panelLabel}>年轻一代版本</div>
-            <div class={styles.panelTitleSmall}>小登资产</div>
+            <div class={styles.panelTitleLaodeng}>
+              小登资产 <span class={styles.panelTitleEn}>Xiaodeng Assets</span>
+            </div>
           </div>
-          <div class={styles.darkChipWrap}>
-            <span class={styles.darkChipSmall}>限量球鞋</span>
-            <span class={styles.darkChipSmall}>谷子</span>
-            <span class={styles.darkChipSmall}>游戏卡牌</span>
+          <div class={styles.darkChipGrid}>
+            <span class={styles.darkChip}>限量球鞋</span>
+            <span class={styles.darkChip}>谷子</span>
+            <span class={styles.darkChip}>游戏卡牌</span>
+            <span class={styles.darkChip}>潮玩盲盒</span>
+            <span class={styles.darkChip}>手办</span>
+            <span class={styles.darkChip}>绝版乐高</span>
           </div>
         </div>
       </div>
@@ -64,73 +72,31 @@ import styles from "./styles/10-consensus-assets.module.css";
     <div class={styles.featureGrid}>
         {/* 特性1 */}
         <div class={styles.featureCard}>
-          <div class={styles.featureHeader}>
-            <div class={shared.iconBadge}>🛠️</div>
-            <div class={styles.featureHeaderTitle}>
-              <span class={styles.featureIndex}>01</span>
-              <span class={styles.featureTitle}>实用价值</span>
-            </div>
-          </div>
+          <div class={styles.featureHeader}>🛠️ 实用价值</div>
           <div class={styles.featureBody}>
-            <div class={shared.checkRow}>
-              <span class={shared.checkMark}>✓</span>
-              <span class={styles.featureCheckText}>不是凭空炒作的无用之物</span>
-            </div>
-            <div class={shared.checkRow}>
-              <span class={shared.checkMark}>✓</span>
-              <span class={styles.featureCheckText}>本身具备实际功能和用途</span>
-            </div>
-            <div class={styles.tipBox}>
-              💡 能用，是共识的基础底线
-            </div>
+            <div class={styles.featureItem}>能入口食用</div>
+            <div class={styles.featureItem}>或能上手把玩</div>
+            <div class={styles.featureItem}>或有观赏价值</div>
           </div>
         </div>
 
         {/* 特性2 */}
         <div class={styles.featureCard}>
-          <div class={styles.featureHeader}>
-            <div class={shared.iconBadge}>✨</div>
-            <div class={styles.featureHeaderTitle}>
-              <span class={styles.featureIndex}>02</span>
-              <span class={styles.featureTitle}>稀缺性</span>
-            </div>
-          </div>
+          <div class={styles.featureHeader}>✨ 稀缺性</div>
           <div class={styles.featureBody}>
-            <div class={shared.checkRow}>
-              <span class={shared.checkMark}>✓</span>
-              <span class={styles.featureCheckText}>不是唾手可得的普通商品</span>
-            </div>
-            <div class={shared.checkRow}>
-              <span class={shared.checkMark}>✓</span>
-              <span class={styles.featureCheckText}>物以稀为贵的心理基础</span>
-            </div>
-            <div class={styles.tipBox}>
-              💡 越少，越让人觉得值钱
-            </div>
+            <div class={styles.featureItem}>天然产量不足</div>
+            <div class={styles.featureItem}>或人为控制产量</div>
+            <div class={styles.featureItem}>或人造手段无法仿造天然品的瑕疵</div>
           </div>
         </div>
 
         {/* 特性3 */}
         <div class={styles.featureCard}>
-          <div class={styles.featureHeader}>
-            <div class={shared.iconBadge}>🏺</div>
-            <div class={styles.featureHeaderTitle}>
-              <span class={styles.featureIndex}>03</span>
-              <span class={styles.featureTitle}>可长期保存</span>
-            </div>
-          </div>
+          <div class={styles.featureHeader}>🏺 可长期保存</div>
           <div class={styles.featureBody}>
-            <div class={shared.checkRow}>
-              <span class={shared.checkMark}>✓</span>
-              <span class={styles.featureCheckText}>不会轻易损坏或变质</span>
-            </div>
-            <div class={shared.checkRow}>
-              <span class={shared.checkMark}>✓</span>
-              <span class={styles.featureCheckText}>能够跨越代际传递下去</span>
-            </div>
-            <div class={styles.tipBox}>
-              💡 传得久，共识才稳
-            </div>
+            <div class={styles.featureItem}>若妥善保管，能送主人走</div>
+            <div class={styles.featureItem}>随时间流逝，使用价值折损轻微</div>
+            <div class={styles.featureItem}>有些甚至还会增加</div>
           </div>
         </div>
       </div>
@@ -158,13 +124,13 @@ import styles from "./styles/10-consensus-assets.module.css";
 
 包括但不限于玉石，邮票，文玩字画，红木家具。无数案例证明，这类东西短期内共识会扩大，但是拉长时间线看无一例外都要砸手里。
 
-年轻人把这类上一辈炒作的东西称作是"老登资产"。当然小登自己手上也有一些像是限量球鞋，谷子，游戏卡牌这种 20 后肯定不会接盘的东西。
+年轻人把这类上一辈炒作的东西称作是"长者资产"。当然小登自己手上也有一些像是限量球鞋，谷子，游戏卡牌这种 20 后肯定不会接盘的东西。
 
 那么，为什么这些东西能够产生共识呢？
 我们可以抽象出这些东西的三大特性。
 
-1. 比如说他们有一定的实用价值；
-2. 有一定的稀缺性；
+1. 比如说他们有一定的实用价值；要么是能吃的，要么是能用的。还有一种神奇的小贴纸，一面是有字的，你可以用舌头舔一下没有字的那一面，然后打开手机微信给你想联系的人发消息。
+2. 有一定的稀缺性；这种东西要么天然产量不足，要么是人为控制产量。或者是人造的技术太好了，造不出来天然品的那种瑕疵
 3. 而且总体来说是可以长期保存的。
 
 但是归根结底，这三大属性也只能让这些东西比一般的消费品更保值。
