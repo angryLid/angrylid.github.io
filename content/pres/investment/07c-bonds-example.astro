@@ -1,0 +1,167 @@
+---
+import PresentationLayout from "@components/PresentationLayout.astro";
+---
+
+<PresentationLayout title="从借据到债券" eyebrow="生息资产" narrow>
+  <div class="root">
+
+    {/* ===== STEP 1：前提（第一行）===== */}
+    <div data-anim="0" class="premiseRow">
+      <div class="premiseText">张三借给李四 100 元,约定一年后归还</div>
+
+      {/* 示意图：张三愁眉苦脸 → 李四笑脸 */}
+      <div class="transfer">
+        <div class="person">
+          <div class="personEmoji">😟</div>
+          <div class="personName">张三</div>
+        </div>
+        <div class="transferAmount">
+          <div class="amountNum">¥100</div>
+          <div class="amountArrow">→</div>
+        </div>
+        <div class="person">
+          <div class="personEmoji">😊</div>
+          <div class="personName">李四</div>
+        </div>
+      </div>
+    </div>
+
+    {/* ===== 结果 1：赖账，第二步出现 ===== */}
+    <div data-anim="1" class="resultDefault">
+      于是李四就通过赖账的方式赚到了 100 元,
+      <del>这就是债券赚钱的原理</del>
+    </div>
+
+    {/* 结果 2：还本付息，第三步出现 */}
+    <div data-anim="2" class="resultRepay">
+      <div class="resultTitleGreen">好结果 · 还本付息</div>
+      <div class="transfer">
+        <div class="person">
+          <div class="personEmoji">😄</div>
+          <div class="personName">张三</div>
+        </div>
+        <div class="transferAmount">
+          <div class="amountNum">¥110</div>
+          <div class="amountArrow">←</div>
+        </div>
+        <div class="person">
+          <div class="personEmoji">🙂</div>
+          <div class="personName">李四</div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</PresentationLayout>
+
+<style>
+  .root {
+    height: 100%;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr auto;
+    gap: 1rem;
+  }
+
+  /* 前提 row */
+  .premiseRow {
+    grid-column: 1;
+    grid-row: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    justify-content: flex-start;
+    gap: 1.2rem;
+    padding: 1rem 1.8rem;
+    background: #fffdf4;
+    border: 1px solid #e7e0cd;
+    box-shadow: 0 2px 6px rgba(30, 41, 59, 0.04);
+  }
+
+  .premiseText {
+    order: 2;
+    font-size: 1.5rem;
+    font-weight: 800;
+    color: #1e293b;
+    text-align: center;
+  }
+
+  /* Person diagram */
+  .transfer {
+    order: 1;
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 2.5rem;
+  }
+
+  .person {
+    text-align: center;
+  }
+
+  .personEmoji {
+    font-size: 4.4rem;
+  }
+
+  .personName {
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: #334155;
+    margin-top: 0.2rem;
+  }
+
+  .transferAmount {
+    text-align: center;
+    line-height: 1;
+  }
+
+  .amountNum {
+    font-size: 2.5rem;
+    color: #b45309;
+    font-weight: 800;
+  }
+
+  .amountArrow {
+    font-size: 3.1rem;
+    color: #f59e0b;
+  }
+
+  /* Result 1: default */
+  .resultDefault {
+    grid-column: 1 / -1;
+    grid-row: 2;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.4rem;
+    border: 2px dashed #fca5a5;
+    background: #fef2f2;
+    padding: 0.6rem 1rem;
+    font-size: 1.5rem;
+    color: #b91c1c;
+  }
+
+  /* Result 2: repay */
+  .resultRepay {
+    grid-column: 2;
+    grid-row: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    justify-content: flex-start;
+    gap: 1.2rem;
+    border: 2px solid #86efac;
+    background: #f0fdf4;
+    padding: 1rem 1.4rem;
+    text-align: center;
+  }
+
+  .resultTitleGreen {
+    order: 2;
+    font-size: 1.5rem;
+    font-weight: 800;
+    color: #16a34a;
+    text-align: center;
+  }
+</style>
