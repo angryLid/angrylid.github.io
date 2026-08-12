@@ -66,6 +66,7 @@
 
 /* Bottom one-line summary */
 .summaryBox {
+  margin-top: auto;
   padding: 0.7rem 1.2rem;
   background: #fef2f2;
   border: 1px dashed #e5b8b3;
