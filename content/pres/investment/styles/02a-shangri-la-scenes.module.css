@@ -8,14 +8,14 @@
 
 /* Photo 1 — base layer */
 .photo1 {
-  top: 100px;
+  top: 50px;
   left: 300px;
   z-index: 1;
 }
 
 /* Photo 2 — slight rotate */
 .photo2 {
-  top: 95px;
+  top: 45px;
   left: 325px;
   transform: rotate(2.5deg);
   z-index: 2;
@@ -23,7 +23,7 @@
 
 /* Photo 3 — more rotate */
 .photo3 {
-  top: 110px;
+  top: 60px;
   left: 285px;
   transform: rotate(5deg);
   z-index: 3;
@@ -31,7 +31,7 @@
 
 /* Photo 4 — negative rotate */
 .photo4 {
-  top: 95px;
+  top: 45px;
   left: 340px;
   transform: rotate(-2deg);
   z-index: 4;

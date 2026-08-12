@@ -7,10 +7,8 @@ import PresentationLayout from "@components/PresentationLayout.astro";
 import moutaiChart from "./assets/moutai-chart.svg";
 import styles from "./styles/05-moutai-case.module.css";
 
-<PresentationLayout title="案例：贵州茅台">
-  <div class={styles.chartWrap}>
-    <img src={moutaiChart.src} alt="贵州茅台月线收盘价" class={styles.chart} />
-  </div>
+<PresentationLayout title="贵州茅台月线收盘价" reverse narrow>
+  <img src={moutaiChart.src} alt="贵州茅台月线收盘价" class={styles.chart} />
 </PresentationLayout>
 
 <Notes>
