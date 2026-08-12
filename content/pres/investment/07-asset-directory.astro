@@ -1,0 +1,227 @@
+---
+import PresentationLayout from "@components/PresentationLayout.astro";
+
+const categories = [
+  {
+    className: "catGreen",
+    borderClass: "itemBorderGreen",
+    titleClass: "catTitleGOOD",
+    subtitleClass: "catSubGreen",
+    emoji: "💰",
+    title: "生息资产",
+    subtitle: "能持续产生现金流",
+    items: [
+      { emoji: "📜", title: "债券", description: "固定收益，到期还本" },
+      { emoji: "📈", title: "股票（红利股）", description: "分红派息，分享成长" },
+    ],
+  },
+  {
+    className: "catAmber",
+    borderClass: "itemBorderAmber",
+    titleClass: "catTitleAmber",
+    subtitleClass: "catSubAmber",
+    emoji: "🪙",
+    title: "共识类资产",
+    subtitle: "价值来自集体认同",
+    items: [
+      { emoji: "👴", title: "长者资产", description: "代代相传的价值储存" },
+      { emoji: "🔶", title: "黄金", description: "千年硬通货" },
+    ],
+  },
+  {
+    className: "catRed",
+    borderClass: "itemBorderRed",
+    titleClass: "catTitleRed",
+    subtitleClass: "catSubRed",
+    emoji: "🎯",
+    title: "衍生品",
+    subtitle: "价值依附于标的资产",
+    items: [
+      { emoji: "🎭", title: "期权 / 期货", description: "杠杆放大，风险倍增" },
+      {
+        emoji: "⚖️",
+        title: "更多品种…",
+        description: "互换、掉期、结构化产品",
+        dim: true,
+      },
+    ],
+  },
+  {
+    className: "catBlue",
+    borderClass: "itemBorderBlue",
+    titleClass: "catTitleBlue",
+    subtitleClass: "catSubBlue",
+    emoji: "📈",
+    title: "成长股 & 不动产",
+    subtitle: "价值来自未来增长",
+    items: [
+      { emoji: "🚀", title: "成长股", description: "押注未来高增长" },
+      { emoji: "🏠", title: "不动产", description: "区位 & 流动性溢价" },
+    ],
+  },
+];
+---
+
+<PresentationLayout title="资产的分类" narrow>
+  <div class="root">
+    {categories.map((category) => (
+      <div class:list={["catCard", category.className]}>
+        <div class="catHeader itemCard">
+          <span class="catEmoji" role="img" aria-label={category.title}>{category.emoji}</span>
+          <div>
+            <p class={category.titleClass}>{category.title}</p>
+            <p class={category.subtitleClass}>{category.subtitle}</p>
+          </div>
+        </div>
+        {category.items.map((item) => (
+          <div class:list={[item.dim ? "itemCardDim" : "itemCard", category.borderClass]}>
+            <span class="itemEmoji">{item.emoji}</span>
+            <div class="itemText">
+              <p class="itemTitle">{item.title}</p>
+              <p class="itemDesc">{item.description}</p>
+            </div>
+          </div>
+        ))}
+      </div>
+    ))}
+  </div>
+</PresentationLayout>
+
+<style>
+  .root {
+    --surface: #fff;
+    --text: #333;
+    --muted-text: #888;
+    --shadow: rgba(0, 0, 0, 0.05);
+    --green: #166534;
+    --green-sub: #15803d;
+    --green-border: #27ae60;
+    --amber: #9a3412;
+    --amber-sub: #b45309;
+    --amber-border: #ea580c;
+    --red: #991b1b;
+    --red-sub: #b91c1c;
+    --red-border: #dc2626;
+    --blue: #1e40af;
+    --blue-sub: #2563eb;
+    --blue-border: #2563eb;
+    height: 100%;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr 1fr;
+    gap: 1.1rem;
+  }
+
+  .catCard {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    padding: 0.9rem 1.1rem;
+  }
+
+  .catGreen,
+  .catAmber,
+  .catRed,
+  .catBlue {
+    background: transparent;
+  }
+
+  .catGreen {
+    --accent: var(--green);
+    --sub-accent: var(--green-sub);
+    --border-accent: var(--green-border);
+  }
+
+  .catAmber {
+    --accent: var(--amber);
+    --sub-accent: var(--amber-sub);
+    --border-accent: var(--amber-border);
+  }
+
+  .catRed {
+    --accent: var(--red);
+    --sub-accent: var(--red-sub);
+    --border-accent: var(--red-border);
+  }
+
+  .catBlue {
+    --accent: var(--blue);
+    --sub-accent: var(--blue-sub);
+    --border-accent: var(--blue-border);
+  }
+
+  .catEmoji {
+    font-size: 1.728rem;
+    line-height: 1;
+  }
+
+  .catCard .catHeader.itemCard {
+    flex-grow: 2;
+    background: linear-gradient(
+      to right,
+      var(--accent) 0 3px,
+      color-mix(in srgb, var(--accent) 10%, transparent) 3px,
+      color-mix(in srgb, var(--accent) 5%, transparent) 100%
+    );
+  }
+
+  .catTitleGOOD,
+  .catTitleAmber,
+  .catTitleRed,
+  .catTitleBlue {
+    font-size: 1.584rem;
+    font-weight: 700;
+    color: var(--accent);
+    margin: 0;
+  }
+
+  .catSubGreen,
+  .catSubAmber,
+  .catSubRed,
+  .catSubBlue {
+    font-size: 1.0368rem;
+    color: var(--sub-accent);
+    margin: 0.05rem 0 0 0;
+  }
+
+  .itemCard,
+  .itemCardDim {
+    background: var(--surface);
+    padding: 0.6rem 0.9rem;
+    display: flex;
+    align-items: center;
+    gap: 0.9rem;
+    box-shadow: 0 1px 3px var(--shadow);
+  }
+
+  .itemCardDim { opacity: 0.5; }
+
+  .itemBorderGreen,
+  .itemBorderAmber,
+  .itemBorderRed,
+  .itemBorderBlue {
+    border-left: 3px solid var(--border-accent);
+  }
+
+  .itemEmoji { font-size: 1.728rem; }
+
+  .itemText {
+    display: flex;
+    align-items: baseline;
+    gap: 0.5rem;
+    white-space: nowrap;
+  }
+
+  .itemTitle {
+    font-size: 1.368rem;
+    font-weight: 600;
+    color: var(--text);
+    margin: 0;
+  }
+
+  .itemDesc {
+    font-size: 1.008rem;
+    color: var(--muted-text);
+    margin: 0.05rem 0 0 0;
+  }
+</style>
