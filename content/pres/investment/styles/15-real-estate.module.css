@@ -1,0 +1,172 @@
+/* Page-specific styles for 15-real-estate.mdx */
+
+.root {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 0.9rem;
+}
+
+/* Top core idea banner */
+.coreBanner {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  background: #fdf3e3;
+  border: 1px solid #ecd4a8;
+  border-left: 4px solid #c2410c;
+  padding: 0.8rem 1.2rem;
+  flex-shrink: 0;
+}
+
+.coreIcon {
+  font-size: 1.6rem;
+}
+
+.coreText {
+  font-size: 1.18rem;
+  color: #7c2d12;
+  line-height: 1.5;
+}
+
+/* Example intro line */
+.exampleLine {
+  flex-shrink: 0;
+  font-size: 1.05rem;
+  color: #9a3412;
+  font-weight: 600;
+}
+
+/* Three-stage flow */
+.stageFlow {
+  flex: 1;
+  min-height: 0;
+  display: flex;
+  align-items: stretch;
+  gap: 0.5rem;
+}
+
+/* Stage card */
+.stageCard {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  background: #fff;
+  border: 1px solid #e8c27a;
+  position: relative;
+  overflow: hidden;
+}
+
+.stageHeader {
+  color: #fff;
+  padding: 0.8rem 1rem;
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+}
+
+.stageHeader1 {
+  background: #f59e0b;
+}
+
+.stageHeader2 {
+  background: #d97706;
+}
+
+.stageHeader3 {
+  background: #c2410c;
+}
+
+.stageIndex {
+  font-size: 0.7rem;
+  opacity: 0.85;
+  letter-spacing: 0.5px;
+  flex-shrink: 0;
+}
+
+.stageTitle {
+  font-size: 1.35rem;
+  font-weight: 800;
+  flex: 1;
+}
+
+.stageBody {
+  flex: 1;
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 0.7rem;
+}
+
+.stageHeading {
+  font-size: 1.5rem;
+  font-weight: 800;
+  color: #78350f;
+}
+
+.stageHeading3 {
+  font-size: 1.5rem;
+  font-weight: 800;
+  color: #7c2d12;
+}
+
+.stageDesc {
+  margin: 0;
+  font-size: 1.12rem;
+  color: #57534e;
+  line-height: 1.55;
+}
+
+.stageTip {
+  padding: 0.5rem 0.7rem;
+  font-size: 1.05rem;
+  color: #92400e;
+  line-height: 1.4;
+}
+
+.stageTip1 {
+  background: #fef3cd;
+}
+
+.stageTip2 {
+  background: #fde8c8;
+}
+
+.stageTip3 {
+  background: #fde3d0;
+  color: #9a3412;
+}
+
+/* Arrow between stages */
+.stageArrow {
+  align-self: center;
+  font-size: 2rem;
+  flex-shrink: 0;
+  padding: 0 0.1rem;
+}
+
+.stageArrow1 {
+  color: #c2410c;
+}
+
+.stageArrow2 {
+  color: #9a3412;
+}
+
+/* Bottom conclusion */
+.conclusion {
+  background: #fdf3e3;
+  border: 1px solid #ecd4a8;
+  padding: 0.7rem 1rem;
+  border-left: 4px solid #9a3412;
+  flex-shrink: 0;
+}
+
+.conclusionText {
+  font-size: 0.98rem;
+  color: #7c2d12;
+  margin: 0;
+  line-height: 1.5;
+}

@@ -1,0 +1,53 @@
+/* Page-specific styles for 06-three-essentials.mdx */
+
+/* "但" transition row */
+.transition {
+  display: flex;
+  align-items: center;
+  gap: 1.25rem;
+  padding: 0.5rem 0;
+}
+
+/* Big red "但" mark */
+.transitionMark {
+  font-size: 2.4rem;
+  font-weight: 800;
+  color: #c0392b;
+  line-height: 1;
+  flex-shrink: 0;
+}
+
+/* Transition explanatory text */
+.transitionText {
+  font-size: 1.15rem;
+  color: #333;
+  line-height: 1.6;
+}
+
+/* Inline emphasis inside transition text */
+.transitionEm {
+  font-weight: 750;
+  color: #c0392b;
+}
+
+/* Evidence list container */
+.evidenceList {
+  display: flex;
+  flex-direction: column;
+  gap: 0.7rem;
+}
+
+/* One evidence row (num bullet + text) */
+.evidenceItem {
+  display: flex;
+  gap: 0.9rem;
+  align-items: flex-start;
+}
+
+/* Evidence paragraph text */
+.evidenceText {
+  margin: 0;
+  font-size: 1rem;
+  color: #444;
+  line-height: 1.6;
+}

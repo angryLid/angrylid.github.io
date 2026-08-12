@@ -4,221 +4,98 @@ steps: 1
 ---
 import Notes from "@components/Notes.astro";
 import PresentationLayout from "@components/PresentationLayout.astro";
+import styles from "./styles/11-gold.module.css";
 
 <PresentationLayout title="黄金 — 为什么是它？" eyebrow="共识类资产" narrow>
-  <div
-    style="
-      height: 100%;
-      display: grid;
-      grid-template-columns: auto 280px;
-      justify-content: center;
-      gap: 3rem;
-      align-items: center;
-    "
-  >
+  <div class={styles.root}>
     {/* 左侧：四个筛选条件 */}
-    <div style="display: flex; flex-direction: column; gap: 0.6rem; width: fit-content;">
-      <p
-        style="
-          margin: 0 0 0.2rem 0;
-          font-size: 1.37rem;
-          font-weight: 600;
-          color: #444;
-        "
-      >
-        一轮一轮筛选下来，只剩黄金了 ↓
-      </p>
+    <div class={styles.leftCol}>
+      <p class={styles.intro}>一轮一轮筛选下来，只剩黄金了 ↓</p>
 
       {/* 条件 1 */}
-      <div
-        style="
-          display: flex;
-          align-items: flex-start;
-          gap: 1rem;
-          padding: 0.65rem 1.1rem;
-          background: #fafaf7;
-          border-left: 4px solid #d4af37;
-        "
-      >
-        <div style="flex: 1;">
-          <div style="display: flex; align-items: baseline; gap: 0.6rem;">
-            <span style="font-size: 1.44rem; color: #b8860b; flex-shrink: 0;">✓</span>
-            <strong style="font-size: 1.44rem; color: #333;">化学性质极其稳定</strong>
-            <span style="font-size: 1.18rem; color: #999;">不氧化 · 不腐烂 · 千年不变质</span>
+      <div class={styles.critCard}>
+        <div class={styles.critBody}>
+          <div class={styles.critLine}>
+            <span class={styles.critCheck}>✓</span>
+            <strong class={styles.critStrong}>化学性质极其稳定</strong>
+            <span class={styles.critHint}>不氧化 · 不腐烂 · 千年不变质</span>
           </div>
-          <p style="margin: 0.2rem 0 0 0; font-size: 1.18rem; color: #888;">
-            <span style="color: #bbb; margin-right: 0.3rem;">✗</span>
+          <p class={styles.critReject}>
+            <span class={styles.critCross}>✗</span>
             香烟虽可视作硬通货，却难以长期储存
           </p>
         </div>
       </div>
 
       {/* 条件 2 */}
-      <div
-        style="
-          display: flex;
-          align-items: flex-start;
-          gap: 1rem;
-          padding: 0.65rem 1.1rem;
-          background: #fafaf7;
-          border-left: 4px solid #d4af37;
-        "
-      >
-        <div style="flex: 1;">
-          <div style="display: flex; align-items: baseline; gap: 0.6rem;">
-            <span style="font-size: 1.44rem; color: #b8860b; flex-shrink: 0;">✓</span>
-            <strong style="font-size: 1.44rem; color: #333;">矿脉分布广泛</strong>
-            <span style="font-size: 1.18rem; color: #999;">全球各大陆都有产出</span>
+      <div class={styles.critCard}>
+        <div class={styles.critBody}>
+          <div class={styles.critLine}>
+            <span class={styles.critCheck}>✓</span>
+            <strong class={styles.critStrong}>矿脉分布广泛</strong>
+            <span class={styles.critHint}>全球各大陆都有产出</span>
           </div>
-          <p style="margin: 0.2rem 0 0 0; font-size: 1.18rem; color: #888;">
-            <span style="color: #bbb; margin-right: 0.3rem;">✗</span>
+          <p class={styles.critReject}>
+            <span class={styles.critCross}>✗</span>
             铂、钯几乎全部集中于南非与俄罗斯
           </p>
         </div>
       </div>
 
       {/* 条件 3 */}
-      <div
-        style="
-          display: flex;
-          align-items: flex-start;
-          gap: 1rem;
-          padding: 0.65rem 1.1rem;
-          background: #fafaf7;
-          border-left: 4px solid #d4af37;
-        "
-      >
-        <div style="flex: 1;">
-          <div style="display: flex; align-items: baseline; gap: 0.6rem;">
-            <span style="font-size: 1.44rem; color: #b8860b; flex-shrink: 0;">✓</span>
-            <strong style="font-size: 1.44rem; color: #333;">储量稀缺且有限</strong>
-            <span style="font-size: 1.18rem; color: #999;">天然稀有 · 几乎无法人工合成</span>
+      <div class={styles.critCard}>
+        <div class={styles.critBody}>
+          <div class={styles.critLine}>
+            <span class={styles.critCheck}>✓</span>
+            <strong class={styles.critStrong}>储量稀缺且有限</strong>
+            <span class={styles.critHint}>天然稀有 · 几乎无法人工合成</span>
           </div>
-          <p style="margin: 0.2rem 0 0 0; font-size: 1.18rem; color: #888;">
-            <span style="color: #bbb; margin-right: 0.3rem;">✗</span>
+          <p class={styles.critReject}>
+            <span class={styles.critCross}>✗</span>
             白银储量过大；黄金几乎无法人工合成
           </p>
         </div>
       </div>
 
       {/* 条件 4 */}
-      <div
-        style="
-          display: flex;
-          align-items: flex-start;
-          gap: 1rem;
-          padding: 0.65rem 1.1rem;
-          background: #fafaf7;
-          border-left: 4px solid #d4af37;
-        "
-      >
-        <div style="flex: 1;">
-          <div style="display: flex; align-items: baseline; gap: 0.6rem;">
-            <span style="font-size: 1.44rem; color: #b8860b; flex-shrink: 0;">✓</span>
-            <strong style="font-size: 1.44rem; color: #333;">同质化 · 易分割</strong>
-            <span style="font-size: 1.18rem; color: #999;">每克都一样 · 按重量计价</span>
+      <div class={styles.critCard}>
+        <div class={styles.critBody}>
+          <div class={styles.critLine}>
+            <span class={styles.critCheck}>✓</span>
+            <strong class={styles.critStrong}>同质化 · 易分割</strong>
+            <span class={styles.critHint}>每克都一样 · 按重量计价</span>
           </div>
-          <p style="margin: 0.2rem 0 0 0; font-size: 1.18rem; color: #888;">
-            <span style="color: #bbb; margin-right: 0.3rem;">✗</span>
+          <p class={styles.critReject}>
+            <span class={styles.critCross}>✗</span>
             宝石一经切割即贬值，难以分割计价
           </p>
         </div>
       </div>
 
       {/* 底部结论 */}
-      <div
-        style="
-          margin-top: 0.1rem;
-          padding: 0.4rem 1.1rem;
-          text-align: left;
-          font-size: 1.22rem;
-          color: #777;
-          font-style: italic;
-        "
-      >
+      <div class={styles.goldConclusion}>
         因此不同文明在历史上不约而同地选择了黄金作为货币。
         <br />
-        <span style="font-size: 1.13rem; color: #aaa;">
+        <span class={styles.goldConclusionNote}>
           （金本位暴露出的问题，此处不作展开）
         </span>
       </div>
     </div>
 
     {/* 右侧：元素周期表样式方格 */}
-    <div style="display: flex; flex-direction: column; align-items: center; gap: 1.5rem;">
+    <div class={styles.rightCol}>
       {/* 元素方格 */}
-      <div
-        style="
-          position: relative;
-          width: 190px;
-          height: 190px;
-          background: #f9e07a;
-          border: 2px solid #b8860b;
-          padding: 0.9rem;
-          box-sizing: border-box;
-          display: flex;
-          flex-direction: column;
-          justify-content: space-between;
-        "
-      >
+      <div class={styles.tile}>
         {/* 原子序数（左上） */}
-        <div
-          style="
-            font-size: 1.4rem;
-            font-weight: 700;
-            color: #5c3d0a;
-            line-height: 1;
-          "
-        >
-          79
-        </div>
+        <div class={styles.tileAtomic}>79</div>
 
         {/* 元素符号（绝对居中） */}
-        <div
-          style="
-            position: absolute;
-            inset: 0;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 4rem;
-            font-weight: 800;
-            color: #8a6a12;
-            line-height: 1;
-            letter-spacing: -0.02em;
-          "
-        >
-          Au
-        </div>
+        <div class={styles.tileSymbol}>Au</div>
 
         {/* 底部：相对原子质量（左）+ 电子层排布（右下角） */}
-        <div
-          style="
-            display: flex;
-            justify-content: space-between;
-            align-items: flex-end;
-          "
-        >
-          <div
-            style="
-              font-size: 0.85rem;
-              color: #5c3d0a;
-              line-height: 1.4;
-              font-weight: 500;
-            "
-          >
-            196.97
-          </div>
-          <div
-            style="
-              font-size: 0.72rem;
-              color: #6b5220;
-              font-weight: 500;
-              line-height: 1.3;
-              letter-spacing: 0.02em;
-              text-align: right;
-            "
-          >
+        <div class={styles.tileFooter}>
+          <div class={styles.tileMass}>196.97</div>
+          <div class={styles.tileShells}>
             <div>K 2</div>
             <div>L 8</div>
             <div>M 18</div>
@@ -229,17 +106,9 @@ import PresentationLayout from "@components/PresentationLayout.astro";
         </div>
       </div>
 
-      <p
-        style="
-          margin: 0;
-          font-size: 0.95rem;
-          color: #666;
-          text-align: center;
-          line-height: 1.6;
-        "
-      >
+      <p class={styles.tileCaption}>
         四种物理特性<br />
-        让它成为<strong style="color: #b8860b;">天然的货币金属</strong>
+        让它成为<strong class={styles.tileCaptionStrong}>天然的货币金属</strong>
       </p>
     </div>
   </div>

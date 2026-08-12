@@ -4,68 +4,69 @@ steps: 1
 ---
 import Notes from "@components/Notes.astro";
 import PresentationLayout from "@components/PresentationLayout.astro";
+import styles from "./styles/15a3-asia-profit.module.css";
 
 <PresentationLayout
   eyebrow="教训 · 中石油 A 股上市"
   title="亚洲最赚钱的公司"
 >
-  <div style="height: 100%; display: flex; align-items: center;">
-    <div style="flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 1.1rem; align-items: flex-end; padding-right: 2rem;">
-      <div style="width: 100%; max-width: 480px; padding: 1.1rem 1.3rem; border-left: 4px solid #c0392b; background: #ffffff; box-shadow: 0 1px 3px rgba(0,0,0,0.08);">
-        <p style="margin: 0 0 0.5rem 0; font-size: 0.8rem; color: #999; letter-spacing: 0.08em; text-transform: uppercase;">上市首日盘中最高</p>
-        <p style="margin: 0; font-size: 2.6rem; font-weight: 800; color: #c0392b; line-height: 1.05;">48.62<span style="font-size: 1.2rem; font-weight: 600; color: #666; margin-left: 0.3rem;">元</span></p>
-        <p style="margin: 0.6rem 0 0 0; font-size: 0.8rem; color: #666; line-height: 1.5;">发行价 16.70 · 首日收 43.96</p>
+  <div class={styles.root}>
+    <div class={styles.leftCol}>
+      <div class={`${styles.statCard} ${styles.statCardRed}`}>
+        <p class={styles.statLabel}>上市首日盘中最高</p>
+        <p class={styles.statNumRed}>48.62<span class={styles.statUnitLg}>元</span></p>
+        <p class={styles.statNote}>发行价 16.70 · 首日收 43.96</p>
       </div>
-      <div style="width: 100%; max-width: 480px; padding: 1.1rem 1.3rem; border-left: 4px solid #c0392b; background: #ffffff; box-shadow: 0 1px 3px rgba(0,0,0,0.08);">
-        <p style="margin: 0 0 0.5rem 0; font-size: 0.8rem; color: #999; letter-spacing: 0.08em; text-transform: uppercase;">上市当日盘中最高市值</p>
-        <p style="margin: 0; font-size: 2.2rem; font-weight: 800; color: #c0392b; line-height: 1.05;">1.1<span style="font-size: 1.05rem; font-weight: 600; color: #666; margin-left: 0.3rem;">万亿美元</span></p>
-        <p style="margin: 0.6rem 0 0 0; font-size: 0.8rem; color: #666; line-height: 1.5;">全球首家市值破万亿美元的公司</p>
+      <div class={`${styles.statCard} ${styles.statCardRed}`}>
+        <p class={styles.statLabel}>上市当日盘中最高市值</p>
+        <p class={styles.statNumRedSm}>1.1<span class={styles.statUnitSm}>万亿美元</span></p>
+        <p class={styles.statNote}>全球首家市值破万亿美元的公司</p>
       </div>
-      <div style="width: 100%; max-width: 480px; padding: 1.1rem 1.3rem; border-left: 4px solid #1e7d32; background: #ffffff; box-shadow: 0 1px 3px rgba(0,0,0,0.08);">
-        <p style="margin: 0 0 0.5rem 0; font-size: 0.8rem; color: #999; letter-spacing: 0.08em; text-transform: uppercase;">上市以来累计跌幅</p>
-        <p style="margin: 0; font-size: 2.6rem; font-weight: 800; color: #1e7d32; line-height: 1.05;">约 −80<span style="font-size: 1.2rem; font-weight: 600; color: #666; margin-left: 0.2rem;">%</span></p>
-        <p style="margin: 0.6rem 0 0 0; font-size: 0.8rem; color: #666; line-height: 1.5;">自 2007.11 峰值至近年</p>
+      <div class={`${styles.statCard} ${styles.statCardGreen}`}>
+        <p class={styles.statLabel}>上市以来累计跌幅</p>
+        <p class={styles.statNumGreen}>约 −80<span class={styles.statUnitLg}>%</span></p>
+        <p class={styles.statNote}>自 2007.11 峰值至近年</p>
       </div>
     </div>
 
-    <div style="width: 2px; align-self: stretch; background: #ccc;"></div>
+    <div class={styles.divider}></div>
 
-    <div style="flex: 1; min-width: 0; position: relative; padding-left: 1.6rem; display: flex; flex-direction: column; gap: 0.95rem;">
-      <div style="position: relative;">
-        <span style="position: absolute; left: calc(-1.6rem - 7px); top: 0.34rem; width: 12px; height: 12px; background: #c0392b;"></span>
-        <p style="margin: 0; font-size: 0.8rem; font-weight: 700; color: #c0392b; letter-spacing: 0.03em;">2002–2003 · 买入</p>
-        <p style="margin: 0.15rem 0 0 0; font-size: 0.98rem; color: #1a1a1a; line-height: 1.5;">油价低迷，买在便宜处 —— 巴菲特以约<b> 4.88 亿美元</b>买入中石油 1.3% H 股</p>
+    <div class={styles.rightCol}>
+      <div class={styles.timelineItem}>
+        <span class={styles.timelineDot}></span>
+        <p class={styles.timelineYearRed}>2002–2003 · 买入</p>
+        <p class={styles.timelineDesc}>油价低迷，买在便宜处 —— 巴菲特以约<b> 4.88 亿美元</b>买入中石油 1.3% H 股</p>
       </div>
-      <div style="position: relative;">
-        <span style="position: absolute; left: calc(-1.6rem - 7px); top: 0.34rem; width: 12px; height: 12px; background: #c0392b;"></span>
-        <p style="margin: 0; font-size: 0.8rem; font-weight: 700; color: #c0392b; letter-spacing: 0.03em;">2007 · 清仓</p>
-        <p style="margin: 0.15rem 0 0 0; font-size: 0.98rem; color: #1a1a1a; line-height: 1.5;">市场狂热，卖在狂热前 —— 清仓收回约<b> 40 亿美元</b>，获利约<b> 8 倍</b></p>
+      <div class={styles.timelineItem}>
+        <span class={styles.timelineDot}></span>
+        <p class={styles.timelineYearRed}>2007 · 清仓</p>
+        <p class={styles.timelineDesc}>市场狂热，卖在狂热前 —— 清仓收回约<b> 40 亿美元</b>，获利约<b> 8 倍</b></p>
       </div>
 
-      <div style="position: relative;">
-        <span style="position: absolute; left: calc(-1.6rem - 7px); top: 0.34rem; width: 12px; height: 12px; background: #c0392b;"></span>
-        <p style="margin: 0; font-size: 0.8rem; font-weight: 700; color: #c0392b; letter-spacing: 0.03em;">2007.10.22</p>
-        <p style="margin: 0.15rem 0 0 0; font-size: 0.98rem; color: #1a1a1a; line-height: 1.5;">刊登招股意向书,发行区间 15–16.7 元;<br/>10.26 网上申购</p>
+      <div class={styles.timelineItem}>
+        <span class={styles.timelineDot}></span>
+        <p class={styles.timelineYearRed}>2007.10.22</p>
+        <p class={styles.timelineDesc}>刊登招股意向书,发行区间 15–16.7 元;<br/>10.26 网上申购</p>
       </div>
-      <div style="position: relative;">
-        <span style="position: absolute; left: calc(-1.6rem - 7px); top: 0.34rem; width: 12px; height: 12px; background: #c0392b;"></span>
-        <p style="margin: 0; font-size: 0.8rem; font-weight: 700; color: #c0392b; letter-spacing: 0.03em;">2007.10 下旬 · 打新热潮</p>
-        <p style="margin: 0.15rem 0 0 0; font-size: 0.98rem; color: #1a1a1a; line-height: 1.5;">情绪开始酝酿,市场高呼<br/>"留给子孙后代的股票"</p>
+      <div class={styles.timelineItem}>
+        <span class={styles.timelineDot}></span>
+        <p class={styles.timelineYearRed}>2007.10 下旬 · 打新热潮</p>
+        <p class={styles.timelineDesc}>情绪开始酝酿,市场高呼<br/>"留给子孙后代的股票"</p>
       </div>
-      <div style="position: relative;">
-        <span style="position: absolute; left: calc(-1.6rem - 7px); top: 0.34rem; width: 12px; height: 12px; background: #c0392b;"></span>
-        <p style="margin: 0; font-size: 0.8rem; font-weight: 700; color: #c0392b; letter-spacing: 0.03em;">2007.11.05 · 上市首日</p>
-        <p style="margin: 0.15rem 0 0 0; font-size: 0.98rem; color: #1a1a1a; line-height: 1.5;">开盘近 48.6,盘中冲 48.62,收 43.96;<br/>一度市值全球第一</p>
+      <div class={styles.timelineItem}>
+        <span class={styles.timelineDot}></span>
+        <p class={styles.timelineYearRed}>2007.11.05 · 上市首日</p>
+        <p class={styles.timelineDesc}>开盘近 48.6,盘中冲 48.62,收 43.96;<br/>一度市值全球第一</p>
       </div>
-      <div style="position: relative;">
-        <span style="position: absolute; left: calc(-1.6rem - 7px); top: 0.34rem; width: 12px; height: 12px; background: #1e7d32;"></span>
-        <p style="margin: 0; font-size: 0.8rem; font-weight: 700; color: #1e7d32; letter-spacing: 0.03em;">2008.04.18 · 破发</p>
-        <p style="margin: 0.15rem 0 0 0; font-size: 0.98rem; color: #1a1a1a; line-height: 1.5;">跌破发行价 16.70,套牢一族成形</p>
+      <div class={styles.timelineItem}>
+        <span class={styles.timelineDotGreen}></span>
+        <p class={styles.timelineYearGreen}>2008.04.18 · 破发</p>
+        <p class={styles.timelineDesc}>跌破发行价 16.70,套牢一族成形</p>
       </div>
-      <div style="position: relative;">
-        <span style="position: absolute; left: calc(-1.6rem - 7px); top: 0.34rem; width: 12px; height: 12px; background: #1e7d32;"></span>
-        <p style="margin: 0; font-size: 0.8rem; font-weight: 700; color: #1e7d32; letter-spacing: 0.03em;">至今 · 套牢</p>
-        <p style="margin: 0.15rem 0 0 0; font-size: 0.98rem; color: #1a1a1a; line-height: 1.5;">股价长期在 10 元上下徘徊,累计跌逾 80%</p>
+      <div class={styles.timelineItem}>
+        <span class={styles.timelineDotGreen}></span>
+        <p class={styles.timelineYearGreen}>至今 · 套牢</p>
+        <p class={styles.timelineDesc}>股价长期在 10 元上下徘徊,累计跌逾 80%</p>
       </div>
     </div>
   </div>

@@ -4,129 +4,131 @@ steps: 1
 ---
 import Notes from "@components/Notes.astro";
 import PresentationLayout from "@components/PresentationLayout.astro";
+import shared from "./styles/shared.module.css";
+import styles from "./styles/10-consensus-assets.module.css";
 
 <PresentationLayout title="老登资产" eyebrow="共识类资产" narrow>
-  <div style="height: 100%; display: flex; flex-direction: column; gap: 0.9rem;">
+  <div class={styles.root}>
 
     {/* 顶部核心定义 */}
-    <div style="display: flex; align-items: stretch; gap: 1.2rem; flex-shrink: 0;">
-      <div style="flex: 4; display: flex; flex-direction: column; justify-content: space-between; background: #f0e6cd; border: 1px solid #d9c49a; padding: 1.1rem 1.3rem; position: relative; overflow: hidden;">
-        <div style="font-size: 1.8rem; margin-bottom: 0.3rem;">价值 = 共识</div>
-        <div style="font-size: 1.15rem; color: #6b5416; line-height: 1.55;">
+    <div class={styles.topRow}>
+      <div class={styles.defCard}>
+        <div class={styles.defTitle}>价值 = 共识</div>
+        <div class={styles.defBody}>
           本身<strong>不产生现金流</strong>，价值完全取决于市场共识。<br/>
           共识扩大 → 有后继者接盘；共识破裂 → 无法脱手
         </div>
       </div>
 
-      <div style="flex: 6; display: flex; background: #6b4226; padding: 1.1rem 1.3rem; color: #fff; position: relative; overflow: hidden;">
+      <div class={styles.darkPanel}>
         {/* 老登资产 列 */}
-        <div style="flex: 1; min-width: 0; display: flex; flex-direction: column; justify-content: space-between;">
+        <div class={styles.panelCol}>
           <div>
-            <div style="font-size: 0.85rem; color: #e5e0d5; margin-bottom: 0.2rem;">典型代表</div>
-            <div style="font-size: 1.6rem; font-weight: 800;">
-              老登资产 <span style="font-size: 0.85rem; color: #f5f0e8;">Laodeng Assets</span>
+            <div class={styles.panelLabel}>典型代表</div>
+            <div class={styles.panelTitleLaodeng}>
+              老登资产 <span class={styles.panelTitleEn}>Laodeng Assets</span>
             </div>
           </div>
-          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 0.4rem 0.6rem;">
-            <span style="background: rgba(255,255,255,0.12); color: #fff; padding: 0.3rem 0.7rem; font-size: 0.95rem; text-align: center;">玉石</span>
-            <span style="background: rgba(255,255,255,0.12); color: #fff; padding: 0.3rem 0.7rem; font-size: 0.95rem; text-align: center;">邮票</span>
-            <span style="background: rgba(255,255,255,0.12); color: #fff; padding: 0.3rem 0.7rem; font-size: 0.95rem; text-align: center;">文玩字画</span>
-            <span style="background: rgba(255,255,255,0.12); color: #fff; padding: 0.3rem 0.7rem; font-size: 0.95rem; text-align: center;">红木家具</span>
+          <div class={styles.darkChipGrid}>
+            <span class={styles.darkChip}>玉石</span>
+            <span class={styles.darkChip}>邮票</span>
+            <span class={styles.darkChip}>文玩字画</span>
+            <span class={styles.darkChip}>红木家具</span>
           </div>
         </div>
 
         {/* 分隔线 */}
-        <div style="width: 0; border-left: 1px dashed #8a5a36; margin: 0 1rem; flex-shrink: 0;"></div>
+        <div class={styles.panelDivider}></div>
 
         {/* 小登资产 列 */}
-        <div style="flex: 1; min-width: 0; display: flex; flex-direction: column; justify-content: space-between;">
+        <div class={styles.panelCol}>
           <div>
-            <div style="font-size: 0.85rem; color: #e5e0d5; margin-bottom: 0.2rem;">年轻一代版本</div>
-            <div style="font-size: 1.1rem; font-weight: 800;">小登资产</div>
+            <div class={styles.panelLabel}>年轻一代版本</div>
+            <div class={styles.panelTitleSmall}>小登资产</div>
           </div>
-          <div style="display: flex; flex-wrap: wrap; gap: 0.35rem;">
-            <span style="background: rgba(255,255,255,0.1); color: #fff; padding: 0.3rem 0.7rem; font-size: 0.85rem;">限量球鞋</span>
-            <span style="background: rgba(255,255,255,0.1); color: #fff; padding: 0.3rem 0.7rem; font-size: 0.85rem;">谷子</span>
-            <span style="background: rgba(255,255,255,0.1); color: #fff; padding: 0.3rem 0.7rem; font-size: 0.85rem;">游戏卡牌</span>
+          <div class={styles.darkChipWrap}>
+            <span class={styles.darkChipSmall}>限量球鞋</span>
+            <span class={styles.darkChipSmall}>谷子</span>
+            <span class={styles.darkChipSmall}>游戏卡牌</span>
           </div>
         </div>
       </div>
     </div>
 
     {/* 小标题 */}
-    <div style="font-size: 1rem; font-weight: 700; color: #6b4226; display: flex; align-items: center; gap: 0.4rem; flex-shrink: 0;">
+    <div class={styles.sectionHeader}>
       <span>🔍</span> 为什么这些东西能形成共识？三大特性
     </div>
 
     {/* 三大特性 */}
-    <div style="flex: 1; min-height: 0; display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 0.9rem;">
+    <div class={styles.featureGrid}>
         {/* 特性1 */}
-        <div style="background: #fff; border: 1px solid #d9c49a; position: relative; display: flex; flex-direction: column; overflow: hidden;">
-          <div style="background: #4a7c59; color: #fff; padding: 0.8rem 1rem; display: flex; align-items: center; gap: 0.6rem;">
-            <div style="width: 32px; height: 32px; background: rgba(255,255,255,0.15); display: flex; align-items: center; justify-content: center; font-size: 1.3rem;">🛠️</div>
-            <div style="display: flex; align-items: baseline; gap: 0.5rem;">
-              <span style="font-size: 0.7rem; opacity: 0.7; letter-spacing: 0.5px;">01</span>
-              <span style="font-size: 1.4rem; font-weight: 800;">实用价值</span>
+        <div class={styles.featureCard}>
+          <div class={styles.featureHeader}>
+            <div class={shared.iconBadge}>🛠️</div>
+            <div class={styles.featureHeaderTitle}>
+              <span class={styles.featureIndex}>01</span>
+              <span class={styles.featureTitle}>实用价值</span>
             </div>
           </div>
-          <div style="flex: 1; padding: 0.9rem 1rem; display: flex; flex-direction: column; justify-content: center; gap: 0.6rem;">
-            <div style="display: flex; align-items: baseline; gap: 0.5rem;">
-              <span style="color: #4a7c59; font-weight: 800; flex-shrink: 0; font-size: 1.5rem; line-height: 1;">✓</span>
-              <span style="font-size: 1.26rem; color: #463a2a; line-height: 1.5;">不是凭空炒作的无用之物</span>
+          <div class={styles.featureBody}>
+            <div class={shared.checkRow}>
+              <span class={shared.checkMark}>✓</span>
+              <span class={styles.featureCheckText}>不是凭空炒作的无用之物</span>
             </div>
-            <div style="display: flex; align-items: baseline; gap: 0.5rem;">
-              <span style="color: #4a7c59; font-weight: 800; flex-shrink: 0; font-size: 1.5rem; line-height: 1;">✓</span>
-              <span style="font-size: 1.26rem; color: #463a2a; line-height: 1.5;">本身具备实际功能和用途</span>
+            <div class={shared.checkRow}>
+              <span class={shared.checkMark}>✓</span>
+              <span class={styles.featureCheckText}>本身具备实际功能和用途</span>
             </div>
-            <div style="margin-top: 0.3rem; padding: 0.5rem 0.7rem; background: #e9f0e6; font-size: 1.4rem; color: #3a5c45; line-height: 1.4;">
+            <div class={styles.tipBox}>
               💡 能用，是共识的基础底线
             </div>
           </div>
         </div>
 
         {/* 特性2 */}
-        <div style="background: #fff; border: 1px solid #d9c49a; position: relative; display: flex; flex-direction: column; overflow: hidden;">
-          <div style="background: #4a7c59; color: #fff; padding: 0.8rem 1rem; display: flex; align-items: center; gap: 0.6rem;">
-            <div style="width: 32px; height: 32px; background: rgba(255,255,255,0.15); display: flex; align-items: center; justify-content: center; font-size: 1.3rem;">✨</div>
-            <div style="display: flex; align-items: baseline; gap: 0.5rem;">
-              <span style="font-size: 0.7rem; opacity: 0.7; letter-spacing: 0.5px;">02</span>
-              <span style="font-size: 1.4rem; font-weight: 800;">稀缺性</span>
+        <div class={styles.featureCard}>
+          <div class={styles.featureHeader}>
+            <div class={shared.iconBadge}>✨</div>
+            <div class={styles.featureHeaderTitle}>
+              <span class={styles.featureIndex}>02</span>
+              <span class={styles.featureTitle}>稀缺性</span>
             </div>
           </div>
-          <div style="flex: 1; padding: 0.9rem 1rem; display: flex; flex-direction: column; justify-content: center; gap: 0.6rem;">
-            <div style="display: flex; align-items: baseline; gap: 0.5rem;">
-              <span style="color: #4a7c59; font-weight: 800; flex-shrink: 0; font-size: 1.5rem; line-height: 1;">✓</span>
-              <span style="font-size: 1.26rem; color: #463a2a; line-height: 1.5;">不是唾手可得的普通商品</span>
+          <div class={styles.featureBody}>
+            <div class={shared.checkRow}>
+              <span class={shared.checkMark}>✓</span>
+              <span class={styles.featureCheckText}>不是唾手可得的普通商品</span>
             </div>
-            <div style="display: flex; align-items: baseline; gap: 0.5rem;">
-              <span style="color: #4a7c59; font-weight: 800; flex-shrink: 0; font-size: 1.5rem; line-height: 1;">✓</span>
-              <span style="font-size: 1.26rem; color: #463a2a; line-height: 1.5;">物以稀为贵的心理基础</span>
+            <div class={shared.checkRow}>
+              <span class={shared.checkMark}>✓</span>
+              <span class={styles.featureCheckText}>物以稀为贵的心理基础</span>
             </div>
-            <div style="margin-top: 0.3rem; padding: 0.5rem 0.7rem; background: #e9f0e6; font-size: 1.4rem; color: #3a5c45; line-height: 1.4;">
+            <div class={styles.tipBox}>
               💡 越少，越让人觉得值钱
             </div>
           </div>
         </div>
 
         {/* 特性3 */}
-        <div style="background: #fff; border: 1px solid #d9c49a; position: relative; display: flex; flex-direction: column; overflow: hidden;">
-          <div style="background: #4a7c59; color: #fff; padding: 0.8rem 1rem; display: flex; align-items: center; gap: 0.6rem;">
-            <div style="width: 32px; height: 32px; background: rgba(255,255,255,0.15); display: flex; align-items: center; justify-content: center; font-size: 1.3rem;">🏺</div>
-            <div style="display: flex; align-items: baseline; gap: 0.5rem;">
-              <span style="font-size: 0.7rem; opacity: 0.7; letter-spacing: 0.5px;">03</span>
-              <span style="font-size: 1.4rem; font-weight: 800;">可长期保存</span>
+        <div class={styles.featureCard}>
+          <div class={styles.featureHeader}>
+            <div class={shared.iconBadge}>🏺</div>
+            <div class={styles.featureHeaderTitle}>
+              <span class={styles.featureIndex}>03</span>
+              <span class={styles.featureTitle}>可长期保存</span>
             </div>
           </div>
-          <div style="flex: 1; padding: 0.9rem 1rem; display: flex; flex-direction: column; justify-content: center; gap: 0.6rem;">
-            <div style="display: flex; align-items: baseline; gap: 0.5rem;">
-              <span style="color: #4a7c59; font-weight: 800; flex-shrink: 0; font-size: 1.5rem; line-height: 1;">✓</span>
-              <span style="font-size: 1.26rem; color: #463a2a; line-height: 1.5;">不会轻易损坏或变质</span>
+          <div class={styles.featureBody}>
+            <div class={shared.checkRow}>
+              <span class={shared.checkMark}>✓</span>
+              <span class={styles.featureCheckText}>不会轻易损坏或变质</span>
             </div>
-            <div style="display: flex; align-items: baseline; gap: 0.5rem;">
-              <span style="color: #4a7c59; font-weight: 800; flex-shrink: 0; font-size: 1.5rem; line-height: 1;">✓</span>
-              <span style="font-size: 1.26rem; color: #463a2a; line-height: 1.5;">能够跨越代际传递下去</span>
+            <div class={shared.checkRow}>
+              <span class={shared.checkMark}>✓</span>
+              <span class={styles.featureCheckText}>能够跨越代际传递下去</span>
             </div>
-            <div style="margin-top: 0.3rem; padding: 0.5rem 0.7rem; background: #e9f0e6; font-size: 1.4rem; color: #3a5c45; line-height: 1.4;">
+            <div class={styles.tipBox}>
               💡 传得久，共识才稳
             </div>
           </div>
@@ -134,8 +136,8 @@ import PresentationLayout from "@components/PresentationLayout.astro";
       </div>
 
     {/* 底部结论 */}
-    <div style="background: #f0e6cd; border: 1px solid #d9c49a; padding: 0.7rem 1rem; border-left: 4px solid #6b4226; flex-shrink: 0;">
-      <div style="font-size: 0.92rem; color: #5c3a21; margin: 0; line-height: 1.5;">
+    <div class={styles.conclusion}>
+      <div class={styles.conclusionText}>
         <strong>💡 核心结论：</strong>
         这三大属性也只是让这些东西<strong>比一般消费品更保值</strong>而已——
         拉长时间线看，共识总会转移，无一例外都无法脱手。

@@ -1,0 +1,112 @@
+/* Shared semantic components reused across presentation slides. */
+
+/* Bordered content card */
+.card {
+  border: 1px solid #e0e0e0;
+  padding: 1.75rem 1.5rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 0.6rem;
+}
+
+/* Card label (small uppercase eyebrow inside a card) */
+.cardLabel {
+  font-size: 0.85rem;
+  color: #999;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+}
+
+/* Card main title */
+.cardTitle {
+  font-size: 1.7rem;
+  font-weight: 750;
+  color: #111;
+}
+
+/* Card body description */
+.cardDesc {
+  font-size: 0.95rem;
+  color: #666;
+  line-height: 1.6;
+}
+
+/* Bottom "本质" summary bar */
+.footerBar {
+  flex: 0 0 auto;
+  border-left: 3px solid #333;
+  padding: 0.6rem 1rem;
+  background: #fafafa;
+  width: 100%;
+}
+
+/* Small tag / chip */
+.tag {
+  background: #fff;
+  border: 1px solid #e2e2e2;
+  padding: 0.35rem 0.55rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+}
+
+/* Checkmark row (✓ + text) */
+.checkRow {
+  display: flex;
+  align-items: baseline;
+  gap: 0.5rem;
+}
+
+/* Checkmark glyph */
+.checkMark {
+  color: #4a7c59;
+  font-weight: 800;
+  flex-shrink: 0;
+  font-size: 1.5rem;
+  line-height: 1;
+}
+
+/* Section sub-header with icon */
+.sectionHeader {
+  font-size: 1rem;
+  font-weight: 700;
+  color: #6b4226;
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  flex-shrink: 0;
+}
+
+/* Monospace code label (Cascadia Code) */
+.codeTag {
+  color: #b91c1c;
+  flex-shrink: 0;
+  font-family: 'Cascadia Code', monospace;
+  font-weight: 800;
+}
+
+/* Numbered circular bullet (1, 2, 3 ...) */
+.bulletNum {
+  flex: 0 0 auto;
+  width: 1.7rem;
+  height: 1.7rem;
+  background: #c0392b;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.9rem;
+  font-weight: 700;
+}
+
+/* Icon square badge */
+.iconBadge {
+  width: 32px;
+  height: 32px;
+  background: rgba(255, 255, 255, 0.15);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.3rem;
+}

@@ -9,18 +9,19 @@ import pudacuo from "./assets/Shangri-La/pudacuo.jpg";
 import dukezong from "./assets/Shangri-La/dukezong.jpg";
 import sumtseling from "./assets/Shangri-La/sumtseling.jpg";
 import tigerLeapingGorge from "./assets/Shangri-La/tiger-leaping-gorge.jpg";
+import styles from "./styles/02a-shangri-la-scenes.module.css";
 
 <PresentationLayout title="香格里拉 Shangri-La">
-  <div style="position: absolute; top: 100px; left: 300px; width: 670px; z-index: 1;">
+  <div class:list={[styles.photo, styles.photo1]}>
     <PhotoCollage src={pudacuo.src} alt="普达措国家公园" caption="普达措国家公园" />
   </div>
-  <div data-anim="1" style="position: absolute; top: 95px; left: 325px; width: 670px; transform: rotate(2.5deg); z-index: 2;">
+  <div data-anim="1" class:list={[styles.photo, styles.photo2]}>
     <PhotoCollage src={dukezong.src} alt="独克宗古城" caption="独克宗古城" />
   </div>
-  <div data-anim="2" style="position: absolute; top: 110px; left: 285px; width: 670px; transform: rotate(5deg); z-index: 3;">
+  <div data-anim="2" class:list={[styles.photo, styles.photo3]}>
     <PhotoCollage src={sumtseling.src} alt="噶丹松赞林寺" caption="噶丹松赞林寺" />
   </div>
-  <div data-anim="3" style="position: absolute; top: 95px; left: 340px; width: 670px; transform: rotate(-2deg); z-index: 4;">
+  <div data-anim="3" class:list={[styles.photo, styles.photo4]}>
     <PhotoCollage src={tigerLeapingGorge.src} alt="虎跳峡" caption="虎跳峡" />
   </div>
 </PresentationLayout>

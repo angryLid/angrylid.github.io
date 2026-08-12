@@ -1,0 +1,25 @@
+/* Page-specific styles for 02-warmup.mdx */
+
+.wrap {
+  padding: 1rem 3rem 0;
+}
+
+.lead {
+  margin-top: 1rem;
+  font-size: 2rem;
+  line-height: 2.3;
+}
+
+.list {
+  margin-top: 1rem;
+  font-size: 2rem;
+  line-height: 2.3;
+  list-style: disc;
+  padding-left: 2.5rem;
+}
+
+.cta {
+  margin-top: 1.5rem;
+  font-size: 2rem;
+  line-height: 2.3;
+}

@@ -1,0 +1,57 @@
+/* Shared cross-file layout primitives (semantic, not atomic).
+   Page-level layout that recurs across presentation slides. */
+
+/* Full-height vertical page container */
+.pageCol {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+/* Horizontal flex row */
+.row {
+  display: flex;
+  align-items: center;
+}
+
+/* Row that centers content horizontally */
+.rowCenter {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Row with space-between distribution */
+.spaceBetween {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+/* Full-area centering (both axes) */
+.center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Grow to fill remaining space */
+.fill {
+  flex: 1;
+  min-height: 0;
+}
+
+/* Two-column grid */
+.grid2 {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.1rem;
+}
+
+/* Three-column grid */
+.grid3 {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem;
+}

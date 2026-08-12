@@ -4,49 +4,52 @@ steps: 1
 ---
 import Notes from "@components/Notes.astro";
 import PresentationLayout from "@components/PresentationLayout.astro";
+import layout from "./styles/layout.module.css";
+import shared from "./styles/shared.module.css";
+import styles from "./styles/06-three-essentials.module.css";
 
 <PresentationLayout title="投资的三个要义" eyebrow="简单，但不容易" narrow>
-  <div style={{ height: "100%", display: "flex", flexDirection: "column", gap: "1.25rem" }}>
+  <div class={layout.pageCol}>
     {/* 三个要义：三张卡片 */}
-    <div style={{ flex: "0 1 auto", minHeight: 0, display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: "1.5rem" }}>
-      <div style={{ border: "1px solid #e0e0e0", padding: "1.75rem 1.5rem", display: "flex", flexDirection: "column", justifyContent: "center", gap: "0.6rem" }}>
-        <div style={{ fontSize: "0.85rem", color: "#999", fontWeight: 700, letterSpacing: "0.08em" }}>条件 01</div>
-        <div style={{ fontSize: "1.7rem", fontWeight: 750, color: "#111" }}>好资产</div>
-        <div style={{ fontSize: "0.95rem", color: "#666", lineHeight: 1.6 }}>基本面扎实，持续创造价值</div>
+    <div class={layout.grid3}>
+      <div class={shared.card}>
+        <div class={shared.cardLabel}>条件 01</div>
+        <div class={shared.cardTitle}>好资产</div>
+        <div class={shared.cardDesc}>基本面扎实，持续创造价值</div>
       </div>
-      <div style={{ border: "1px solid #e0e0e0", padding: "1.75rem 1.5rem", display: "flex", flexDirection: "column", justifyContent: "center", gap: "0.6rem" }}>
-        <div style={{ fontSize: "0.85rem", color: "#999", fontWeight: 700, letterSpacing: "0.08em" }}>条件 02</div>
-        <div style={{ fontSize: "1.7rem", fontWeight: 750, color: "#111" }}>好的买入价格</div>
-        <div style={{ fontSize: "0.95rem", color: "#666", lineHeight: 1.6 }}>低估区间进场，留足安全边际</div>
+      <div class={shared.card}>
+        <div class={shared.cardLabel}>条件 02</div>
+        <div class={shared.cardTitle}>好的买入价格</div>
+        <div class={shared.cardDesc}>低估区间进场，留足安全边际</div>
       </div>
-      <div style={{ border: "1px solid #e0e0e0", padding: "1.75rem 1.5rem", display: "flex", flexDirection: "column", justifyContent: "center", gap: "0.6rem" }}>
-        <div style={{ fontSize: "0.85rem", color: "#999", fontWeight: 700, letterSpacing: "0.08em" }}>条件 03</div>
-        <div style={{ fontSize: "1.7rem", fontWeight: 750, color: "#111" }}>好的卖出价格</div>
-        <div style={{ fontSize: "0.95rem", color: "#666", lineHeight: 1.6 }}>高估区间落袋，兑现并守住收益</div>
+      <div class={shared.card}>
+        <div class={shared.cardLabel}>条件 03</div>
+        <div class={shared.cardTitle}>好的卖出价格</div>
+        <div class={shared.cardDesc}>高估区间落袋，兑现并守住收益</div>
       </div>
     </div>
 
     {/* 转折：简单，但不容易 */}
-    <div style={{ display: "flex", alignItems: "center", gap: "1.25rem", padding: "0.5rem 0" }}>
-      <div style={{ fontSize: "2.4rem", fontWeight: 800, color: "#c0392b", lineHeight: 1 }}>但</div>
-      <div style={{ fontSize: "1.15rem", color: "#333", lineHeight: 1.6 }}>
-        三个条件说起来都简单，难的是全都能做对 — 核心难点在于<span style={{ fontWeight: 750, color: "#c0392b" }}>预测未来</span>。
+    <div class={styles.transition}>
+      <div class={styles.transitionMark}>但</div>
+      <div class={styles.transitionText}>
+        三个条件说起来都简单，难的是全都能做对 — 核心难点在于<span class={styles.transitionEm}>预测未来</span>。
       </div>
     </div>
 
     {/* 为什么难：三条证据 */}
-    <div style={{ display: "flex", flexDirection: "column", gap: "0.7rem" }}>
-      <div style={{ display: "flex", gap: "0.9rem", alignItems: "flex-start" }}>
-        <div style={{ flex: "0 0 auto", width: "1.7rem", height: "1.7rem", background: "#c0392b", color: "#fff", display: "flex", alignItems: "center", justifyContent: "center", fontSize: "0.9rem", fontWeight: 700 }}>1</div>
-        <p style={{ margin: 0, fontSize: "1rem", color: "#444", lineHeight: 1.6 }}>专家的判断也只基于当下 — 巴菲特看好苹果、可口可乐，段永平看好茅台、腾讯，今天确实是好资产，但未来的市场与基本面如何变化，无人可知。</p>
+    <div class={styles.evidenceList}>
+      <div class={styles.evidenceItem}>
+        <div class={shared.bulletNum}>1</div>
+        <p class={styles.evidenceText}>专家的判断也只基于当下 — 巴菲特看好苹果、可口可乐，段永平看好茅台、腾讯，今天确实是好资产，但未来的市场与基本面如何变化，无人可知。</p>
       </div>
-      <div style={{ display: "flex", gap: "0.9rem", alignItems: "flex-start" }}>
-        <div style={{ flex: "0 0 auto", width: "1.7rem", height: "1.7rem", background: "#c0392b", color: "#fff", display: "flex", alignItems: "center", justifyContent: "center", fontSize: "0.9rem", fontWeight: 700 }}>2</div>
-        <p style={{ margin: 0, fontSize: "1rem", color: "#444", lineHeight: 1.6 }}>连管理层自己都没把握 — 茅台董事长一边说“年轻人到了年纪自然会喝白酒”，一边又放下身段去跟 9.9 元的瑞幸咖啡联名。</p>
+      <div class={styles.evidenceItem}>
+        <div class={shared.bulletNum}>2</div>
+        <p class={styles.evidenceText}>连管理层自己都没把握 — 茅台董事长一边说“年轻人到了年纪自然会喝白酒”，一边又放下身段去跟 9.9 元的瑞幸咖啡联名。</p>
       </div>
-      <div style={{ display: "flex", gap: "0.9rem", alignItems: "flex-start" }}>
-        <div style={{ flex: "0 0 auto", width: "1.7rem", height: "1.7rem", background: "#c0392b", color: "#fff", display: "flex", alignItems: "center", justifyContent: "center", fontSize: "0.9rem", fontWeight: 700 }}>3</div>
-        <p style={{ margin: 0, fontSize: "1rem", color: "#444", lineHeight: 1.6 }}>信息不足时的预测，长期期望为负 — 没有内幕消息时赌球是负期望；散户在信息不充分下预测未来，与赌球并无差别。</p>
+      <div class={styles.evidenceItem}>
+        <div class={shared.bulletNum}>3</div>
+        <p class={styles.evidenceText}>信息不足时的预测，长期期望为负 — 没有内幕消息时赌球是负期望；散户在信息不充分下预测未来，与赌球并无差别。</p>
       </div>
     </div>
   </div>

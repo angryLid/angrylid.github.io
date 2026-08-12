@@ -1,0 +1,151 @@
+/* Page-specific styles for 15a3-asia-profit.mdx */
+
+.root {
+  height: 100%;
+  display: flex;
+  align-items: center;
+}
+
+/* Left: stat cards column */
+.leftCol {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 1.1rem;
+  align-items: flex-end;
+  padding-right: 2rem;
+}
+
+.statCard {
+  width: 100%;
+  max-width: 480px;
+  padding: 1.1rem 1.3rem;
+  border-left: 4px solid;
+  background: #ffffff;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+}
+
+.statCardRed {
+  border-left-color: #c0392b;
+}
+
+.statCardGreen {
+  border-left-color: #1e7d32;
+}
+
+.statLabel {
+  margin: 0 0 0.5rem 0;
+  font-size: 0.8rem;
+  color: #999;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.statNumRed {
+  margin: 0;
+  font-size: 2.6rem;
+  font-weight: 800;
+  color: #c0392b;
+  line-height: 1.05;
+}
+
+.statNumRedSm {
+  margin: 0;
+  font-size: 2.2rem;
+  font-weight: 800;
+  color: #c0392b;
+  line-height: 1.05;
+}
+
+.statNumGreen {
+  margin: 0;
+  font-size: 2.6rem;
+  font-weight: 800;
+  color: #1e7d32;
+  line-height: 1.05;
+}
+
+.statUnitLg {
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: #666;
+  margin-left: 0.3rem;
+}
+
+.statUnitSm {
+  font-size: 1.05rem;
+  font-weight: 600;
+  color: #666;
+  margin-left: 0.3rem;
+}
+
+.statNote {
+  margin: 0.6rem 0 0 0;
+  font-size: 0.8rem;
+  color: #666;
+  line-height: 1.5;
+}
+
+/* Divider */
+.divider {
+  width: 2px;
+  align-self: stretch;
+  background: #ccc;
+}
+
+/* Right: timeline */
+.rightCol {
+  flex: 1;
+  min-width: 0;
+  position: relative;
+  padding-left: 1.6rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.95rem;
+}
+
+.timelineItem {
+  position: relative;
+}
+
+.timelineDot {
+  position: absolute;
+  left: calc(-1.6rem - 7px);
+  top: 0.34rem;
+  width: 12px;
+  height: 12px;
+  background: #c0392b;
+}
+
+.timelineDotGreen {
+  position: absolute;
+  left: calc(-1.6rem - 7px);
+  top: 0.34rem;
+  width: 12px;
+  height: 12px;
+  background: #1e7d32;
+}
+
+.timelineYearRed {
+  margin: 0;
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: #c0392b;
+  letter-spacing: 0.03em;
+}
+
+.timelineYearGreen {
+  margin: 0;
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: #1e7d32;
+  letter-spacing: 0.03em;
+}
+
+.timelineDesc {
+  margin: 0.15rem 0 0 0;
+  font-size: 0.98rem;
+  color: #1a1a1a;
+  line-height: 1.5;
+}

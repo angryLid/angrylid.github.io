@@ -5,11 +5,10 @@ presTitle: "投资"
 ---
 import Notes from "@components/Notes.astro";
 import CandlestickTitle from "@components/CandlestickTitle.astro";
+import styles from "./styles/01-title.module.css";
 
-<div
-  style="position: absolute; top: 0; left: 0; width: 1280px; height: 720px; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center;"
->
-  <div style="font-size: 9rem; font-weight: 800; letter-spacing: 0.1em; color: #333;">
+<div class={styles.titleWrap}>
+  <div class={styles.titleText}>
     <CandlestickTitle
       text="INVESTMENT"
       colorA="#06806b"
@@ -19,7 +18,7 @@ import CandlestickTitle from "@components/CandlestickTitle.astro";
       mode="keys"
     />
   </div>
-  <p style="margin-top: 1rem; font-size: 2.8rem; font-weight: 400; color: var(--gray);">Presented by Mason</p>
+  <p class={styles.subtitle}>Presented by Mason</p>
 </div>
 
 <Notes>

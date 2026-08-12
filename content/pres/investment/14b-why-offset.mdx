@@ -4,108 +4,57 @@ steps: 1
 ---
 import Notes from "@components/Notes.astro";
 import PresentationLayout from "@components/PresentationLayout.astro";
+import offsetNetting from "./assets/why-offset/offset-netting.svg";
+import styles from "./styles/slide-svg.module.css";
+import page from "./styles/14b-why-offset.module.css";
 
 <PresentationLayout title="为什么能平仓离场" eyebrow="FUTURES · 期货三部曲 · WHY" narrow>
-  <div style="height: 100%; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 1rem; padding: 0.5rem 2.5rem 1.2rem; text-align: center;">
-    <p style="margin: 0; font-size: 1.05rem; color: #555;">平仓 = 做一笔反向交易，买卖相抵后净额结算——自始至终没碰过一粒大豆。</p>
+  <div class={page.root}>
+    <p class={page.lead}>平仓 = 做一笔反向交易，买卖相抵后净额结算——自始至终没碰过一粒大豆。</p>
 
-    <div style="flex: 1; min-height: 0; width: 100%; display: grid; grid-template-columns: 2.5fr 7.5fr; gap: 1.1rem;">
-      <div style="height: 100%; display: flex; flex-direction: column; gap: 0.7rem;">
-        <div style="flex: 0 0 auto; display: grid; grid-template-columns: 1fr 1fr; gap: 0.6rem;">
-          <div style="border: 1px solid #e2e2e2; background: #fafafa; padding: 0.7rem; text-align: center;">
-            <p style="margin: 0; font-size: 1.7rem; font-weight: 800; color: #b91c1c; font-family: 'Cascadia Code', monospace;">&lt;2%</p>
-            <p style="margin: 0.2rem 0 0; font-size: 0.7rem; color: #6b7280;">合约真正走到<br/>实物交割</p>
+    <div class={page.mainGrid}>
+      <div class={page.statsCol}>
+        <div class={page.statGrid}>
+          <div class={page.statBox}>
+            <p class={page.statNumRed}>&lt;2%</p>
+            <p class={page.statLabel}>合约真正走到<br/>实物交割</p>
           </div>
-          <div style="border: 1px solid #e2e2e2; background: #fafafa; padding: 0.7rem; text-align: center;">
-            <p style="margin: 0; font-size: 1.7rem; font-weight: 800; color: #16a34a; font-family: 'Cascadia Code', monospace;">&gt;98%</p>
-            <p style="margin: 0.2rem 0 0; font-size: 0.7rem; color: #6b7280;">到期前已<br/>对冲平仓离场</p>
+          <div class={page.statBox}>
+            <p class={page.statNumGreen}>&gt;98%</p>
+            <p class={page.statLabel}>到期前已<br/>对冲平仓离场</p>
           </div>
         </div>
-        <div style="flex: 1; min-height: 0; border: 1px solid #e2e2e2; background: #fafafa; padding: 0.8rem 1.1rem; text-align: left;">
-          <p style="margin: 0 0 0.5rem; font-size: 0.72rem; letter-spacing: 0.12em; color: #9ca3af; font-family: 'Cascadia Code', monospace;">REASON · 为什么不用交割</p>
-          <div style="display: flex; flex-direction: column; gap: 0.5rem;">
-            <div style="display: flex; gap: 0.6rem; align-items: flex-start;">
-              <span style="color:#b91c1c; font-weight:800; font-family:'Cascadia Code', monospace; flex-shrink:0;">1.</span>
-              <p style="margin: 0; font-size: 0.85rem; color: #444; line-height: 1.55;">合约是一笔"义务"：买方有<span style="color:#16a34a;">买</span>的义务，卖方有<span style="color:#dc2626;">卖</span>的义务</p>
+        <div class={page.reasonBox}>
+          <p class={page.reasonTitle}>REASON · 为什么不用交割</p>
+          <div class={page.reasonList}>
+            <div class={page.reasonItem}>
+              <span class={page.reasonNum}>1.</span>
+              <p class={page.reasonText}>合约是一笔"义务"：买方有<span class={page.textGreen}>买</span>的义务，卖方有<span class={page.textRed}>卖</span>的义务</p>
             </div>
-            <div style="display: flex; gap: 0.6rem; align-items: flex-start;">
-              <span style="color:#b91c1c; font-weight:800; font-family:'Cascadia Code', monospace; flex-shrink:0;">2.</span>
-              <p style="margin: 0; font-size: 0.85rem; color: #444; line-height: 1.55;">到期前做一笔<span style="color:#b91c1c; font-weight:700;">反向交易</span>，买卖义务恰好对消</p>
+            <div class={page.reasonItem}>
+              <span class={page.reasonNum}>2.</span>
+              <p class={page.reasonText}>到期前做一笔<span class={page.reasonTextBold}>反向交易</span>，买卖义务恰好对消</p>
             </div>
-            <div style="display: flex; gap: 0.6rem; align-items: flex-start;">
-              <span style="color:#b91c1c; font-weight:800; font-family:'Cascadia Code', monospace; flex-shrink:0;">3.</span>
-              <p style="margin: 0; font-size: 0.85rem; color: #444; line-height: 1.55;">交易所<span style="color:#b91c1c; font-weight:700;">净额结算</span>，只划转价差，货物从未易手</p>
+            <div class={page.reasonItem}>
+              <span class={page.reasonNum}>3.</span>
+              <p class={page.reasonText}>交易所<span class={page.reasonTextBold}>净额结算</span>，只划转价差，货物从未易手</p>
             </div>
           </div>
         </div>
       </div>
 
 
-      <div style="border: 1px solid #e2e2e2; background: #fafafa; padding: 0.8rem 1rem; display: flex; flex-direction: column; min-height: 0;">
-        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.2rem;">
-          <span style="font-size: 0.72rem; color: #9ca3af; font-family: 'Cascadia Code', monospace; letter-spacing: 0.08em;">OFFSET · 持仓相抵</span>
-          <span style="font-size: 0.68rem; color: #6b7280; font-family: 'Cascadia Code', monospace;">净额结算</span>
+      <div class={page.chartCard}>
+        <div class={page.chartHeader}>
+          <span class={page.chartTitle}>OFFSET · 持仓相抵</span>
+          <span class={page.chartMeta}>净额结算</span>
         </div>
-        <svg viewBox="0 0 560 368" preserveAspectRatio="xMidYMid meet" style="width: 100%; flex: 1; min-height: 0;" xmlns="http://www.w3.org/2000/svg">
-          <defs>
-            <linearGradient id="longGrad14b" x1="0%" y1="0%" x2="100%" y2="0%">
-              <stop offset="0%" stop-color="#22c55e"/>
-              <stop offset="100%" stop-color="#16a34a"/>
-            </linearGradient>
-            <linearGradient id="shortGrad14b" x1="0%" y1="0%" x2="100%" y2="0%">
-              <stop offset="0%" stop-color="#f87171"/>
-              <stop offset="100%" stop-color="#dc2626"/>
-            </linearGradient>
-            <linearGradient id="zeroGrad14b" x1="0%" y1="0%" x2="0%" y2="100%">
-              <stop offset="0%" stop-color="#6b7280"/>
-              <stop offset="100%" stop-color="#4b5563"/>
-            </linearGradient>
-          </defs>
-
-          <g>
-            <rect x="30" y="30" width="230" height="78" rx="8" fill="#ffffff" stroke="url(#longGrad14b)" stroke-width="2.2"/>
-            <text x="48" y="62" font-size="13" fill="#16a34a" font-family="Cascadia Code, monospace" font-weight="600">BUY · 买入开仓</text>
-            <text x="48" y="92" font-size="20" fill="#333333" font-family="Cascadia Code, monospace" font-weight="700">+1 手 @ ¥5000</text>
-            <text x="244" y="70" text-anchor="end" font-size="26" fill="#16a34a" font-weight="800">+</text>
-          </g>
-
-          <g>
-            <rect x="30" y="260" width="230" height="78" rx="8" fill="#ffffff" stroke="url(#shortGrad14b)" stroke-width="2.2"/>
-            <text x="48" y="292" font-size="13" fill="#dc2626" font-family="Cascadia Code, monospace" font-weight="600">SELL · 卖出平仓</text>
-            <text x="48" y="322" font-size="20" fill="#333333" font-family="Cascadia Code, monospace" font-weight="700">-1 手 @ ¥5200</text>
-            <text x="244" y="300" text-anchor="end" font-size="26" fill="#dc2626" font-weight="800">−</text>
-          </g>
-
-          <g stroke="#9ca3af" stroke-width="1.8" stroke-dasharray="5 5" fill="none">
-            <path d="M260 69 Q306 69 306 130"/>
-            <path d="M260 299 Q306 299 306 238"/>
-          </g>
-
-          <g>
-            <circle cx="306" cy="184" r="54" fill="#f3f4f6" stroke="url(#zeroGrad14b)" stroke-width="2.6"/>
-            <text x="306" y="172" text-anchor="middle" font-size="12" fill="#6b7280" font-family="Cascadia Code, monospace">NET</text>
-            <text x="306" y="208" text-anchor="middle" font-size="36" font-weight="800" fill="#374151" font-family="Cascadia Code, monospace">0</text>
-          </g>
-
-          <g>
-            <path d="M360 184 L404 184" stroke="#6b7280" stroke-width="2.4" fill="none"/>
-            <polygon points="404,178 416,184 404,190" fill="#6b7280"/>
-          </g>
-
-          <g transform="translate(424, 130)">
-            <rect x="0" y="0" width="122" height="108" rx="8" fill="#f0fdf4" stroke="#16a34a" stroke-width="2"/>
-            <text x="61" y="30" text-anchor="middle" font-size="12" fill="#16a34a" font-family="Cascadia Code, monospace">P&amp;L · 盈亏</text>
-            <text x="61" y="66" text-anchor="middle" font-size="27" font-weight="800" fill="#16a34a" font-family="Cascadia Code, monospace">+¥2,000</text>
-            <text x="61" y="94" text-anchor="middle" font-size="12" fill="#6b7280" font-family="Cascadia Code, monospace">(5200-5000)×10t</text>
-          </g>
-
-          <text x="280" y="352" text-anchor="middle" font-size="13" fill="#6b7280" font-family="Cascadia Code, monospace">买卖相抵 → 持仓归零 → 只结算差额</text>
-        </svg>
+        <img src={offsetNetting.src} alt="期货买卖相抵只结算差额" class={styles.fill} />
       </div>
     </div>
 
-    <div style="flex: 0 0 auto; border-left: 3px solid #333; padding: 0.7rem 1rem; background: #fafafa; width: 100%;">
-      <p style="margin: 0; font-size: 0.92rem; color: #333; line-height: 1.6;"><strong>本质 ·</strong> 期货是一笔"可对消的义务"——反向一笔即归零，差额用现金了结，所以绝大多数合约从不交割实物。</p>
+    <div class={page.footerBar}>
+      <p class={page.footerText}><strong>本质 ·</strong> 期货是一笔"可对消的义务"——反向一笔即归零，差额用现金了结，所以绝大多数合约从不交割实物。</p>
     </div>
   </div>
 </PresentationLayout>

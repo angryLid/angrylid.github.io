@@ -4,66 +4,67 @@ steps: 1
 ---
 import Notes from "@components/Notes.astro";
 import PresentationLayout from "@components/PresentationLayout.astro";
+import styles from "./styles/03-what-is-investment.module.css";
 
 <PresentationLayout title="做生意和投资" eyebrow="INVESTING · 投资本质" narrow>
-  <div style="height: 100%; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 1rem; padding: 0.5rem 2.5rem 1.2rem; text-align: center;">
-    <p style="margin: 0; font-size: 1.05rem; color: #555;">投资，本质也是"倒卖一种特殊的商品"——只是你不需要进货、搬运、找客户，只需<strong>买入资产、等待时间证明你正确</strong>。</p>
+  <div class={styles.root}>
+    <p class={styles.lead}>投资，本质也是"倒卖一种特殊的商品"——只是你不需要进货、搬运、找客户，只需<strong>买入资产、等待时间证明你正确</strong>。</p>
 
-    <div style="flex: 1; min-height: 0; width: 100%; display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+    <div class={styles.compareGrid}>
 
       {/* 左栏：做生意 */}
-      <div style="min-height: 0; border: 1px solid #e2e2e2; background: #fafafa; padding: 0.9rem 1.2rem; display: flex; flex-direction: column; text-align: left; gap: 0.5rem;">
-        <div style="display: flex; align-items: center; gap: 0.6rem;">
-          <span style="font-size: 1.4rem;">📦</span>
+      <div class={styles.colCard}>
+        <div class={styles.colHeader}>
+          <span class={styles.colIcon}>📦</span>
           <div>
-            <p style="margin: 0; font-size: 0.7rem; letter-spacing: 0.12em; color: #9ca3af; font-family: 'Cascadia Code', monospace;">BUSINESS · 做生意</p>
-            <p style="margin: 0.1rem 0 0 0; font-size: 1.05rem; font-weight: 700; color: #b91c1c;">倒卖球鞋，每个环节都要操心</p>
+            <p class={styles.colEyebrow}>BUSINESS · 做生意</p>
+            <p class={styles.colTitleRed}>倒卖球鞋，每个环节都要操心</p>
           </div>
         </div>
 
-        <div style="flex: 1; min-height: 0; display: flex; flex-direction: column; align-items: center; justify-content: space-around; gap: 0.4rem;">
-          <div style="border:1px solid #e2e2e2; background:#fff; padding:0.5rem 1.2rem; width:100%; display:flex; align-items:center; justify-content:center; gap:0.5rem;"><span style="font-size:1.4rem;">💰</span><span style="font-size:0.95rem; color:#444;">低价买入</span></div>
-          <div style="font-size:1.3rem; color:#9ca3af;">↓</div>
-          <div style="display:flex; align-items:center; justify-content:space-around; gap:0.4rem; width:100%; flex-wrap:wrap;">
-            <div style="border:1px solid #e2e2e2; background:#fff; padding:0.35rem 0.55rem; display:flex; align-items:center; gap:0.35rem;"><span style="font-size:1.1rem;">📋</span><span style="font-size:0.85rem; color:#444;">进货</span></div>
-            <div style="border:1px solid #e2e2e2; background:#fff; padding:0.35rem 0.55rem; display:flex; align-items:center; gap:0.35rem;"><span style="font-size:1.1rem;">🔍</span><span style="font-size:0.85rem; color:#444;">验货</span></div>
-            <div style="border:1px solid #e2e2e2; background:#fff; padding:0.35rem 0.55rem; display:flex; align-items:center; gap:0.35rem;"><span style="font-size:1.1rem;">🗄️</span><span style="font-size:0.85rem; color:#444;">仓储</span></div>
-            <div style="border:1px solid #e2e2e2; background:#fff; padding:0.35rem 0.55rem; display:flex; align-items:center; gap:0.35rem;"><span style="font-size:1.1rem;">🚚</span><span style="font-size:0.85rem; color:#444;">搬运</span></div>
-            <div style="border:1px solid #e2e2e2; background:#fff; padding:0.35rem 0.55rem; display:flex; align-items:center; gap:0.35rem;"><span style="font-size:1.1rem;">📣</span><span style="font-size:0.85rem; color:#444;">找客户</span></div>
-            <div style="border:1px solid #e2e2e2; background:#fff; padding:0.35rem 0.55rem; display:flex; align-items:center; gap:0.35rem;"><span style="font-size:1.1rem;">🤝</span><span style="font-size:0.85rem; color:#444;">谈判</span></div>
-            <div style="border:1px solid #e2e2e2; background:#fff; padding:0.35rem 0.55rem; display:flex; align-items:center; gap:0.35rem;"><span style="font-size:1.1rem;">💳</span><span style="font-size:0.85rem; color:#444;">收款</span></div>
-            <div style="border:1px solid #e2e2e2; background:#fff; padding:0.35rem 0.55rem; display:flex; align-items:center; gap:0.35rem;"><span style="font-size:1.1rem;">📦</span><span style="font-size:0.85rem; color:#444;">打包</span></div>
-            <div style="border:1px solid #e2e2e2; background:#fff; padding:0.35rem 0.55rem; display:flex; align-items:center; gap:0.35rem;"><span style="font-size:1.1rem;">🚛</span><span style="font-size:0.85rem; color:#444;">发货</span></div>
-            <div style="border:1px solid #e2e2e2; background:#fff; padding:0.35rem 0.55rem; display:flex; align-items:center; gap:0.35rem;"><span style="font-size:1.1rem;">🛠️</span><span style="font-size:0.85rem; color:#444;">售后</span></div>
+        <div class={styles.flowCol}>
+          <div class={styles.stepBox}><span class={styles.stepIcon}>💰</span><span class={styles.stepLabel}>低价买入</span></div>
+          <div class={styles.arrowDown}>↓</div>
+          <div class={styles.tagRow}>
+            <div class={styles.tagChip}><span class={styles.tagChipIcon}>📋</span><span class={styles.tagChipLabel}>进货</span></div>
+            <div class={styles.tagChip}><span class={styles.tagChipIcon}>🔍</span><span class={styles.tagChipLabel}>验货</span></div>
+            <div class={styles.tagChip}><span class={styles.tagChipIcon}>🗄️</span><span class={styles.tagChipLabel}>仓储</span></div>
+            <div class={styles.tagChip}><span class={styles.tagChipIcon}>🚚</span><span class={styles.tagChipLabel}>搬运</span></div>
+            <div class={styles.tagChip}><span class={styles.tagChipIcon}>📣</span><span class={styles.tagChipLabel}>找客户</span></div>
+            <div class={styles.tagChip}><span class={styles.tagChipIcon}>🤝</span><span class={styles.tagChipLabel}>谈判</span></div>
+            <div class={styles.tagChip}><span class={styles.tagChipIcon}>💳</span><span class={styles.tagChipLabel}>收款</span></div>
+            <div class={styles.tagChip}><span class={styles.tagChipIcon}>📦</span><span class={styles.tagChipLabel}>打包</span></div>
+            <div class={styles.tagChip}><span class={styles.tagChipIcon}>🚛</span><span class={styles.tagChipLabel}>发货</span></div>
+            <div class={styles.tagChip}><span class={styles.tagChipIcon}>🛠️</span><span class={styles.tagChipLabel}>售后</span></div>
           </div>
-          <div style="font-size:1.3rem; color:#9ca3af;">↓</div>
-          <div style="border:1px solid #e2e2e2; background:#fff; padding:0.5rem 1.2rem; width:100%; display:flex; align-items:center; justify-content:center; gap:0.5rem;"><span style="font-size:1.4rem;">💵</span><span style="font-size:0.95rem; color:#444;">高价卖出</span></div>
+          <div class={styles.arrowDown}>↓</div>
+          <div class={styles.stepBox}><span class={styles.stepIcon}>💵</span><span class={styles.stepLabel}>高价卖出</span></div>
         </div>
       </div>
 
       {/* 右栏：投资 */}
-      <div style="min-height: 0; border: 1px solid #e2e2e2; background: #fafafa; padding: 0.9rem 1.2rem; display: flex; flex-direction: column; text-align: left; gap: 0.5rem;">
-        <div style="display: flex; align-items: center; gap: 0.6rem;">
-          <span style="font-size: 1.4rem;">💹</span>
+      <div class={styles.colCard}>
+        <div class={styles.colHeader}>
+          <span class={styles.colIcon}>💹</span>
           <div>
-            <p style="margin: 0; font-size: 0.7rem; letter-spacing: 0.12em; color: #9ca3af; font-family: 'Cascadia Code', monospace;">INVESTING · 投资</p>
-            <p style="margin: 0.1rem 0 0 0; font-size: 1.05rem; font-weight: 700; color: #15803d;">买一种"特殊商品"，什么都不用做</p>
+            <p class={styles.colEyebrow}>INVESTING · 投资</p>
+            <p class={styles.colTitleGreen}>买一种"特殊商品"，什么都不用做</p>
           </div>
         </div>
 
-        <div style="flex: 1; min-height: 0; display: flex; flex-direction: column; align-items: center; justify-content: space-around; gap: 0.4rem;">
-          <div style="border:1px solid #e2e2e2; background:#fff; padding:0.5rem 1.2rem; width:100%; display:flex; align-items:center; justify-content:center; gap:0.5rem;"><span style="font-size:1.4rem;">💰</span><span style="font-size:0.95rem; color:#444;">买入</span></div>
-          <div style="font-size:1.3rem; color:#9ca3af;">↓</div>
-          <div style="border:1px solid #e2e2e2; background:#fff; padding:0.5rem 1.2rem; width:100%; display:flex; align-items:center; justify-content:center; gap:0.5rem;"><span style="font-size:1.4rem;">⏳</span><span style="font-size:0.95rem; color:#444;">等待</span></div>
-          <div style="font-size:1.3rem; color:#9ca3af;">↓</div>
-          <div style="border:1px solid #e2e2e2; background:#fff; padding:0.5rem 1.2rem; width:100%; display:flex; align-items:center; justify-content:center; gap:0.5rem;"><span style="font-size:1.4rem;">💵</span><span style="font-size:0.95rem; color:#444;">卖出</span></div>
+        <div class={styles.flowCol}>
+          <div class={styles.stepBox}><span class={styles.stepIcon}>💰</span><span class={styles.stepLabel}>买入</span></div>
+          <div class={styles.arrowDown}>↓</div>
+          <div class={styles.stepBox}><span class={styles.stepIcon}>⏳</span><span class={styles.stepLabel}>等待</span></div>
+          <div class={styles.arrowDown}>↓</div>
+          <div class={styles.stepBox}><span class={styles.stepIcon}>💵</span><span class={styles.stepLabel}>卖出</span></div>
         </div>
       </div>
 
     </div>
 
-    <div style="flex: 0 0 auto; border-left: 3px solid #333; padding: 0.7rem 1rem; background: #fafafa; width: 100%;">
-      <p style="margin: 0; font-size: 0.92rem; color: #333; line-height: 1.6;"><strong>本质 ·</strong> 做生意靠"劳动换差价"，投资靠"时间换收益"——两者赚的都是买卖价差，区别只在投入的是<strong>勤恳的劳动</strong>还是<strong>耐心的等待</strong>。</p>
+    <div class={styles.footerBar}>
+      <p class={styles.footerText}><strong>本质 ·</strong> 做生意靠"劳动换差价"，投资靠"时间换收益"——两者赚的都是买卖价差，区别只在投入的是<strong>勤恳的劳动</strong>还是<strong>耐心的等待</strong>。</p>
     </div>
   </div>
 </PresentationLayout>

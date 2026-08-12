@@ -1,0 +1,55 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 560 368" preserveAspectRatio="xMidYMid meet">
+  <defs>
+    <linearGradient id="longGrad14b" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#22c55e"/>
+      <stop offset="100%" stop-color="#16a34a"/>
+    </linearGradient>
+    <linearGradient id="shortGrad14b" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#f87171"/>
+      <stop offset="100%" stop-color="#dc2626"/>
+    </linearGradient>
+    <linearGradient id="zeroGrad14b" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#6b7280"/>
+      <stop offset="100%" stop-color="#4b5563"/>
+    </linearGradient>
+  </defs>
+
+  <g>
+    <rect x="30" y="30" width="230" height="78" rx="8" fill="#ffffff" stroke="url(#longGrad14b)" stroke-width="2.2"/>
+    <text x="48" y="62" font-size="13" fill="#16a34a" font-family="Cascadia Code, monospace" font-weight="600">BUY · 买入开仓</text>
+    <text x="48" y="92" font-size="20" fill="#333333" font-family="Cascadia Code, monospace" font-weight="700">+1 手 @ ¥5000</text>
+    <text x="244" y="70" text-anchor="end" font-size="26" fill="#16a34a" font-weight="800">+</text>
+  </g>
+
+  <g>
+    <rect x="30" y="260" width="230" height="78" rx="8" fill="#ffffff" stroke="url(#shortGrad14b)" stroke-width="2.2"/>
+    <text x="48" y="292" font-size="13" fill="#dc2626" font-family="Cascadia Code, monospace" font-weight="600">SELL · 卖出平仓</text>
+    <text x="48" y="322" font-size="20" fill="#333333" font-family="Cascadia Code, monospace" font-weight="700">-1 手 @ ¥5200</text>
+    <text x="244" y="300" text-anchor="end" font-size="26" fill="#dc2626" font-weight="800">−</text>
+  </g>
+
+  <g stroke="#9ca3af" stroke-width="1.8" stroke-dasharray="5 5" fill="none">
+    <path d="M260 69 Q306 69 306 130"/>
+    <path d="M260 299 Q306 299 306 238"/>
+  </g>
+
+  <g>
+    <circle cx="306" cy="184" r="54" fill="#f3f4f6" stroke="url(#zeroGrad14b)" stroke-width="2.6"/>
+    <text x="306" y="172" text-anchor="middle" font-size="12" fill="#6b7280" font-family="Cascadia Code, monospace">NET</text>
+    <text x="306" y="208" text-anchor="middle" font-size="36" font-weight="800" fill="#374151" font-family="Cascadia Code, monospace">0</text>
+  </g>
+
+  <g>
+    <path d="M360 184 L404 184" stroke="#6b7280" stroke-width="2.4" fill="none"/>
+    <polygon points="404,178 416,184 404,190" fill="#6b7280"/>
+  </g>
+
+  <g transform="translate(424, 130)">
+    <rect x="0" y="0" width="122" height="108" rx="8" fill="#f0fdf4" stroke="#16a34a" stroke-width="2"/>
+    <text x="61" y="30" text-anchor="middle" font-size="12" fill="#16a34a" font-family="Cascadia Code, monospace">P&amp;L · 盈亏</text>
+    <text x="61" y="66" text-anchor="middle" font-size="27" font-weight="800" fill="#16a34a" font-family="Cascadia Code, monospace">+¥2,000</text>
+    <text x="61" y="94" text-anchor="middle" font-size="12" fill="#6b7280" font-family="Cascadia Code, monospace">(5200-5000)×10t</text>
+  </g>
+
+  <text x="280" y="352" text-anchor="middle" font-size="13" fill="#6b7280" font-family="Cascadia Code, monospace">买卖相抵 → 持仓归零 → 只结算差额</text>
+</svg>

@@ -1,0 +1,29 @@
+/* Page-specific styles for 01-title.mdx */
+
+/* Full-screen title container (1280×720 canvas) */
+.titleWrap {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 1280px;
+  height: 720px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+.titleText {
+  font-size: 9rem;
+  font-weight: 800;
+  letter-spacing: 0.1em;
+  color: #333;
+}
+
+.subtitle {
+  margin-top: 1rem;
+  font-size: 2.8rem;
+  font-weight: 400;
+  color: var(--gray);
+}

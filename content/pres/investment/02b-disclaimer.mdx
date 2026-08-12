@@ -6,9 +6,10 @@ import Notes from "@components/Notes.astro";
 import PresentationLayout from "@components/PresentationLayout.astro";
 import PresentationStep from "@components/PresentationStep.astro";
 import TypewriterList from "@components/TypewriterList.astro";
+import styles from "./styles/02b-disclaimer.module.css";
 
 <PresentationLayout title="免责声明">
-  <div style="padding: 0.5rem 3rem 0; display: flex; flex-direction: column; gap: 1.5rem;">
+  <div class={styles.wrap}>
     <PresentationStep step={0}>
       <TypewriterList
         items={["接下来我只是要说一些我自己相信的话，不构成任何投资建议。"]}

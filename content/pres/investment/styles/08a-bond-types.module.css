@@ -1,0 +1,152 @@
+/* Page-specific styles for 08a-bond-types.mdx */
+
+.root {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  padding: 0.5rem 2.5rem 1.2rem;
+  text-align: center;
+}
+
+.lead {
+  margin: 0;
+  font-size: 1.05rem;
+  color: #555;
+}
+
+.mainGrid {
+  flex: 1;
+  min-height: 0;
+  width: 100%;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.1rem;
+}
+
+/* Category card (sovereign / credit) */
+.typeCard {
+  flex: 1;
+  min-height: 0;
+  border: 1px solid #e2e2e2;
+  background: #fafafa;
+  padding: 1rem 1.1rem;
+  display: flex;
+  flex-direction: column;
+  text-align: left;
+  gap: 0.7rem;
+}
+
+.typeHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.typeTag {
+  font-size: 0.72rem;
+  letter-spacing: 0.12em;
+  color: #9ca3af;
+  font-family: 'Cascadia Code', monospace;
+}
+
+.typeIcon {
+  font-size: 1.5rem;
+}
+
+.typeDesc {
+  margin: 0;
+  font-size: 0.85rem;
+  color: #6b7280;
+  line-height: 1.5;
+}
+
+/* Bond row */
+.bondRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 0.6rem;
+  border-top: 1px solid #e2e2e2;
+  padding-top: 0.6rem;
+}
+
+.bondName {
+  margin: 0;
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: #333;
+}
+
+.bondSub {
+  margin: 0.1rem 0 0;
+  font-size: 0.75rem;
+  color: #6b7280;
+}
+
+.bondRateBox {
+  text-align: right;
+  flex-shrink: 0;
+}
+
+.bondRateGreen {
+  margin: 0;
+  font-size: 1rem;
+  font-weight: 700;
+  color: #16a34a;
+  font-family: 'Cascadia Code', monospace;
+}
+
+.bondRateRed {
+  margin: 0;
+  font-size: 1rem;
+  font-weight: 700;
+  color: #b91c1c;
+  font-family: 'Cascadia Code', monospace;
+}
+
+.bondMeta {
+  margin: 0.1rem 0 0;
+  font-size: 0.7rem;
+  color: #9ca3af;
+  font-family: 'Cascadia Code', monospace;
+}
+
+/* Bottom note per card */
+.cardNoteWrap {
+  flex: 1;
+  min-height: 0;
+  display: flex;
+  align-items: flex-end;
+}
+
+.cardNoteGreen {
+  margin: 0.6rem 0 0;
+  font-size: 0.78rem;
+  color: #16a34a;
+  line-height: 1.5;
+}
+
+.cardNoteRed {
+  margin: 0.6rem 0 0;
+  font-size: 0.78rem;
+  color: #b91c1c;
+  line-height: 1.5;
+}
+
+.footerBar {
+  flex: 0 0 auto;
+  border-left: 3px solid #333;
+  padding: 0.7rem 1rem;
+  background: #fafafa;
+  width: 100%;
+}
+
+.footerText {
+  margin: 0;
+  font-size: 0.92rem;
+  color: #333;
+  line-height: 1.6;
+}

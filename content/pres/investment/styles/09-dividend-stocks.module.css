@@ -1,0 +1,144 @@
+/* Page-specific styles for 09-dividend-stocks.mdx */
+
+.root {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  padding: 0.5rem 2.5rem 1.2rem;
+  text-align: center;
+}
+
+.lead {
+  margin: 0;
+  font-size: 1.05rem;
+  color: #555;
+}
+
+.leadRed {
+  color: #b91c1c;
+  font-weight: 700;
+}
+
+.leadGreen {
+  color: #15803d;
+  font-weight: 700;
+}
+
+.mainGrid {
+  flex: 1;
+  min-height: 0;
+  width: 100%;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.1rem;
+}
+
+/* Left column of explanation cards */
+.explainCol {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.explainCard {
+  flex: 1;
+  min-height: 0;
+  border: 1px solid #e2e2e2;
+  background: #fafafa;
+  padding: 0.55rem 1rem;
+  text-align: left;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.explainEyebrow {
+  margin: 0 0 0.3rem;
+  font-size: 0.68rem;
+  letter-spacing: 0.12em;
+  color: #9ca3af;
+  font-family: 'Cascadia Code', monospace;
+}
+
+.explainTitle {
+  margin: 0;
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: #333;
+}
+
+.explainTitleRed {
+  margin: 0;
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: #b91c1c;
+}
+
+.explainBody {
+  margin: 0.3rem 0 0;
+  font-size: 0.85rem;
+  color: #444;
+  line-height: 1.5;
+}
+
+.bodyGreen {
+  color: #15803d;
+  font-weight: 700;
+}
+
+.bodyRed {
+  color: #b91c1c;
+  font-weight: 700;
+}
+
+.bodyCode {
+  font-family: 'Cascadia Code', monospace;
+}
+
+/* Right column with chart */
+.chartCard {
+  border: 1px solid #e2e2e2;
+  background: #fafafa;
+  padding: 0.8rem 1rem;
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+}
+
+.chartHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.2rem;
+}
+
+.chartTitle {
+  font-size: 0.72rem;
+  color: #9ca3af;
+  font-family: 'Cascadia Code', monospace;
+  letter-spacing: 0.08em;
+}
+
+.chartMeta {
+  font-size: 0.68rem;
+  color: #6b7280;
+  font-family: 'Cascadia Code', monospace;
+}
+
+.footerBar {
+  flex: 0 0 auto;
+  border-left: 3px solid #333;
+  padding: 0.7rem 1rem;
+  background: #fafafa;
+  width: 100%;
+}
+
+.footerText {
+  margin: 0;
+  font-size: 0.92rem;
+  color: #333;
+  line-height: 1.6;
+}

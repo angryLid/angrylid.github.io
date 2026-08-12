@@ -1,0 +1,213 @@
+/* Page-specific styles for 10-consensus-assets.mdx */
+
+.root {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 0.9rem;
+}
+
+/* ---- Top definition row ---- */
+.topRow {
+  display: flex;
+  align-items: stretch;
+  gap: 1.2rem;
+  flex-shrink: 0;
+}
+
+/* Left beige definition card */
+.defCard {
+  flex: 4;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  background: #f0e6cd;
+  border: 1px solid #d9c49a;
+  padding: 1.1rem 1.3rem;
+  position: relative;
+  overflow: hidden;
+}
+
+.defTitle {
+  font-size: 1.8rem;
+  margin-bottom: 0.3rem;
+}
+
+.defBody {
+  font-size: 1.15rem;
+  color: #6b5416;
+  line-height: 1.55;
+}
+
+/* Right dark panel */
+.darkPanel {
+  flex: 6;
+  display: flex;
+  background: #6b4226;
+  padding: 1.1rem 1.3rem;
+  color: #fff;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Column inside dark panel */
+.panelCol {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.panelLabel {
+  font-size: 0.85rem;
+  color: #e5e0d5;
+  margin-bottom: 0.2rem;
+}
+
+.panelTitleLaodeng {
+  font-size: 1.6rem;
+  font-weight: 800;
+}
+
+.panelTitleSmall {
+  font-size: 1.1rem;
+  font-weight: 800;
+}
+
+.panelTitleEn {
+  font-size: 0.85rem;
+  color: #f5f0e8;
+}
+
+/* Divider between the two panel columns */
+.panelDivider {
+  width: 0;
+  border-left: 1px dashed #8a5a36;
+  margin: 0 1rem;
+  flex-shrink: 0;
+}
+
+/* Tag chips on dark background (2-col grid) */
+.darkChipGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.4rem 0.6rem;
+}
+
+.darkChip {
+  background: rgba(255, 255, 255, 0.12);
+  color: #fff;
+  padding: 0.3rem 0.7rem;
+  font-size: 0.95rem;
+  text-align: center;
+}
+
+.darkChipSmall {
+  background: rgba(255, 255, 255, 0.1);
+  color: #fff;
+  padding: 0.3rem 0.7rem;
+  font-size: 0.85rem;
+  text-align: center;
+}
+
+.darkChipWrap {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem;
+}
+
+.sectionHeader {
+  font-size: 1rem;
+  font-weight: 700;
+  color: #6b4226;
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  flex-shrink: 0;
+}
+
+/* ---- Three feature cards ---- */
+.featureGrid {
+  flex: 1;
+  min-height: 0;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 0.9rem;
+}
+
+.featureCard {
+  background: #fff;
+  border: 1px solid #d9c49a;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.featureHeader {
+  background: #4a7c59;
+  color: #fff;
+  padding: 0.8rem 1rem;
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+}
+
+.featureHeaderTitle {
+  display: flex;
+  align-items: baseline;
+  gap: 0.5rem;
+}
+
+.featureIndex {
+  font-size: 0.7rem;
+  opacity: 0.7;
+  letter-spacing: 0.5px;
+}
+
+.featureTitle {
+  font-size: 1.4rem;
+  font-weight: 800;
+}
+
+.featureBody {
+  flex: 1;
+  padding: 0.9rem 1rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 0.6rem;
+}
+
+.featureCheckText {
+  font-size: 1.26rem;
+  color: #463a2a;
+  line-height: 1.5;
+}
+
+/* Lightbox tip inside feature card */
+.tipBox {
+  margin-top: 0.3rem;
+  padding: 0.5rem 0.7rem;
+  background: #e9f0e6;
+  font-size: 1.4rem;
+  color: #3a5c45;
+  line-height: 1.4;
+}
+
+/* ---- Bottom conclusion footer ---- */
+.conclusion {
+  background: #f0e6cd;
+  border: 1px solid #d9c49a;
+  padding: 0.7rem 1rem;
+  border-left: 4px solid #6b4226;
+  flex-shrink: 0;
+}
+
+.conclusionText {
+  font-size: 0.92rem;
+  color: #5c3a21;
+  margin: 0;
+  line-height: 1.5;
+}

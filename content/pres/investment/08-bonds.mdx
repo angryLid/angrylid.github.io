@@ -4,135 +4,62 @@ steps: 1
 ---
 import Notes from "@components/Notes.astro";
 import PresentationLayout from "@components/PresentationLayout.astro";
+import bondsCert from "./assets/bonds/national-development-bond.svg";
+import styles from "./styles/slide-svg.module.css";
+import page from "./styles/08-bonds.module.css";
 
 <PresentationLayout title="债券" eyebrow="BONDS · 生息资产" narrow>
-  <div style="height: 100%; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 0.8rem; padding: 0.4rem 2.5rem 0.6rem; text-align: center;">
-    <p style="margin: 0; font-size: 1rem; color: #555;">
+  <div class={page.root}>
+    <p class={page.lead}>
       债券 = 一张标准化的借条：发行人承诺按期<strong>付息</strong>、到期<strong>还本</strong>——把「借钱」变成一份可交易、可定价的契约。
     </p>
 
-    <div style="flex: 1; min-height: 0; width: 100%; display: grid; grid-template-columns: 1fr 1fr; gap: 1.1rem;">
+    <div class={page.mainGrid}>
       {/* 左侧：三个核心特征 */}
-      <div style="height: 100%; min-height: 0; display: flex; flex-direction: column; gap: 0.5rem;">
-        <div style="flex: 1 1 0; min-height: 0; border: 1px solid #e2e2e2; background: #fafafa; padding: 0.5rem 0.9rem; text-align: left; display: flex; flex-direction: column; justify-content: center; gap: 0.15rem;">
-          <div style="display: flex; justify-content: space-between; align-items: center;">
-            <span style="font-size: 1.15rem;">💵</span>
-            <span style="font-size: 0.6rem; letter-spacing: 0.1em; color: #9ca3af; font-family: 'Cascadia Code', monospace;">COUPON · 票息</span>
+      <div class={page.featureCol}>
+        <div class={page.featureCard}>
+          <div class={page.featureHeader}>
+            <span class={page.featureIconTop}>💵</span>
+            <span class={page.featureTag}>COUPON · 票息</span>
           </div>
-          <p style="margin: 0.1rem 0 0; font-size: 1rem; font-weight: 700; color: #333;">固定利息收入</p>
-          <p style="margin: 0; font-size: 0.8rem; color: #666; line-height: 1.4;">定期支付票息，现金流可预测</p>
-          <p style="margin: 0.15rem 0 0; font-size: 0.95rem; font-weight: 700; color: #15803d; font-family: 'Cascadia Code', monospace;">+3.5% / 年</p>
+          <p class={page.featureLabel}>固定利息收入</p>
+          <p class={page.featureDesc}>定期支付票息，现金流可预测</p>
+          <p class={page.featureStatGreen}>+3.5% / 年</p>
         </div>
 
-        <div style="flex: 1 1 0; min-height: 0; border: 1px solid #e2e2e2; background: #fafafa; padding: 0.5rem 0.9rem; text-align: left; display: flex; flex-direction: column; justify-content: center; gap: 0.15rem;">
-          <div style="display: flex; justify-content: space-between; align-items: center;">
-            <span style="font-size: 1.15rem;">📅</span>
-            <span style="font-size: 0.6rem; letter-spacing: 0.1em; color: #9ca3af; font-family: 'Cascadia Code', monospace;">MATURITY · 到期</span>
+        <div class={page.featureCard}>
+          <div class={page.featureHeader}>
+            <span class={page.featureIconTop}>📅</span>
+            <span class={page.featureTag}>MATURITY · 到期</span>
           </div>
-          <p style="margin: 0.1rem 0 0; font-size: 1rem; font-weight: 700; color: #333;">到期还本</p>
-          <p style="margin: 0; font-size: 0.8rem; color: #666; line-height: 1.4;">约定到期日，本金确定性返还</p>
-          <p style="margin: 0.15rem 0 0; font-size: 0.95rem; font-weight: 700; color: #15803d; font-family: 'Cascadia Code', monospace;">本金 ¥100</p>
+          <p class={page.featureLabel}>到期还本</p>
+          <p class={page.featureDesc}>约定到期日，本金确定性返还</p>
+          <p class={page.featureStatGreen}>本金 ¥100</p>
         </div>
 
-        <div style="flex: 1 1 0; min-height: 0; border: 1px solid #e2e2e2; background: #fafafa; padding: 0.5rem 0.9rem; text-align: left; display: flex; flex-direction: column; justify-content: center; gap: 0.15rem;">
-          <div style="display: flex; justify-content: space-between; align-items: center;">
-            <span style="font-size: 1.15rem;">🛡️</span>
-            <span style="font-size: 0.6rem; letter-spacing: 0.1em; color: #9ca3af; font-family: 'Cascadia Code', monospace;">RISK · 风险</span>
+        <div class={page.featureCard}>
+          <div class={page.featureHeader}>
+            <span class={page.featureIconTop}>🛡️</span>
+            <span class={page.featureTag}>RISK · 风险</span>
           </div>
-          <p style="margin: 0.1rem 0 0; font-size: 1rem; font-weight: 700; color: #333;">风险相对较低</p>
-          <p style="margin: 0; font-size: 0.8rem; color: #666; line-height: 1.4;">国债几乎无风险，企业债看评级</p>
-          <p style="margin: 0.15rem 0 0; font-size: 0.95rem; font-weight: 700; color: #b91c1c; font-family: 'Cascadia Code', monospace;">AAA · 看信用</p>
+          <p class={page.featureLabel}>风险相对较低</p>
+          <p class={page.featureDesc}>国债几乎无风险，企业债看评级</p>
+          <p class={page.featureStatRed}>AAA · 看信用</p>
         </div>
       </div>
 
       {/* 右侧：债券证书 + 现金流 */}
-      <div style="min-height: 0; border: 1px solid #e2e2e2; background: #fafafa; padding: 0.6rem 0.8rem; display: flex; flex-direction: column; min-height: 0;">
-        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.2rem;">
-          <span style="font-size: 0.7rem; color: #9ca3af; font-family: 'Cascadia Code', monospace; letter-spacing: 0.08em;">CASHFLOW · 现金流</span>
-          <span style="font-size: 0.65rem; color: #6b7280; font-family: 'Cascadia Code', monospace;">5 年期 · ¥100</span>
+      <div class={page.chartCard}>
+        <div class={page.chartHeader}>
+          <span class={page.chartTitle}>CASHFLOW · 现金流</span>
+          <span class={page.chartMeta}>5 年期 · ¥100</span>
         </div>
-        <svg viewBox="0 0 400 320" preserveAspectRatio="xMidYMid meet" style="width: 100%; max-height: 100%; flex-shrink: 1; min-height: 0;" xmlns="http://www.w3.org/2000/svg">
-          <defs>
-            <linearGradient id="bondGrad" x1="0%" y1="0%" x2="0%" y2="100%">
-              <stop offset="0%" stop-color="#ffffff"/>
-              <stop offset="100%" stop-color="#f3f4f6"/>
-            </linearGradient>
-          </defs>
-
-          {/* 债券证书主体 */}
-          <rect x="40" y="25" width="320" height="175" rx="8" fill="url(#bondGrad)" stroke="#e2e2e2" stroke-width="1.5"/>
-          <rect x="40" y="25" width="320" height="32" rx="8" fill="#374151"/>
-          <rect x="40" y="45" width="320" height="12" fill="#374151"/>
-
-          <text x="200" y="47" text-anchor="middle" font-size="14" font-weight="700" fill="#fff" font-family="Cascadia Code, monospace">国 家 开 发 银 行 债 券</text>
-
-          {/* 左侧：面值 + 发行人 */}
-          <g>
-            <text x="70" y="82" font-size="9" fill="#9ca3af" font-family="Cascadia Code, monospace" font-weight="600">ISSUER · 发行人</text>
-            <text x="70" y="98" font-size="12" fill="#333" font-weight="700">国家开发银行</text>
-            <text x="70" y="122" font-size="9" fill="#9ca3af" font-family="Cascadia Code, monospace" font-weight="600">FACE · 面值</text>
-            <text x="70" y="148" font-size="26" font-weight="800" fill="#333" font-family="Cascadia Code, monospace">¥100</text>
-          </g>
-
-          {/* 中间：利率 + 期限 */}
-          <g>
-            <text x="200" y="82" text-anchor="middle" font-size="9" fill="#9ca3af" font-family="Cascadia Code, monospace">COUPON · 票面利率</text>
-            <text x="200" y="108" text-anchor="middle" font-size="24" font-weight="800" fill="#16a34a" font-family="Cascadia Code, monospace">3.5%</text>
-            <text x="200" y="125" text-anchor="middle" font-size="9" fill="#6b7280">每年付息一次</text>
-            <text x="200" y="150" text-anchor="middle" font-size="9" fill="#9ca3af" font-family="Cascadia Code, monospace">TENOR · 期限</text>
-            <text x="200" y="168" text-anchor="middle" font-size="13" fill="#333" font-weight="700" font-family="Cascadia Code, monospace">5 年期</text>
-          </g>
-
-          {/* 右侧：信用评级 */}
-          <g>
-            <text x="330" y="82" text-anchor="end" font-size="9" fill="#9ca3af" font-family="Cascadia Code, monospace">RATING · 评级</text>
-            <rect x="295" y="88" width="55" height="24" rx="4" fill="#fff7ed" stroke="#f59e0b" stroke-width="1.5"/>
-            <text x="322" y="104" text-anchor="middle" font-size="14" font-weight="800" fill="#d97706" font-family="Cascadia Code, monospace">AAA</text>
-          </g>
-
-          {/* 现金流时间轴 */}
-          <g transform="translate(0, 215)">
-            <text x="200" y="0" text-anchor="middle" font-size="11" fill="#374151" font-weight="700" font-family="Cascadia Code, monospace">CASHFLOW · 现金流示意</text>
-            <line x1="60" y1="20" x2="340" y2="20" stroke="#e2e2e2" stroke-width="2"/>
-
-            {/* 第0年：买入（付出本金） */}
-            <circle cx="60" cy="20" r="7" fill="#dc2626"/>
-            <text x="60" y="40" text-anchor="middle" font-size="10" fill="#333" font-weight="600">第0年</text>
-            <text x="60" y="52" text-anchor="middle" font-size="9" fill="#dc2626" font-weight="600" font-family="Cascadia Code, monospace">-¥100</text>
-            <text x="60" y="64" text-anchor="middle" font-size="8" fill="#9ca3af">买入</text>
-
-            {/* 第1-4年：票息 */}
-            <circle cx="116" cy="20" r="5" fill="#16a34a"/>
-            <text x="116" y="40" text-anchor="middle" font-size="9" fill="#333">第1年</text>
-            <text x="116" y="52" text-anchor="middle" font-size="9" fill="#16a34a" font-weight="600" font-family="Cascadia Code, monospace">+¥3.5</text>
-
-            <circle cx="172" cy="20" r="5" fill="#16a34a"/>
-            <text x="172" y="40" text-anchor="middle" font-size="9" fill="#333">第2年</text>
-            <text x="172" y="52" text-anchor="middle" font-size="9" fill="#16a34a" font-weight="600" font-family="Cascadia Code, monospace">+¥3.5</text>
-
-            <circle cx="228" cy="20" r="5" fill="#16a34a"/>
-            <text x="228" y="40" text-anchor="middle" font-size="9" fill="#333">第3年</text>
-            <text x="228" y="52" text-anchor="middle" font-size="9" fill="#16a34a" font-weight="600" font-family="Cascadia Code, monospace">+¥3.5</text>
-
-            <circle cx="284" cy="20" r="5" fill="#16a34a"/>
-            <text x="284" y="40" text-anchor="middle" font-size="9" fill="#333">第4年</text>
-            <text x="284" y="52" text-anchor="middle" font-size="9" fill="#16a34a" font-weight="600" font-family="Cascadia Code, monospace">+¥3.5</text>
-
-            {/* 第5年：本金+最后一次票息 */}
-            <circle cx="340" cy="20" r="8" fill="#16a34a"/>
-            <text x="340" y="40" text-anchor="middle" font-size="10" fill="#333" font-weight="600">第5年</text>
-            <text x="340" y="52" text-anchor="middle" font-size="9" fill="#16a34a" font-weight="700" font-family="Cascadia Code, monospace">+¥103.5</text>
-            <text x="340" y="64" text-anchor="middle" font-size="8" fill="#9ca3af">本金+利息</text>
-
-            {/* 省略号表示中间年份 */}
-            <text x="200" y="24" text-anchor="middle" font-size="8" fill="#9ca3af">⋯ ⋯ ⋯</text>
-          </g>
-        </svg>
+        <img src={bondsCert.src} alt="国家开发银行债券票面与现金流示意" class={styles.shrink} />
       </div>
     </div>
 
-    <div style="flex: 0 0 auto; border-left: 3px solid #333; padding: 0.6rem 1rem; background: #fafafa; width: 100%;">
-      <p style="margin: 0; font-size: 0.9rem; color: #333; line-height: 1.55;">
+    <div class={page.footerBar}>
+      <p class={page.footerText}>
         <strong>本质 ·</strong> 债券的本质是「现在借钱、未来还本付息」的契约——收益来自<strong>时间</strong>，风险来自<strong>信用</strong>。
       </p>
     </div>

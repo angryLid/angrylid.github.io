@@ -5,10 +5,11 @@ steps: 1
 import Notes from "@components/Notes.astro";
 import PresentationLayout from "@components/PresentationLayout.astro";
 import moutaiChart from "./assets/moutai-chart.svg";
+import styles from "./styles/05-moutai-case.module.css";
 
 <PresentationLayout title="案例：贵州茅台">
-  <div style="height: 100%; display: flex; align-items: center; justify-content: center;">
-    <img src={moutaiChart.src} alt="贵州茅台月线收盘价" style="max-width: 100%; max-height: 100%; object-fit: contain;" />
+  <div class={styles.chartWrap}>
+    <img src={moutaiChart.src} alt="贵州茅台月线收盘价" class={styles.chart} />
   </div>
 </PresentationLayout>
 

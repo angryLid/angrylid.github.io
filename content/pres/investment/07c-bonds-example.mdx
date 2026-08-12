@@ -4,78 +4,79 @@ steps: 3
 ---
 import Notes from "@components/Notes.astro";
 import PresentationLayout from "@components/PresentationLayout.astro";
+import styles from "./styles/07c-bonds-example.module.css";
 
 <PresentationLayout title="认识生息资产 · 债券" eyebrow="债券入门">
-  <div style="height: 100%; display: flex; flex-direction: column; justify-content: flex-start; gap: 1.6rem; padding: 2rem 3rem;">
+  <div class={styles.root}>
 
 
     {/* ===== STEP 1：前提（第一行）===== */}
     <div>
-      <div style="display: grid; grid-template-columns: 1fr; gap: 1rem;">
+      <div class={styles.wrap}>
 
         {/* 前提 行，第一步出现 */}
-        <div data-anim="0" style="display: flex; align-items: center; justify-content: space-between; gap: 1rem; padding: 1rem 1.8rem; background: #fffdf4; border: 1px solid #e7e0cd; box-shadow: 0 4px 12px rgba(30, 41, 59, .06);">
-          <div style="font-size: 1.05rem; font-weight: 800; color: #1e293b;">前提</div>
+        <div data-anim="0" class={styles.premiseRow}>
+          <div class={styles.premiseLabel}>前提</div>
 
           {/* 示意图：张三愁眉苦脸 → 李四笑脸 */}
-          <div style="flex: 1; display: flex; align-items: center; justify-content: center; gap: 1.2rem;">
-            <div style="text-align: center;">
-              <div style="font-size: 2.6rem;">😟</div>
-              <div style="font-size: .85rem; font-weight: 700; color: #334155; margin-top: .2rem;">张三</div>
-              <div style="font-size: .8rem; color: #64748b;">出借 · 愁眉苦脸</div>
+          <div class={styles.transfer}>
+            <div class={styles.person}>
+              <div class={styles.personEmoji}>😟</div>
+              <div class={styles.personName}>张三</div>
+              <div class={styles.personRole}>出借 · 愁眉苦脸</div>
             </div>
-            <div style="text-align: center; line-height: 1;">
-              <div style="font-size: 1.5rem; color: #b45309; font-weight: 800;">¥100</div>
-              <div style="font-size: 1.8rem; color: #f59e0b;">→</div>
+            <div class={styles.transferAmount}>
+              <div class={styles.amountNum}>¥100</div>
+              <div class={styles.amountArrow}>→</div>
             </div>
-            <div style="text-align: center;">
-              <div style="font-size: 2.6rem;">😊</div>
-              <div style="font-size: .85rem; font-weight: 700; color: #334155; margin-top: .2rem;">李四</div>
-              <div style="font-size: .8rem; color: #64748b;">借到 · 笑脸</div>
+            <div class={styles.person}>
+              <div class={styles.personEmoji}>😊</div>
+              <div class={styles.personName}>李四</div>
+              <div class={styles.personRole}>借到 · 笑脸</div>
             </div>
           </div>
 
-          <div style="font-size: .9rem; color: #94a3b8; white-space: nowrap;">约定 1 年后还</div>
+          <div class={styles.promise}>约定 1 年后还</div>
         </div>
 
         {/* 结果 行 */}
-        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+        <div class={styles.resultGrid}>
 
           {/* 结果 1：赖账，第二步出现 */}
-          <div data-anim="1" style="border: 2px dashed #fca5a5; background: #fef2f2; padding: 1rem 1.4rem; text-align: center; position: relative; overflow: hidden;">
-            <div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%) rotate(-16deg); font-size: 2.6rem; font-weight: 900; color: rgba(220,38,38,.16); letter-spacing: .18em; white-space: nowrap;">作　废</div>
-            <div style="font-size: 1.05rem; font-weight: 800; color: #dc2626; margin-bottom: .6rem;">结果 1 · 李四赖账</div>
-            <div style="display: flex; justify-content: space-around;">
-              <div>
-                <div style="font-size: 1.8rem;">😏</div>
-                <div style="font-weight: 800; color: #16a34a; font-size: 1.15rem;">+¥100</div>
-                <div style="color: #334155; font-weight: 700; margin-top: .2rem;">李四</div>
-                <div style="color: #16a34a; font-size: .9rem;">赖账得手</div>
+          <div data-anim="1" class={styles.resultDefault}>
+            <div class={styles.voidStamp}>作　废</div>
+            <div class={styles.resultTitleRed}>结果 1 · 李四赖账</div>
+            <div class={styles.payoutRow}>
+              <div class={styles.party}>
+                <div class={styles.partyEmoji}>😏</div>
+                <div class={styles.partyAmountGreen}>+¥100</div>
+                <div class={styles.partyName}>李四</div>
+                <div class={styles.partyOutcomeGreen}>赖账得手</div>
               </div>
-              <div>
-                <div style="font-size: 1.8rem;">😭</div>
-                <div style="font-weight: 800; color: #dc2626; font-size: 1.15rem;">−¥100</div>
-                <div style="color: #334155; font-weight: 700; margin-top: .2rem;">张三</div>
-                <div style="color: #dc2626; font-size: .9rem;">血本无归</div>
+              <div class={styles.party}>
+                <div class={styles.partyEmoji}>😭</div>
+                <div class={styles.partyAmountRed}>−¥100</div>
+                <div class={styles.partyName}>张三</div>
+                <div class={styles.partyOutcomeRed}>血本无归</div>
               </div>
             </div>
           </div>
 
           {/* 结果 2：还本付息，第三步出现 */}
-          <div data-anim="2" style="border: 2px solid #86efac; background: #f0fdf4; padding: 1rem 1.4rem; text-align: center;">
-            <div style="font-size: 1.05rem; font-weight: 800; color: #16a34a; margin-bottom: .6rem;">结果 2 · 还本付息</div>
-            <div style="display: flex; justify-content: space-around; align-items: center; gap: .6rem;">
-              <div style="text-align: center;">
-                <div style="font-size: 1.7rem;">🙂</div>
-                <div style="color: #334155; font-size: .95rem; font-weight: 700; margin-top: .2rem;">李四</div>
-                <div style="color: #475569; font-size: .9rem;">还本金 ¥100</div>
-                <div style="color: #475569; font-size: .9rem;">付利息 <span style="font-weight: 800; color: #16a34a;">¥10</span></div>
+          <div data-anim="2" class={styles.resultRepay}>
+            <div class={styles.resultTitleGreen}>结果 2 · 还本付息</div>
+            <div class={styles.repayRow}>
+              <div class={styles.repayParty}>
+                <div class={styles.repayEmoji}>🙂</div>
+                <div class={styles.repayName}>李四</div>
+                <div class={styles.repayAction}>还本金 ¥100</div>
+                <div class={styles.repayAction}>付利息 <span class={styles.repayInterest}>¥10</span></div>
               </div>
-              <div style="font-size: 1.6rem; color: #16a34a;">⟶</div>
-              <div style="text-align: center;">
-                <div style="font-size: 1.7rem;">😄</div>
-                <div style="color: #334155; font-size: .95rem; font-weight: 700; margin-top: .2rem;">张三</div>
-                <div style="color: #16a34a; font-size: .95rem; font-weight: 800;">净赚 ¥10 利息</div>
+              <div class={styles.repayArrow}>⟶</div>
+              <div class={styles.repayParty}>
+                <div class={styles.repayEmoji}>😄</div>
+                <div class={styles.repayName}>张三</div>
+                <div class={styles.repayGain}>净赚 ¥10 利息</div>
               </div>
             </div>
           </div>

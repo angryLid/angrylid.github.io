@@ -1,0 +1,152 @@
+/* Page-specific styles for 03-what-is-investment.mdx */
+
+.root {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  padding: 0.5rem 2.5rem 1.2rem;
+  text-align: center;
+}
+
+.lead {
+  margin: 0;
+  font-size: 1.05rem;
+  color: #555;
+}
+
+.compareGrid {
+  flex: 1;
+  min-height: 0;
+  width: 100%;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+}
+
+/* Column card (business or investing) */
+.colCard {
+  min-height: 0;
+  border: 1px solid #e2e2e2;
+  background: #fafafa;
+  padding: 0.9rem 1.2rem;
+  display: flex;
+  flex-direction: column;
+  text-align: left;
+  gap: 0.5rem;
+}
+
+.colHeader {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+}
+
+.colIcon {
+  font-size: 1.4rem;
+}
+
+.colEyebrow {
+  margin: 0;
+  font-size: 0.7rem;
+  letter-spacing: 0.12em;
+  color: #9ca3af;
+  font-family: 'Cascadia Code', monospace;
+}
+
+.colTitleRed {
+  margin: 0.1rem 0 0 0;
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: #b91c1c;
+}
+
+.colTitleGreen {
+  margin: 0.1rem 0 0 0;
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: #15803d;
+}
+
+/* Flow column (steps) */
+.flowCol {
+  flex: 1;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-around;
+  gap: 0.4rem;
+}
+
+/* Boxed step (buy/wait/sell) */
+.stepBox {
+  border: 1px solid #e2e2e2;
+  background: #fff;
+  padding: 0.5rem 1.2rem;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+}
+
+.stepIcon {
+  font-size: 1.4rem;
+}
+
+.stepLabel {
+  font-size: 0.95rem;
+  color: #444;
+}
+
+/* Down arrow between steps */
+.arrowDown {
+  font-size: 1.3rem;
+  color: #9ca3af;
+}
+
+/* Tag chips row (进货/验货/仓储...) */
+.tagRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  gap: 0.4rem;
+  width: 100%;
+  flex-wrap: wrap;
+}
+
+.tagChip {
+  border: 1px solid #e2e2e2;
+  background: #fff;
+  padding: 0.35rem 0.55rem;
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+}
+
+.tagChipIcon {
+  font-size: 1.1rem;
+}
+
+.tagChipLabel {
+  font-size: 0.85rem;
+  color: #444;
+}
+
+.footerBar {
+  flex: 0 0 auto;
+  border-left: 3px solid #333;
+  padding: 0.7rem 1rem;
+  background: #fafafa;
+  width: 100%;
+}
+
+.footerText {
+  margin: 0;
+  font-size: 0.92rem;
+  color: #333;
+  line-height: 1.6;
+}
