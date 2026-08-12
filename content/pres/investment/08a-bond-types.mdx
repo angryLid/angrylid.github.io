@@ -4,18 +4,20 @@ steps: 1
 ---
 import Notes from "@components/Notes.astro";
 import PresentationLayout from "@components/PresentationLayout.astro";
+import shared from "./styles/shared.module.css";
+import layout from "./styles/layout.module.css";
 import styles from "./styles/08a-bond-types.module.css";
 
 <PresentationLayout title="债券的分类" eyebrow="FIXED INCOME · 生息资产 · 债券" narrow>
-  <div class={styles.root}>
-    <p class={styles.lead}>按<strong>发行主体</strong>分类：政府发的叫主权债，企业发的叫信用债——信用越强，利率越低、越安全。</p>
+  <div class={layout.slideRoot}>
+    <p class={shared.lead}>按<strong>发行主体</strong>分类：政府发的叫主权债，企业发的叫信用债——信用越强，利率越低、越安全。</p>
 
-    <div class={styles.mainGrid}>
+    <div class={layout.mainGrid}>
 
       {/* 主权债券 */}
-      <div class={styles.typeCard}>
-        <div class={styles.typeHeader}>
-          <span class={styles.typeTag}>SOVEREIGN · 主权债券</span>
+      <div class:list={[shared.cardLight, styles.typeCard]}>
+        <div class={layout.spaceBetween}>
+          <span class:list={[shared.monoTag, styles.typeTag]}>SOVEREIGN · 主权债券</span>
           <span class={styles.typeIcon}>🏛️</span>
         </div>
         <p class={styles.typeDesc}>政府背书，信用等级最高，几乎零违约风险</p>
@@ -59,9 +61,9 @@ import styles from "./styles/08a-bond-types.module.css";
       </div>
 
       {/* 信用债 */}
-      <div class={styles.typeCard}>
-        <div class={styles.typeHeader}>
-          <span class={styles.typeTag}>CREDIT · 信用债</span>
+      <div class:list={[shared.cardLight, styles.typeCard]}>
+        <div class={layout.spaceBetween}>
+          <span class:list={[shared.monoTag, styles.typeTag]}>CREDIT · 信用债</span>
           <span class={styles.typeIcon}>🏢</span>
         </div>
         <p class={styles.typeDesc}>企业发行，看信用评级——评级越低，风险越高</p>
@@ -106,10 +108,8 @@ import styles from "./styles/08a-bond-types.module.css";
 
     </div>
 
-    <div class={styles.footerBar}>
-      <p class={styles.footerText}>
-        <strong>核心规律 ·</strong> 发行主体信用越强 → 利率越低、越安全；信用越弱 → 利率越高、风险越大。收益和风险永远成正比。
-      </p>
+    <div class={shared.footerBar}>
+      <p class={shared.footerText}><strong>核心规律 ·</strong> 发行主体信用越强 → 利率越低、越安全；信用越弱 → 利率越高、风险越大。收益和风险永远成正比。</p>
     </div>
   </div>
 </PresentationLayout>
