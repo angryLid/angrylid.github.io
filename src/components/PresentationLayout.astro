@@ -4,26 +4,30 @@ interface Props {
   eyebrow?: string;
   /** Narrow mode: adds horizontal padding so content doesn't span the full slide width */
   narrow?: boolean;
+  /** Reverse mode: puts the title at the bottom of the slide instead of the top */
+  reverse?: boolean;
 }
 
-const { title, eyebrow, narrow = false } = Astro.props;
-const layoutClass = narrow
-  ? "presentation-layout presentation-layout--narrow"
-  : "presentation-layout";
+const { title, eyebrow, narrow = false, reverse = false } = Astro.props;
 ---
 
-<section class={layoutClass}>
-  <header class="presentation-layout__header">
-    {eyebrow && <p class="presentation-layout__eyebrow">{eyebrow}</p>}
+<section
+  class:list={[
+    "layout",
+    { "is-narrow": narrow, "is-reverse": reverse },
+  ]}
+>
+  <header class="head">
+    {eyebrow && <p class="eyebrow">{eyebrow}</p>}
     <h1>{title}</h1>
   </header>
-  <div class="presentation-layout__body">
+  <div class="body">
     <slot />
   </div>
 </section>
 
 <style>
-  .presentation-layout {
+  .layout {
     width: 100%;
     height: 100%;
     padding: 0;
@@ -35,11 +39,16 @@ const layoutClass = narrow
   }
 
   /* Narrow mode: constrain content width via horizontal padding */
-  .presentation-layout--narrow {
+  .is-narrow {
     padding-inline: 4rem;
   }
 
-  .presentation-layout__header {
+  /* Reverse mode: flip the column so the title sits at the bottom */
+  .is-reverse {
+    flex-direction: column-reverse;
+  }
+
+  .head {
     position: relative;
     flex: 0 0 auto;
     padding: 0;
@@ -47,7 +56,7 @@ const layoutClass = narrow
   }
 
   /* Eyebrow sits out of flow, floating above the title */
-  .presentation-layout__eyebrow {
+  .eyebrow {
     position: absolute;
     top: -1.5rem;
     left: 50%;
@@ -60,7 +69,7 @@ const layoutClass = narrow
     text-transform: uppercase;
   }
 
-  .presentation-layout h1 {
+  .head h1 {
     margin: 0;
     color: #333;
     font-size: 2.7rem;
@@ -69,7 +78,7 @@ const layoutClass = narrow
     letter-spacing: 0.02em;
   }
 
-  .presentation-layout__body {
+  .body {
     flex: 1 1 auto;
     min-height: 0;
     overflow: hidden;
