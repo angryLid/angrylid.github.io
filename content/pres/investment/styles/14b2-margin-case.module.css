@@ -1,22 +1,5 @@
 /* Page-specific styles for 14b2-margin-case.mdx */
 
-.root {
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 1rem;
-  padding: 0.5rem 2.5rem 1.2rem;
-  text-align: center;
-}
-
-.lead {
-  margin: 0;
-  font-size: 1.05rem;
-  color: #555;
-}
-
 /* Table wrapper */
 .tableWrap {
   flex: 1;
@@ -137,17 +120,3 @@
   background: #fff7f3;
 }
 
-.footerBar {
-  flex: 0 0 auto;
-  border-left: 3px solid #333;
-  padding: 0.7rem 1rem;
-  background: #fafafa;
-  width: 100%;
-}
-
-.footerText {
-  margin: 0;
-  font-size: 0.92rem;
-  color: #333;
-  line-height: 1.6;
-}

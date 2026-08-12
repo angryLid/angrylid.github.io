@@ -4,13 +4,13 @@ steps: 1
 ---
 import Notes from "@components/Notes.astro";
 import PresentationLayout from "@components/PresentationLayout.astro";
+import shared from "./styles/shared.module.css";
+import layout from "./styles/layout.module.css";
 import styles from "./styles/14-why-futures.module.css";
 
 <PresentationLayout title="期货交易的初衷" narrow>
-  <div class={styles.root}>
-    <p class={styles.lead}>
-      把价格波动的风险，提前变成一份确定的契约 —— 双方锁定 <strong>¥5000</strong>，价格风险被<strong>相互对冲归零</strong>。
-    </p>
+  <div class={layout.slideRoot}>
+    <p class={shared.lead}>把价格波动的风险，提前变成一份确定的契约 —— 双方锁定 <strong>¥5000</strong>，价格风险被<strong>相互对冲归零</strong>。</p>
 
     <div class={styles.partyGrid}>
       <div class={styles.partyCard}>
@@ -34,10 +34,8 @@ import styles from "./styles/14-why-futures.module.css";
       </div>
     </div>
 
-    <div class={styles.footerBar}>
-      <p class={styles.footerText}>
-        <strong>本质 ·</strong> 期货不是对赌工具，而是避险工具——把"怕跌"和"怕涨"的两方撮合到一起，让价格风险互相抵消。
-      </p>
+    <div class={shared.footerBar}>
+      <p class={shared.footerText}><strong>本质 ·</strong> 期货不是对赌工具，而是避险工具——把"怕跌"和"怕涨"的两方撮合到一起，让价格风险互相抵消。</p>
     </div>
   </div>
 </PresentationLayout>

@@ -4,13 +4,13 @@ steps: 1
 ---
 import Notes from "@components/Notes.astro";
 import PresentationLayout from "@components/PresentationLayout.astro";
+import shared from "./styles/shared.module.css";
+import layout from "./styles/layout.module.css";
 import styles from "./styles/14b2-margin-case.module.css";
 
 <PresentationLayout title="一个实际的案例" eyebrow="FUTURES · 期货三部曲 · WHY" narrow>
-  <div class={styles.root}>
-    <p class={styles.lead}>
-      案例 · 大豆期货 1 手 = 10 吨，保证金率 10%。老李开多、小王开空，各交 <strong>¥5,000</strong> 押金。
-    </p>
+  <div class={layout.slideRoot}>
+    <p class={shared.lead}>案例 · 大豆期货 1 手 = 10 吨，保证金率 10%。老李开多、小王开空，各交 <strong>¥5,000</strong> 押金。</p>
 
     <div class={styles.tableWrap}>
       <table class={styles.table}>
@@ -60,10 +60,8 @@ import styles from "./styles/14b2-margin-case.module.css";
       </table>
     </div>
 
-    <div class={styles.footerBar}>
-      <p class={styles.footerText}>
-        <strong>关键在于 ·</strong> 价格大涨，空头小王的保证金跌破<strong>维持线</strong>先<strong>追保</strong>，不补就<strong>强平</strong>——在归零前就被平仓，正常不会变成负数；只有极端行情（跳空、连续涨跌停平不掉）才会<strong>穿仓</strong>变负。保证金 + 每日盯市，把违约风险按天清零，交易所才敢做所有人的对手方。
-      </p>
+    <div class={shared.footerBar}>
+      <p class={shared.footerText}><strong>关键在于 ·</strong> 价格大涨，空头小王的保证金跌破<strong>维持线</strong>先<strong>追保</strong>，不补就<strong>强平</strong>——在归零前就被平仓，正常不会变成负数；只有极端行情（跳空、连续涨跌停平不掉）才会<strong>穿仓</strong>变负。保证金 + 每日盯市，把违约风险按天清零，交易所才敢做所有人的对手方。</p>
     </div>
   </div>
 </PresentationLayout>

@@ -5,12 +5,14 @@ steps: 1
 import Notes from "@components/Notes.astro";
 import PresentationLayout from "@components/PresentationLayout.astro";
 import offsetNetting from "./assets/why-offset/offset-netting.svg";
+import shared from "./styles/shared.module.css";
+import layout from "./styles/layout.module.css";
 import styles from "./styles/slide-svg.module.css";
 import page from "./styles/14b-why-offset.module.css";
 
 <PresentationLayout title="为什么能平仓离场" eyebrow="FUTURES · 期货三部曲 · WHY" narrow>
-  <div class={page.root}>
-    <p class={page.lead}>平仓 = 做一笔反向交易，买卖相抵后净额结算——自始至终没碰过一粒大豆。</p>
+  <div class={layout.slideRoot}>
+    <p class={shared.lead}>平仓 = 做一笔反向交易，买卖相抵后净额结算——自始至终没碰过一粒大豆。</p>
 
     <div class={page.mainGrid}>
       <div class={page.statsCol}>
@@ -44,17 +46,17 @@ import page from "./styles/14b-why-offset.module.css";
       </div>
 
 
-      <div class={page.chartCard}>
-        <div class={page.chartHeader}>
-          <span class={page.chartTitle}>OFFSET · 持仓相抵</span>
-          <span class={page.chartMeta}>净额结算</span>
+      <div class={shared.chartCard}>
+        <div class={shared.chartHeader}>
+          <span class={shared.chartTitle}>OFFSET · 持仓相抵</span>
+          <span class={shared.chartMeta}>净额结算</span>
         </div>
         <img src={offsetNetting.src} alt="期货买卖相抵只结算差额" class={styles.fill} />
       </div>
     </div>
 
-    <div class={page.footerBar}>
-      <p class={page.footerText}><strong>本质 ·</strong> 期货是一笔"可对消的义务"——反向一笔即归零，差额用现金了结，所以绝大多数合约从不交割实物。</p>
+    <div class={shared.footerBar}>
+      <p class={shared.footerText}><strong>本质 ·</strong> 期货是一笔"可对消的义务"——反向一笔即归零，差额用现金了结，所以绝大多数合约从不交割实物。</p>
     </div>
   </div>
 </PresentationLayout>
