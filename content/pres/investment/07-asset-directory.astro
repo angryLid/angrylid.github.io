@@ -3,10 +3,7 @@ import PresentationLayout from "@components/PresentationLayout.astro";
 
 const categories = [
   {
-    className: "catGreen",
-    borderClass: "itemBorderGreen",
-    titleClass: "catTitleGOOD",
-    subtitleClass: "catSubGreen",
+    className: "green",
     emoji: "💰",
     title: "生息资产",
     subtitle: "能持续产生现金流",
@@ -16,10 +13,7 @@ const categories = [
     ],
   },
   {
-    className: "catAmber",
-    borderClass: "itemBorderAmber",
-    titleClass: "catTitleAmber",
-    subtitleClass: "catSubAmber",
+    className: "amber",
     emoji: "🪙",
     title: "共识类资产",
     subtitle: "价值来自集体认同",
@@ -29,10 +23,7 @@ const categories = [
     ],
   },
   {
-    className: "catRed",
-    borderClass: "itemBorderRed",
-    titleClass: "catTitleRed",
-    subtitleClass: "catSubRed",
+    className: "red",
     emoji: "🎯",
     title: "衍生品",
     subtitle: "价值依附于标的资产",
@@ -47,10 +38,7 @@ const categories = [
     ],
   },
   {
-    className: "catBlue",
-    borderClass: "itemBorderBlue",
-    titleClass: "catTitleBlue",
-    subtitleClass: "catSubBlue",
+    className: "blue",
     emoji: "📈",
     title: "成长股 & 不动产",
     subtitle: "价值来自未来增长",
@@ -69,12 +57,12 @@ const categories = [
         <div class="catHeader itemCard">
           <span class="catEmoji" role="img" aria-label={category.title}>{category.emoji}</span>
           <div>
-            <p class={category.titleClass}>{category.title}</p>
-            <p class={category.subtitleClass}>{category.subtitle}</p>
+            <p class="catTitle">{category.title}</p>
+            <p class="catSubtitle">{category.subtitle}</p>
           </div>
         </div>
         {category.items.map((item) => (
-          <div class:list={[item.dim ? "itemCardDim" : "itemCard", category.borderClass]}>
+          <div class:list={["itemCard", "itemBorder", { dim: item.dim }]}>
             <span class="itemEmoji">{item.emoji}</span>
             <div class="itemText">
               <p class="itemTitle">{item.title}</p>
@@ -119,36 +107,10 @@ const categories = [
     padding: 0.9rem 1.1rem;
   }
 
-  .catGreen,
-  .catAmber,
-  .catRed,
-  .catBlue {
-    background: transparent;
-  }
-
-  .catGreen {
-    --accent: var(--green);
-    --sub-accent: var(--green-sub);
-    --border-accent: var(--green-border);
-  }
-
-  .catAmber {
-    --accent: var(--amber);
-    --sub-accent: var(--amber-sub);
-    --border-accent: var(--amber-border);
-  }
-
-  .catRed {
-    --accent: var(--red);
-    --sub-accent: var(--red-sub);
-    --border-accent: var(--red-border);
-  }
-
-  .catBlue {
-    --accent: var(--blue);
-    --sub-accent: var(--blue-sub);
-    --border-accent: var(--blue-border);
-  }
+  .green { --accent: var(--green); --sub-accent: var(--green-sub); --border-accent: var(--green-border); }
+  .amber { --accent: var(--amber); --sub-accent: var(--amber-sub); --border-accent: var(--amber-border); }
+  .red { --accent: var(--red); --sub-accent: var(--red-sub); --border-accent: var(--red-border); }
+  .blue { --accent: var(--blue); --sub-accent: var(--blue-sub); --border-accent: var(--blue-border); }
 
   .catEmoji {
     font-size: 1.728rem;
@@ -165,27 +127,20 @@ const categories = [
     );
   }
 
-  .catTitleGOOD,
-  .catTitleAmber,
-  .catTitleRed,
-  .catTitleBlue {
+  .catTitle {
     font-size: 1.584rem;
     font-weight: 700;
     color: var(--accent);
     margin: 0;
   }
 
-  .catSubGreen,
-  .catSubAmber,
-  .catSubRed,
-  .catSubBlue {
+  .catSubtitle {
     font-size: 1.0368rem;
     color: var(--sub-accent);
-    margin: 0.05rem 0 0 0;
+    margin: 0.05rem 0 0;
   }
 
-  .itemCard,
-  .itemCardDim {
+  .itemCard {
     background: var(--surface);
     padding: 0.6rem 0.9rem;
     display: flex;
@@ -194,14 +149,9 @@ const categories = [
     box-shadow: 0 1px 3px var(--shadow);
   }
 
-  .itemCardDim { opacity: 0.5; }
+  .dim { opacity: 0.5; }
 
-  .itemBorderGreen,
-  .itemBorderAmber,
-  .itemBorderRed,
-  .itemBorderBlue {
-    border-left: 3px solid var(--border-accent);
-  }
+  .itemBorder { border-left: 3px solid var(--border-accent); }
 
   .itemEmoji { font-size: 1.728rem; }
 
@@ -222,6 +172,6 @@ const categories = [
   .itemDesc {
     font-size: 1.008rem;
     color: var(--muted-text);
-    margin: 0.05rem 0 0 0;
+    margin: 0.05rem 0 0;
   }
 </style>
