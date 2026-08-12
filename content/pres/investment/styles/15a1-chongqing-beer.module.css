@@ -151,6 +151,7 @@
   top: 0.34rem;
   width: 12px;
   height: 12px;
+  border-radius: 50%;
   background: #c0392b;
 }
 
@@ -160,6 +161,7 @@
   top: 0.34rem;
   width: 12px;
   height: 12px;
+  border-radius: 50%;
   background: #1e7d32;
 }
 
