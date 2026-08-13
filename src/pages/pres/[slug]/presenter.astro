@@ -110,10 +110,19 @@ const rendered = await Promise.all(
       .preview-stage {
         position: relative;
         width: 100%;
-        aspect-ratio: 16 / 9;
+        height: 100%;
         overflow: hidden;
         background: var(--light-gray);
-        border-radius: var(--border-radius);
+        border-radius: calc(var(--border-radius) - 2px);
+      }
+      /* current page: red highlight frame */
+      .current .preview-stage {
+        border: 0.5px solid #e23b3b;
+        box-shadow: 0 0 0 1px #e23b3b, 0 0 8px rgba(226, 59, 59, 0.28);
+      }
+      /* next page: gray dashed translucent frame */
+      .next-thumb .preview-stage {
+        border: 0.5px dashed rgba(120, 120, 120, 0.5);
       }
       .preview-inner {
         width: 1280px;
@@ -137,7 +146,7 @@ const rendered = await Promise.all(
       .presenter {
         display: grid;
         grid-template-columns: 1fr 1fr;
-        grid-template-rows: auto 1fr auto;
+        grid-template-rows: auto 1fr 1fr;
         gap: 1rem;
         padding: 1rem;
         height: 100vh;
@@ -158,9 +167,14 @@ const rendered = await Promise.all(
         grid-row: 2;
         min-height: 0;
       }
+      .next-thumb {
+        grid-column: 1;
+        grid-row: 3;
+        min-height: 0;
+      }
       .notes {
         grid-column: 2;
-        grid-row: 2;
+        grid-row: 2 / 4;
         overflow: auto;
         background: var(--white);
         border-radius: var(--border-radius);
@@ -181,12 +195,8 @@ const rendered = await Promise.all(
       .notes ol {
         margin: 0.4em 0 0.4em 1.5em;
       }
-      .next-thumb {
-        grid-column: 1 / 3;
-        grid-row: 3;
-      }
-      .next-thumb .preview-stage {
-        height: 120px;
+      .slide-section {
+        height: 100%;
       }
       button {
         font: inherit;
@@ -204,23 +214,62 @@ const rendered = await Promise.all(
         font-family: "Cascadia Code", monospace;
         opacity: 0.7;
       }
+      .page-titles {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+        margin-left: 1rem;
+        margin-right: auto;
+        min-width: 0;
+        white-space: nowrap;
+        overflow: hidden;
+      }
+      .page-title {
+        font-size: 0.95rem;
+        line-height: 1.3;
+        display: inline-flex;
+        align-items: center;
+        gap: 0.35rem;
+      }
+      .page-title .label {
+        opacity: 0.6;
+      }
+      .page-title.current-page-title {
+        color: #e23b3b;
+        font-weight: 600;
+      }
+      .page-title.next-page-title {
+        color: rgba(120, 120, 120, 0.8);
+      }
+      .page-title.next-page-title[hidden] {
+        display: none;
+      }
     </style>
   </head>
   <body data-slug={slug} data-total={String(total)}>
     <div class="presenter">
       <div class="topbar">
         <h1>{presTitle}</h1>
+        <div class="page-titles">
+          <span class="page-title current-page-title"
+            ><span class="label">当前页:</span><b id="current-title"></b
+          ></span>
+          <span class="page-title next-page-title"
+            ><span class="label">下一页:</span><b id="next-title"></b
+          ></span>
+        </div>
         <button id="prev" type="button">Prev</button>
         <button id="next" type="button">Next</button>
         <span id="counter">1 / {total}</span>
       </div>
       <div class="current">
         {
-          rendered.map(({ Content, steps }, idx) => (
+          rendered.map(({ Content, steps, title }, idx) => (
             <section
               class="slide-section"
               data-page={idx + 1}
               data-steps={steps}
+              data-title={title}
               hidden={idx !== 0}
             >
               <div class="preview-stage">
@@ -252,6 +301,9 @@ const rendered = await Promise.all(
       const notesPanel = document.getElementById("notes")!;
       const counter = document.getElementById("counter")!;
       const nextInner = document.getElementById("next-inner")!;
+      const currentTitle = document.getElementById("current-title")!;
+      const nextTitle = document.getElementById("next-title")!;
+      const nextTitleEntry = nextTitle.closest(".page-title") as HTMLElement;
 
       let currentPage = 1;
       let currentStep = 0;
@@ -283,7 +335,13 @@ const rendered = await Promise.all(
       function updateNextThumb(): void {
         nextInner.replaceChildren();
         const nextSection = sections[currentPage]; // 0-indexed: next slide
-        if (!nextSection) return;
+        if (!nextSection) {
+          nextTitle.textContent = "";
+          nextTitleEntry.hidden = true;
+          return;
+        }
+        nextTitle.textContent = nextSection.dataset.title ?? "";
+        nextTitleEntry.hidden = !nextTitle.textContent;
         const slide = nextSection.querySelector(".slide");
         if (!slide) return;
         const clone = slide.cloneNode(true) as HTMLElement;
@@ -302,6 +360,7 @@ const rendered = await Promise.all(
           s.hidden = true;
         });
         currentPage = target;
+        currentTitle.textContent = section.dataset.title ?? "";
         setStep(step ?? 0); // set visibility WHILE hidden (no flash)
         section.hidden = false; // reveal with correct state
         const tpl = section.querySelector(
@@ -390,7 +449,11 @@ const rendered = await Promise.all(
             ".preview-inner",
           ) as HTMLElement | null;
           if (inner) {
-            inner.style.setProperty("--s", String(stage.clientWidth / 1280));
+            const s = Math.min(
+              stage.clientWidth / 1280,
+              stage.clientHeight / 720,
+            );
+            inner.style.setProperty("--s", String(s));
           }
         }
       });
