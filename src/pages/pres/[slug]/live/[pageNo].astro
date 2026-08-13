@@ -1,18 +1,10 @@
 ---
-import { type CollectionEntry, getCollection, render } from "astro:content";
+import { type CollectionEntry, render } from "astro:content";
 import Presentation from "@layouts/Presentation.astro";
+import { getPresDecks } from "@utils/pres";
 
 export async function getStaticPaths() {
-  const entries = await getCollection("pres");
-
-  // Group by slug = first segment of entry.id
-  // (id for content/pres/demo/01-title.mdx === "demo/01-title")
-  const bySlug = new Map<string, CollectionEntry<"pres">[]>();
-  for (const entry of entries) {
-    const slug = entry.id.split("/")[0];
-    if (!bySlug.has(slug)) bySlug.set(slug, []);
-    bySlug.get(slug)!.push(entry);
-  }
+  const decks = await getPresDecks();
 
   const paths: {
     params: { slug: string; pageNo: string };
@@ -25,15 +17,17 @@ export async function getStaticPaths() {
     };
   }[] = [];
 
-  for (const [slug, group] of bySlug) {
-    // Sort lexicographically by id — hence the 01-, 02- naming convention.
-    group.sort((a, b) => a.id.localeCompare(b.id));
-    const total = group.length;
-    const presTitle = group[0].data.presTitle || slug;
-    group.forEach((_entry, idx) => {
+  for (const { slug, slides, total, presTitle } of decks) {
+    slides.forEach((_entry, idx) => {
       paths.push({
         params: { slug, pageNo: String(idx + 1) },
-        props: { slug, pageNo: idx + 1, total, presTitle, slideEntries: group },
+        props: {
+          slug,
+          pageNo: idx + 1,
+          total,
+          presTitle,
+          slideEntries: slides,
+        },
       });
     });
   }

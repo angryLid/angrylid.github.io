@@ -19,23 +19,17 @@
 // post then simply embeds this URL in a lazy-loading <iframe> (see
 // PresAsPost.astro). That completely sidesteps the limitation.
 // ============================================================================
-import { type CollectionEntry, getCollection, render } from "astro:content";
+import { type CollectionEntry, render } from "astro:content";
+import PresHead from "@components/PresHead.astro";
+import SlideFrame from "@components/SlideFrame.astro";
+import { getPresDecks } from "@utils/pres";
 
 export async function getStaticPaths() {
-  const entries = await getCollection("pres");
-  const bySlug = new Map<string, CollectionEntry<"pres">[]>();
-  for (const entry of entries) {
-    const slug = entry.id.split("/")[0];
-    if (!bySlug.has(slug)) bySlug.set(slug, []);
-    bySlug.get(slug)!.push(entry);
-  }
-  return [...bySlug.entries()].map(([slug, group]) => {
-    group.sort((a, b) => a.id.localeCompare(b.id));
-    return {
-      params: { slug },
-      props: { slug, slides: group },
-    };
-  });
+  const decks = await getPresDecks();
+  return decks.map(({ slug, slides }) => ({
+    params: { slug },
+    props: { slug, slides },
+  }));
 }
 
 interface Props {
@@ -56,53 +50,9 @@ const rendered = await Promise.all(
 
 <!doctype html>
 <html lang="zh-CN">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>{presTitle} — 演示文稿</title>
-    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+  <PresHead title={`${presTitle} — 演示文稿`} />
 
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Cascadia+Code:ital,wght@0,200..700;1,200..700&display=swap"
-      rel="stylesheet"
-    />
-
-    <!-- Minimal global styles: only page-level element selectors that must apply
-         to the rendered slide <Content /> as well (which lives in a different
-         component scope and cannot be reached by scoped rules). CSS custom
-         properties must be on :root so slide components can read them via var();
-         the * reset and body font/background are inherited by every slide. These
-         use element selectors only — no class names — so they cannot collide with
-         any slide component's scoped classes. -->
-    <style is:global>
-      :root {
-        --mint-green: #90ee90;
-        --dark-mint: #228b22;
-        --white: #ffffff;
-        --light-gray: #fafaf7;
-        --gray: #666666;
-        --border-radius: 8px;
-      }
-
-      * {
-        margin: 0;
-        padding: 0;
-        box-sizing: border-box;
-      }
-
-      body {
-        font-family:
-          -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu,
-          Cantarell, sans-serif;
-        line-height: 1.6;
-        color: var(--gray);
-        background-color: var(--light-gray);
-        min-height: 100vh;
-      }
-    </style>
-
+  <body>
     <!-- Scoped page structure. Every class below is an element of THIS component's
          own template, so Astro scopes it with a data-astro-cid attribute. Scoping
          guarantees these class names (.page-head, .slide-block, .notes-block, …)
@@ -111,6 +61,10 @@ const rendered = await Promise.all(
          selectors that must actually reach into <Content /> (heading typography,
          note-content styling) opt only those specific rules out of scoping. -->
     <style>
+      :global(body) {
+        min-height: 100vh;
+      }
+
       /* ---- page container ---- */
       .document-wrap {
         max-width: 1000px;
@@ -170,44 +124,21 @@ const rendered = await Promise.all(
         text-decoration: underline;
       }
 
-      .preview-stage {
-        position: relative;
-        width: 100%;
-        aspect-ratio: 16 / 9;
-        overflow: hidden;
-        background: var(--light-gray);
+      /* Base preview markup/CSS/scaling come from the shared <SlideFrame
+         data-fit="width"> component. Only the document-specific frame
+         (border + radius) is added here via :global so it reaches the
+         component's stage element. */
+      :global(.preview-stage) {
         border-radius: var(--border-radius);
         border: 1px solid #e0e0d8;
       }
-      .preview-inner {
-        width: 1280px;
-        height: 720px;
-        transform-origin: top left;
-        transform: scale(var(--s, 1));
-        position: absolute;
-        top: 0;
-        left: 0;
-      }
-
-      /* The <main class="slide"> is this component's own element, so .slide is
-         scoped. Because the global * reset above is only 0,0,0 and this scoped
-         rule is 0,2,0 (class + data-astro-cid), the 2rem padding wins the cascade
-         with no ordering tricks needed. Matches Presentation.astro's .slide. */
-      .slide {
-        width: 100%;
-        height: 100%;
-        padding: 2rem;
-        text-align: center;
-      }
 
       /* Reach into the rendered slide <Content /> to mirror presentation-mode
-         heading typography. The .slide/.preview-inner part is scoped; the
-         :global() wrapping opts the heading selector out of scoping. */
-      .preview-inner :global(:is(h1, h2, h3, h4, h5, h6)) {
+         heading typography. The heading color now comes from the shared base
+         (.slide :is(h1..h6)); only the border reset is specific to the scroll
+         context. */
+      :global(.preview-inner :is(h1, h2, h3, h4, h5, h6)) {
         border-bottom: none;
-      }
-      .slide :global(:is(h1, h2, h3, h4, h5, h6)) {
-        color: var(--dark-mint);
       }
 
       /* ---- speaker notes ---- */
@@ -238,8 +169,7 @@ const rendered = await Promise.all(
         margin: 0.4em 0;
       }
     </style>
-  </head>
-  <body>
+
     <div class="document-wrap">
       <header class="page-head">
         <h1>{presTitle}</h1>
@@ -257,13 +187,9 @@ const rendered = await Promise.all(
                 幻灯片 {idx + 1} ↗
               </a>
             </header>
-            <div class="preview-stage">
-              <div class="preview-inner">
-                <main class="slide">
-                  <Content />
-                </main>
-              </div>
-            </div>
+            <SlideFrame fit="width">
+              <Content />
+            </SlideFrame>
             <div class="notes-block" data-notes />
           </section>
         ))
@@ -292,22 +218,6 @@ const rendered = await Promise.all(
           el.setAttribute("data-visible", "");
         });
       })();
-    </script>
-
-    <script>
-      // Scale each 1280px-wide slide canvas to fit its preview-stage width.
-      const ro = new ResizeObserver((entries) => {
-        for (const en of entries) {
-          const stage = en.target as HTMLElement;
-          const inner = stage.querySelector<HTMLElement>(".preview-inner");
-          if (inner) {
-            inner.style.setProperty("--s", String(stage.clientWidth / 1280));
-          }
-        }
-      });
-      document
-        .querySelectorAll<HTMLElement>(".preview-stage")
-        .forEach((s) => ro.observe(s));
     </script>
   </body>
 </html>

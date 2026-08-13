@@ -1,0 +1,97 @@
+---
+// ============================================================================
+// PresHead — shared <head> + global base styles for the three presentation
+// modes (live / document / speaker).
+// ============================================================================
+// All three modes used to duplicate the same <head> boilerplate (meta, favicon,
+// Google Fonts preconnects + stylesheet) and the same global base CSS (design
+// tokens on :root, the * reset, body typography, the .slide wrapper, heading
+// color, and the [data-anim]/[data-visible] reveal system).
+//
+// This component is the single home for that shared base. It renders the <head>
+// tag; each page supplies its own <title> via the `title` prop and injects any
+// page-specific head children (e.g. live's <ClientRouter />) through the
+// default slot. Mode-specific layout rules (overflow, centering, grids,
+// preview-stage scaling) stay in each page/layout.
+//
+// NOTE: the * reset and body font/background are inherited by every rendered
+// slide <Content /> (which lives in a different component scope), so they must
+// stay on element selectors via is:global — not scoped. The custom properties
+// must be on :root so slide components can read them via var().
+// ============================================================================
+
+interface Props {
+  title: string;
+}
+
+const { title } = Astro.props;
+---
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>{title}</title>
+
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Cascadia+Code:ital,wght@0,200..700;1,200..700&display=swap"
+    rel="stylesheet"
+  />
+
+  <style is:global>
+    :root {
+      --mint-green: #90ee90;
+      --dark-mint: #228b22;
+      --white: #ffffff;
+      --light-gray: #fafaf7;
+      --gray: #666666;
+      --border-radius: 8px;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family:
+        -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu,
+        Cantarell, sans-serif;
+      line-height: 1.6;
+      color: var(--gray);
+      background-color: var(--light-gray);
+    }
+
+    /* Fixed 1280×720 slide canvas scale — the fixed-size element that every
+       mode wraps its <Content /> in. The .slide wrapper is theme-locked to the
+       deck across all modes. */
+    .slide {
+      width: 100%;
+      height: 100%;
+      padding: 2rem;
+      text-align: center;
+    }
+    .slide :is(h1, h2, h3, h4, h5, h6) {
+      color: var(--dark-mint);
+    }
+
+    /* data-anim / data-step reveal system.
+       opacity-based (not display:none) so revealed-at-step-0 content and
+       hidden content both stay in the a11y tree. */
+    [data-anim] {
+      opacity: 0;
+      transition:
+        opacity 0.3s ease,
+        transform 0.3s ease;
+    }
+    [data-anim][data-visible] {
+      opacity: 1;
+    }
+  </style>
+
+  <slot />
+</head>

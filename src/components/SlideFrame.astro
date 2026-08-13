@@ -1,0 +1,108 @@
+---
+// ============================================================================
+// SlideFrame — reusable 1280×720 scaled slide preview.
+// ============================================================================
+// Renders the standard preview wrapper used by several presentation modes:
+//
+//   <div class="preview-stage" data-fit="...">
+//     <div class="preview-inner">
+//       <main class="slide"><slot /></main>
+//     </div>
+//   </div>
+//
+// and ships a ResizeObserver that scales the fixed 1280×720 design canvas to
+// fit its container. document and speaker used to each duplicate this markup,
+// the .preview-stage/.preview-inner CSS, and the scaling script.
+//
+// FIT MODES
+// ---------
+//   "width"   — stage is a 16:9 box (width:100%; aspect-ratio:16/9), canvas
+//               scaled to fit the width. Used by the document scroll view.
+//   "contain" — stage fills its grid cell (width:100%; height:100%), canvas
+//               scaled to the smaller of width/height. Used by the presenter
+//               current/next thumbnails.
+//
+// STAGE STYLING
+// -------------
+// Only the mode-agnostic base (.preview-stage position/overflow/background and
+// the full .preview-inner) lives here. Mode-specific treatments (border,
+// border-radius, current/next highlight frames) are applied page-locally by
+// the consuming page via :global(.preview-stage) / :global(.current .preview-stage)
+// rules — safe because each mode is its own page.
+// ============================================================================
+
+interface Props {
+  /** "width" (16:9 stage, width-fit) or "contain" (fill cell, min-fit). */
+  fit?: "width" | "contain";
+  /** Root element tag — "div" (default) or "span" for use inside <button>. */
+  as?: "div" | "span";
+}
+
+const { fit = "width", as: Tag = "div" } = Astro.props;
+const stageClass = `preview-stage`;
+---
+
+<Tag class={stageClass} data-fit={fit}>
+  <div class="preview-inner">
+    <main class="slide">
+      <slot />
+    </main>
+  </div>
+</Tag>
+
+<style is:global>
+  /* Base stage — mode-agnostic. Sizing is driven by data-fit. */
+  .preview-stage {
+    position: relative;
+    overflow: hidden;
+    background: var(--light-gray);
+  }
+  .preview-stage[data-fit="width"] {
+    width: 100%;
+    aspect-ratio: 16 / 9;
+  }
+  .preview-stage[data-fit="contain"] {
+    width: 100%;
+    height: 100%;
+  }
+
+  /* Fixed 1280×720 design canvas, scaled to fit the stage.
+     flex centering centers the canvas when the stage has slack (contain); for
+     a width-fit 16:9 stage it is a no-op since the canvas fills exactly. */
+  .preview-inner {
+    width: 1280px;
+    height: 720px;
+    transform-origin: top left;
+    transform: scale(var(--s, 1));
+    position: absolute;
+    top: 0;
+    left: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--light-gray);
+  }
+</style>
+
+<script>
+  // Scale each .preview-stage's fixed 1280×720 canvas to fit its container.
+  // data-fit drives the formula: width-fit uses the width ratio (the stage is a
+  // matching 16:9 box, so height falls out exactly); contain-fit uses the
+  // smaller of the width/height ratios.
+  const ro = new ResizeObserver((entries) => {
+    for (const en of entries) {
+      const stage = en.target as HTMLElement;
+      const inner = stage.querySelector<HTMLElement>(".preview-inner");
+      if (!inner) continue;
+      const fit = stage.getAttribute("data-fit");
+      const s =
+        fit === "contain"
+          ? Math.min(stage.clientWidth / 1280, stage.clientHeight / 720)
+          : stage.clientWidth / 1280;
+      inner.style.setProperty("--s", String(s));
+    }
+  });
+  document
+    .querySelectorAll<HTMLElement>(".preview-stage")
+    .forEach((stage) => ro.observe(stage));
+</script>
