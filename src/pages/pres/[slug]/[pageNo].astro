@@ -14,31 +14,54 @@ export async function getStaticPaths() {
     bySlug.get(slug)!.push(entry);
   }
 
-  return [...bySlug.entries()].flatMap(([slug, slides]) => {
-    // Sort lexicographically by id — hence the 01-, 02- naming convention.
-    slides.sort((a, b) => a.id.localeCompare(b.id));
-    const total = slides.length;
-    const presTitle = slides[0].data.presTitle || slug;
+  const paths: {
+    params: { slug: string; pageNo: string };
+    props: {
+      slug: string;
+      pageNo: number;
+      total: number;
+      presTitle: string;
+      slideEntries: CollectionEntry<"pres">[];
+    };
+  }[] = [];
 
-    return slides.map((entry, idx) => ({
-      params: { slug, pageNo: String(idx + 1) },
-      props: { entry, slug, pageNo: idx + 1, total, presTitle },
-    }));
-  });
+  for (const [slug, group] of bySlug) {
+    // Sort lexicographically by id — hence the 01-, 02- naming convention.
+    group.sort((a, b) => a.id.localeCompare(b.id));
+    const total = group.length;
+    const presTitle = group[0].data.presTitle || slug;
+    group.forEach((_entry, idx) => {
+      paths.push({
+        params: { slug, pageNo: String(idx + 1) },
+        props: { slug, pageNo: idx + 1, total, presTitle, slideEntries: group },
+      });
+    });
+  }
+  return paths;
 }
 
 interface Props {
-  entry: CollectionEntry<"pres">;
   slug: string;
   pageNo: number;
   total: number;
   presTitle: string;
+  slideEntries: CollectionEntry<"pres">[];
 }
 
-const { entry, slug, pageNo, total, presTitle } = Astro.props;
-const { Content } = await render(entry);
-const steps = entry.data.steps;
-const title = entry.data.title;
+const { slug, pageNo, total, presTitle, slideEntries } = Astro.props;
+
+// Render every slide once per page so the sidebar can show numbered thumbnails.
+const slides = await Promise.all(
+  slideEntries.map(async (entry, idx) => {
+    const { Content } = await render(entry);
+    return { Content, title: entry.data.title, pageNo: idx + 1 };
+  }),
+);
+
+const current = slides[pageNo - 1];
+const { Content } = current;
+const title = current.title;
+const steps = slideEntries[pageNo - 1].data.steps;
 ---
 
 <Presentation
@@ -48,6 +71,7 @@ const title = entry.data.title;
   steps={steps}
   presTitle={presTitle}
   title={title}
+  slides={slides}
 >
   <Content />
 </Presentation>

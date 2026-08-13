@@ -1,6 +1,12 @@
 ---
 import { ClientRouter } from "astro:transitions";
 
+interface SlideThumb {
+  Content: any;
+  title: string;
+  pageNo: number;
+}
+
 interface Props {
   slug: string;
   pageNo: number;
@@ -8,9 +14,10 @@ interface Props {
   steps: number;
   presTitle: string;
   title: string;
+  slides: SlideThumb[];
 }
 
-const { slug, pageNo, total, steps, presTitle, title } = Astro.props;
+const { slug, pageNo, total, steps, presTitle, title, slides } = Astro.props;
 const fullTitle = `${presTitle} — ${title} (${pageNo}/${total})`;
 ---
 
@@ -121,6 +128,157 @@ const fullTitle = `${presTitle} — ${title} (${pageNo}/${total})`;
         opacity: 0.6;
         font-family: "Cascadia Code", monospace;
       }
+
+      /* ============================ Sidebar ============================ */
+      /* Slide-sorter drawer, hidden by default, toggled with the `g` key. */
+      /* Scrim / mask behind the drawer — dims the stage so the drawer reads
+         as a proper modal overlay. */
+      .pres-scrim {
+        position: fixed;
+        inset: 0;
+        background: rgba(0, 0, 0, 0.35);
+        opacity: 0;
+        visibility: hidden;
+        transition:
+          opacity 0.28s ease,
+          visibility 0.28s;
+        z-index: 90;
+      }
+      .pres-sidebar[data-open] ~ .pres-scrim {
+        opacity: 1;
+        visibility: visible;
+      }
+      .pres-sidebar {
+        position: fixed;
+        left: 0;
+        top: 0;
+        bottom: 0;
+        width: min(340px, 84vw);
+        background: var(--white);
+        border-right: 1px solid rgba(0, 0, 0, 0.08);
+        box-shadow: 4px 0 16px rgba(0, 0, 0, 0.12);
+        z-index: 100;
+        display: flex;
+        flex-direction: column;
+        transform: translateX(-100%);
+        visibility: hidden;
+        transition:
+          transform 0.28s ease,
+          visibility 0.28s;
+      }
+      .pres-sidebar[data-open] {
+        transform: translateX(0);
+        visibility: visible;
+      }
+      .sidebar-header {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        padding: 0.9rem 1rem;
+        border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+        flex: none;
+      }
+      .sidebar-title {
+        font-weight: 600;
+        color: var(--dark-mint);
+        font-size: 0.95rem;
+        flex: 1;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+      .sidebar-close {
+        border: none;
+        background: transparent;
+        font-size: 1.1rem;
+        line-height: 1;
+        color: var(--gray);
+        cursor: pointer;
+        padding: 0.25rem 0.4rem;
+        border-radius: var(--border-radius);
+      }
+      .sidebar-close:hover {
+        background: rgba(0, 0, 0, 0.06);
+      }
+      .sidebar-scroll {
+        flex: 1;
+        overflow-y: auto;
+        padding: 0.75rem;
+        display: flex;
+        flex-direction: column;
+        gap: 0.6rem;
+      }
+      .sidebar-item {
+        display: flex;
+        align-items: flex-start;
+        gap: 0.6rem;
+        text-align: left;
+        border: none;
+        background: transparent;
+        padding: 0.4rem;
+        border-radius: var(--border-radius);
+        cursor: pointer;
+        font: inherit;
+        color: var(--gray);
+      }
+      .sidebar-item:hover {
+        background: rgba(0, 0, 0, 0.05);
+      }
+      .sidebar-item[data-current] {
+        background: rgba(34, 139, 34, 0.1);
+        outline: 2px solid var(--dark-mint);
+      }
+      .item-num {
+        flex: none;
+        width: 1.6rem;
+        height: 1.6rem;
+        display: grid;
+        place-items: center;
+        border-radius: 50%;
+        background: var(--light-gray);
+        border: 1px solid rgba(0, 0, 0, 0.12);
+        font-size: 0.75rem;
+        font-family: "Cascadia Code", monospace;
+      }
+      .sidebar-item[data-current] .item-num {
+        background: var(--dark-mint);
+        color: var(--white);
+        border-color: var(--dark-mint);
+      }
+      .item-thumb {
+        flex: none;
+      }
+      .item-thumb .preview-stage {
+        width: 150px;
+      }
+      .item-title {
+        font-size: 0.85rem;
+        line-height: 1.3;
+        padding-top: 0.15rem;
+        flex: 1;
+      }
+      /* thumbnail scaling — faithful miniature of the 1280x720 design */
+      .preview-stage {
+        position: relative;
+        aspect-ratio: 16 / 9;
+        overflow: hidden;
+        background: var(--light-gray);
+        border-radius: 6px;
+        border: 1px solid rgba(0, 0, 0, 0.08);
+      }
+      .preview-inner {
+        width: 1280px;
+        height: 720px;
+        transform-origin: top left;
+        transform: scale(var(--s, 1));
+        position: absolute;
+        top: 0;
+        left: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: var(--light-gray);
+      }
     </style>
   </head>
   <body
@@ -138,6 +296,36 @@ const fullTitle = `${presTitle} — ${title} (${pageNo}/${total})`;
       </div>
     </div>
     <div class="pres-indicator">{pageNo} / {total}</div>
+
+    <div class="pres-sidebar" id="pres-sidebar" aria-label="Slide navigation" aria-hidden="true">
+      <div class="sidebar-header">
+        <span class="sidebar-title">{presTitle}</span>
+        <button type="button" class="sidebar-close" id="sidebar-close" aria-label="Close sidebar">
+          ✕
+        </button>
+      </div>
+      <div class="sidebar-scroll">
+        {
+          slides.map(({ Content, title, pageNo: p }) => (
+            <button
+              type="button"
+              class="sidebar-item"
+              data-page={p}
+              data-current={pageNo === p ? "" : undefined}
+            >
+              <span class="item-num">{p}</span>
+              <span class="item-thumb preview-stage">
+                <span class="preview-inner">
+                  <main class="slide"><Content /></main>
+                </span>
+              </span>
+              <span class="item-title">{title}</span>
+            </button>
+          ))
+        }
+      </div>
+    </div>
+    <div class="pres-scrim" id="pres-scrim"></div>
   </body>
 </html>
 
@@ -272,6 +460,101 @@ const fullTitle = `${presTitle} — ${title} (${pageNo}/${total})`;
     );
   }
 
+  // ---------------- sidebar (slide sorter) ----------------
+  const sidebarStateKey = (slug: string) => `pres-sidebar-${slug}`;
+
+  function getSidebar(): HTMLElement | null {
+    return document.getElementById("pres-sidebar");
+  }
+
+  function scaleSidebarThumbs(): void {
+    document
+      .querySelectorAll(".pres-sidebar .preview-stage")
+      .forEach((stage) => {
+        const inner = stage.querySelector(
+          ".preview-inner",
+        ) as HTMLElement | null;
+        if (inner)
+          inner.style.setProperty("--s", String(stage.clientWidth / 1280));
+      });
+  }
+
+  function openSidebar(): void {
+    const sb = getSidebar();
+    if (sb) {
+      sb.setAttribute("data-open", "");
+      sb.setAttribute("aria-hidden", "false");
+      sb.querySelector(".sidebar-item[data-current]")?.scrollIntoView({
+        block: "nearest",
+      });
+    }
+    sessionStorage.setItem(sidebarStateKey(currentSlug()), "1");
+  }
+
+  function closeSidebar(): void {
+    const sb = getSidebar();
+    if (sb) {
+      sb.removeAttribute("data-open");
+      sb.setAttribute("aria-hidden", "true");
+    }
+    sessionStorage.removeItem(sidebarStateKey(currentSlug()));
+  }
+
+  function toggleSidebar(): void {
+    const sb = getSidebar();
+    if (sb && sb.hasAttribute("data-open")) closeSidebar();
+    else openSidebar();
+  }
+
+  function initSidebar(): void {
+    const sb = getSidebar();
+    if (!sb) return;
+
+    // Restore open/closed state across view-transition navigations.
+    if (sessionStorage.getItem(sidebarStateKey(currentSlug())) === "1") {
+      sb.setAttribute("data-open", "");
+      sb.setAttribute("aria-hidden", "false");
+      sb.querySelector(".sidebar-item[data-current]")?.scrollIntoView({
+        block: "nearest",
+      });
+    }
+
+    // Show all animation steps in each thumbnail for a complete preview.
+    sb.querySelectorAll(".preview-stage [data-anim]").forEach((el) => {
+      el.setAttribute("data-visible", "");
+    });
+
+    // Rescale thumbnails to their container width (sidebar is resizable via vw).
+    const ro = new ResizeObserver(() => scaleSidebarThumbs());
+    sb.querySelectorAll(".preview-stage").forEach((s) => ro.observe(s));
+    scaleSidebarThumbs();
+
+    sb.querySelector("#sidebar-close")?.addEventListener("click", closeSidebar);
+
+    // Clicking the scrim/mask closes the drawer.
+    document.getElementById("pres-scrim")?.addEventListener("click", closeSidebar);
+
+
+    sb.querySelectorAll(".sidebar-item").forEach((btn) => {
+      btn.addEventListener("click", () => {
+        const p = parseInt(btn.getAttribute("data-page") ?? "", 10);
+        if (Number.isNaN(p)) return;
+        const cur = parseInt(document.body.dataset.pageNo ?? "", 10);
+        if (p === cur) {
+          closeSidebar();
+          return;
+        }
+        // Selecting a slide closes the drawer (drops the open-state so it
+        // won't reopen on the target page), then navigates there.
+        closeSidebar();
+        navigatingTo = p;
+        navSource = "local";
+        pendingStep = null;
+        navigate(`/pres/${currentSlug()}/${p}/`);
+      });
+    });
+  }
+
   function initSlide(): void {
     const body = document.body;
     if (!body.dataset.slug) return;
@@ -329,6 +612,23 @@ const fullTitle = `${presTitle} — ${title} (${pageNo}/${total})`;
       return;
     }
 
+    // `g` toggles the sidebar slide sorter (g for gallery).
+    if (e.key === "g" && !e.shiftKey && !e.ctrlKey && !e.metaKey && !e.altKey) {
+      e.preventDefault();
+      toggleSidebar();
+      return;
+    }
+
+    // Escape closes the sidebar if it is open.
+    if (e.key === "Escape") {
+      const sb = getSidebar();
+      if (sb && sb.hasAttribute("data-open")) {
+        e.preventDefault();
+        closeSidebar();
+        return;
+      }
+    }
+
     if (e.key === "ArrowRight" || e.key === "ArrowDown") {
       e.preventDefault();
       goNext();
@@ -368,6 +668,7 @@ const fullTitle = `${presTitle} — ${title} (${pageNo}/${total})`;
   document.addEventListener("astro:page-load", () => {
     initSlide();
     initScale();
+    initSidebar();
   });
   document.addEventListener("keydown", onKeyDown);
 </script>
