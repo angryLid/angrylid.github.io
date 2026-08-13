@@ -386,18 +386,26 @@ const fullTitle = `${presTitle} — ${title} (${pageNo}/${total})`;
   };
 
   // ---------------- slide helpers ----------------
-  function computeSteps(body: HTMLElement): number {
-    const fm = parseInt(body.dataset.steps ?? "", 10) || 1;
+  // The audience slide lives inside .slide-stage. The sidebar drawer also
+  // renders every slide in the deck as off-canvas thumbnails, so we must scope
+  // step/visibility logic to the stage slide only — otherwise data-anim elements
+  // from all slides pollute the step count and make page turns feel sluggish.
+  function currentSlide(): HTMLElement | null {
+    return document.querySelector(".slide-stage .slide");
+  }
+
+  function computeSteps(root: HTMLElement): number {
+    const fm = parseInt(document.body.dataset.steps ?? "", 10) || 1;
     let maxAnim = 0;
-    body.querySelectorAll("[data-anim]").forEach((el) => {
+    root.querySelectorAll("[data-anim]").forEach((el) => {
       const n = parseInt(el.getAttribute("data-anim") ?? "", 10);
       if (!Number.isNaN(n) && n > maxAnim) maxAnim = n;
     });
     return Math.max(fm, maxAnim + 1);
   }
 
-  function syncVisibility(body: HTMLElement, step: number): void {
-    body.querySelectorAll("[data-anim]").forEach((el) => {
+  function syncVisibility(root: HTMLElement, step: number): void {
+    root.querySelectorAll("[data-anim]").forEach((el) => {
       const n = parseInt(el.getAttribute("data-anim") ?? "", 10);
       if (!Number.isNaN(n) && n <= step) {
         el.setAttribute("data-visible", "");
@@ -410,14 +418,15 @@ const fullTitle = `${presTitle} — ${title} (${pageNo}/${total})`;
   function setStep(step: number): void {
     const body = document.body;
     body.dataset.step = String(step);
-    syncVisibility(body, step);
+    const slide = currentSlide();
+    if (slide) syncVisibility(slide, step);
   }
 
   function goNext(): void {
     const body = document.body;
     const pageNo = parseInt(body.dataset.pageNo ?? "", 10);
     const total = parseInt(body.dataset.total ?? "", 10);
-    const steps = computeSteps(body);
+    const steps = computeSteps(currentSlide() ?? body);
     const step = parseInt(body.dataset.step ?? "0", 10);
     if (step < steps - 1) {
       setStep(step + 1);
@@ -561,7 +570,7 @@ const fullTitle = `${presTitle} — ${title} (${pageNo}/${total})`;
 
     const slug = body.dataset.slug;
     const pageNo = parseInt(body.dataset.pageNo ?? "", 10);
-    const steps = computeSteps(body);
+    const steps = computeSteps(currentSlide() ?? body);
 
     let step = 0;
     // Back-nav restore (own-keyboard): previous page set the flag → land on last step.
@@ -584,7 +593,8 @@ const fullTitle = `${presTitle} — ${title} (${pageNo}/${total})`;
     }
 
     body.dataset.step = String(step);
-    syncVisibility(body, step);
+    const slide = currentSlide();
+    if (slide) syncVisibility(slide, step);
 
     // Only broadcast for local navigations; sync navigations stay silent.
     if (wasNav && source === "local") broadcastState();
