@@ -1,0 +1,313 @@
+---
+// ============================================================================
+// /pres/[slug]/document/ — "presentation as document" page
+// ============================================================================
+// Renders the whole deck as a single scrolling page (every slide as a 16:9
+// scaled preview with a title header and its speaker notes below).
+//
+// WHY A DEDICATED PAGE
+// --------------------
+// This must be a *page* (under src/pages/**), NOT a component nested inside a
+// blog post. Astro only collects/bundles the scoped <style> of a
+// content-collection entry when it is rendered from a page. If the slides were
+// rendered from a component that is itself nested inside another MDX entry,
+// every .astro component the slides import would silently lose its styles
+// (withastro/astro#6121, withastro/astro#7761).
+//
+// Because this is a page, Astro bundles all the slide component styles here —
+// exactly like presenter.astro and the per-slide pages already do. The blog
+// post then simply embeds this URL in a lazy-loading <iframe> (see
+// PresAsPost.astro). That completely sidesteps the limitation.
+// ============================================================================
+import { type CollectionEntry, getCollection, render } from "astro:content";
+
+export async function getStaticPaths() {
+  const entries = await getCollection("pres");
+  const bySlug = new Map<string, CollectionEntry<"pres">[]>();
+  for (const entry of entries) {
+    const slug = entry.id.split("/")[0];
+    if (!bySlug.has(slug)) bySlug.set(slug, []);
+    bySlug.get(slug)!.push(entry);
+  }
+  return [...bySlug.entries()].map(([slug, group]) => {
+    group.sort((a, b) => a.id.localeCompare(b.id));
+    return {
+      params: { slug },
+      props: { slug, slides: group },
+    };
+  });
+}
+
+interface Props {
+  slug: string;
+  slides: CollectionEntry<"pres">[];
+}
+
+const { slug, slides } = Astro.props;
+const presTitle = slides[0].data.presTitle || slug;
+
+const rendered = await Promise.all(
+  slides.map(async (entry) => {
+    const { Content } = await render(entry);
+    return { Content, title: entry.data.title };
+  }),
+);
+---
+
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{presTitle} — 演示文稿</title>
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Cascadia+Code:ital,wght@0,200..700;1,200..700&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- Minimal global styles: only page-level element selectors that must apply
+         to the rendered slide <Content /> as well (which lives in a different
+         component scope and cannot be reached by scoped rules). CSS custom
+         properties must be on :root so slide components can read them via var();
+         the * reset and body font/background are inherited by every slide. These
+         use element selectors only — no class names — so they cannot collide with
+         any slide component's scoped classes. -->
+    <style is:global>
+      :root {
+        --mint-green: #90ee90;
+        --dark-mint: #228b22;
+        --white: #ffffff;
+        --light-gray: #fafaf7;
+        --gray: #666666;
+        --border-radius: 8px;
+      }
+
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family:
+          -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu,
+          Cantarell, sans-serif;
+        line-height: 1.6;
+        color: var(--gray);
+        background-color: var(--light-gray);
+        min-height: 100vh;
+      }
+    </style>
+
+    <!-- Scoped page structure. Every class below is an element of THIS component's
+         own template, so Astro scopes it with a data-astro-cid attribute. Scoping
+         guarantees these class names (.page-head, .slide-block, .notes-block, …)
+         can never leak into — or clash with — the rendered slide <Content />, which
+         keeps its own component-scope attributes. The :global() wrappers on the
+         selectors that must actually reach into <Content /> (heading typography,
+         note-content styling) opt only those specific rules out of scoping. -->
+    <style>
+      /* ---- page container ---- */
+      .document-wrap {
+        max-width: 1000px;
+        margin: 0 auto;
+        padding: 2rem 1.5rem 4rem;
+      }
+
+      /* ---- page header ---- */
+      .page-head {
+        margin-bottom: 2rem;
+        text-align: center;
+      }
+      .page-head h1 {
+        font-size: 1.8rem;
+        color: var(--dark-mint);
+      }
+      .page-head .fresh-link {
+        display: inline-block;
+        margin-top: 0.5rem;
+        font-size: 0.9rem;
+        color: var(--dark-mint);
+        text-decoration: none;
+      }
+      .page-head .fresh-link:hover {
+        text-decoration: underline;
+      }
+
+      /* ---- scaled slide preview (faithful 1280×720 miniature) ---- */
+      .slide-block {
+        margin-bottom: 3rem;
+        border-top: 1px solid #e0e0d8;
+        padding-top: 1.5rem;
+      }
+      .slide-block:first-of-type {
+        border-top: none;
+        padding-top: 0;
+      }
+      .slide-block-head {
+        display: flex;
+        align-items: baseline;
+        justify-content: space-between;
+        gap: 1rem;
+        margin-bottom: 0.75rem;
+      }
+      .slide-no {
+        font-size: 1.25rem;
+        color: var(--dark-mint);
+      }
+      .slide-link {
+        font-size: 0.85rem;
+        color: var(--gray);
+        text-decoration: none;
+        white-space: nowrap;
+      }
+      .slide-link:hover {
+        color: var(--dark-mint);
+        text-decoration: underline;
+      }
+
+      .preview-stage {
+        position: relative;
+        width: 100%;
+        aspect-ratio: 16 / 9;
+        overflow: hidden;
+        background: var(--light-gray);
+        border-radius: var(--border-radius);
+        border: 1px solid #e0e0d8;
+      }
+      .preview-inner {
+        width: 1280px;
+        height: 720px;
+        transform-origin: top left;
+        transform: scale(var(--s, 1));
+        position: absolute;
+        top: 0;
+        left: 0;
+      }
+
+      /* The <main class="slide"> is this component's own element, so .slide is
+         scoped. Because the global * reset above is only 0,0,0 and this scoped
+         rule is 0,2,0 (class + data-astro-cid), the 2rem padding wins the cascade
+         with no ordering tricks needed. Matches Presentation.astro's .slide. */
+      .slide {
+        width: 100%;
+        height: 100%;
+        padding: 2rem;
+        text-align: center;
+      }
+
+      /* Reach into the rendered slide <Content /> to mirror presentation-mode
+         heading typography. The .slide/.preview-inner part is scoped; the
+         :global() wrapping opts the heading selector out of scoping. */
+      .preview-inner :global(:is(h1, h2, h3, h4, h5, h6)) {
+        border-bottom: none;
+      }
+      .slide :global(:is(h1, h2, h3, h4, h5, h6)) {
+        color: var(--dark-mint);
+      }
+
+      /* ---- speaker notes ---- */
+      .notes-block {
+        margin-top: 1rem;
+        padding: 1rem 1.25rem;
+        background: var(--white);
+        border-left: 3px solid var(--dark-mint);
+        border-radius: 4px;
+        font-size: 0.95rem;
+        line-height: 1.7;
+        color: var(--gray);
+      }
+      .notes-block:empty {
+        display: none;
+      }
+      /* The note body is cloned from the <template> inside <Content />, so its
+         children are NOT in this component's scope — target them with :global(). */
+      .notes-block :global(:is(h1, h2, h3)) {
+        color: var(--dark-mint);
+        margin: 0.4em 0;
+        font-size: 1em;
+      }
+      .notes-block :global(:is(ul, ol)) {
+        margin: 0.4em 0 0.4em 1.5em;
+      }
+      .notes-block :global(p) {
+        margin: 0.4em 0;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="document-wrap">
+      <header class="page-head">
+        <h1>{presTitle}</h1>
+        <a class="fresh-link" href={`/pres/${slug}/present/`}>进入演示模式 →</a>
+      </header>
+
+      {
+        rendered.map(({ Content, title }, idx) => (
+          <section class="slide-block">
+            <header class="slide-block-head">
+              <h2 class="slide-no">
+                {idx + 1}. {title}
+              </h2>
+              <a class="slide-link" href={`/pres/${slug}/present/${idx + 1}/`}>
+                幻灯片 {idx + 1} ↗
+              </a>
+            </header>
+            <div class="preview-stage">
+              <div class="preview-inner">
+                <main class="slide">
+                  <Content />
+                </main>
+              </div>
+            </div>
+            <div class="notes-block" data-notes />
+          </section>
+        ))
+      }
+    </div>
+
+    <script is:inline>
+      // Extract speaker notes from each slide's <template> and render them
+      // visibly, and mark every data-anim element as data-visible so stepped
+      // content (fly/blinds animations) renders in its final state in this
+      // scroll context. is:inline runs synchronously during parse (before
+      // paint), so notes appear without a flash.
+      (function () {
+        document
+          .querySelectorAll(".slide-block:not([data-notes-done])")
+          .forEach(function (block) {
+            var tpl = block.querySelector("template.speaker-notes");
+            var notes = block.querySelector("[data-notes]");
+            if (tpl && notes) {
+              notes.append(tpl.content.cloneNode(true));
+            }
+            block.setAttribute("data-notes-done", "");
+          });
+        // All animation steps are shown at once in the scroll context.
+        document.querySelectorAll("[data-anim]").forEach(function (el) {
+          el.setAttribute("data-visible", "");
+        });
+      })();
+    </script>
+
+    <script>
+      // Scale each 1280px-wide slide canvas to fit its preview-stage width.
+      const ro = new ResizeObserver((entries) => {
+        for (const en of entries) {
+          const stage = en.target as HTMLElement;
+          const inner = stage.querySelector<HTMLElement>(".preview-inner");
+          if (inner) {
+            inner.style.setProperty("--s", String(stage.clientWidth / 1280));
+          }
+        }
+      });
+      document
+        .querySelectorAll<HTMLElement>(".preview-stage")
+        .forEach((s) => ro.observe(s));
+    </script>
+  </body>
+</html>

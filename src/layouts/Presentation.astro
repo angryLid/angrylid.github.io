@@ -379,7 +379,7 @@ const fullTitle = `${presTitle} — ${title} (${pageNo}/${total})`;
       navigatingTo = msg.pageNo;
       navSource = "sync";
       pendingStep = msg.step;
-      navigate(`/pres/${currentSlug()}/${msg.pageNo}/`);
+      navigate(`/pres/${currentSlug()}/present/${msg.pageNo}/`);
     } else {
       setStep(msg.step); // silent apply, no re-broadcast
     }
@@ -435,7 +435,7 @@ const fullTitle = `${presTitle} — ${title} (${pageNo}/${total})`;
       navigatingTo = pageNo + 1;
       navSource = "local";
       pendingStep = null;
-      navigate(`/pres/${currentSlug()}/${pageNo + 1}/`);
+      navigate(`/pres/${currentSlug()}/present/${pageNo + 1}/`);
     }
   }
 
@@ -455,7 +455,7 @@ const fullTitle = `${presTitle} — ${title} (${pageNo}/${total})`;
       navigatingTo = pageNo - 1;
       navSource = "local";
       pendingStep = null;
-      navigate(`/pres/${currentSlug()}/${pageNo - 1}/`);
+      navigate(`/pres/${currentSlug()}/present/${pageNo - 1}/`);
     }
   }
 
@@ -463,7 +463,7 @@ const fullTitle = `${presTitle} — ${title} (${pageNo}/${total})`;
     const s = readState();
     if (!s.slug) return;
     window.open(
-      `/pres/${s.slug}/presenter/?page=${s.pageNo}`,
+      `/pres/${s.slug}/speaker/?page=${s.pageNo}`,
       "pres-speaker",
       "width=1280,height=800",
     );
@@ -559,7 +559,7 @@ const fullTitle = `${presTitle} — ${title} (${pageNo}/${total})`;
         navigatingTo = p;
         navSource = "local";
         pendingStep = null;
-        navigate(`/pres/${currentSlug()}/${p}/`);
+        navigate(`/pres/${currentSlug()}/present/${p}/`);
       });
     });
   }
