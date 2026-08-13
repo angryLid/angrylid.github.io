@@ -23,7 +23,7 @@ const presentations = [...bySlug.entries()].sort(([a], [b]) =>
       {
         presentations.map(([slug, info]) => (
           <li>
-            <a href={`/pres/${slug}/`}>{info.presTitle}</a>
+            <a href={`/pres/${slug}/present/`}>{info.presTitle}</a>
             <span> ({info.count} slides)</span>
           </li>
         ))
