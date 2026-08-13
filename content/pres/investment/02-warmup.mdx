@@ -3,23 +3,9 @@ title: "你知道吗"
 steps: 2
 ---
 import Notes from "@components/Notes.astro";
-import PresentationLayout from "@components/PresentationLayout.astro";
-import styles from "./styles/02-warmup.module.css";
+import Warmup from "./02-warmup.astro";
 
-<PresentationLayout title="城市介绍环节">
-  <div class={styles.wrap}>
-    <p data-anim="0" class={styles.lead}>中国的地名大多是本地居民取的名字，通常是汉语或者是少数民族语言的汉译。</p>
-
-    <ul class={styles.list}>
-      <li data-anim="1">包头：源自蒙古语"包克图"，意为"有鹿的地方"（故称"鹿城"）。</li>
-      <li data-anim="2">哈尔滨：主流认为源自满语/古女真语，意为"晒网场"（或"打鱼场"）。</li>
-      <li data-anim="3">合肥：来自古代山越民的土话，意思是“八百精锐”</li>
-    </ul>
-
-    <p data-anim="4" class={styles.cta}>但有个小城市是用英语单词命名的。你能猜到是哪个吗？</p>
-  </div>
-</PresentationLayout>
-
+<Warmup />
 
 <Notes>
 

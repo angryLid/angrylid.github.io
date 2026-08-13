@@ -1,0 +1,272 @@
+---
+import PresentationLayout from "@components/PresentationLayout.astro";
+---
+
+<PresentationLayout title="成长股 — 一份对未来的赌注" eyebrow="股票 · 成长股的性质" narrow>
+  <div class="root">
+
+    {/* 顶部核心观点 */}
+    <div class="coreBanner">
+      <span class="coreIcon">🌱</span>
+      <div class="coreText">
+        成长股不是「现在赚钱的公司」，而是一份<strong>对未来的衍生品</strong> ——
+        价格锚定的是<strong>爆发式增长预期</strong>，不是当下的盈利。
+      </div>
+    </div>
+
+    {/* 三个阶段横向流程 */}
+    <div class="stageFlow">
+
+      {/* ===== 阶段一：什么是成长股 ===== */}
+      <div data-anim="0" class="stageCard">
+        <div class="stageHeader stageHeader1">
+          <span class="stageIndex">1</span>
+          <span class="stageTitle">什么是成长股</span>
+        </div>
+        <div class="stageBody">
+          <div class="stageHeading">利润没起来，价格先上天</div>
+          <p class="stageDesc">公司现在<strong>赚得不多</strong>，但市场押注它未来<strong>爆发式增长</strong>。股价里绝大部分，是给「未来」开的价。</p>
+          <div class="stageTip stageTipGreen">
+            💡 锚点是增长率 —— 未来能长多快
+          </div>
+        </div>
+      </div>
+
+      {/* 箭头 1 */}
+      <div data-anim="1" class="stageArrow stageArrow1">➜</div>
+
+      {/* ===== 阶段二：衍生品特性 ===== */}
+      <div data-anim="1" class="stageCard">
+        <div class="stageHeader stageHeader2">
+          <span class="stageIndex">2</span>
+          <span class="stageTitle">衍生品特性</span>
+        </div>
+        <div class="stageBody">
+          <div class="stageHeading">对预期加杠杆</div>
+          <p class="stageDesc">价格由<strong>远期预期</strong>决定，且被放大：增长预期抖一抖，股价就剧烈波动 —— 像期权/期货，赌的是「未来这张走势」，不是当下值多少。</p>
+          <div class="stageTip stageTipGreen">
+            💡 锚点变成预期 —— 以后能涨到多少
+          </div>
+        </div>
+      </div>
+
+      {/* 箭头 2 */}
+      <div data-anim="2" class="stageArrow stageArrow2">➜</div>
+
+      {/* ===== 阶段三：终局结算 ===== */}
+      <div data-anim="2" class="stageCard">
+        <div class="stageHeader stageHeader3">
+          <span class="stageIndex">3</span>
+          <span class="stageTitle">到期结算</span>
+        </div>
+        <div class="stageBody3">
+          <div class="stageHeading">增长到顶的那一天</div>
+          <p class="stageDesc3">赌注终要<strong>结算</strong>，成败两条路。</p>
+          <div class="resultBox resultSuccess">
+            <strong>✅ 成功</strong> —— 增长到顶后<strong>稳定分红</strong>，或被<strong>收购</strong>兑现
+          </div>
+          <div class="resultBox resultFail">
+            <strong>❌ 失败</strong> —— <strong>泡泡戳破</strong>；或到顶却陷入<strong>恶性竞争</strong>、利润微薄
+          </div>
+        </div>
+      </div>
+    </div>
+
+    {/* 底部结论 */}
+    <div class="conclusion">
+      <div class="conclusionText">
+        <strong>💡 核心结论：</strong>
+        成长的<strong>「预期」</strong>本质是衍生品 —— 它把「未来的一笔账」提前折到现在定价。终局<strong>有赢有输</strong>：要么稳定分红/被收购，要么<strong>泡泡戳破</strong>栽在预期上。
+      </div>
+    </div>
+
+  </div>
+</PresentationLayout>
+
+<style>
+  /* ---- page-specific: 15a-growth-stocks ---- */
+  .root {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 0.9rem;
+  }
+
+  /* Top core idea banner (green) */
+  .coreBanner {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    background: #effaf3;
+    border: 1px solid #bfe3c9;
+    border-left: 4px solid #15803d;
+    padding: 0.8rem 1.2rem;
+    flex-shrink: 0;
+  }
+
+  .coreIcon {
+    font-size: 1.6rem;
+  }
+
+  .coreText {
+    font-size: 1.18rem;
+    color: #14532d;
+    line-height: 1.5;
+  }
+
+  /* Three-stage flow */
+  .stageFlow {
+    flex: 1;
+    min-height: 0;
+    display: flex;
+    align-items: stretch;
+    gap: 0.5rem;
+  }
+
+  .stageCard {
+    flex: 1;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    background: #fff;
+    border: 1px solid #bfe3c9;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .stageHeader {
+    color: #fff;
+    padding: 0.8rem 1rem;
+    display: flex;
+    align-items: flex-end;
+    gap: 0.6rem;
+  }
+
+  .stageHeader1 {
+    background: #16a34a;
+  }
+
+  .stageHeader2 {
+    background: #15803d;
+  }
+
+  .stageHeader3 {
+    background: #14532d;
+  }
+
+  .stageIndex {
+    font-size: 0.7rem;
+    opacity: 0.85;
+    letter-spacing: 0.5px;
+    flex-shrink: 0;
+  }
+
+  .stageTitle {
+    font-size: 1.6rem;
+    font-weight: 800;
+    flex: 1;
+  }
+
+  .stageBody {
+    flex: 1;
+    padding: 1rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    gap: 0.7rem;
+  }
+
+  .stageBody3 {
+    flex: 1;
+    padding: 1rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    gap: 0.55rem;
+  }
+
+  .stageHeading {
+    font-size: 1.5rem;
+    font-weight: 800;
+    color: #14532d;
+  }
+
+  .stageDesc {
+    flex-grow: 1;
+    margin: 0;
+    font-size: 1.12rem;
+    color: #57534e;
+    line-height: 1.55;
+  }
+
+  .stageDesc3 {
+    flex-grow: 1;
+    margin: 0;
+    font-size: 1.12rem;
+    color: #57534e;
+    line-height: 1.5;
+  }
+
+  .stageTip {
+    padding: 0.5rem 0.7rem;
+    font-size: 1.05rem;
+    color: #166534;
+    line-height: 1.4;
+  }
+
+  .stageTipGreen {
+    background: #f0fdf4;
+  }
+
+  .resultBox {
+    padding: 0.5rem 0.7rem;
+    font-size: 1.02rem;
+    line-height: 1.4;
+  }
+
+  .resultSuccess {
+    background: #f0fdf4;
+    border: 1px solid #bfe3c9;
+    color: #166534;
+  }
+
+  .resultFail {
+    background: #fef2f2;
+    border: 1px solid #fecaca;
+    color: #b91c1c;
+  }
+
+  /* Arrow between stages */
+  .stageArrow {
+    align-self: center;
+    font-size: 2rem;
+    flex-shrink: 0;
+    padding: 0 0.1rem;
+    transform-origin: center;
+    transform: scale(1.75);
+  }
+
+  .stageArrow1 {
+    color: #15803d;
+  }
+
+  .stageArrow2 {
+    color: #14532d;
+  }
+
+  /* Bottom conclusion */
+  .conclusion {
+    background: #effaf3;
+    border: 1px solid #bfe3c9;
+    padding: 0.7rem 1rem;
+    border-left: 4px solid #15803d;
+    flex-shrink: 0;
+  }
+
+  .conclusionText {
+    font-size: 0.98rem;
+    color: #14532d;
+    margin: 0;
+    line-height: 1.5;
+  }
+</style>

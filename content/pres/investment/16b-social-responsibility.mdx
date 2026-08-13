@@ -3,55 +3,9 @@ title: "盘外招二 · 民生工程与社会责任"
 steps: 1
 ---
 import Notes from "@components/Notes.astro";
-import PresentationLayout from "@components/PresentationLayout.astro";
-import styles from "./styles/divided-stocks.module.css";
-import layoutSvg from "./assets/svg/social-responsibility.svg";
+import SocialResponsibility from "./16b-social-responsibility.astro";
 
-<PresentationLayout
-  eyebrow="国家队的盘外招 · 其二"
-  title="民生工程与社会责任"
-  narrow
->
-  <div class={styles.root}>
-    <div class={styles.mainGrid}>
-      <div class={styles.leftCol}>
-        <div class:list={[styles.card, styles.cardMixed]}>
-          <span class={styles.cardIcon}>🚢</span>
-          <div>
-            <p class={styles.cardTitle}>长江电力 · 葛洲坝船闸</p>
-            <p class={styles.cardDesc}>2025.8 拟砸 266 亿建葛洲坝航运扩能（公益基建），5.7 亿股反对，仍 96% 强行通过</p>
-          </div>
-        </div>
-
-        <div class:list={[styles.card, styles.cardGood]}>
-          <span class={styles.cardIcon}>⚡</span>
-          <div>
-            <p class={styles.cardTitle}>火电厂 · 2021 亏本供电</p>
-            <p class={styles.cardDesc}>煤价 600→2000 元/吨，电价锁死，发电即倒贴 2-3 毛/度；华能国际巨亏 100 亿+</p>
-          </div>
-        </div>
-
-        <div class:list={[styles.card, styles.cardBad]}>
-          <span class={styles.cardIcon}>⚖️</span>
-          <div>
-            <p class={styles.cardTitle}>市场化的成本 vs 行政化的公益</p>
-            <p class={styles.cardDesc}>分红归零、戴维斯双杀；"讲政治、保民生"永远高于利润</p>
-          </div>
-        </div>
-      </div>
-
-      <div class={styles.rightCol}>
-        <img src={layoutSvg.src} alt="长江电力与火电厂承担社会公益成本" class={styles.svg} />
-      </div>
-    </div>
-
-    <div class:list={[styles.footer, styles.footerRed]}>
-      <p class:list={[styles.footerText, styles.footerTextRed]}>
-        <strong>总结：</strong>在民生红线面前，市场化的成本必须给行政化的公益让路——上市公司替国家扛下保供保民生的账。
-      </p>
-    </div>
-  </div>
-</PresentationLayout>
+<SocialResponsibility />
 
 <Notes>
 

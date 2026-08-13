@@ -1,0 +1,157 @@
+---
+import PresentationLayout from "@components/PresentationLayout.astro";
+---
+
+<PresentationLayout title="投资的三个要义" eyebrow="简单，但不容易" narrow>
+  <div class="pageCol">
+    {/* 三个要义：三张卡片 */}
+    <div class="grid3">
+      <div class="card">
+        <div class="cardLabel">条件 01</div>
+        <div class="cardTitle">好资产</div>
+        <div class="cardDesc">基本面扎实，持续创造价值</div>
+      </div>
+      <div class="card">
+        <div class="cardLabel">条件 02</div>
+        <div class="cardTitle">好的买入价格</div>
+        <div class="cardDesc">低估区间进场，留足安全边际</div>
+      </div>
+      <div class="card">
+        <div class="cardLabel">条件 03</div>
+        <div class="cardTitle">好的卖出价格</div>
+        <div class="cardDesc">高估区间落袋，兑现并守住收益</div>
+      </div>
+    </div>
+
+    {/* 转折：简单，但不容易 */}
+    <div class="transition">
+      <div class="transitionMark">但</div>
+      <div class="transitionText">
+        三个条件说起来都简单，难的是全都能做对 — 核心难点在于<span class="transitionEm">预测未来</span>。
+      </div>
+    </div>
+
+    {/* 为什么难：三条证据 */}
+    <div class="evidenceList">
+      <div class="evidenceItem">
+        <div class="bulletNum">1</div>
+        <p class="evidenceText">专家的判断也只基于当下 — 巴菲特看好苹果、可口可乐，段永平看好茅台、腾讯，今天确实是好资产，但未来的市场与基本面如何变化，无人可知。</p>
+      </div>
+      <div class="evidenceItem">
+        <div class="bulletNum">2</div>
+        <p class="evidenceText">连管理层自己都没把握 — 茅台董事长一边说“年轻人到了年纪自然会喝白酒”，一边又放下身段去跟 9.9 元的瑞幸咖啡联名。</p>
+      </div>
+      <div class="evidenceItem">
+        <div class="bulletNum">3</div>
+        <p class="evidenceText">信息不足时的预测，长期期望为负 — 没有内幕消息时赌球是负期望；散户在信息不充分下预测未来，与赌球并无差别。</p>
+      </div>
+    </div>
+  </div>
+</PresentationLayout>
+
+<style>
+  /* ---- shared.layout: pageCol ---- */
+  .pageCol {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+  }
+
+  /* ---- shared.layout: grid3 ---- */
+  .grid3 {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+  }
+
+  /* ---- shared.shared: card / cardLabel / cardTitle / cardDesc ---- */
+  .card {
+    border: 1px solid #e0e0e0;
+    padding: 1.75rem 1.5rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 0.6rem;
+  }
+
+  .cardLabel {
+    font-size: 0.85rem;
+    color: #999;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+  }
+
+  .cardTitle {
+    font-size: 1.7rem;
+    font-weight: 750;
+    color: #111;
+  }
+
+  .cardDesc {
+    font-size: 0.95rem;
+    color: #666;
+    line-height: 1.6;
+  }
+
+  /* ---- shared.shared: bulletNum ---- */
+  .bulletNum {
+    flex: 0 0 auto;
+    width: 1.7rem;
+    height: 1.7rem;
+    background: #c0392b;
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.9rem;
+    font-weight: 700;
+  }
+
+  /* ---- page-specific: transition ---- */
+  .transition {
+    display: flex;
+    align-items: center;
+    gap: 1.25rem;
+    padding: 0.5rem 0;
+  }
+
+  .transitionMark {
+    font-size: 2.4rem;
+    font-weight: 800;
+    color: #c0392b;
+    line-height: 1;
+    flex-shrink: 0;
+  }
+
+  .transitionText {
+    font-size: 1.15rem;
+    color: #333;
+    line-height: 1.6;
+  }
+
+  .transitionEm {
+    font-weight: 750;
+    color: #c0392b;
+  }
+
+  /* ---- page-specific: evidence ---- */
+  .evidenceList {
+    display: flex;
+    flex-direction: column;
+    gap: 0.7rem;
+  }
+
+  .evidenceItem {
+    display: flex;
+    gap: 0.9rem;
+    align-items: flex-start;
+  }
+
+  .evidenceText {
+    margin: 0;
+    font-size: 1rem;
+    color: #444;
+    line-height: 1.6;
+  }
+</style>

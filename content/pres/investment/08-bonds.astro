@@ -1,0 +1,227 @@
+---
+import PresentationLayout from "@components/PresentationLayout.astro";
+import bondsCert from "./assets/svg/national-development-bond.svg";
+---
+
+<PresentationLayout title="债券" eyebrow="BONDS · 生息资产" narrow>
+  <div class="slideRoot">
+    <p class="lead">债券 = 一张标准化的借条：发行人承诺按期<strong>付息</strong>、到期<strong>还本</strong>——把「借钱」变成一份可交易、可定价的契约。</p>
+
+    <div class="mainGrid">
+      {/* 左侧：三个核心特征 */}
+      <div class="cardCol">
+        <div class:list={["cardLight", "featureCard"]}>
+          <div class="spaceBetween">
+            <span class="featureIconTop">💵</span>
+            <span class:list={["monoTag", "featureTag"]}>COUPON · 票息</span>
+          </div>
+          <p class="featureLabel">固定利息收入</p>
+          <p class="featureDesc">定期支付票息，现金流可预测</p>
+          <p class="featureStatGreen">+3.5% / 年</p>
+        </div>
+
+        <div class:list={["cardLight", "featureCard"]}>
+          <div class="spaceBetween">
+            <span class="featureIconTop">📅</span>
+            <span class:list={["monoTag", "featureTag"]}>MATURITY · 到期</span>
+          </div>
+          <p class="featureLabel">到期还本</p>
+          <p class="featureDesc">约定到期日，本金确定性返还</p>
+          <p class="featureStatGreen">本金 ¥100</p>
+        </div>
+
+        <div class:list={["cardLight", "featureCard"]}>
+          <div class="spaceBetween">
+            <span class="featureIconTop">🛡️</span>
+            <span class:list={["monoTag", "featureTag"]}>RISK · 风险</span>
+          </div>
+          <p class="featureLabel">风险相对较低</p>
+          <p class="featureDesc">国债几乎无风险，企业债看评级</p>
+          <p class="featureStatRed">AAA · 看信用</p>
+        </div>
+      </div>
+
+      {/* 右侧：债券证书 + 现金流 */}
+      <div class="chartCard">
+        <div class="chartHeader">
+          <span class="chartTitle">CASHFLOW · 现金流</span>
+          <span class="chartMeta">5 年期 · ¥100</span>
+        </div>
+        <img src={bondsCert.src} alt="国家开发银行债券票面与现金流示意" class="shrink" />
+      </div>
+    </div>
+
+    <div class="footerBar">
+      <p class="footerText"><strong>本质 ·</strong> 债券的本质是「现在借钱、未来还本付息」的契约——收益来自<strong>时间</strong>，风险来自<strong>信用</strong>。</p>
+    </div>
+  </div>
+</PresentationLayout>
+
+<style>
+  /* ---- shared.layout: slideRoot ---- */
+  .slideRoot {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 0.8rem;
+    padding: 0.4rem 2.5rem 0.6rem;
+    text-align: center;
+  }
+
+  /* ---- shared.layout: mainGrid ---- */
+  .mainGrid {
+    flex: 1;
+    min-height: 0;
+    width: 100%;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.1rem;
+  }
+
+  /* ---- shared.layout: cardCol ---- */
+  .cardCol {
+    height: 100%;
+    min-height: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  /* ---- shared.layout: spaceBetween ---- */
+  .spaceBetween {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  /* ---- shared.shared: lead ---- */
+  .lead {
+    margin: 0;
+    font-size: 1rem;
+    color: #555;
+  }
+
+  /* ---- shared.shared: cardLight ---- */
+  .cardLight {
+    border: 1px solid #e2e2e2;
+    background: #fafafa;
+    display: flex;
+    flex-direction: column;
+    text-align: left;
+  }
+
+  /* ---- shared.shared: monoTag ---- */
+  .monoTag {
+    font-family: 'Cascadia Code', monospace;
+    letter-spacing: 0.1em;
+    color: #9ca3af;
+  }
+
+  /* ---- shared.shared: chartCard ---- */
+  .chartCard {
+    min-height: 0;
+    border: 1px solid #e2e2e2;
+    background: #fafafa;
+    padding: 0.6rem 0.8rem;
+    display: flex;
+    flex-direction: column;
+  }
+
+  /* ---- shared.shared: chartHeader ---- */
+  .chartHeader {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 0.2rem;
+  }
+
+  /* ---- shared.shared: chartTitle ---- */
+  .chartTitle {
+    font-size: 0.7rem;
+    color: #9ca3af;
+    font-family: 'Cascadia Code', monospace;
+    letter-spacing: 0.08em;
+  }
+
+  /* ---- shared.shared: chartMeta ---- */
+  .chartMeta {
+    font-size: 0.65rem;
+    color: #6b7280;
+    font-family: 'Cascadia Code', monospace;
+  }
+
+  /* ---- shared.shared: footerBar ---- */
+  .footerBar {
+    flex: 0 0 auto;
+    border-left: 3px solid #333;
+    padding: 0.6rem 1rem;
+    background: #fafafa;
+    width: 100%;
+  }
+
+  /* ---- shared.shared: footerText ---- */
+  .footerText {
+    margin: 0;
+    font-size: 0.9rem;
+    color: #333;
+    line-height: 1.55;
+  }
+
+  /* ---- shared.slide-svg: shrink ---- */
+  .shrink {
+    width: 100%;
+    max-height: 100%;
+    flex-shrink: 1;
+    min-height: 0;
+    object-fit: contain;
+  }
+
+  /* ---- page-specific 08-bonds ---- */
+  .featureCard {
+    flex: 1 1 0;
+    min-height: 0;
+    padding: 0.5rem 0.9rem;
+    justify-content: center;
+    gap: 0.15rem;
+  }
+
+  .featureIconTop {
+    font-size: 1.15rem;
+  }
+
+  .featureTag {
+    font-size: 0.6rem;
+  }
+
+  .featureLabel {
+    margin: 0.1rem 0 0;
+    font-size: 1rem;
+    font-weight: 700;
+    color: #333;
+  }
+
+  .featureDesc {
+    margin: 0;
+    font-size: 0.8rem;
+    color: #666;
+    line-height: 1.4;
+  }
+
+  .featureStatGreen {
+    margin: 0.15rem 0 0;
+    font-size: 0.95rem;
+    font-weight: 700;
+    color: #15803d;
+    font-family: 'Cascadia Code', monospace;
+  }
+
+  .featureStatRed {
+    margin: 0.15rem 0 0;
+    font-size: 0.95rem;
+    font-weight: 700;
+    color: #b91c1c;
+    font-family: 'Cascadia Code', monospace;
+  }
+</style>

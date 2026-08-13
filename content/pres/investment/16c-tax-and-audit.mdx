@@ -3,55 +3,9 @@ title: "盘外招三 · 税率调整和税务稽查"
 steps: 1
 ---
 import Notes from "@components/Notes.astro";
-import PresentationLayout from "@components/PresentationLayout.astro";
-import styles from "./styles/divided-stocks.module.css";
-import layoutSvg from "./assets/svg/tax-audit.svg";
+import TaxAndAudit from "./16c-tax-and-audit.astro";
 
-<PresentationLayout
-  eyebrow="国家队的盘外招 · 其三"
-  title="税率调整和税务稽查"
-  narrow
->
-  <div class={styles.root}>
-    <div class={styles.mainGrid}>
-      <div class={styles.leftCol}>
-        <div class:list={[styles.card, styles.cardNeutral]}>
-          <span class={styles.cardIcon}>📱</span>
-          <div>
-            <p class={styles.cardTitle}>中国移动 · 增值税重分类</p>
-            <p class={styles.cardDesc}>2026.2 流量/短信/宽带由"增值电信"改归"基础电信"，税率 6% → 9%，2.6% 利润被抽</p>
-          </div>
-        </div>
-
-        <div class:list={[styles.card, styles.cardRed]}>
-          <span class={styles.cardIcon}>🏦</span>
-          <div>
-            <p class={styles.cardTitle}>中国银行 · 审计署点名</p>
-            <p class={styles.cardDesc}>2026.6.24 审计署定性"逃避税"近 24 亿，次日 A 股 -3.88%、港股 -5.31%</p>
-          </div>
-        </div>
-
-        <div class:list={[styles.card, styles.cardAmber]}>
-          <span class={styles.cardIcon}>📉</span>
-          <div>
-            <p class={styles.cardTitle}>红利蛋糕被切走</p>
-            <p class={styles.cardDesc}>强监管周期下，旱涝保收的红利巨头被税收与审计硬生生切走一块</p>
-          </div>
-        </div>
-      </div>
-
-      <div class={styles.rightCol}>
-        <img src={layoutSvg.src} alt="税率调整与审计对红利股切蛋糕" class={styles.svg} />
-      </div>
-    </div>
-
-    <div class:list={[styles.footer, styles.footerBlue]}>
-      <p class:list={[styles.footerText, styles.footerTextBlue]}>
-        <strong>总结：</strong>强监管周期下，税率调整与税务稽查会从"避险天堂"的红利股身上切走一块蛋糕——分红预期随时可能打折。
-      </p>
-    </div>
-  </div>
-</PresentationLayout>
+<TaxAndAudit />
 
 <Notes>
 

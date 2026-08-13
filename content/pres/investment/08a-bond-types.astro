@@ -1,0 +1,274 @@
+---
+import PresentationLayout from "@components/PresentationLayout.astro";
+---
+
+<PresentationLayout title="债券的分类" eyebrow="FIXED INCOME · 生息资产 · 债券" narrow>
+  <div class="slideRoot">
+    <p class="lead">按<strong>发行主体</strong>分类：政府发的叫主权债，企业发的叫信用债——信用越强，利率越低、越安全。</p>
+
+    <div class="mainGrid">
+
+      {/* 主权债券 */}
+      <div class:list={["cardLight", "typeCard"]}>
+        <div class="spaceBetween">
+          <span class:list={["monoTag", "typeTag"]}>SOVEREIGN · 主权债券</span>
+          <span class="typeIcon">🏛️</span>
+        </div>
+        <p class="typeDesc">政府背书，信用等级最高，几乎零违约风险</p>
+
+        <div class="bondRow">
+          <div>
+            <p class="bondName">国债</p>
+            <p class="bondSub">中央政府发行 · 金边债券</p>
+          </div>
+          <div class="bondRateBox">
+            <p class="bondRateGreen">~2-3%</p>
+            <p class="bondMeta">10Y</p>
+          </div>
+        </div>
+
+        <div class="bondRow">
+          <div>
+            <p class="bondName">地方债</p>
+            <p class="bondSub">地方政府发行 · 隐性刚兑</p>
+          </div>
+          <div class="bondRateBox">
+            <p class="bondRateGreen">~3-4%</p>
+            <p class="bondMeta">一般债</p>
+          </div>
+        </div>
+
+        <div class="bondRow">
+          <div>
+            <p class="bondName">政策性金融债</p>
+            <p class="bondSub">国开 · 农发 · 口行</p>
+          </div>
+          <div class="bondRateBox">
+            <p class="bondRateGreen">~2.5-3.5%</p>
+            <p class="bondMeta">10Y</p>
+          </div>
+        </div>
+
+        <div class="cardNoteWrap">
+          <p class="cardNoteGreen">💡 信用风险极低 → 收益率也最低</p>
+        </div>
+      </div>
+
+      {/* 信用债 */}
+      <div class:list={["cardLight", "typeCard"]}>
+        <div class="spaceBetween">
+          <span class:list={["monoTag", "typeTag"]}>CREDIT · 信用债</span>
+          <span class="typeIcon">🏢</span>
+        </div>
+        <p class="typeDesc">企业发行，看信用评级——评级越低，风险越高</p>
+
+        <div class="bondRow">
+          <div>
+            <p class="bondName">AAA 企业债</p>
+            <p class="bondSub">央企 · 头部民企 · 最安全</p>
+          </div>
+          <div class="bondRateBox">
+            <p class="bondRateRed">~3-5%</p>
+            <p class="bondMeta">中票/短融</p>
+          </div>
+        </div>
+
+        <div class="bondRow">
+          <div>
+            <p class="bondName">AA/A 信用债</p>
+            <p class="bondSub">评级越低 · 风险越高</p>
+          </div>
+          <div class="bondRateBox">
+            <p class="bondRateRed">~5-8%</p>
+            <p class="bondMeta">收益高</p>
+          </div>
+        </div>
+
+        <div class="bondRow">
+          <div>
+            <p class="bondName">可转换债券</p>
+            <p class="bondSub">可转成股票 · 股债双重属性</p>
+          </div>
+          <div class="bondRateBox">
+            <p class="bondRateRed">~不固定</p>
+            <p class="bondMeta">带期权</p>
+          </div>
+        </div>
+
+        <div class="cardNoteWrap">
+          <p class="cardNoteRed">⚠️ 信用风险随评级下降而上升</p>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="footerBar">
+      <p class="footerText"><strong>核心规律 ·</strong> 发行主体信用越强 → 利率越低、越安全；信用越弱 → 利率越高、风险越大。收益和风险永远成正比。</p>
+    </div>
+  </div>
+</PresentationLayout>
+
+<style>
+  /* ---- shared.layout: slideRoot ---- */
+  .slideRoot {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 0.8rem;
+    padding: 0.4rem 2.5rem 0.6rem;
+    text-align: center;
+  }
+
+  /* ---- shared.layout: mainGrid ---- */
+  .mainGrid {
+    flex: 1;
+    min-height: 0;
+    width: 100%;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.1rem;
+  }
+
+  /* ---- shared.layout: spaceBetween ---- */
+  .spaceBetween {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  /* ---- shared.shared: lead ---- */
+  .lead {
+    margin: 0;
+    font-size: 1rem;
+    color: #555;
+  }
+
+  /* ---- shared.shared: cardLight ---- */
+  .cardLight {
+    border: 1px solid #e2e2e2;
+    background: #fafafa;
+    display: flex;
+    flex-direction: column;
+    text-align: left;
+  }
+
+  /* ---- shared.shared: monoTag ---- */
+  .monoTag {
+    font-family: 'Cascadia Code', monospace;
+    letter-spacing: 0.1em;
+    color: #9ca3af;
+  }
+
+  /* ---- shared.shared: footerBar ---- */
+  .footerBar {
+    flex: 0 0 auto;
+    border-left: 3px solid #333;
+    padding: 0.6rem 1rem;
+    background: #fafafa;
+    width: 100%;
+  }
+
+  /* ---- shared.shared: footerText ---- */
+  .footerText {
+    margin: 0;
+    font-size: 0.9rem;
+    color: #333;
+    line-height: 1.55;
+  }
+
+  /* ---- page-specific 08a-bond-types ---- */
+  .typeCard {
+    flex: 1;
+    min-height: 0;
+    padding: 1rem 1.1rem;
+    gap: 0.7rem;
+  }
+
+  .typeTag {
+    font-size: 0.72rem;
+  }
+
+  .typeIcon {
+    font-size: 1.5rem;
+  }
+
+  .typeDesc {
+    margin: 0;
+    font-size: 0.85rem;
+    color: #6b7280;
+    line-height: 1.5;
+  }
+
+  .bondRow {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 0.6rem;
+    border-top: 1px solid #e2e2e2;
+    padding-top: 0.6rem;
+  }
+
+  .bondName {
+    margin: 0;
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: #333;
+  }
+
+  .bondSub {
+    margin: 0.1rem 0 0;
+    font-size: 0.75rem;
+    color: #6b7280;
+  }
+
+  .bondRateBox {
+    text-align: right;
+    flex-shrink: 0;
+  }
+
+  .bondRateGreen {
+    margin: 0;
+    font-size: 1rem;
+    font-weight: 700;
+    color: #15803d;
+    font-family: 'Cascadia Code', monospace;
+  }
+
+  .bondRateRed {
+    margin: 0;
+    font-size: 1rem;
+    font-weight: 700;
+    color: #b91c1c;
+    font-family: 'Cascadia Code', monospace;
+  }
+
+  .bondMeta {
+    margin: 0.1rem 0 0;
+    font-size: 0.7rem;
+    color: #9ca3af;
+    font-family: 'Cascadia Code', monospace;
+  }
+
+  .cardNoteWrap {
+    flex: 1;
+    min-height: 0;
+    display: flex;
+    align-items: flex-end;
+  }
+
+  .cardNoteGreen {
+    margin: 0.6rem 0 0;
+    font-size: 0.78rem;
+    color: #15803d;
+    line-height: 1.5;
+  }
+
+  .cardNoteRed {
+    margin: 0.6rem 0 0;
+    font-size: 0.78rem;
+    color: #b91c1c;
+    line-height: 1.5;
+  }
+</style>

@@ -3,31 +3,9 @@ title: "俄罗斯的故事"
 steps: 5
 ---
 import Notes from "@components/Notes.astro";
-import CaptionedImage from "@components/CaptionedImage.astro";
-import PresentationStep from "@components/PresentationStep.astro";
-import PresentationLayout from "@components/PresentationLayout.astro";
-import avatar1 from "./assets/Russia-story/avatar-1.png";
-import avatar2 from "./assets/Russia-story/avatar-2.png";
-import avatar3 from "./assets/Russia-story/avatar-3.png";
-import avatar4 from "./assets/Russia-story/avatar-4.png";
-import styles from "./styles/13-russia-story.module.css";
+import RussiaStory from "./13-russia-story.astro";
 
-<PresentationLayout title="登場人物簡介">
-    <div class={styles.charGrid}>
-    <PresentationStep step={1} effect="blinds">
-      <CaptionedImage src={avatar1.src} alt="莫罗佐夫" caption={["莫罗佐夫", "农场主的儿子","深爱着伊万诺夫娜的一切"]} captionPosition="below"  />
-    </PresentationStep>
-    <PresentationStep step={2} effect="blinds">
-      <CaptionedImage src={avatar2.src} alt="伊万诺夫娜" caption={["伊万诺夫娜", "农奴的女儿","对莫罗佐夫心生情愫"]} captionPosition="below"  />
-    </PresentationStep>
-    <PresentationStep step={3} effect="blinds">
-      <CaptionedImage src={avatar3.src} alt="古谢夫" caption={["古谢夫", "粮食收购商","觊觎伊万诺夫娜的美貌"]} captionPosition="below"  />
-    </PresentationStep>
-    <PresentationStep step={4} effect="blinds">
-      <CaptionedImage src={avatar4.src} alt="列宁" caption={["列宁", "不苟言笑的神秘男子", "刚从德国归来"]} captionPosition="below" />
-    </PresentationStep>
-    </div>
-</PresentationLayout>
+<RussiaStory />
 
 <Notes>
 

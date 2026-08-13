@@ -3,49 +3,9 @@ title: "盘外招一 · 消化不良资产"
 steps: 1
 ---
 import Notes from "@components/Notes.astro";
-import PresentationLayout from "@components/PresentationLayout.astro";
-import styles from "./styles/divided-stocks.module.css";
-import cashCowHorse from "./assets/svg/cash-cow-horse.svg";
+import DigestBadAssets from "./16a-digest-bad-assets.astro";
 
-<PresentationLayout
-  eyebrow="国家队的盘外招 · 其一"
-  title="消化不良资产"
-  narrow
->
-  <div class={styles.root}>
-    <div class={styles.mainGrid}>
-      <div class={styles.leftCol}>
-        <div class:list={[styles.card, styles.cardGood]}>
-          <span class={styles.cardIcon}>💎</span>
-          <div>
-            <p class={styles.cardTitle}>大秦线 · 核心盈利资产</p>
-            <p class={styles.cardDesc}>全球最暴利的重载煤运专线，现金流长期稳定充沛</p>
-          </div>
-        </div>
-        <div class:list={[styles.card, styles.cardBad]}>
-          <span class={styles.cardIcon}>📦</span>
-          <div>
-            <p class={styles.cardTitle}>大秦铁路 · 被注入低效资产</p>
-            <p class={styles.cardDesc}>2009 年 165 亿定增，反向收购太原局 7 条干线 + 5 条支线（普速客运常年亏损）</p>
-          </div>
-        </div>
-        <div class:list={[styles.card, styles.cardMixed]}>
-          <span class={styles.cardIcon}>📉</span>
-          <div>
-            <p class={styles.cardTitle}>优质资产 · 被低效包袱拖累</p>
-            <p class={styles.cardDesc}>百亿客运收入却公益亏损，ROE 与分红被稀释；京沪高铁亦被注入 500 亿京福安徽</p>
-          </div>
-        </div>
-      </div>
-      <div class={styles.rightCol}>
-        <img src={cashCowHorse.src} alt="神马拉一车砖头，优质资产被低效资产拖累" class={styles.svg} />
-      </div>
-    </div>
-    <div class:list={[styles.footer, styles.footerGreen]}>
-      <p class:list={[styles.footerText, styles.footerTextGreen]}><strong>总结：</strong>大股东把低效亏损资产高价打包注入上市公司，用优质资产的收益填补低效资产的亏损，稀释原有股东回报。</p>
-    </div>
-  </div>
-</PresentationLayout>
+<DigestBadAssets />
 
 <Notes>
 

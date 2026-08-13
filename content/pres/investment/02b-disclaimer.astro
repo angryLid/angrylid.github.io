@@ -1,0 +1,60 @@
+---
+import PresentationLayout from "@components/PresentationLayout.astro";
+import PresentationStep from "@components/PresentationStep.astro";
+import TypewriterList from "@components/TypewriterList.astro";
+---
+
+<PresentationLayout title="免责声明">
+  <div class="wrap">
+    <PresentationStep step={0}>
+      <TypewriterList
+        items={["接下来我只是要说一些我自己相信的话，不构成任何投资建议。"]}
+        itemGap="0"
+        fontSize="1.75rem"
+        lineHeight={1.9}
+      />
+    </PresentationStep>
+    <PresentationStep step={1}>
+      <TypewriterList
+        items={["文中提到的任何资产、产品与案例，仅作示例说明，不代表对它们的推荐或暗示。"]}
+        itemGap="0"
+        fontSize="1.75rem"
+        lineHeight={1.9}
+      />
+    </PresentationStep>
+    <PresentationStep step={2}>
+      <TypewriterList
+        items={["请牢记，每个人都是自己财富的第一责任人。"]}
+        itemGap="0"
+        fontSize="1.75rem"
+        lineHeight={1.9}
+      />
+    </PresentationStep>
+    <PresentationStep step={3}>
+      <TypewriterList
+        items={['如无特别说明，以下当我提及<strong>多头</strong>时，并不是指日本神话中的八歧大蛇、希腊神话中的美杜莎，也不是任何出现在神话里的多首怪物——而是指<strong>预期资产价格上涨、买入并持有（做多）来获利的投资者</strong>。']}
+        itemGap="0"
+        fontSize="1.75rem"
+        lineHeight={1.9}
+      />
+    </PresentationStep>
+    <PresentationStep step={4}>
+      <TypewriterList
+        items={['当我提及<strong>空军</strong>时，并不是指任何政权的空中武装力量，也不是指空手而归的钓鱼佬——而是指<strong>预期价格下跌、卖出或做空来获利的空头投资者</strong>，与"多头"相对。']}
+        itemGap="0"
+        fontSize="1.75rem"
+        lineHeight={1.9}
+      />
+    </PresentationStep>
+  </div>
+</PresentationLayout>
+
+<style>
+  /* ---- page-specific: 02b-disclaimer ---- */
+  .wrap {
+    padding: 0.5rem 3rem 0;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+</style>

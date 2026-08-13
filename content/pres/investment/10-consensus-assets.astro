@@ -1,0 +1,295 @@
+---
+import PresentationLayout from "@components/PresentationLayout.astro";
+---
+
+<PresentationLayout title="长者资产" eyebrow="共识类资产" narrow>
+  <div class="root">
+
+    {/* 顶部核心定义 */}
+    <div class="topRow">
+      <div class="defCard">
+        <div class="defTitle">价值 = 共识</div>
+        <div class="defBody">
+          本身<strong>不产生现金流</strong>，价值完全取决于市场共识。<br/>
+          共识扩大 → 有后继者接盘；共识破裂 → 无法脱手
+        </div>
+      </div>
+
+      <div class="darkPanel">
+        {/* 长者资产 列 */}
+        <div class="panelCol">
+          <div>
+            <div class="panelLabel">典型代表</div>
+            <div class="panelTitleLaodeng">
+              长者资产 <span class="panelTitleEn">Laodeng Assets</span>
+            </div>
+          </div>
+          <div class="darkChipGrid">
+            <span class="darkChip">玉石</span>
+
+            <span class="darkChip">文玩字画</span>
+            <span class="darkChip">名茶名酒</span>
+            <span class="darkChip">邮票</span>
+            <span class="darkChip">天珠佛牌</span>
+            <span class="darkChip">红木家具</span>
+          </div>
+        </div>
+
+        {/* 分隔线 */}
+        <div class="panelDivider"></div>
+
+        {/* 小登资产 列 */}
+        <div class="panelCol">
+          <div>
+            <div class="panelLabel">年轻一代版本</div>
+            <div class="panelTitleLaodeng">
+              小登资产 <span class="panelTitleEn">Xiaodeng Assets</span>
+            </div>
+          </div>
+          <div class="darkChipGrid">
+            <span class="darkChip">限量球鞋</span>
+            <span class="darkChip">谷子</span>
+            <span class="darkChip">游戏卡牌</span>
+            <span class="darkChip">潮玩盲盒</span>
+            <span class="darkChip">手办</span>
+            <span class="darkChip">绝版乐高</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    {/* 小标题 */}
+    <div class="sectionHeader">
+      <span>🔍</span> 为什么这些东西能形成共识？三大特性
+    </div>
+
+    {/* 三大特性 */}
+    <div class="featureGrid">
+        {/* 特性1 */}
+        <div class="featureCard">
+          <div class="featureHeader">🛠️ 实用价值</div>
+          <div class="featureBody">
+            <div class="featureItem">能入口食用</div>
+            <div class="featureItem">或能上手把玩</div>
+            <div class="featureItem">或有观赏价值</div>
+          </div>
+        </div>
+
+        {/* 特性2 */}
+        <div class="featureCard">
+          <div class="featureHeader">✨ 稀缺性</div>
+          <div class="featureBody">
+            <div class="featureItem">天然产量不足</div>
+            <div class="featureItem">或人为控制产量</div>
+            <div class="featureItem">或人造手段无法仿造天然品的瑕疵</div>
+          </div>
+        </div>
+
+        {/* 特性3 */}
+        <div class="featureCard">
+          <div class="featureHeader">🏺 可长期保存</div>
+          <div class="featureBody">
+            <div class="featureItem">若妥善保管，能送主人走</div>
+            <div class="featureItem">随时间流逝，使用价值折损轻微</div>
+            <div class="featureItem">有些甚至还会增加</div>
+          </div>
+        </div>
+      </div>
+
+    {/* 底部结论 */}
+    <div class="conclusion">
+      <div class="conclusionText">
+        <strong>💡 核心结论：</strong>
+        这三大属性也只是让这些东西<strong>比一般消费品更保值</strong>而已——
+        拉长时间线看，共识总会转移，无一例外都无法脱手。
+      </div>
+    </div>
+
+  </div>
+</PresentationLayout>
+
+<style>
+  .root {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 0.9rem;
+  }
+
+  /* ---- Top definition row ---- */
+  .topRow {
+    display: flex;
+    align-items: stretch;
+    gap: 1.2rem;
+    flex-shrink: 0;
+  }
+
+  /* Left beige definition card */
+  .defCard {
+    flex: 4;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    background: #f0e6cd;
+    border: 1px solid #d9c49a;
+    padding: 1.1rem 1.3rem;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .defTitle {
+    font-size: 1.8rem;
+    margin-bottom: 0.3rem;
+  }
+
+  .defBody {
+    font-size: 1.35rem;
+    color: #6b5416;
+    line-height: 1.55;
+  }
+
+  /* Right dark panel */
+  .darkPanel {
+    flex: 6;
+    display: flex;
+    background: #6b4226;
+    padding: 1.1rem 1.3rem;
+    color: #fff;
+    position: relative;
+    overflow: hidden;
+  }
+
+  /* Column inside dark panel */
+  .panelCol {
+    flex: 1;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+
+  .panelLabel {
+    font-size: 0.85rem;
+    color: #e5e0d5;
+    margin-bottom: 0.2rem;
+  }
+
+  .panelTitleLaodeng {
+    font-size: 1.6rem;
+    font-weight: 800;
+  }
+
+  .panelTitleEn {
+    font-size: 0.85rem;
+    color: #f5f0e8;
+  }
+
+  /* Divider between the two panel columns */
+  .panelDivider {
+    width: 0;
+    border-left: 1px dashed #8a5a36;
+    margin: 0 1rem;
+    flex-shrink: 0;
+  }
+
+  /* Tag chips on dark background (2-col grid) */
+  .darkChipGrid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.4rem 0.6rem;
+    margin-top: 0.8rem;
+  }
+
+  .darkChip {
+    background: rgba(255, 255, 255, 0.12);
+    color: #fff;
+    padding: 0.3rem 0.7rem;
+    font-size: 1.14rem;
+    text-align: center;
+  }
+
+  .sectionHeader {
+    font-size: 1rem;
+    font-weight: 700;
+    color: #6b4226;
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    flex-shrink: 0;
+  }
+
+  /* ---- Three feature cards ---- */
+  .featureGrid {
+    flex: 1;
+    min-height: 0;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 0.9rem;
+  }
+
+  .featureCard {
+    background: #fff;
+    border: 1px solid #d9c49a;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+  }
+
+  /* Top-left horizontal ribbon badge with the feature number.
+     Left edge is straight/vertical; right edge tapers to a "<" chevron. */
+  .featureHeader {
+    background: #4a7c59;
+    color: #fff;
+    padding: 0.8rem 1rem;
+    display: flex;
+    align-items: center;
+    font-size: 1.4rem;
+    font-weight: 800;
+  }
+  .featureBody {
+    flex: 1;
+    padding: 0.9rem 1rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    gap: 0.55rem;
+  }
+
+  .featureItem {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.5rem;
+    font-size: 1.2rem;
+    color: #463a2a;
+    line-height: 1.45;
+    padding-left: 0.4rem;
+    word-break: break-word;
+    overflow-wrap: anywhere;
+  }
+
+  .featureItem::before {
+    content: "";
+    flex-shrink: 0;
+    width: 0.5rem;
+    height: 0.5rem;
+    margin-top: 0.55rem;
+    background: #4a7c59;
+    border-radius: 50%;
+  }
+
+  /* ---- Bottom conclusion footer ---- */
+  .conclusion {
+    background: #f0e6cd;
+    border: 1px solid #d9c49a;
+    padding: 0.7rem 1rem;
+    border-left: 4px solid #6b4226;
+    flex-shrink: 0;
+  }
+
+  .conclusionText {
+    font-size: 0.92rem;
+    color: #5c3a21;
+    margin: 0;
+    line-height: 1.5;
+  }
+</style>

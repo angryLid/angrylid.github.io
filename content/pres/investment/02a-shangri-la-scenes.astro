@@ -1,0 +1,58 @@
+---
+import PresentationLayout from "@components/PresentationLayout.astro";
+import PhotoCollage from "@components/PhotoCollage.astro";
+import pudacuo from "./assets/Shangri-La/pudacuo.jpg";
+import dukezong from "./assets/Shangri-La/dukezong.jpg";
+import sumtseling from "./assets/Shangri-La/sumtseling.jpg";
+import tigerLeapingGorge from "./assets/Shangri-La/tiger-leaping-gorge.jpg";
+---
+
+<PresentationLayout title="香格里拉 Shangri-La" reverse>
+  <div class:list={["photo", "photo1"]}>
+    <PhotoCollage src={pudacuo.src} alt="普达措国家公园" caption="普达措国家公园" />
+  </div>
+  <div data-anim="1" class:list={["photo", "photo2"]}>
+    <PhotoCollage src={dukezong.src} alt="独克宗古城" caption="独克宗古城" />
+  </div>
+  <div data-anim="2" class:list={["photo", "photo3"]}>
+    <PhotoCollage src={sumtseling.src} alt="噶丹松赞林寺" caption="噶丹松赞林寺" />
+  </div>
+  <div data-anim="3" class:list={["photo", "photo4"]}>
+    <PhotoCollage src={tigerLeapingGorge.src} alt="虎跳峡" caption="虎跳峡" />
+  </div>
+</PresentationLayout>
+
+<style>
+  /* ---- page-specific: 02a-shangri-la-scenes ---- */
+  .photo {
+    position: absolute;
+    width: 670px;
+  }
+
+  .photo1 {
+    top: 50px;
+    left: 300px;
+    z-index: 1;
+  }
+
+  .photo2 {
+    top: 45px;
+    left: 325px;
+    transform: rotate(2.5deg);
+    z-index: 2;
+  }
+
+  .photo3 {
+    top: 60px;
+    left: 285px;
+    transform: rotate(5deg);
+    z-index: 3;
+  }
+
+  .photo4 {
+    top: 45px;
+    left: 340px;
+    transform: rotate(-2deg);
+    z-index: 4;
+  }
+</style>

@@ -1,0 +1,162 @@
+---
+import PresentationLayout from "@components/PresentationLayout.astro";
+---
+
+<PresentationLayout title="期货交易的初衷" narrow>
+  <div class="slideRoot">
+    <p class="lead">把价格波动的风险，提前变成一份确定的契约 —— 双方锁定 <strong>¥5000</strong>，价格风险被<strong>相互对冲归零</strong>。</p>
+
+    <div class="partyGrid">
+      <div class="partyCard">
+        <p class="partyEmoji">🌾</p>
+        <p class="partyNameRed">豆农 · 怕跌</p>
+        <p class="partyDesc">秋收价跌 → 种一年还亏本</p>
+        <p class="partyAction partyActionRed">卖出（做空）锁定卖价</p>
+      </div>
+
+      <div class="partyCard">
+        <p class="contractEyebrow">FUTURES CONTRACT</p>
+        <p class="contractPrice">¥5000<span class="contractUnit">/吨</span></p>
+        <p class="contractMeta">11月交割 · 10吨 · 大豆</p>
+      </div>
+
+      <div class="partyCard">
+        <p class="partyEmoji">🏭</p>
+        <p class="partyNameGreen">压榨厂 · 怕涨</p>
+        <p class="partyDesc">原料涨价 → 成本失控难周转</p>
+        <p class="partyAction partyActionGreen">买入（做多）锁定买价</p>
+      </div>
+    </div>
+
+    <div class="footerBar">
+      <p class="footerText"><strong>本质 ·</strong> 期货不是对赌工具，而是避险工具——把"怕跌"和"怕涨"的两方撮合到一起，让价格风险互相抵消。</p>
+    </div>
+  </div>
+</PresentationLayout>
+
+<style>
+  /* ---- shared.layout: slideRoot ---- */
+  .slideRoot {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 0.8rem;
+    padding: 0.4rem 2.5rem 0.6rem;
+    text-align: center;
+  }
+
+  /* ---- shared.shared: lead ---- */
+  .lead {
+    margin: 0;
+    font-size: 1rem;
+    color: #555;
+  }
+
+  /* ---- shared.shared: footerBar / footerText ---- */
+  .footerBar {
+    flex: 0 0 auto;
+    border-left: 3px solid #333;
+    padding: 0.6rem 1rem;
+    background: #fafafa;
+    width: 100%;
+  }
+
+  .footerText {
+    margin: 0;
+    font-size: 0.9rem;
+    color: #333;
+    line-height: 1.55;
+  }
+
+  /* ---- page-specific ---- */
+  .partyGrid {
+    flex: 1;
+    min-height: 0;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: 1fr;
+    gap: 1.1rem;
+    width: 100%;
+  }
+
+  .partyCard {
+    border: 1px solid #e2e2e2;
+    padding: 1rem 1.1rem;
+    text-align: center;
+    background: #fafafa;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  .partyEmoji {
+    margin: 0 0 0.4rem;
+    font-size: 2.5rem;
+  }
+
+  .partyNameRed {
+    margin: 0;
+    font-size: 1.6rem;
+    font-weight: 700;
+    color: #b91c1c;
+  }
+
+  .partyNameGreen {
+    margin: 0;
+    font-size: 1.6rem;
+    font-weight: 700;
+    color: #15803d;
+  }
+
+  .partyDesc {
+    margin: 0.3rem 0 0;
+    font-size: 1.3rem;
+    color: #666;
+    line-height: 1.5;
+  }
+
+  .partyAction {
+    margin: 0.6rem 0 0;
+    font-size: 1.2rem;
+    font-weight: 600;
+  }
+
+  .partyActionRed {
+    color: #b91c1c;
+  }
+
+  .partyActionGreen {
+    color: #15803d;
+  }
+
+  /* Center contract card */
+  .contractEyebrow {
+    margin: 0 0 0.4rem;
+    font-family: 'Cascadia Code', monospace;
+    font-size: 1.1rem;
+    letter-spacing: 0.15em;
+    color: #9ca3af;
+  }
+
+  .contractPrice {
+    margin: 0;
+    font-size: 2.6rem;
+    font-weight: 800;
+    font-family: 'Cascadia Code', monospace;
+  }
+
+  .contractUnit {
+    font-size: 1.3rem;
+    color: #9ca3af;
+  }
+
+  .contractMeta {
+    margin: 0.4rem 0 0;
+    font-size: 1.2rem;
+    color: #9ca3af;
+    font-family: 'Cascadia Code', monospace;
+  }
+</style>

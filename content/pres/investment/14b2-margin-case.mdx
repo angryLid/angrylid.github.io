@@ -3,68 +3,9 @@ title: "一个实际的案例"
 steps: 1
 ---
 import Notes from "@components/Notes.astro";
-import PresentationLayout from "@components/PresentationLayout.astro";
-import shared from "./styles/shared.module.css";
-import layout from "./styles/layout.module.css";
-import styles from "./styles/14b2-margin-case.module.css";
+import MarginCase from "./14b2-margin-case.astro";
 
-<PresentationLayout title="一个实际的案例" eyebrow="FUTURES · 期货三部曲 · WHY" narrow>
-  <div class={layout.slideRoot}>
-    <p class={shared.lead}>案例 · 大豆期货 1 手 = 10 吨，保证金率 10%。老李开多、小王开空，各交 <strong>¥5,000</strong> 押金。</p>
-
-    <div class={styles.tableWrap}>
-      <table class={styles.table}>
-        <colgroup>
-          <col class={styles.colA} />
-          <col class={styles.colB} />
-          <col class={styles.colC} />
-          <col class={styles.colD} />
-        </colgroup>
-        <thead>
-          <tr class={styles.thead}>
-            <th scope="col" class={`${styles.th} ${styles.thLeft}`}>交易日</th>
-            <th scope="col" class={`${styles.th} ${styles.thCenter}`}>合约价</th>
-            <th scope="col" class={styles.thGreen}>多头保证金</th>
-            <th scope="col" class={styles.thRed}>空头保证金</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td class={`${styles.td} ${styles.tdLeft}`}>第 1 天 · 开仓</td>
-            <td class={`${styles.td} ${styles.tdCenter} ${styles.tdCodeBold}`}>¥5000</td>
-            <td class={`${styles.td} ${styles.tdCenter} ${styles.tdCode}`}>¥5,000</td>
-            <td class={`${styles.td} ${styles.tdCenter} ${styles.tdCode}`}>¥5,000</td>
-          </tr>
-          <tr>
-            <td class={`${styles.td} ${styles.tdLeft}`}>第 2 天 · 结算</td>
-            <td class={`${styles.td} ${styles.tdCenter} ${styles.tdCodeBold}`}><span class={styles.numRed}>¥4900</span></td>
-            <td class={`${styles.td} ${styles.tdCenter} ${styles.tdCode}`}><span class={styles.numRed}>¥4,000</span></td>
-            <td class={`${styles.td} ${styles.tdCenter} ${styles.tdCode}`}><span class={styles.numGreen}>¥6,000</span></td>
-          </tr>
-          <tr>
-            <td colspan="4" class={styles.tdNote}>假设这 6 天行情逆转，合约价格一路上涨</td>
-          </tr>
-          <tr class={styles.rowWarn}>
-            <td class={`${styles.td} ${styles.tdLeft}`}>第 9 天 · 逼近强平</td>
-            <td class={`${styles.td} ${styles.tdCenter} ${styles.tdCodeBold}`}><span class={styles.numRed}>¥5450</span></td>
-            <td class={`${styles.td} ${styles.tdCenter} ${styles.tdCode}`}><span class={styles.numGreen}>¥9,500</span></td>
-            <td class={`${styles.td} ${styles.tdCenter} ${styles.tdCode}`}><span class={styles.numRed}>¥500 · 逼近</span></td>
-          </tr>
-          <tr class={styles.rowWarn}>
-            <td class={`${styles.td} ${styles.tdLeft}`}>第 10 天 · 大涨</td>
-            <td class={`${styles.td} ${styles.tdCenter} ${styles.tdCodeBold}`}><span class={styles.numRed}>¥5500</span></td>
-            <td class={`${styles.td} ${styles.tdCenter} ${styles.tdCode}`}><span class={styles.numGreen}>¥10,000</span></td>
-            <td class={`${styles.td} ${styles.tdCenter} ${styles.tdCode}`}><span class={styles.numRed}>¥0 · 强平</span></td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-
-    <div class={shared.footerBar}>
-      <p class={shared.footerText}><strong>关键在于 ·</strong> 价格大涨，空头小王的保证金跌破<strong>维持线</strong>先<strong>追保</strong>，不补就<strong>强平</strong>——在归零前就被平仓，正常不会变成负数；只有极端行情（跳空、连续涨跌停平不掉）才会<strong>穿仓</strong>变负。保证金 + 每日盯市，把违约风险按天清零，交易所才敢做所有人的对手方。</p>
-    </div>
-  </div>
-</PresentationLayout>
+<MarginCase />
 
 <Notes>
 

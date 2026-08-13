@@ -3,63 +3,9 @@ title: "为什么能平仓离场"
 steps: 1
 ---
 import Notes from "@components/Notes.astro";
-import PresentationLayout from "@components/PresentationLayout.astro";
-import offsetNetting from "./assets/svg/offset-netting.svg";
-import shared from "./styles/shared.module.css";
-import layout from "./styles/layout.module.css";
-import styles from "./styles/slide-svg.module.css";
-import page from "./styles/14b-why-offset.module.css";
+import WhyOffset from "./14b-why-offset.astro";
 
-<PresentationLayout title="为什么能平仓离场" eyebrow="FUTURES · 期货三部曲 · WHY" narrow>
-  <div class={layout.slideRoot}>
-    <p class={shared.lead}>平仓 = 做一笔反向交易，买卖相抵后净额结算——自始至终没碰过一粒大豆。</p>
-
-    <div class={page.mainGrid}>
-      <div class={page.statsCol}>
-        <div class={page.statGrid}>
-          <div class={page.statBox}>
-            <p class={page.statNumRed}>&lt;2%</p>
-            <p class={page.statLabel}>合约真正走到<br/>实物交割</p>
-          </div>
-          <div class={page.statBox}>
-            <p class={page.statNumGreen}>&gt;98%</p>
-            <p class={page.statLabel}>到期前已<br/>对冲平仓离场</p>
-          </div>
-        </div>
-        <div class={page.reasonBox}>
-          <p class={page.reasonTitle}>REASON · 为什么不用交割</p>
-          <div class={page.reasonList}>
-            <div class={page.reasonItem}>
-              <span class={page.reasonNum}>1.</span>
-              <p class={page.reasonText}>合约是一笔"义务"：买方有<span class={page.textGreen}>买</span>的义务，卖方有<span class={page.textRed}>卖</span>的义务</p>
-            </div>
-            <div class={page.reasonItem}>
-              <span class={page.reasonNum}>2.</span>
-              <p class={page.reasonText}>到期前做一笔<span class={page.reasonTextBold}>反向交易</span>，买卖义务恰好对消</p>
-            </div>
-            <div class={page.reasonItem}>
-              <span class={page.reasonNum}>3.</span>
-              <p class={page.reasonText}>交易所<span class={page.reasonTextBold}>净额结算</span>，只划转价差，货物从未易手</p>
-            </div>
-          </div>
-        </div>
-      </div>
-
-
-      <div class={shared.chartCard}>
-        <div class={shared.chartHeader}>
-          <span class={shared.chartTitle}>OFFSET · 持仓相抵</span>
-          <span class={shared.chartMeta}>净额结算</span>
-        </div>
-        <img src={offsetNetting.src} alt="期货买卖相抵只结算差额" class={styles.fill} />
-      </div>
-    </div>
-
-    <div class={shared.footerBar}>
-      <p class={shared.footerText}><strong>本质 ·</strong> 期货是一笔"可对消的义务"——反向一笔即归零，差额用现金了结，所以绝大多数合约从不交割实物。</p>
-    </div>
-  </div>
-</PresentationLayout>
+<WhyOffset />
 
 <Notes>
 

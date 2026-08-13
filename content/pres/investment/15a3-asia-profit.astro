@@ -1,0 +1,224 @@
+---
+import PresentationLayout from "@components/PresentationLayout.astro";
+---
+
+<PresentationLayout
+  eyebrow="教训 · 中石油 A 股上市"
+  title="亚洲最赚钱的公司"
+>
+  <div class="root">
+    <div class="leftCol">
+      <div class="statCard statCardRed">
+        <p class="statLabel">上市首日盘中最高</p>
+        <p class="statNumRed">48.62<span class="statUnitLg">元</span></p>
+        <p class="statNote">发行价 16.70 · 首日收 43.96</p>
+      </div>
+      <div class="statCard statCardRed">
+        <p class="statLabel">上市当日盘中最高市值</p>
+        <p class="statNumRedSm">1.1<span class="statUnitSm">万亿美元</span></p>
+        <p class="statNote">全球首家市值破万亿美元的公司</p>
+      </div>
+      <div class="statCard statCardGreen">
+        <p class="statLabel">上市以来累计跌幅</p>
+        <p class="statNumGreen">约 −80<span class="statUnitLg">%</span></p>
+        <p class="statNote">自 2007.11 峰值至近年</p>
+      </div>
+    </div>
+
+    <div class="divider"></div>
+
+    <div class="rightCol">
+      <div class="timelineItem">
+        <span class="timelineDot"></span>
+        <p class="timelineYearRed">2002–2003 · 买入</p>
+        <p class="timelineDesc">油价低迷，买在便宜处 —— 巴菲特以约<b> 4.88 亿美元</b>买入中石油 1.3% H 股</p>
+      </div>
+      <div class="timelineItem">
+        <span class="timelineDot"></span>
+        <p class="timelineYearRed">2007 · 清仓</p>
+        <p class="timelineDesc">市场狂热，卖在狂热前 —— 清仓收回约<b> 40 亿美元</b>，获利约<b> 8 倍</b></p>
+      </div>
+
+      <div class="timelineItem">
+        <span class="timelineDot"></span>
+        <p class="timelineYearRed">2007.10.22</p>
+        <p class="timelineDesc">刊登招股意向书,发行区间 15–16.7 元;<br/>10.26 网上申购</p>
+      </div>
+      <div class="timelineItem">
+        <span class="timelineDot"></span>
+        <p class="timelineYearRed">2007.10 下旬 · 打新热潮</p>
+        <p class="timelineDesc">情绪开始酝酿,市场高呼<br/>"留给子孙后代的股票"</p>
+      </div>
+      <div class="timelineItem">
+        <span class="timelineDot"></span>
+        <p class="timelineYearRed">2007.11.05 · 上市首日</p>
+        <p class="timelineDesc">开盘近 48.6,盘中冲 48.62,收 43.96;<br/>一度市值全球第一</p>
+      </div>
+      <div class="timelineItem">
+        <span class="timelineDotGreen"></span>
+        <p class="timelineYearGreen">2008.04.18 · 破发</p>
+        <p class="timelineDesc">跌破发行价 16.70,套牢一族成形</p>
+      </div>
+      <div class="timelineItem">
+        <span class="timelineDotGreen"></span>
+        <p class="timelineYearGreen">至今 · 套牢</p>
+        <p class="timelineDesc">股价长期在 10 元上下徘徊,累计跌逾 80%</p>
+      </div>
+    </div>
+  </div>
+</PresentationLayout>
+
+<style>
+  /* ---- page-specific: 15a3-asia-profit ---- */
+  .root {
+    height: 100%;
+    display: flex;
+    align-items: center;
+  }
+
+  /* Left: stat cards column */
+  .leftCol {
+    flex: 1;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 1.1rem;
+    align-items: flex-end;
+    padding-right: 2rem;
+  }
+
+  .statCard {
+    width: 100%;
+    max-width: 480px;
+    padding: 1.1rem 1.3rem;
+    border-left: 4px solid;
+    background: #ffffff;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+  }
+
+  .statCardRed {
+    border-left-color: #c0392b;
+  }
+
+  .statCardGreen {
+    border-left-color: #1e7d32;
+  }
+
+  .statLabel {
+    margin: 0 0 0.5rem 0;
+    font-size: 0.8rem;
+    color: #999;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  .statNumRed {
+    margin: 0;
+    font-size: 2.6rem;
+    font-weight: 800;
+    color: #c0392b;
+    line-height: 1.05;
+  }
+
+  .statNumRedSm {
+    margin: 0;
+    font-size: 2.2rem;
+    font-weight: 800;
+    color: #c0392b;
+    line-height: 1.05;
+  }
+
+  .statNumGreen {
+    margin: 0;
+    font-size: 2.6rem;
+    font-weight: 800;
+    color: #1e7d32;
+    line-height: 1.05;
+  }
+
+  .statUnitLg {
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: #666;
+    margin-left: 0.3rem;
+  }
+
+  .statUnitSm {
+    font-size: 1.05rem;
+    font-weight: 600;
+    color: #666;
+    margin-left: 0.3rem;
+  }
+
+  .statNote {
+    margin: 0.6rem 0 0 0;
+    font-size: 0.8rem;
+    color: #666;
+    line-height: 1.5;
+  }
+
+  /* Divider */
+  .divider {
+    width: 2px;
+    align-self: stretch;
+    background: #ccc;
+  }
+
+  /* Right: timeline */
+  .rightCol {
+    flex: 1;
+    min-width: 0;
+    position: relative;
+    padding-left: 1.6rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.95rem;
+  }
+
+  .timelineItem {
+    position: relative;
+  }
+
+  .timelineDot {
+    position: absolute;
+    left: calc(-1.6rem - 7px);
+    top: 0.34rem;
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: #c0392b;
+  }
+
+  .timelineDotGreen {
+    position: absolute;
+    left: calc(-1.6rem - 7px);
+    top: 0.34rem;
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: #1e7d32;
+  }
+
+  .timelineYearRed {
+    margin: 0;
+    font-size: 0.8rem;
+    font-weight: 700;
+    color: #c0392b;
+    letter-spacing: 0.03em;
+  }
+
+  .timelineYearGreen {
+    margin: 0;
+    font-size: 0.8rem;
+    font-weight: 700;
+    color: #1e7d32;
+    letter-spacing: 0.03em;
+  }
+
+  .timelineDesc {
+    margin: 0.15rem 0 0 0;
+    font-size: 0.98rem;
+    color: #1a1a1a;
+    line-height: 1.5;
+  }
+</style>

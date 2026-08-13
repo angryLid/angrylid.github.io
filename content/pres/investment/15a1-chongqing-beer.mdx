@@ -3,84 +3,9 @@ title: "重庆啤酒与关灯吃面"
 steps: 1
 ---
 import Notes from "@components/Notes.astro";
-import PresentationLayout from "@components/PresentationLayout.astro";
-import styles from "./styles/15a1-chongqing-beer.module.css";
+import ChongqingBeer from "./15a1-chongqing-beer.astro";
 
-<PresentationLayout
-  eyebrow="教训 · 代码 600132"
-  title="重庆啤酒与关灯吃面"
->
-  <div class={styles.root}>
-    <div class={styles.leftCol}>
-      <div class={styles.postCard}>
-        <div class={styles.postHeader}>
-          <span class={styles.postTitle}>重庆啤酒(600132) 股吧</span>
-          <span class={styles.postActions}>关注 回复 分享</span>
-        </div>
-        <div class={styles.postMeta}>
-          <p class={styles.postHeading}>一边吃，一边哭！！！</p>
-          <p class={styles.postAuthor}>
-            <span class={styles.authorBadge}>楼主</span>
-            <b class={styles.authorName}>renwoxing11</b>
-            <span class={styles.authorDot}>·</span>2011-12-15 18:25
-          </p>
-        </div>
-        <div class={styles.postBody}>
-          <p class={styles.postText}>
-            今天回到家，煮了点面吃，一边吃面一边哭，<br/>泪水滴落在碗里，没有开灯。
-          </p>
-        </div>
-        <div class={styles.postFooter}>
-          <p class={styles.postFooterText}>回复 · 举报 · 分享 · 收藏&nbsp;&nbsp;<span class={styles.postClicks}>阅读 133.7万</span></p>
-        </div>
-      </div>
-
-      <p class={styles.caption}>
-        一句"没有开灯"，衍生出 <b>"关灯吃面"</b>，成为股市暴跌的通用语。
-      </p>
-    </div>
-
-    <div class={styles.divider}></div>
-
-    <div class={styles.rightCol}>
-      <div class={styles.timelineItem}>
-        <span class={styles.timelineDot}></span>
-        <p class={styles.timelineYearRed}>1998 · 押注疫苗</p>
-        <p class={styles.timelineDesc}>主业是<b>啤酒</b>，公司却斥资收购佳辰生物 52% 股权，<br/>引入三军医大"治疗性乙肝疫苗"——一个世纪前的豪赌。</p>
-      </div>
-
-      <div class={styles.timelineItem}>
-        <span class={styles.timelineDot}></span>
-        <p class={styles.timelineYearRed}>2003–2005 · 临床开讲</p>
-        <p class={styles.timelineDesc}>2003 获批 Ⅰ 期、2005 获批 Ⅱ 期临床，<br/>"疫苗故事"正式开讲，股价随之起飞。</p>
-      </div>
-
-      <div class={styles.timelineItem}>
-        <span class={styles.timelineDot}></span>
-        <p class={styles.timelineYearRed}>2007 · 内部见败象</p>
-        <p class={styles.timelineDesc}>Ⅱ期 A 阶段 48 周观察：受试者病毒 DNA 不降、免疫水平低位<br/>—— 疫苗似无效，公司却<b>秘而不宣</b>，死扛。</p>
-      </div>
-
-      <div class={styles.timelineItem}>
-        <span class={styles.timelineDot}></span>
-        <p class={styles.timelineYearRed}>2010–2011.11 · 反向爆炒</p>
-        <p class={styles.timelineDesc}>公司反对外通报<b>"疗效确切"</b>，股价被推向新高；<br/>2011.11 冲高 <b>83.12 元</b>，13 年涨 37 倍，市值一度破 400 亿。</p>
-      </div>
-
-      <div class={styles.timelineItem}>
-        <span class={styles.timelineDotGreen}></span>
-        <p class={styles.timelineYearGreen}>2011.12 · 揭盲崩盘</p>
-        <p class={styles.timelineDesc}>12.8 数据公布：应答率 安慰剂 28.2% / 疫苗组 30.0% / 29.1%<br/>—— 与安慰剂几乎无异。复牌 <b>9 连跌停</b>，200 多亿蒸发，跌回 20 元一线。</p>
-      </div>
-
-      <div class={styles.timelineItem}>
-        <span class={styles.timelineDotGreen}></span>
-        <p class={styles.timelineYearGreen}>2011.12.15 · 神帖</p>
-        <p class={styles.timelineDesc}>第 6 个跌停，股吧出现"关灯吃面"神帖，正是左边这一张。</p>
-      </div>
-    </div>
-  </div>
-</PresentationLayout>
+<ChongqingBeer />
 
 <Notes>
 （董事长说，我们其实不是食品公司，我们是做微生物生命成功。而是 21 世纪是生物学的世纪啊。）

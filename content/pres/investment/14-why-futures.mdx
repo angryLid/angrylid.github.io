@@ -3,42 +3,9 @@ title: "期货交易的初衷"
 steps: 1
 ---
 import Notes from "@components/Notes.astro";
-import PresentationLayout from "@components/PresentationLayout.astro";
-import shared from "./styles/shared.module.css";
-import layout from "./styles/layout.module.css";
-import styles from "./styles/14-why-futures.module.css";
+import WhyFutures from "./14-why-futures.astro";
 
-<PresentationLayout title="期货交易的初衷" narrow>
-  <div class={layout.slideRoot}>
-    <p class={shared.lead}>把价格波动的风险，提前变成一份确定的契约 —— 双方锁定 <strong>¥5000</strong>，价格风险被<strong>相互对冲归零</strong>。</p>
-
-    <div class={styles.partyGrid}>
-      <div class={styles.partyCard}>
-        <p class={styles.partyEmoji}>🌾</p>
-        <p class={styles.partyNameRed}>豆农 · 怕跌</p>
-        <p class={styles.partyDesc}>秋收价跌 → 种一年还亏本</p>
-        <p class={`${styles.partyAction} ${styles.partyActionRed}`}>卖出（做空）锁定卖价</p>
-      </div>
-
-      <div class={styles.partyCard}>
-        <p class={styles.contractEyebrow}>FUTURES CONTRACT</p>
-        <p class={styles.contractPrice}>¥5000<span class={styles.contractUnit}>/吨</span></p>
-        <p class={styles.contractMeta}>11月交割 · 10吨 · 大豆</p>
-      </div>
-
-      <div class={styles.partyCard}>
-        <p class={styles.partyEmoji}>🏭</p>
-        <p class={styles.partyNameGreen}>压榨厂 · 怕涨</p>
-        <p class={styles.partyDesc}>原料涨价 → 成本失控难周转</p>
-        <p class={`${styles.partyAction} ${styles.partyActionGreen}`}>买入（做多）锁定买价</p>
-      </div>
-    </div>
-
-    <div class={shared.footerBar}>
-      <p class={shared.footerText}><strong>本质 ·</strong> 期货不是对赌工具，而是避险工具——把"怕跌"和"怕涨"的两方撮合到一起，让价格风险互相抵消。</p>
-    </div>
-  </div>
-</PresentationLayout>
+<WhyFutures />
 
 <Notes>
 

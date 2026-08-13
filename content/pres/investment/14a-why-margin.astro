@@ -1,0 +1,173 @@
+---
+import PresentationLayout from "@components/PresentationLayout.astro";
+---
+
+<PresentationLayout title="为什么需要保证金" eyebrow="FUTURES · 期货三部曲 · WHY" narrow>
+  <div class="slideRoot">
+    <p class="lead">保证金 + 每日盯市，把"信用风险"按天清零——交易所才敢做所有人的对手方。</p>
+    <div class="warnBox">
+      <p class="warnTitle">如果不每天结算，会怎样？—— 一个赖账的例子</p>
+      <p class="warnLine">老张开多买进 1 手大豆（10 吨），合约价 ¥5000。价格跌到 <strong>¥4500</strong>，账面已亏 <strong>¥5,000</strong>。</p>
+      <p class="warnLine">但因为是"到期才结算"，他不急着认账：<em>反正还没到交割日，先拖着；真到期亏这么大，干脆不买、跑路。</em></p>
+      <p class="warnLine">于是亏损像滚雪球越滚越大，开仓那点保证金盖不住窟窿，老张到交割日直接违约——<strong>交易所替他垫付，风险甩给整个市场</strong>。</p>
+    </div>
+    <div class="mainGrid">
+      <div class:list={["cardLight", "bottomCard"]}>
+        <p class="bottomCardTitle">所以要有每日盯市制度</p>
+        <div class="pointRow">
+          <span class="pointNum">1.</span>
+          <p class="pointText">每天收盘按<strong>结算价</strong>重新估值，当天盈亏当日结清</p>
+        </div>
+        <div class="pointRow">
+          <span class="pointNum">2.</span>
+          <p class="pointText">赚的钱当天滚入保证金，亏的钱当天从保证金里扣</p>
+        </div>
+        <div class="pointRow">
+          <span class="pointNum">3.</span>
+          <p class="pointText">保证金始终实时覆盖当前风险，想拖到交割日赖账也赖不掉</p>
+        </div>
+        <div class="pointRow">
+          <span class="pointNum">4.</span>
+          <p class="pointText">跌破维持线就<strong>追保 / 强平</strong>，亏损锁在当天、不无限累积</p>
+        </div>
+      </div>
+      <div class:list={["cardLight", "bottomCard"]}>
+        <p class="bottomCardTitle">为什么按合约价结算，而非现货价</p>
+        <div class="pointRow">
+          <span class="pointNum">1.</span>
+          <p class="pointText">期货是"未来价格的合约"，盈亏取决于<strong>合约价</strong>变动，与当天现货无关</p>
+        </div>
+        <div class="pointRow">
+          <span class="pointNum">2.</span>
+          <p class="pointText">现货价不统一：各地、各时点都不同，没有可复制的统一标准价</p>
+        </div>
+        <div class="pointRow">
+          <span class="pointNum">3.</span>
+          <p class="pointText">故以交易所公布的<strong>当日结算价（合约价）</strong>为准——公开、统一、可复制，各方按同一把尺子清算</p>
+        </div>
+        <div class="pointRow">
+          <span class="pointNum">4.</span>
+          <p class="pointText">期现价到交割时才收敛，平时存在基差，不能混用</p>
+        </div>
+      </div>
+    </div>
+    <div class="footerBar">
+      <p class="footerText"><strong>本质 ·</strong> 保证金把"违约风险"用一个押金兜底，盯市则用<strong>统一的合约结算价</strong>把风险<strong>按天清零</strong>——两者缺一不可，期货才能高杠杆运作。</p>
+    </div>
+  </div>
+</PresentationLayout>
+
+<style>
+  /* ---- shared.layout: slideRoot / mainGrid ---- */
+  .slideRoot {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 0.8rem;
+    padding: 0.4rem 2.5rem 0.6rem;
+    text-align: center;
+  }
+
+  .mainGrid {
+    flex: 1;
+    min-height: 0;
+    width: 100%;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.1rem;
+  }
+
+  /* ---- shared.shared: lead / cardLight / footerBar / footerText ---- */
+  .lead {
+    margin: 0;
+    font-size: 1rem;
+    color: #555;
+  }
+
+  .cardLight {
+    border: 1px solid #e2e2e2;
+    background: #fafafa;
+    display: flex;
+    flex-direction: column;
+    text-align: left;
+  }
+
+  .footerBar {
+    flex: 0 0 auto;
+    border-left: 3px solid #333;
+    padding: 0.6rem 1rem;
+    background: #fafafa;
+    width: 100%;
+  }
+
+  .footerText {
+    margin: 0;
+    font-size: 0.9rem;
+    color: #333;
+    line-height: 1.55;
+  }
+
+  /* ---- page-specific ---- */
+  /* Warning example box */
+  .warnBox {
+    flex: 0 0 auto;
+    width: 100%;
+    border: 1px solid #fda4af;
+    background: #fff7f3;
+    padding: 0.8rem 1.1rem;
+    text-align: left;
+  }
+
+  .warnTitle {
+    margin: 0 0 0.4rem;
+    font-size: 0.95rem;
+    font-weight: 700;
+    color: #b91c1c;
+  }
+
+  .warnLine {
+    margin: 0 0 0.4rem;
+    font-size: 0.9rem;
+    color: #444;
+    line-height: 1.7;
+  }
+
+  .warnLine:last-child {
+    margin-bottom: 0;
+  }
+
+  /* Two-column bottom grid uses layout.mainGrid; base card from shared.cardLight */
+  .bottomCard {
+    padding: 1rem 1.1rem;
+    gap: 0.7rem;
+  }
+
+  .bottomCardTitle {
+    margin: 0;
+    font-size: 1rem;
+    font-weight: 700;
+    color: #333;
+  }
+
+  .pointRow {
+    display: flex;
+    gap: 0.6rem;
+    align-items: flex-start;
+  }
+
+  .pointNum {
+    color: #b91c1c;
+    font-weight: 800;
+    font-family: 'Cascadia Code', monospace;
+    flex-shrink: 0;
+  }
+
+  .pointText {
+    margin: 0;
+    font-size: 0.92rem;
+    color: #444;
+    line-height: 1.6;
+  }
+</style>

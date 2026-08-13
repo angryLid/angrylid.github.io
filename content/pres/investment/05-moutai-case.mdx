@@ -3,13 +3,9 @@ title: "案例：贵州茅台"
 steps: 1
 ---
 import Notes from "@components/Notes.astro";
-import PresentationLayout from "@components/PresentationLayout.astro";
-import moutaiChart from "./assets/svg/moutai-chart.svg";
-import styles from "./styles/05-moutai-case.module.css";
+import MoutaiCase from "./05-moutai-case.astro";
 
-<PresentationLayout title="贵州茅台月线收盘价" reverse narrow>
-  <img src={moutaiChart.src} alt="贵州茅台月线收盘价" class={styles.chart} />
-</PresentationLayout>
+<MoutaiCase />
 
 <Notes>
 

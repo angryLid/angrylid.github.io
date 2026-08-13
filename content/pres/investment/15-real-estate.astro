@@ -1,0 +1,262 @@
+---
+import PresentationLayout from "@components/PresentationLayout.astro";
+---
+
+<PresentationLayout title="房地产 — 三种身份" eyebrow="不动产 · 房地产的性质" narrow>
+  <div class="root">
+
+    {/* 顶部核心观点 */}
+    <div class="coreBanner">
+      <span class="coreIcon">🏠</span>
+      <div class="coreText">
+        同一套房，随着市场阶段推进，会扮演<strong>三种截然不同的资产身份</strong> ——
+        生息资产 → 衍生品 → 纯共识资产
+      </div>
+    </div>
+
+    {/* 引出例子 */}
+    <div data-anim="0" class="exampleLine">—— 以罗马尼亚的卡拉什-塞维林县（Caraș-Severin）为例</div>
+
+    {/* 三个阶段横向流程 */}
+    <div class="stageFlow">
+
+      {/* ===== 阶段一：类债券 ===== */}
+      <div data-anim="0" class="stageCard">
+        <div class="stageHeader stageHeader1">
+          <span class="stageIndex">1</span>
+          <span class="stageTitle">类债券资产</span>
+        </div>
+        <div class="stageBody">
+          <div class="stageHeading">收房租 = 利息</div>
+          <p class="stageDesc">把它当成一张<strong>「长着砖头的债券」</strong>：买房靠稳定收租回本，租金就是利息。</p>
+          <div class="stageTip stageTip1">
+            💡 锚点是现金流 —— 现在能收多少租
+          </div>
+        </div>
+      </div>
+
+      {/* 箭头 1 */}
+      <div data-anim="1" class="stageArrow stageArrow1">➜</div>
+
+      {/* ===== 阶段二：衍生品特性 ===== */}
+      <div data-anim="1" class="stageCard">
+        <div class="stageHeader stageHeader2">
+          <span class="stageIndex">2</span>
+          <span class="stageTitle">衍生品特性</span>
+        </div>
+        <div class="stageBody">
+          <div class="stageHeading">押注未来的城市</div>
+          <p class="stageDesc">交易开始脱离当下租金，押的是<strong>「远期预期」</strong>：预设这座城市未来会有大量人口涌入。</p>
+          <div class="stageTip stageTip2">
+            💡 锚点变成预期 —— 以后能涨到多少
+          </div>
+        </div>
+      </div>
+
+      {/* 箭头 2 */}
+      <div data-anim="2" class="stageArrow stageArrow2">➜</div>
+
+      {/* ===== 阶段三：共识类资产 ===== */}
+      <div data-anim="2" class="stageCard">
+        <div class="stageHeader stageHeader3">
+          <span class="stageIndex">3</span>
+          <span class="stageTitle">共识类资产</span>
+        </div>
+        <div class="stageBody">
+          <div class="stageHeading3">幽默的击鼓传花</div>
+          <p class="stageDesc">到这里，它既不产生现金流，也未必真有人住。决定价格的是<strong>「共识」</strong>：共识在就涨，共识散就砸在手里。</p>
+          <div class="stageTip stageTip3">
+            💡 与「长者资产」殊途同归
+          </div>
+        </div>
+      </div>
+    </div>
+
+    {/* 底部结论 */}
+    <div class="conclusion">
+      <div class="conclusionText">
+        <strong>💡 核心结论：</strong>
+        房子本身没变，但市场阶段越往后，它的身份越从<strong>「生息资产」滑向「纯共识资产」</strong>——
+        风险也随之逐级放大。
+      </div>
+    </div>
+
+  </div>
+</PresentationLayout>
+
+<style>
+  /* ---- page-specific: 15-real-estate ---- */
+  .root {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 0.9rem;
+  }
+
+  /* Top core idea banner */
+  .coreBanner {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    background: #fdf3e3;
+    border: 1px solid #ecd4a8;
+    border-left: 4px solid #c2410c;
+    padding: 0.8rem 1.2rem;
+    flex-shrink: 0;
+  }
+
+  .coreIcon {
+    font-size: 1.6rem;
+  }
+
+  .coreText {
+    font-size: 1.18rem;
+    color: #7c2d12;
+    line-height: 1.5;
+  }
+
+  /* Example intro line */
+  .exampleLine {
+    flex-shrink: 0;
+    font-size: 1.05rem;
+    color: #9a3412;
+    font-weight: 600;
+  }
+
+  /* Three-stage flow */
+  .stageFlow {
+    flex: 1;
+    min-height: 0;
+    display: flex;
+    align-items: stretch;
+    gap: 0.5rem;
+  }
+
+  /* Stage card */
+  .stageCard {
+    flex: 1;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    background: #fff;
+    border: 1px solid #e8c27a;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .stageHeader {
+    color: #fff;
+    padding: 0.8rem 1rem;
+    display: flex;
+    align-items: flex-end;
+    gap: 0.6rem;
+  }
+
+  .stageHeader1 {
+    background: #f59e0b;
+  }
+
+  .stageHeader2 {
+    background: #d97706;
+  }
+
+  .stageHeader3 {
+    background: #c2410c;
+  }
+
+  .stageIndex {
+    font-size: 0.7rem;
+    opacity: 0.85;
+    letter-spacing: 0.5px;
+    flex-shrink: 0;
+  }
+
+  .stageTitle {
+    font-size: 1.6rem;
+    font-weight: 800;
+    flex: 1;
+  }
+
+  .stageBody {
+    flex: 1;
+    padding: 1rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    gap: 0.7rem;
+  }
+
+  .stageHeading {
+    font-size: 1.5rem;
+    font-weight: 800;
+    color: #78350f;
+  }
+
+  .stageHeading3 {
+    font-size: 1.5rem;
+    font-weight: 800;
+    color: #7c2d12;
+  }
+
+  .stageDesc {
+    flex-grow: 1;
+    margin: 0;
+    font-size: 1.12rem;
+    color: #57534e;
+    line-height: 1.55;
+  }
+
+  .stageTip {
+    padding: 0.5rem 0.7rem;
+    font-size: 1.05rem;
+    color: #92400e;
+    line-height: 1.4;
+  }
+
+  .stageTip1 {
+    background: #fef3cd;
+  }
+
+  .stageTip2 {
+    background: #fde8c8;
+  }
+
+  .stageTip3 {
+    background: #fde3d0;
+    color: #9a3412;
+  }
+
+  /* Arrow between stages */
+  .stageArrow {
+    align-self: center;
+    font-size: 2rem;
+    flex-shrink: 0;
+    padding: 0 0.1rem;
+    transform-origin: center;
+    transform: scale(1.75);
+  }
+
+  .stageArrow1 {
+    color: #c2410c;
+  }
+
+  .stageArrow2 {
+    color: #9a3412;
+  }
+
+  /* Bottom conclusion */
+  .conclusion {
+    background: #fdf3e3;
+    border: 1px solid #ecd4a8;
+    padding: 0.7rem 1rem;
+    border-left: 4px solid #9a3412;
+    flex-shrink: 0;
+  }
+
+  .conclusionText {
+    font-size: 0.98rem;
+    color: #7c2d12;
+    margin: 0;
+    line-height: 1.5;
+  }
+</style>

@@ -4,22 +4,9 @@ steps: 1
 presTitle: "投资"
 ---
 import Notes from "@components/Notes.astro";
-import CandlestickTitle from "@components/CandlestickTitle.astro";
-import styles from "./styles/01-title.module.css";
+import Title from "./01-title.astro";
 
-<div class={styles.titleWrap}>
-  <div class={styles.titleText}>
-    <CandlestickTitle
-      text="INVESTMENT"
-      colorA="#06806b"
-      colorB="#cc2f3c"
-      offsetRange={0.5}
-      interval={1}
-      mode="keys"
-    />
-  </div>
-  <p class={styles.subtitle}>Presented by Mason</p>
-</div>
+<Title />
 
 <Notes>
 

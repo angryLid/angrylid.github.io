@@ -1,0 +1,217 @@
+---
+import PresentationLayout from "@components/PresentationLayout.astro";
+import layoutSvg from "./assets/svg/tax-audit.svg";
+---
+
+<PresentationLayout
+  eyebrow="国家队的盘外招 · 其三"
+  title="税率调整和税务稽查"
+  narrow
+>
+  <div class="root">
+    <div class="mainGrid">
+      <div class="leftCol">
+        <div class="card cardNeutral">
+          <span class="cardIcon">📱</span>
+          <div>
+            <p class="cardTitle">中国移动 · 增值税重分类</p>
+            <p class="cardDesc">2026.2 流量/短信/宽带由"增值电信"改归"基础电信"，税率 6% → 9%，2.6% 利润被抽</p>
+          </div>
+        </div>
+
+        <div class="card cardRed">
+          <span class="cardIcon">🏦</span>
+          <div>
+            <p class="cardTitle">中国银行 · 审计署点名</p>
+            <p class="cardDesc">2026.6.24 审计署定性"逃避税"近 24 亿，次日 A 股 -3.88%、港股 -5.31%</p>
+          </div>
+        </div>
+
+        <div class="card cardAmber">
+          <span class="cardIcon">📉</span>
+          <div>
+            <p class="cardTitle">红利蛋糕被切走</p>
+            <p class="cardDesc">强监管周期下，旱涝保收的红利巨头被税收与审计硬生生切走一块</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="rightCol">
+        <img src={layoutSvg.src} alt="税率调整与审计对红利股切蛋糕" class="svg" />
+      </div>
+    </div>
+
+    <div class="footer footerBlue">
+      <p class="footerText footerTextBlue">
+        <strong>总结：</strong>强监管周期下，税率调整与税务稽查会从"避险天堂"的红利股身上切走一块蛋糕——分红预期随时可能打折。
+      </p>
+    </div>
+  </div>
+</PresentationLayout>
+
+<style>
+  /* ---- shared.divided-stocks: root / mainGrid / leftCol ---- */
+  .root {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .mainGrid {
+    flex: 1;
+    min-height: 0;
+    display: grid;
+    grid-template-columns: 1fr 1.1fr;
+    gap: 1.6rem;
+  }
+
+  .leftCol {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 0.9rem;
+  }
+
+  /* ---- shared.divided-stocks: card ---- */
+  .card {
+    display: flex;
+    gap: 0.9rem;
+    align-items: flex-start;
+    padding: 0.85rem 1.1rem;
+    border-left: 4px solid;
+  }
+
+  .cardGood {
+    background: #fef2f2;
+    border-left-color: #c0392b;
+  }
+  .cardGood .cardTitle {
+    color: #991b1b;
+  }
+
+  .cardBad {
+    background: #fff7ed;
+    border-left-color: #ea580c;
+  }
+  .cardBad .cardTitle {
+    color: #9a3412;
+  }
+
+  .cardMixed {
+    background: #f8fafc;
+    border-left-color: #dc2626;
+  }
+  .cardMixed .cardTitle {
+    color: #334155;
+  }
+
+  .cardRed {
+    background: #fef2f2;
+    border-left-color: #dc2626;
+  }
+  .cardRed .cardTitle {
+    color: #991b1b;
+  }
+
+  .cardAmber {
+    background: #fffbeb;
+    border-left-color: #ea580c;
+  }
+  .cardAmber .cardTitle {
+    color: #9a3412;
+  }
+
+  .cardNeutral {
+    background: #f8fafc;
+    border-left-color: #cbd5e1;
+  }
+  .cardNeutral .cardTitle {
+    color: #334155;
+  }
+
+  .cardPurple {
+    background: #f5f3ff;
+    border-left-color: #6d28d9;
+  }
+  .cardPurple .cardTitle {
+    color: #5b21b6;
+  }
+
+  .cardIcon {
+    font-size: 1.3rem;
+  }
+
+  .cardTitle {
+    font-size: 1.05rem;
+    font-weight: 700;
+    margin: 0;
+  }
+
+  .cardDesc {
+    font-size: 0.9rem;
+    color: #555;
+    margin: 0.2rem 0 0 0;
+    line-height: 1.5;
+  }
+
+  /* ---- shared.divided-stocks: rightCol / svg ---- */
+  .rightCol {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .svg {
+    width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+  }
+
+  /* ---- shared.divided-stocks: footer ---- */
+  .footer {
+    margin-top: 1rem;
+    padding: 0.75rem 1.2rem;
+    flex-shrink: 0;
+  }
+
+  .footerGreen {
+    background: #f0fdf4;
+    border-left: 4px solid #27ae60;
+  }
+
+  .footerRed {
+    background: #f8fafc;
+    border-left: 4px solid #dc2626;
+  }
+
+  .footerBlue {
+    background: #eff6ff;
+    border-left: 4px solid #2563eb;
+  }
+
+  .footerNeutral {
+    background: #f8fafc;
+    border-left: 4px solid #cbd5e1;
+  }
+
+  .footerText {
+    font-size: 0.95rem;
+    margin: 0;
+  }
+
+  .footerTextGreen {
+    color: #166534;
+  }
+
+  .footerTextRed {
+    color: #334155;
+  }
+
+  .footerTextBlue {
+    color: #1e40af;
+  }
+
+  .footerTextNeutral {
+    color: #334155;
+  }
+</style>

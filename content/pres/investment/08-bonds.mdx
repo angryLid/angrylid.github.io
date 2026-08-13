@@ -3,66 +3,9 @@ title: "生息资产 · 债券"
 steps: 1
 ---
 import Notes from "@components/Notes.astro";
-import PresentationLayout from "@components/PresentationLayout.astro";
-import bondsCert from "./assets/svg/national-development-bond.svg";
-import shared from "./styles/shared.module.css";
-import layout from "./styles/layout.module.css";
-import styles from "./styles/slide-svg.module.css";
-import page from "./styles/08-bonds.module.css";
+import Bonds from "./08-bonds.astro";
 
-<PresentationLayout title="债券" eyebrow="BONDS · 生息资产" narrow>
-  <div class={layout.slideRoot}>
-    <p class={shared.lead}>债券 = 一张标准化的借条：发行人承诺按期<strong>付息</strong>、到期<strong>还本</strong>——把「借钱」变成一份可交易、可定价的契约。</p>
-
-    <div class={layout.mainGrid}>
-      {/* 左侧：三个核心特征 */}
-      <div class={layout.cardCol}>
-        <div class:list={[shared.cardLight, page.featureCard]}>
-          <div class={layout.spaceBetween}>
-            <span class={page.featureIconTop}>💵</span>
-            <span class:list={[shared.monoTag, page.featureTag]}>COUPON · 票息</span>
-          </div>
-          <p class={page.featureLabel}>固定利息收入</p>
-          <p class={page.featureDesc}>定期支付票息，现金流可预测</p>
-          <p class={page.featureStatGreen}>+3.5% / 年</p>
-        </div>
-
-        <div class:list={[shared.cardLight, page.featureCard]}>
-          <div class={layout.spaceBetween}>
-            <span class={page.featureIconTop}>📅</span>
-            <span class:list={[shared.monoTag, page.featureTag]}>MATURITY · 到期</span>
-          </div>
-          <p class={page.featureLabel}>到期还本</p>
-          <p class={page.featureDesc}>约定到期日，本金确定性返还</p>
-          <p class={page.featureStatGreen}>本金 ¥100</p>
-        </div>
-
-        <div class:list={[shared.cardLight, page.featureCard]}>
-          <div class={layout.spaceBetween}>
-            <span class={page.featureIconTop}>🛡️</span>
-            <span class:list={[shared.monoTag, page.featureTag]}>RISK · 风险</span>
-          </div>
-          <p class={page.featureLabel}>风险相对较低</p>
-          <p class={page.featureDesc}>国债几乎无风险，企业债看评级</p>
-          <p class={page.featureStatRed}>AAA · 看信用</p>
-        </div>
-      </div>
-
-      {/* 右侧：债券证书 + 现金流 */}
-      <div class={shared.chartCard}>
-        <div class={shared.chartHeader}>
-          <span class={shared.chartTitle}>CASHFLOW · 现金流</span>
-          <span class={shared.chartMeta}>5 年期 · ¥100</span>
-        </div>
-        <img src={bondsCert.src} alt="国家开发银行债券票面与现金流示意" class={styles.shrink} />
-      </div>
-    </div>
-
-    <div class={shared.footerBar}>
-      <p class={shared.footerText}><strong>本质 ·</strong> 债券的本质是「现在借钱、未来还本付息」的契约——收益来自<strong>时间</strong>，风险来自<strong>信用</strong>。</p>
-    </div>
-  </div>
-</PresentationLayout>
+<Bonds />
 
 <Notes>
 

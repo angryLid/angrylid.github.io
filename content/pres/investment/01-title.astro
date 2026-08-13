@@ -1,0 +1,47 @@
+---
+import CandlestickTitle from "@components/CandlestickTitle.astro";
+---
+
+<div class="titleWrap">
+  <div class="titleText">
+    <CandlestickTitle
+      text="INVESTMENT"
+      colorA="#06806b"
+      colorB="#cc2f3c"
+      offsetRange={0.5}
+      interval={1}
+      mode="keys"
+    />
+  </div>
+  <p class="subtitle">Presented by Mason</p>
+</div>
+
+<style>
+  /* ---- page-specific: 01-title ---- */
+  .titleWrap {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 1280px;
+    height: 720px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+  }
+
+  .titleText {
+    font-size: 9rem;
+    font-weight: 800;
+    letter-spacing: 0.1em;
+    color: #333;
+  }
+
+  .subtitle {
+    margin-top: 1rem;
+    font-size: 2.8rem;
+    font-weight: 400;
+    color: var(--gray);
+  }
+</style>

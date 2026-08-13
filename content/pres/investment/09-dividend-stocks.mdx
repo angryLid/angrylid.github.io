@@ -3,50 +3,9 @@ title: "生息资产 · 红利股"
 steps: 1
 ---
 import Notes from "@components/Notes.astro";
-import PresentationLayout from "@components/PresentationLayout.astro";
-import exDividendFill from "./assets/svg/ex-dividend-fill.svg";
-import shared from "./styles/shared.module.css";
-import layout from "./styles/layout.module.css";
-import styles from "./styles/slide-svg.module.css";
-import page from "./styles/09-dividend-stocks.module.css";
+import DividendStocks from "./09-dividend-stocks.astro";
 
-<PresentationLayout title="股票 · 红利股" eyebrow="STOCKS · 生息资产 · WHY" narrow>
-  <div class={layout.slideRoot}>
-    <p class={shared.lead}>分红那天股价会<span class={page.leadRed}>除权</span>下调，但持续赚钱的公司，很快被市场<span class={page.leadGreen}>买回原价</span>——因为股价锚定的是<strong>未来</strong>，不是账上现金。</p>
-
-    <div class={layout.mainGrid}>
-      <div class={layout.cardCol}>
-        <div class:list={[shared.cardLight, page.explainCard]}>
-          <p class:list={[shared.monoTag, page.explainEyebrow]}>CUT · 为什么股价会除权</p>
-          <p class={page.explainTitle}>除权 = 账面调整，不是公司变差了</p>
-          <p class={page.explainBody}>分红是把你股份里的<span class={page.bodyGreen}>一部分价值换成现金</span>发给你：账上现金少了，股价就按分掉的<span class={page.bodyCode}>¥X</span>名义下调。公司本身一个铜板都没少。</p>
-        </div>
-        <div class:list={[shared.cardLight, page.explainCard]}>
-          <p class:list={[shared.monoTag, page.explainEyebrow]}>FILL · 为什么市场会填权</p>
-          <p class={page.explainTitle}>股价 = 未来盈利的折现，不是现值</p>
-          <p class={page.explainBody}>公司的<span class={page.bodyGreen}>赚钱能力没变</span>，明年还能赚同样多的钱、继续分红。除权留下的缺口，被市场用"未来现金流"重新定价<span class={page.bodyGreen}>买回去</span>——这就是<span class={page.bodyCode}>填权</span>。</p>
-        </div>
-        <div class:list={[shared.cardLight, page.explainCard]}>
-          <p class:list={[shared.monoTag, page.explainEyebrow]}>TRAP · 什么时候不填权</p>
-          <p class={page.explainTitleRed}>赚不到钱、吐光家底式分红</p>
-          <p class={page.explainBody}>如果公司<span class={page.bodyRed}>不再赚钱</span>，只是把家底连本带利分光，市场不会再为它定价 → <span class={page.bodyRed}>除权后一路阴跌、永不填权</span>。分红起决定作用的，是"未来还能不能赚"。</p>
-        </div>
-      </div>
-
-      <div class={shared.chartCard}>
-        <div class={shared.chartHeader}>
-          <span class={shared.chartTitle}>EX-DIVIDEND · 除权 → 填权</span>
-          <span class={shared.chartMeta}>股价 = 未来现金流</span>
-        </div>
-        <img src={exDividendFill.src} alt="除权填权股价示意" class={styles.fill} />
-      </div>
-    </div>
-
-    <div class={shared.footerBar}>
-      <p class={shared.footerText}><strong>本质 ·</strong> 股价是<b>未来现金流的折现</b>。除权只把"账上现金"换成"你口袋里的现金"，不改变公司<strong>持续赚钱的能力</strong>——所以市场会把除权缺口<strong>填回去</strong>；只有赚不到钱的公司，才填不回来。</p>
-    </div>
-  </div>
-</PresentationLayout>
+<DividendStocks />
 
 <Notes>
 

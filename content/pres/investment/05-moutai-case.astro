@@ -1,0 +1,17 @@
+---
+import PresentationLayout from "@components/PresentationLayout.astro";
+import moutaiChart from "./assets/svg/moutai-chart.svg";
+---
+
+<PresentationLayout title="贵州茅台月线收盘价" reverse narrow>
+  <img src={moutaiChart.src} alt="贵州茅台月线收盘价" class="chart" />
+</PresentationLayout>
+
+<style>
+  .chart {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+  }
+</style>

@@ -4,9 +4,9 @@ node_modules
 /dist
 .astro/
 
-# Pi coding-agent sessions (persisted in-repo, like a docker volume)
+# Pi coding-agent workdir (sessions, subagents) — persisted in-repo
 /sessions/
-/.pi/sessions/
+/.pi/
 
 # pnpm project — lockfiles from other package managers are not used
 package-lock.json
