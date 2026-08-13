@@ -379,7 +379,7 @@ const fullTitle = `${presTitle} — ${title} (${pageNo}/${total})`;
       navigatingTo = msg.pageNo;
       navSource = "sync";
       pendingStep = msg.step;
-      navigate(`/pres/${currentSlug()}/present/${msg.pageNo}/`);
+      navigate(`/pres/${currentSlug()}/live/${msg.pageNo}/`);
     } else {
       setStep(msg.step); // silent apply, no re-broadcast
     }
@@ -435,7 +435,7 @@ const fullTitle = `${presTitle} — ${title} (${pageNo}/${total})`;
       navigatingTo = pageNo + 1;
       navSource = "local";
       pendingStep = null;
-      navigate(`/pres/${currentSlug()}/present/${pageNo + 1}/`);
+      navigate(`/pres/${currentSlug()}/live/${pageNo + 1}/`);
     }
   }
 
@@ -455,7 +455,7 @@ const fullTitle = `${presTitle} — ${title} (${pageNo}/${total})`;
       navigatingTo = pageNo - 1;
       navSource = "local";
       pendingStep = null;
-      navigate(`/pres/${currentSlug()}/present/${pageNo - 1}/`);
+      navigate(`/pres/${currentSlug()}/live/${pageNo - 1}/`);
     }
   }
 
@@ -559,7 +559,7 @@ const fullTitle = `${presTitle} — ${title} (${pageNo}/${total})`;
         navigatingTo = p;
         navSource = "local";
         pendingStep = null;
-        navigate(`/pres/${currentSlug()}/present/${p}/`);
+        navigate(`/pres/${currentSlug()}/live/${p}/`);
       });
     });
   }

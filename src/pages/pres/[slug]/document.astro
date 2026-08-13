@@ -243,7 +243,7 @@ const rendered = await Promise.all(
     <div class="document-wrap">
       <header class="page-head">
         <h1>{presTitle}</h1>
-        <a class="fresh-link" href={`/pres/${slug}/present/1/`}>进入演示模式 →</a>
+        <a class="fresh-link" href={`/pres/${slug}/live/1/`}>进入演示模式 →</a>
       </header>
 
       {
@@ -253,7 +253,7 @@ const rendered = await Promise.all(
               <h2 class="slide-no">
                 {idx + 1}. {title}
               </h2>
-              <a class="slide-link" href={`/pres/${slug}/present/${idx + 1}/`}>
+              <a class="slide-link" href={`/pres/${slug}/live/${idx + 1}/`}>
                 幻灯片 {idx + 1} ↗
               </a>
             </header>
