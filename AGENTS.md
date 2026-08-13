@@ -80,7 +80,7 @@ pnpm typecheck
 
 ### Presentation Mode
 
-- **Routes**: `/pres/[slug]/present/[pageNo]/` (one static HTML per slide), `/pres/[slug]/present/` (redirect to slide 1), `/pres/[slug]/speaker/` (speaker-view popup), `/pres/[slug]/document/` (whole deck as a scrollable document, embedded in blog posts), `/pres/` (listing)
+- **Routes**: `/pres/[slug]/present/[pageNo]/` (one static HTML per slide), `/pres/[slug]/speaker/` (speaker-view popup), `/pres/[slug]/document/` (whole deck as a scrollable document, embedded in blog posts), `/pres/` (listing)
 - **Slide content**: MDX per slide at `content/pres/[slug]/NN-name.mdx` in the `pres` collection. Slides use `data-anim="N"` on elements for progressive reveal; frontmatter `steps` declares the step count (defaults to 1; JS also scans `max(data-anim)+1` as a fallback). Slide CSS must avoid `vh`/`vw`/`vmin`/`vmax` — they reference the popup viewport rather than the 1280×720 design size and break the scaled preview; use `rem`/`em`/`%`/`px`
 - **Animations**: CSS-driven. Root `<body data-step="N">`; elements with `data-anim="N"` are `opacity:0` until a JS-toggled `[data-visible]` attribute appears (CSS can't do `>=` attribute selectors, so `syncVisibility` toggles the attribute from `data-step`)
 - **Keyboard**: bundled `<script>` in `Presentation.astro` (runs once per session; `astro:page-load` re-inits per slide). ArrowRight/Down → advance step or next slide; ArrowLeft/Up → back step or previous slide (own-keyboard back-nav sets a `sessionStorage` flag so the previous slide lands on its last step); Shift+Enter → fullscreen toggle; Shift+S → open presenter popup
