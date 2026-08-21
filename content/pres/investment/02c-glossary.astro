@@ -1,0 +1,157 @@
+---
+import PresentationLayout from "@components/PresentationLayout.astro";
+import PresentationStep from "@components/PresentationStep.astro";
+import PhotoCollage from "@components/PhotoCollage.astro";
+import orochi from "./assets/disclaimer/orochi.jpg";
+import medusa from "./assets/disclaimer/medusa.jpg";
+import airForce from "./assets/disclaimer/air-force.jpg";
+import emptyFisherman from "./assets/disclaimer/empty-fisherman.jpg";
+---
+
+<PresentationLayout title="名词解释">
+  <div class="wrap">
+    <PresentationStep step={0} effect="fade">
+      <section class="joke-card">
+        <div class="spread" aria-label="四个词语笑话的配图">
+          <div data-anim="0" class="card-slot">
+            <div class="card card-orochi">
+              <PhotoCollage src={orochi.src} alt="八岐大蛇浮世绘" caption="八岐大蛇"  />
+            </div>
+          </div>
+          <div data-anim="1" class="card-slot">
+            <div class="card card-medusa">
+              <PhotoCollage src={medusa.src} alt="卡拉瓦乔笔下的美杜莎" caption="美杜莎"  />
+            </div>
+          </div>
+          <div data-anim="2" class="card-slot">
+            <div class="card card-air-force">
+              <PhotoCollage src={airForce.src} alt="空军战斗机编队" caption="飞行员"  />
+            </div>
+          </div>
+          <div data-anim="3" class="card-slot">
+            <div class="card card-fisherman">
+              <PhotoCollage src={emptyFisherman.src} alt="在海边空手而归的钓鱼者" caption="钓鱼佬" />
+            </div>
+          </div>
+        </div>
+        <div class="captions">
+          <p data-anim="1" class="caption caption-bull"><strong>多头</strong>：预期资产价格上涨，买入并持有来获利的投资者。</p>
+          <p data-anim="3" class="caption caption-bear"><strong>空军</strong>：预期价格下跌，卖出或做空来获利的空头投资者。</p>
+        </div>
+      </section>
+    </PresentationStep>
+  </div>
+</PresentationLayout>
+
+<style>
+  .wrap {
+    height: 100%;
+    padding: 0 3rem 0.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.8rem;
+  }
+
+  .wrap :global(.presentation-step) {
+    flex: 1;
+    min-height: 0;
+  }
+
+  .joke-card {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    padding: 0.2rem 1rem 0;
+  }
+
+  .spread {
+    position: relative;
+    flex: 1 1 auto;
+    min-height: 0;
+    overflow: visible;
+  }
+
+  .captions {
+    flex: none;
+    display: grid;
+    gap: 0.5rem;
+    justify-items: center;
+    text-align: center;
+  }
+
+  .caption {
+    margin: 0;
+    font-size: 1.25rem;
+    line-height: 1.6;
+    color: #444;
+  }
+
+  .caption strong { color: #222; }
+
+  .caption-bull strong { color: #b45309; }
+  .caption-bear strong { color: #2563eb; }
+
+  .card-slot {
+    position: absolute;
+    width: 33%;
+  }
+
+  .card-slot:nth-child(1) {
+    left: 3%;
+    top: 9%;
+    z-index: 1;
+  }
+
+  .card-slot:nth-child(2) {
+    left: 24%;
+    top: 2%;
+    z-index: 2;
+  }
+
+  .card-slot:nth-child(3) {
+    left: 45%;
+    top: 7%;
+    z-index: 3;
+  }
+
+  .card-slot:nth-child(4) {
+    left: 66%;
+    top: 14%;
+    z-index: 4;
+  }
+
+  .card {
+    width: 100%;
+  }
+
+  .card :global(.photo-img) {
+    aspect-ratio: 1 / 1;
+  }
+
+  .card-orochi {
+    transform: rotate(-8deg);
+  }
+
+  .card-medusa {
+    transform: rotate(-2deg);
+  }
+
+  .card-air-force {
+    transform: rotate(5deg);
+  }
+
+  .card-fisherman {
+    transform: rotate(10deg);
+  }
+
+  @media (max-width: 800px) {
+    .wrap { padding-inline: 1.5rem; }
+    .spread { min-height: 24rem; }
+    .card-slot { width: 46%; }
+    .card-slot:nth-child(1) { left: 2%; top: 3%; }
+    .card-slot:nth-child(2) { left: 28%; top: 0; }
+    .card-slot:nth-child(3) { left: 10%; top: 45%; }
+    .card-slot:nth-child(4) { left: 40%; top: 42%; }
+  }
+</style>
