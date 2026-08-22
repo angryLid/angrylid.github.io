@@ -8,6 +8,9 @@ node_modules
 /sessions/
 /.pi/
 
+# Command Code agent state (taste, settings, file history)
+/.commandcode/
+
 # pnpm project — lockfiles from other package managers are not used
 package-lock.json
 yarn.lock
