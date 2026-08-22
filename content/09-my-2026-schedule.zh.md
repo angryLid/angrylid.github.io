@@ -2,6 +2,7 @@
 title: 我的年度计划 - 2026
 slug: 09-my-2026-schedule.zh
 created-time: 2026-01-01
+tags: ["随笔"]
 ---
 
 # 我的年度计划 2026

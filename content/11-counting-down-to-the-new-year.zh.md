@@ -2,6 +2,7 @@
 title: 我参加了陌生人跨年活动
 slug: 11-counting-down-to-the-new-year.zh
 created-time: 2025-12-31
+tags: ["随笔"]
 ---
 
 # 我参加了陌生人跨年活动

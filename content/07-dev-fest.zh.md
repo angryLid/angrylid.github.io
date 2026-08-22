@@ -2,6 +2,7 @@
 title: 第一次参加开发者大会
 slug: 07-hun-ru-ren-lei-ji-hua.zh
 created-time: 2025-12-21
+tags: ["dev"]
 ---
 # 第一次参加开发者大会
 

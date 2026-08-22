@@ -3,6 +3,7 @@ title: "Small Man"
 slug: 33-small-man.zh
 created-time: 2026-01-06
 status: ["WIP"]
+tags: ["随笔"]
 ---
 
 # Small Man

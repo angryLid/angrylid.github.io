@@ -2,6 +2,7 @@
 title: '我为什么开始写博客了'
 slug: 1-why-start-blogging
 created-time: 2025-12-06
+tags: ["随笔"]
 ---
 
 # 我为什么开始写博客了

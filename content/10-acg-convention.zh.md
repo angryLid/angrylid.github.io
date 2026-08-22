@@ -2,6 +2,7 @@
 title: 我连续参加了两次动漫展
 slug: 10-acg-convention.zh
 created-time: 2026-01-03
+tags: ["动漫"]
 ---
 
 # 我连续参加了两次动漫展

@@ -2,6 +2,7 @@
 title: 我参加了火车站志愿者活动
 slug: 12-railway-station-volunteer.zh
 created-time: 2026-01-04
+tags: ["体验"]
 ---
 # 我参加了火车站志愿者活动
 

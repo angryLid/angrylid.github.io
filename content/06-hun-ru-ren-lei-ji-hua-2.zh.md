@@ -2,6 +2,7 @@
 title: 混入人类计划 读书会篇
 slug: 06-hun-ru-ren-lei-ji-hua.zh
 created-time: 2025-12-20
+tags: ["随笔"]
 ---
 # 混入人类计划 读书会篇
 

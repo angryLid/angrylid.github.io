@@ -2,6 +2,7 @@
 title: 人月神话：读书分享会的讲稿
 slug: 03-mythical-man-month
 created-time: 2025-12-10
+tags: ["Sharing Session", "读书"]
 ---
 # 人月神话：读书分享会的讲稿
 

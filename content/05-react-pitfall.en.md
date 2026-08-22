@@ -2,6 +2,7 @@
 title: A React Pitfall by Previous Developers
 slug: 5-react-pitfall
 created-time: 2025-12-16
+tags: ["dev"]
 ---
 # A React Pitfall by Previous Developers
 

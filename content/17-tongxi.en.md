@@ -2,6 +2,7 @@
 title: Rambling Beside Tongxi Metro Station
 slug: Tongxi
 created-time: 2026-03-08
+tags: ["游记"]
 ---
 
 # Rambling Beside Tongxi Metro Station

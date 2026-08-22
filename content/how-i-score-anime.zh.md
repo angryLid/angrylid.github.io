@@ -2,6 +2,7 @@
 title: 我怎么给动画片打分
 slug: 2-score-anime
 created-time: 2025-12-07
+tags: ["动画"]
 ---
 # 我怎么给动画片打分
 

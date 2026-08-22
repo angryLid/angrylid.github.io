@@ -3,6 +3,7 @@ title: 混入人类计划
 slug: 04-hun-ru-ren-lei-ji-hua.zh
 created-time: 2025-12-14
 updated-time: 2025-12-28
+tags: ["随笔"]
 ---
 # 混入人类计划
 

@@ -2,6 +2,7 @@
 title: 我又去了一次明月山
 slug: 13-mingyue-mountain.zh
 created-time: 2026-01-13
+tags: ["游记"]
 ---
 # 我又去了一次明月山
 

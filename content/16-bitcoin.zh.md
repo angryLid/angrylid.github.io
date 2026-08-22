@@ -2,6 +2,7 @@
 title: 比特币会成为“老登资产”吗？
 slug: 16-bitcoin
 created-time: 2026-02-25
+tags: ["投资"]
 ---
 
 # 比特币会成为“老登资产”吗？
