@@ -6,8 +6,6 @@ updated-time: 2026-03-29
 tags:
   - dev
   - Notion
-status: Published
-type: Post
 ---
 # 移动端适配碎碎念
 

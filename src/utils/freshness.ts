@@ -3,19 +3,26 @@ const DAY_MS = 86_400_000;
 
 type PostData = Record<string, unknown>;
 
-function isWipData(data: PostData): boolean {
+function isPinnedData(data: PostData): boolean {
   const status = data.status;
   if (!status) return false;
-  if (Array.isArray(status)) return status.includes("WIP");
-  return status === "WIP";
+  if (Array.isArray(status)) return status.includes("PINNED");
+  return status === "PINNED";
 }
 
 export interface PostLike {
   data: PostData;
 }
 
-export function isWip<T extends PostLike>(post: T): boolean {
-  return isWipData(post.data);
+export function getStatus<T extends PostLike>(post: T): string | null {
+  const status = post.data.status;
+  if (!status) return null;
+  if (Array.isArray(status)) return status.length > 0 ? String(status[0]) : null;
+  return String(status);
+}
+
+export function isPinned<T extends PostLike>(post: T): boolean {
+  return isPinnedData(post.data);
 }
 
 export function getCreatedTime<T extends PostLike>(post: T): Date {
@@ -38,16 +45,16 @@ export function getEffectiveDate<T extends PostLike>(post: T): Date {
 }
 
 export function freshnessScore<T extends PostLike>(post: T): number {
-  if (isWip(post)) return Number.POSITIVE_INFINITY;
+  if (isPinned(post)) return Number.POSITIVE_INFINITY;
   const ageDays = (Date.now() - getEffectiveDate(post).getTime()) / DAY_MS;
   return Math.exp(-ageDays / FRESHNESS_HALFLIFE_DAYS);
 }
 
 export function byFreshness<T extends PostLike>(a: T, b: T): number {
-  const aWip = isWip(a);
-  const bWip = isWip(b);
-  if (aWip && !bWip) return -1;
-  if (!aWip && bWip) return 1;
+  const aPinned = isPinned(a);
+  const bPinned = isPinned(b);
+  if (aPinned && !bPinned) return -1;
+  if (!aPinned && bPinned) return 1;
 
   const sa = freshnessScore(a);
   const sb = freshnessScore(b);
