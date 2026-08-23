@@ -1,6 +1,7 @@
 ---
 import type { CollectionEntry } from "astro:content";
-import { isWip } from "@utils/freshness";
+import { getStatus } from "@utils/freshness";
+import StatusBadge from "./StatusBadge.astro";
 
 interface Props {
   posts: CollectionEntry<"blog">[];
@@ -15,7 +16,8 @@ const { posts, basePath } = Astro.props;
     posts.map((post) => (
       <li class="blog-list-item">
         <a href={`${basePath}/${post.data.slug}/`} class="blog-list-link">
-          {isWip(post) ? `[WIP] ${post.data.title}` : post.data.title}
+          {getStatus(post) && <StatusBadge status={getStatus(post)!} />}
+          <span class="blog-list-title-text">{post.data.title}</span>
         </a>
         {Array.isArray(post.data.tags) && post.data.tags.length > 0 && (
           <span class="blog-list-tags">
@@ -46,9 +48,12 @@ const { posts, basePath } = Astro.props;
     text-decoration: none;
     color: var(--dark-mint);
     font-size: 1.2rem;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4em;
   }
 
-  .blog-list-link:hover {
+  .blog-list-link:hover .blog-list-title-text {
     text-decoration: underline;
     text-decoration-color: var(--dark-mint);
   }

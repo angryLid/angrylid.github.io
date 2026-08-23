@@ -1,0 +1,29 @@
+---
+interface Props {
+  status: string;
+}
+
+const { status } = Astro.props;
+---
+
+<span class="status-badge">{status}</span>
+
+<style>
+  .status-badge {
+    display: inline-block;
+    padding: 0.1em 0.5em;
+    font-size: 0.7em;
+    font-weight: 600;
+    line-height: 1.5;
+    color: var(--white);
+    background-color: var(--mint-green);
+    border-radius: 0.35em;
+    vertical-align: 0.1em;
+    white-space: nowrap;
+    transition: filter 0.15s ease;
+  }
+
+  .blog-list-link:hover .status-badge {
+    filter: brightness(0.9);
+  }
+</style>
