@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## Revision 2026-09
+
+- Removed the Thoughts feature entirely: deleted the /thoughts route (with Giscus comments), the NavMenu Posts/Thoughts tab bar, and the now-orphaned Giscus component
+
 ## Revision 2026-07
 
 - Migrated to pnpm and opencode (AGENTS.md, root CHANGELOG), hardened CI, added Prettier/ESLint/`astro check`
