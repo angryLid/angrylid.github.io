@@ -1,56 +1,62 @@
 ---
 import PresentationLayout from "@components/PresentationLayout.astro";
+
+// 数据与样式分离：每张卡片只声明内容，结构由下方统一渲染
+const cards = [
+  {
+    anim: 0,
+    cls: "premiseRow",
+    bottomTitle: "张三借给李四 100 元,约定一年后归还",
+    bottomClass: "premiseText",
+    zhangEmoji: "😟",
+    liEmoji: "😊",
+    amount: "¥100",
+    arrow: "→",
+  },
+  {
+    anim: 1,
+    cls: "resultCard resultDefault",
+    bottomTitle: "坏结果 · 赖账",
+    bottomClass: "resultTitleRed",
+    zhangEmoji: "🤡",
+    liEmoji: "🤣",
+    amount: "¥0",
+    arrow: "←",
+  },
+  {
+    anim: 2,
+    cls: "resultCard resultRepay",
+    bottomTitle: "好结果 · 还本付息",
+    bottomClass: "resultTitleGreen",
+    zhangEmoji: "😄",
+    liEmoji: "🙂",
+    amount: "¥110",
+    arrow: "←",
+  },
+];
 ---
 
 <PresentationLayout title="从借据到债券" eyebrow="生息资产" narrow>
   <div class="root">
-
-    {/* ===== STEP 1：前提（第一行）===== */}
-    <div data-anim="0" class="premiseRow">
-      <div class="premiseText">张三借给李四 100 元,约定一年后归还</div>
-
-      {/* 示意图：张三愁眉苦脸 → 李四笑脸 */}
-      <div class="transfer">
-        <div class="person">
-          <div class="personEmoji">😟</div>
-          <div class="personName">张三</div>
+    {cards.map((c) => (
+      <div data-anim={c.anim} class:list={["card", c.cls]}>
+        <div class="transfer">
+          <div class="person">
+            <div class="personEmoji">{c.zhangEmoji}</div>
+            <div class="personName">张三</div>
+          </div>
+          <div class="transferAmount">
+            <div class="amountNum">{c.amount}</div>
+            <div class:list={["amountArrow", { reverse: c.arrow === "←" }]}></div>
+          </div>
+          <div class="person">
+            <div class="personEmoji">{c.liEmoji}</div>
+            <div class="personName">李四</div>
+          </div>
         </div>
-        <div class="transferAmount">
-          <div class="amountNum">¥100</div>
-          <div class="amountArrow">→</div>
-        </div>
-        <div class="person">
-          <div class="personEmoji">😊</div>
-          <div class="personName">李四</div>
-        </div>
+        <div class:list={["cardTitle", c.bottomClass]}>{c.bottomTitle}</div>
       </div>
-    </div>
-
-    {/* ===== 结果 1：赖账，第二步出现 ===== */}
-    <div data-anim="1" class="resultDefault">
-      于是李四就通过赖账的方式赚到了 100 元,
-      <del>这就是债券赚钱的原理</del>
-    </div>
-
-    {/* 结果 2：还本付息，第三步出现 */}
-    <div data-anim="2" class="resultRepay">
-      <div class="resultTitleGreen">好结果 · 还本付息</div>
-      <div class="transfer">
-        <div class="person">
-          <div class="personEmoji">😄</div>
-          <div class="personName">张三</div>
-        </div>
-        <div class="transferAmount">
-          <div class="amountNum">¥110</div>
-          <div class="amountArrow">←</div>
-        </div>
-        <div class="person">
-          <div class="personEmoji">🙂</div>
-          <div class="personName">李四</div>
-        </div>
-      </div>
-    </div>
-
+    ))}
   </div>
 </PresentationLayout>
 
@@ -59,31 +65,24 @@ import PresentationLayout from "@components/PresentationLayout.astro";
     height: 100%;
     display: grid;
     grid-template-columns: 1fr 1fr;
-    grid-template-rows: 1fr auto;
+    grid-template-rows: 1fr 1fr;
     gap: 1rem;
   }
 
-  /* 前提 row */
-  .premiseRow {
-    grid-column: 1;
-    grid-row: 1;
+  /* Shared card base: column flex, uniform padding and centered text */
+  .card {
     display: flex;
     flex-direction: column;
-    align-items: stretch;
-    justify-content: flex-start;
     gap: 1.2rem;
-    padding: 1rem 1.8rem;
-    background: #fffdf4;
-    border: 1px solid #e7e0cd;
-    box-shadow: 0 2px 6px rgba(30, 41, 59, 0.04);
+    padding: 1rem 1.4rem;
+    text-align: center;
   }
 
-  .premiseText {
+  /* Shared bottom-title typography; color comes from the concrete class */
+  .cardTitle {
     order: 2;
     font-size: 1.5rem;
     font-weight: 800;
-    color: #1e293b;
-    text-align: center;
   }
 
   /* Person diagram */
@@ -112,56 +111,85 @@ import PresentationLayout from "@components/PresentationLayout.astro";
   }
 
   .transferAmount {
-    text-align: center;
-    line-height: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
   }
 
   .amountNum {
     font-size: 2.5rem;
-    color: #b45309;
+    color: var(--amount, #b45309);
     font-weight: 800;
+    line-height: 1;
   }
 
+  /* CSS-drawn arrow so the arrow and the amount are visually the same height on every platform */
   .amountArrow {
-    font-size: 3.1rem;
-    color: #f59e0b;
+    position: relative;
+    width: 4.5rem;
+    height: 0.4rem;
+    background: var(--arrow, #f59e0b);
+    border-radius: 0.2rem;
   }
 
-  /* Result 1: default */
+  .amountArrow::after {
+    content: "";
+    position: absolute;
+    right: -0.55rem;
+    top: 50%;
+    transform: translateY(-50%);
+    border-left: 0.7rem solid var(--arrow, #f59e0b);
+    border-top: 0.5rem solid transparent;
+    border-bottom: 0.5rem solid transparent;
+  }
+
+  .amountArrow.reverse {
+    transform: scaleX(-1);
+  }
+
+  /* Premise: spans the whole first column */
+  .premiseRow {
+    grid-column: 1;
+    grid-row: 1 / -1;
+    padding: 1rem 1.8rem;
+    background: #fffdf4;
+    border: 1px solid #e7e0cd;
+    box-shadow: 0 2px 6px rgba(30, 41, 59, 0.04);
+  }
+
+  /* Result cards share the second column and a 2px border frame */
+  .resultCard {
+    grid-column: 2;
+    border: 2px solid;
+  }
+
   .resultDefault {
-    grid-column: 1 / -1;
-    grid-row: 2;
-    display: flex;
-    align-items: center;
+    grid-row: 1;
     justify-content: center;
-    gap: 0.4rem;
-    border: 2px dashed #fca5a5;
+    border-style: dashed;
+    border-color: #fca5a5;
     background: #fef2f2;
-    padding: 0.6rem 1rem;
-    font-size: 1.5rem;
+    --amount: #b91c1c;
+    --arrow: #ef4444;
+  }
+
+  .resultRepay {
+    grid-row: 2;
+    border-color: #86efac;
+    background: #f0fdf4;
+  }
+
+  /* Title colors */
+  .premiseText {
+    color: #1e293b;
+  }
+
+  .resultTitleRed {
     color: #b91c1c;
   }
 
-  /* Result 2: repay */
-  .resultRepay {
-    grid-column: 2;
-    grid-row: 1;
-    display: flex;
-    flex-direction: column;
-    align-items: stretch;
-    justify-content: flex-start;
-    gap: 1.2rem;
-    border: 2px solid #86efac;
-    background: #f0fdf4;
-    padding: 1rem 1.4rem;
-    text-align: center;
-  }
-
   .resultTitleGreen {
-    order: 2;
-    font-size: 1.5rem;
-    font-weight: 800;
     color: #16a34a;
-    text-align: center;
   }
 </style>
