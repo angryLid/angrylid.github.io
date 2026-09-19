@@ -1,0 +1,171 @@
+---
+import PresentationLayout from "@components/PresentationLayout.astro";
+---
+
+<PresentationLayout eyebrow="债券" title="可转债的债性与股性" narrow>
+  <div class="root">
+    {/* 定义：一张公司债 + 一份转股权利 */}
+    <div class="leadBox">
+      <p class="leadText">
+        可转换公司债券 = 一张普通公司债&nbsp;<b>+</b>&nbsp;一份「按约定价格换成该公司股票」的权利
+      </p>
+    </div>
+
+    <div class="mainGrid">
+      {/* 左：债性 */}
+      <div class="attrCard attrDebt">
+        <p class="attrTag">债性 · 下有保底</p>
+        <p class="attrText">
+          不转股时它就是一张普通公司债：按票面利率收息、到期收回本金。价格跌到「债底」附近，通常就很难再跌。
+        </p>
+      </div>
+
+      {/* 中：收益曲线示意图 */}
+      <div class="chartPanel">
+        <svg viewBox="0 0 660 520" role="img" aria-label="可转债价格随正股价格变化的收益曲线：正股低于转股价时贴近债底，高于转股价后跟随正股上行">
+          {/* 曲线下方的价值区域 */}
+          <path d="M62 256 L359 256 L648 65 L648 452 L62 452 Z" fill="rgba(30,64,175,0.07)" />
+
+          {/* 坐标轴 */}
+          <line x1="62" y1="452" x2="648" y2="452" stroke="#94a3b8" stroke-width="2" />
+          <line x1="62" y1="452" x2="62" y2="26" stroke="#94a3b8" stroke-width="2" />
+          <polygon points="652,452 641,447 641,457" fill="#94a3b8" />
+          <polygon points="62,22 57,33 67,33" fill="#94a3b8" />
+          <text x="648" y="488" text-anchor="end" fill="#64748b" font-size="20">正股价格</text>
+          <text x="34" y="237" text-anchor="middle" transform="rotate(-90 34 237)" fill="#64748b" font-size="20">转债价格</text>
+
+          {/* 债底（纯债价值） */}
+          <line x1="62" y1="256" x2="648" y2="256" stroke="#1e40af" stroke-width="2.5" stroke-dasharray="9 6" />
+
+          {/* 转股价值 */}
+          <line x1="62" y1="452" x2="648" y2="65" stroke="#94a3b8" stroke-width="2.5" stroke-dasharray="9 6" />
+
+          {/* 可转债实际价格曲线：先走平，越过转股价后跟随正股 */}
+          <path d="M62 256 L359 256 L648 65" fill="none" stroke="#1f2937" stroke-width="4.5" stroke-linejoin="round" />
+
+          {/* 转股价位置 */}
+          <line x1="359" y1="256" x2="359" y2="452" stroke="#94a3b8" stroke-width="2" stroke-dasharray="3 6" />
+          <circle cx="359" cy="256" r="7.5" fill="#1e40af" />
+          <text x="359" y="486" text-anchor="middle" fill="#64748b" font-size="20">转股价</text>
+
+          {/* 曲线标注 */}
+          <text x="82" y="242" fill="#1e40af" font-size="21" font-weight="600">债底 · 纯债价值</text>
+          <text x="105" y="335" fill="#94a3b8" font-size="20">转股价值</text>
+          <text x="445" y="96" fill="#b91c1c" font-size="21" font-weight="600">跟随正股上行</text>
+        </svg>
+      </div>
+
+      {/* 右：股性 */}
+      <div class="attrCard attrEquity">
+        <p class="attrTag">股性 · 上不封顶</p>
+        <p class="attrText">
+          股价一旦涨过转股价，转股就划算，可转债价格随正股同步走高，理论上没有上限。
+        </p>
+      </div>
+    </div>
+
+    {/* 附注 */}
+    <p class="footnote">
+      ※ 这份权利并不免费：可转债票面利率通常明显低于同评级的普通公司债；<br />实际价格还受转股价、强赎、回售、下修等条款影响，通常含一层转股溢价，公司信用风险也依然存在。
+    </p>
+  </div>
+</PresentationLayout>
+
+<style>
+  /* ---- page-specific: 08c-convertible-bonds ---- */
+  .root {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 0.9rem;
+  }
+
+  /* 定义条：单行，居中 */
+  .leadBox {
+    padding: 0.55rem 1.4rem 0.7rem;
+    text-align: center;
+  }
+
+  .leadText {
+    margin: 0;
+    font-size: 1.35rem;
+    font-weight: 700;
+    color: #1e40af;
+    line-height: 1.4;
+    text-decoration: underline;
+    text-underline-offset: 0.22em;
+    text-decoration-thickness: 1px;
+  }
+
+  /* 债性 + 曲线 + 股性 三栏，图居中 */
+  .mainGrid {
+    flex: 1;
+    min-height: 0;
+    display: grid;
+    grid-template-columns: 0.7fr 2fr 0.7fr;
+    gap: 1.2rem;
+    align-items: stretch;
+  }
+
+  .chartPanel {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 0;
+    min-height: 0;
+  }
+
+  .chartPanel svg {
+    width: 100%;
+    height: 100%;
+  }
+
+  .attrCard {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    gap: 0.45rem;
+    padding: 1rem 1.3rem;
+    border: 1px solid;
+  }
+
+  .attrDebt {
+    align-self: end;
+    border-color: rgba(29, 78, 216, 0.28);
+  }
+
+  .attrEquity {
+    align-self: start;
+    border-color: rgba(153, 27, 27, 0.28);
+  }
+
+  .attrTag {
+    margin: 0;
+    font-size: 1.4rem;
+    font-weight: 700;
+  }
+
+  .attrDebt .attrTag {
+    color: #1e40af;
+  }
+
+  .attrEquity .attrTag {
+    color: #b91c1c;
+  }
+
+  .attrText {
+    margin: 0;
+    font-size: 1.15rem;
+    line-height: 1.7;
+    color: #475569;
+  }
+
+  /* 附注 */
+  .footnote {
+    margin: 0;
+    font-size: 0.95rem;
+    line-height: 1.5;
+    color: #94a3b8;
+    text-align: right;
+  }
+</style>
