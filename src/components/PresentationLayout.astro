@@ -48,32 +48,38 @@ const { title, eyebrow, narrow = false, reverse = false } = Astro.props;
     flex-direction: column-reverse;
   }
 
+  /* 1fr auto 1fr keeps the auto title column dead-center no matter how wide the
+     eyebrow is; the eyebrow fills column 1, right-aligned so the text hugs the
+     title's left edge, and baseline alignment seats both on the same bottom line */
   .head {
-    position: relative;
     flex: 0 0 auto;
     padding: 0;
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+    align-items: baseline;
+    column-gap: 0.75rem;
     text-align: center;
   }
 
-  /* Eyebrow sits out of flow, floating above the title */
   .eyebrow {
-    position: absolute;
-    top: -1.5rem;
-    left: 50%;
-    transform: translateX(-50%);
     margin: 0;
-    color: var(--dark-mint, #228b22);
-    font-size: 0.95rem;
-    font-weight: 700;
-    letter-spacing: 0.08em;
+    color: #9ca3af;
+    font-family: "Cascadia Code", monospace;
+    font-size: 0.9rem;
+    font-weight: 600;
+    letter-spacing: 0.12em;
     text-transform: uppercase;
+    white-space: nowrap;
+    text-align: right;
   }
 
   .head h1 {
+    grid-column: 2;
     margin: 0;
     color: #333;
+    font-family: "Noto Serif SC", "Songti SC", "SimSun", serif;
     font-size: 2.7rem;
-    font-weight: 750;
+    font-weight: 700;
     line-height: 1.2;
     letter-spacing: 0.02em;
   }
