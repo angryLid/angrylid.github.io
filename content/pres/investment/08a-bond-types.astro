@@ -2,108 +2,60 @@
 import PresentationLayout from "@components/PresentationLayout.astro";
 ---
 
-<PresentationLayout title="债券的分类" eyebrow="FIXED INCOME · 生息资产 · 债券" narrow>
+<PresentationLayout title="风险与收益" eyebrow="债券" narrow>
   <div class="slideRoot">
-    <p class="lead">按<strong>发行主体</strong>分类：政府发的叫主权债，企业发的叫信用债——信用越强，利率越低、越安全。</p>
-
-    <div class="mainGrid">
-
-      {/* 主权债券 */}
-      <div class:list={["cardLight", "typeCard"]}>
-        <div class="spaceBetween">
-          <span class:list={["monoTag", "typeTag"]}>SOVEREIGN · 主权债券</span>
-          <span class="typeIcon">🏛️</span>
-        </div>
-        <p class="typeDesc">政府背书，信用等级最高，几乎零违约风险</p>
-
-        <div class="bondRow">
-          <div>
-            <p class="bondName">国债</p>
-            <p class="bondSub">中央政府发行 · 金边债券</p>
-          </div>
-          <div class="bondRateBox">
-            <p class="bondRateGreen">~2-3%</p>
-            <p class="bondMeta">10Y</p>
-          </div>
-        </div>
-
-        <div class="bondRow">
-          <div>
-            <p class="bondName">地方债</p>
-            <p class="bondSub">地方政府发行 · 隐性刚兑</p>
-          </div>
-          <div class="bondRateBox">
-            <p class="bondRateGreen">~3-4%</p>
-            <p class="bondMeta">一般债</p>
-          </div>
-        </div>
-
-        <div class="bondRow">
-          <div>
-            <p class="bondName">政策性金融债</p>
-            <p class="bondSub">国开 · 农发 · 口行</p>
-          </div>
-          <div class="bondRateBox">
-            <p class="bondRateGreen">~2.5-3.5%</p>
-            <p class="bondMeta">10Y</p>
-          </div>
-        </div>
-
-        <div class="cardNoteWrap">
-          <p class="cardNoteGreen">💡 信用风险极低 → 收益率也最低</p>
-        </div>
+    <div class="leadCols">
+      <div class="leadCell">
+        <span class="leadTag">主权债券</span>
+        <p class="leadText">中央政府与地方政府发行，有国家信用背书，几乎零违约风险</p>
       </div>
-
-      {/* 信用债 */}
-      <div class:list={["cardLight", "typeCard"]}>
-        <div class="spaceBetween">
-          <span class:list={["monoTag", "typeTag"]}>CREDIT · 信用债</span>
-          <span class="typeIcon">🏢</span>
-        </div>
-        <p class="typeDesc">企业发行，看信用评级——评级越低，风险越高</p>
-
-        <div class="bondRow">
-          <div>
-            <p class="bondName">AAA 企业债</p>
-            <p class="bondSub">央企 · 头部民企 · 最安全</p>
-          </div>
-          <div class="bondRateBox">
-            <p class="bondRateRed">~3-5%</p>
-            <p class="bondMeta">中票/短融</p>
-          </div>
-        </div>
-
-        <div class="bondRow">
-          <div>
-            <p class="bondName">AA/A 信用债</p>
-            <p class="bondSub">评级越低 · 风险越高</p>
-          </div>
-          <div class="bondRateBox">
-            <p class="bondRateRed">~5-8%</p>
-            <p class="bondMeta">收益高</p>
-          </div>
-        </div>
-
-        <div class="bondRow">
-          <div>
-            <p class="bondName">可转换债券</p>
-            <p class="bondSub">可转成股票 · 股债双重属性</p>
-          </div>
-          <div class="bondRateBox">
-            <p class="bondRateRed">~不固定</p>
-            <p class="bondMeta">带期权</p>
-          </div>
-        </div>
-
-        <div class="cardNoteWrap">
-          <p class="cardNoteRed">⚠️ 信用风险随评级下降而上升</p>
-        </div>
+      <div class="leadCell">
+        <span class="leadTag">信用债</span>
+        <p class="leadText">企业发行的债券，凭发行主体自身信用定价，评级越低风险越高</p>
       </div>
-
     </div>
 
-    <div class="footerBar">
-      <p class="footerText"><strong>核心规律 ·</strong> 发行主体信用越强 → 利率越低、越安全；信用越弱 → 利率越高、风险越大。收益和风险永远成正比。</p>
+    <div class="axisBoard">
+      <div class="axisRail"></div>
+      <span class="axisCap capTop"><span class="capLo">信用 高</span><span class="capHi">信用 低</span></span>
+      <span class="axisCap capBottom"><span class="capLo">收益 低</span><span class="capHi">收益 高</span></span>
+
+      <div class="bondCard top c1">
+        <p class="bcName">国债</p>
+        <p class="bcSub">中央政府发行 · 金边债券</p>
+        <p class="bcRate green">~2-3%</p>
+        <p class="bcMeta">10Y</p>
+      </div>
+      <div class="bondCard bottom c2">
+        <p class="bcName">政策性金融债</p>
+        <p class="bcSub">国开 · 农发 · 口行</p>
+        <p class="bcRate green">~2.5-3.5%</p>
+        <p class="bcMeta">10Y</p>
+      </div>
+      <div class="bondCard top c3">
+        <p class="bcName">地方债</p>
+        <p class="bcSub">地方政府发行 · 隐性刚兑</p>
+        <p class="bcRate green">~3-4%</p>
+        <p class="bcMeta">一般债</p>
+      </div>
+      <div class="bondCard bottom c4">
+        <p class="bcName">AAA 企业债</p>
+        <p class="bcSub">央企 · 头部民企 · 最安全</p>
+        <p class="bcRate red">~3-5%</p>
+        <p class="bcMeta">中票/短融</p>
+      </div>
+      <div class="bondCard top c5">
+        <p class="bcName">AA 信用债</p>
+        <p class="bcSub">评级尚可 · 风险上升</p>
+        <p class="bcRate red">~5-6%</p>
+        <p class="bcMeta">收益较高</p>
+      </div>
+      <div class="bondCard bottom c6">
+        <p class="bcName">A 及以下</p>
+        <p class="bcSub">低评级 · 高收益</p>
+        <p class="bcRate red">~6-8%</p>
+        <p class="bcMeta">收益高</p>
+      </div>
     </div>
   </div>
 </PresentationLayout>
@@ -116,159 +68,204 @@ import PresentationLayout from "@components/PresentationLayout.astro";
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    gap: 0.8rem;
-    padding: 0.4rem 2.5rem 0.6rem;
+    gap: 0.5rem;
+    padding: 0;
     text-align: center;
   }
 
-  /* ---- shared.layout: mainGrid ---- */
-  .mainGrid {
+  /* ---- shared.layout: mainGrid removed; axis board ---- */
+  .axisBoard {
+    position: relative;
     flex: 1;
     min-height: 0;
     width: 100%;
     display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 1.1rem;
+    grid-template-columns: repeat(14, 1fr);
+    grid-template-rows: minmax(0, 1fr) auto minmax(0, 1fr);
+    column-gap: 0.45rem;
   }
 
-  /* ---- shared.layout: spaceBetween ---- */
-  .spaceBetween {
+  .axisCap {
+    position: absolute;
+    left: 0;
+    right: 0;
     display: flex;
-    align-items: center;
     justify-content: space-between;
-  }
-
-  /* ---- shared.shared: lead ---- */
-  .lead {
-    margin: 0;
-    font-size: 1.15rem;
-    color: #555;
-  }
-
-  /* ---- shared.shared: cardLight ---- */
-  .cardLight {
-    border: 1px solid #e2e2e2;
-    background: #fafafa;
-    display: flex;
-    flex-direction: column;
-    text-align: left;
-  }
-
-  /* ---- shared.shared: monoTag ---- */
-  .monoTag {
+    padding: 0 0.3rem;
+    font-size: 0.95rem;
+    font-weight: 600;
     font-family: 'Cascadia Code', monospace;
     letter-spacing: 0.1em;
-    color: #9ca3af;
+    white-space: nowrap;
   }
 
-  /* ---- shared.shared: footerBar ---- */
-  .footerBar {
-    flex: 0 0 auto;
-    border-left: 3px solid #333;
-    padding: 0.6rem 1rem;
+  .capLo {
+    color: #15803d;
+  }
+
+  .capHi {
+    color: #b91c1c;
+  }
+
+  .capTop {
+    bottom: calc(50% + 0.35rem);
+  }
+
+  .capBottom {
+    top: calc(50% + 0.35rem);
+  }
+
+  .axisRail {
+    grid-column: 1 / -1;
+    grid-row: 2;
+    height: 6px;
+    border-radius: 3px;
+    background: linear-gradient(to right, #15803d, #b91c1c);
+  }
+
+  .bondCard {
+    position: relative;
+    align-self: center;
+    border: 1px solid #e2e2e2;
     background: #fafafa;
-    width: 100%;
+    padding: 0.8rem 0.6rem;
+    text-align: center;
   }
 
-  /* ---- shared.shared: footerText ---- */
-  .footerText {
+  .top {
+    grid-row: 1;
+    align-self: end;
+    margin-bottom: 1.8rem;
+  }
+
+  .bottom {
+    grid-row: 3;
+    align-self: start;
+    margin-top: 1.8rem;
+  }
+
+  .top::after {
+    content: "";
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 2px;
+    height: 1.8rem;
+    background: var(--stem, #9ca3af);
+  }
+
+  .top::before {
+    content: "";
+    position: absolute;
+    top: calc(100% + 1.8rem + 3px);
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 9px;
+    height: 9px;
+    border-radius: 50%;
+    background: var(--stem, #9ca3af);
+  }
+
+  .bottom::before {
+    content: "";
+    position: absolute;
+    bottom: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 2px;
+    height: 1.8rem;
+    background: var(--stem, #9ca3af);
+  }
+
+  .bottom::after {
+    content: "";
+    position: absolute;
+    bottom: calc(100% + 1.8rem + 3px);
+    left: 50%;
+    transform: translate(-50%, 50%);
+    width: 9px;
+    height: 9px;
+    border-radius: 50%;
+    background: var(--stem, #9ca3af);
+  }
+
+  .c1 { grid-column: 2 / 5; --stem: #326e37; }
+  .c2 { grid-column: 3 / 6; --stem: #3e6735; }
+  .c3 { grid-column: 6 / 9; --stem: #61522e; }
+  .c4 { grid-column: 7 / 10; --stem: #6d4a2b; }
+  .c5 { grid-column: 10 / 13; --stem: #903524; }
+  .c6 { grid-column: 11 / 14; --stem: #9c2e22; }
+
+  .bcName {
     margin: 0;
-    font-size: 1.1rem;
-    color: #333;
-    line-height: 1.55;
-  }
-
-  /* ---- page-specific 08a-bond-types ---- */
-  .typeCard {
-    flex: 1;
-    min-height: 0;
-    padding: 1rem 1.1rem;
-    gap: 0.7rem;
-  }
-
-  .typeTag {
-    font-size: 0.9rem;
-  }
-
-  .typeIcon {
-    font-size: 1.85rem;
-  }
-
-  .typeDesc {
-    margin: 0;
-    font-size: 1.05rem;
-    color: #6b7280;
-    line-height: 1.5;
-  }
-
-  .bondRow {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    gap: 0.6rem;
-    border-top: 1px solid #e2e2e2;
-    padding-top: 0.6rem;
-  }
-
-  .bondName {
-    margin: 0;
-    font-size: 1.25rem;
+    font-size: 1.3rem;
     font-weight: 600;
     color: #333;
   }
 
-  .bondSub {
-    margin: 0.1rem 0 0;
+  .bcSub {
+    margin: 0.3rem 0 0;
     font-size: 0.95rem;
     color: #6b7280;
+    line-height: 1.4;
+    white-space: nowrap;
   }
 
-  .bondRateBox {
-    text-align: right;
-    flex-shrink: 0;
-  }
-
-  .bondRateGreen {
-    margin: 0;
-    font-size: 1.3rem;
+  .bcRate {
+    margin: 0.55rem 0 0;
+    font-size: 1.45rem;
     font-weight: 700;
+    font-family: 'Cascadia Code', monospace;
+  }
+
+  .green {
     color: #15803d;
-    font-family: 'Cascadia Code', monospace;
   }
 
-  .bondRateRed {
-    margin: 0;
-    font-size: 1.3rem;
-    font-weight: 700;
+  .red {
     color: #b91c1c;
-    font-family: 'Cascadia Code', monospace;
   }
 
-  .bondMeta {
-    margin: 0.1rem 0 0;
-    font-size: 0.9rem;
+  .bcMeta {
+    margin: 0.15rem 0 0;
+    font-size: 0.95rem;
     color: #9ca3af;
     font-family: 'Cascadia Code', monospace;
   }
 
-  .cardNoteWrap {
-    flex: 1;
-    min-height: 0;
+  /* ---- shared.shared: lead ---- */
+  .leadCols {
     display: flex;
-    align-items: flex-end;
+    align-items: stretch;
+    width: 100%;
+    text-align: left;
   }
 
-  .cardNoteGreen {
-    margin: 0.6rem 0 0;
-    font-size: 1rem;
-    color: #15803d;
-    line-height: 1.5;
+  .leadCell {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.35rem;
   }
 
-  .cardNoteRed {
-    margin: 0.6rem 0 0;
-    font-size: 1rem;
-    color: #b91c1c;
-    line-height: 1.5;
+  .leadCell:first-child {
+    border-right: 1px dashed #c9c9c9;
   }
+
+  .leadTag {
+    font-size: 1.35rem;
+    font-weight: 600;
+    color: #333;
+    white-space: nowrap;
+  }
+
+  .leadText {
+    margin: 0;
+    font-size: 1.1rem;
+    color: #6b7280;
+  }
+
+  /* ---- shared.shared: footerBar removed ---- */
 </style>
