@@ -1,214 +1,153 @@
 ---
 import PresentationLayout from "@components/PresentationLayout.astro";
-import exDividendFill from "./assets/svg/ex-dividend-fill.svg";
+
+const rows = [
+  {
+    label: "身份",
+    creditor: "把钱借给公司，是「外部人」",
+    owner: "买下公司的一部分，是「自己人」",
+  },
+  {
+    label: "收益",
+    creditor: "固定票息，签约时就写死",
+    owner: "剩余利润分红 + 价值增长，不封顶",
+  },
+  {
+    label: "期限",
+    creditor: "到期还本，有终点",
+    owner: "没有到期日，可以一直持有",
+  },
+  {
+    label: "清偿顺序",
+    creditor: "公司出事时优先受偿",
+    owner: "排在最后，先亏自己那一份",
+  },
+  {
+    label: "风险",
+    creditor: "收益有上限，风险相对可控",
+    owner: "与公司共担，可能亏光本金",
+  },
+];
 ---
 
-<PresentationLayout title="股票 · 红利股" eyebrow="STOCKS · 生息资产 · WHY" narrow>
+<PresentationLayout title="从债主到股东" eyebrow="股票" narrow>
   <div class="slideRoot">
-    <p class="lead">分红那天股价会<span class="leadRed">除权</span>下调，但持续赚钱的公司，很快被市场<span class="leadGreen">买回原价</span>——因为股价锚定的是<strong>未来</strong>，不是账上现金。</p>
+    <p class="lead">
+      上一章的债券，你是把<strong class="creditorC">钱借出去</strong>、当公司的债主；这一章买股票，你是<strong class="ownerC">买下公司的一部分</strong>，成为公司的股东。同样是出钱，身份、收益、风险和权利，全都不一样了。
+    </p>
 
-    <div class="mainGrid">
-      <div class="cardCol">
-        <div class:list={["cardLight", "explainCard"]}>
-          <p class:list={["monoTag", "explainEyebrow"]}>CUT · 为什么股价会除权</p>
-          <p class="explainTitle">除权 = 账面调整，不是公司变差了</p>
-          <p class="explainBody">分红是把你股份里的<span class="bodyGreen">一部分价值换成现金</span>发给你：账上现金少了，股价就按分掉的<span class="bodyCode">¥X</span>名义下调。公司本身一个铜板都没少。</p>
-        </div>
-        <div class:list={["cardLight", "explainCard"]}>
-          <p class:list={["monoTag", "explainEyebrow"]}>FILL · 为什么市场会填权</p>
-          <p class="explainTitle">股价 = 未来盈利的折现，不是现值</p>
-          <p class="explainBody">公司的<span class="bodyGreen">赚钱能力没变</span>，明年还能赚同样多的钱、继续分红。除权留下的缺口，被市场用"未来现金流"重新定价<span class="bodyGreen">买回去</span>——这就是<span class="bodyCode">填权</span>。</p>
-        </div>
-        <div class:list={["cardLight", "explainCard"]}>
-          <p class:list={["monoTag", "explainEyebrow"]}>TRAP · 什么时候不填权</p>
-          <p class="explainTitleRed">赚不到钱、吐光家底式分红</p>
-          <p class="explainBody">如果公司<span class="bodyRed">不再赚钱</span>，只是把家底连本带利分光，市场不会再为它定价 → <span class="bodyRed">除权后一路阴跌、永不填权</span>。分红起决定作用的，是"未来还能不能赚"。</p>
-        </div>
-      </div>
+    <div class="compare">
+      <div class="corner"></div>
+      <div class="colHead creditor">债主 · 债权人</div>
+      <div class="colHead owner">股东 · 所有者</div>
 
-      <div class="chartCard">
-        <div class="chartHeader">
-          <span class="chartTitle">EX-DIVIDEND · 除权 → 填权</span>
-          <span class="chartMeta">股价 = 未来现金流</span>
-        </div>
-        <img src={exDividendFill.src} alt="除权填权股价示意" class="fill" />
-      </div>
-    </div>
-
-    <div class="footerBar">
-      <p class="footerText"><strong>本质 ·</strong> 股价是<b>未来现金流的折现</b>。除权只把"账上现金"换成"你口袋里的现金"，不改变公司<strong>持续赚钱的能力</strong>——所以市场会把除权缺口<strong>填回去</strong>；只有赚不到钱的公司，才填不回来。</p>
+      {
+        rows.map((row) => (
+          <div class="row">
+            <div class="rowLabel">{row.label}</div>
+            <div class="cell creditor">{row.creditor}</div>
+            <div class="cell owner">{row.owner}</div>
+          </div>
+        ))
+      }
     </div>
   </div>
 </PresentationLayout>
 
 <style>
-  /* ---- shared.layout: slideRoot ---- */
+  /* ---- page-specific: 09-dividend-stocks ---- */
   .slideRoot {
     height: 100%;
     display: flex;
     flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    gap: 0.8rem;
-    padding: 0.4rem 2.5rem 0.6rem;
-    text-align: center;
+    gap: 0.9rem;
   }
 
-  /* ---- shared.layout: mainGrid ---- */
-  .mainGrid {
-    flex: 1;
-    min-height: 0;
-    width: 100%;
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 1.1rem;
-  }
-
-  /* ---- shared.layout: cardCol ---- */
-  .cardCol {
-    height: 100%;
-    min-height: 0;
-    display: flex;
-    flex-direction: column;
-    gap: 0.5rem;
-  }
-
-  /* ---- shared.shared: lead ---- */
   .lead {
     margin: 0;
-    font-size: 1rem;
+    font-size: 1.5rem;
     color: #555;
+    line-height: 1.65;
+    flex-shrink: 0;
   }
 
-  /* ---- shared.shared: cardLight ---- */
-  .cardLight {
-    border: 1px solid #e2e2e2;
-    background: #fafafa;
-    display: flex;
-    flex-direction: column;
-    text-align: left;
+  .creditorC {
+    color: #1e40af;
   }
 
-  /* ---- shared.shared: monoTag ---- */
-  .monoTag {
-    font-family: 'Cascadia Code', monospace;
-    letter-spacing: 0.1em;
-    color: #9ca3af;
+  .ownerC {
+    color: #b91c1c;
   }
 
-  /* ---- shared.shared: chartCard ---- */
-  .chartCard {
+  /* ---- 3-column comparison grid: dimension | creditor | owner ---- */
+  .compare {
+    flex: 1;
     min-height: 0;
-    border: 1px solid #e2e2e2;
-    background: #fafafa;
-    padding: 0.6rem 0.8rem;
-    display: flex;
-    flex-direction: column;
+    display: grid;
+    grid-template-columns: 5.8rem 1fr 1fr;
+    grid-template-rows: auto repeat(5, 1fr);
+    border-top: 1px solid #e2e2e2;
+    border-bottom: 1px solid #e2e2e2;
   }
 
-  /* ---- shared.shared: chartHeader ---- */
-  .chartHeader {
+  .row {
+    display: contents;
+  }
+
+  .corner {
+    border-top: 1px dashed #ececec;
+  }
+
+  .colHead {
     display: flex;
-    justify-content: space-between;
     align-items: center;
-    margin-bottom: 0.2rem;
-  }
-
-  /* ---- shared.shared: chartTitle ---- */
-  .chartTitle {
-    font-size: 0.7rem;
-    color: #9ca3af;
+    justify-content: center;
+    padding: 0.5rem 1rem;
+    border-top: 1px dashed #ececec;
     font-family: 'Cascadia Code', monospace;
+    font-size: 1.3rem;
+    font-weight: 600;
     letter-spacing: 0.08em;
   }
 
-  /* ---- shared.shared: chartMeta ---- */
-  .chartMeta {
-    font-size: 0.65rem;
+  .colHead.creditor {
+    color: #1e40af;
+    background: rgba(29, 78, 216, 0.08);
+  }
+
+  .colHead.owner {
+    color: #b91c1c;
+    background: rgba(153, 27, 27, 0.08);
+    border-left: 1px dashed #dcdcdc;
+  }
+
+  .rowLabel {
+    display: flex;
+    align-items: center;
+    padding: 0.55rem 0.6rem;
+    border-top: 1px dashed #ececec;
+    font-family: 'Cascadia Code', monospace;
+    font-size: 1.1rem;
     color: #6b7280;
-    font-family: 'Cascadia Code', monospace;
+    letter-spacing: 0.04em;
   }
 
-  /* ---- shared.shared: footerBar ---- */
-  .footerBar {
-    flex: 0 0 auto;
-    border-left: 3px solid #333;
-    padding: 0.6rem 1rem;
-    background: #fafafa;
-    width: 100%;
-  }
-
-  /* ---- shared.shared: footerText ---- */
-  .footerText {
-    margin: 0;
-    font-size: 0.9rem;
-    color: #333;
-    line-height: 1.55;
-  }
-
-  /* ---- shared.slide-svg: fill ---- */
-  .fill {
-    width: 100%;
-    flex: 1;
-    min-height: 0;
-    object-fit: contain;
-  }
-
-  /* ---- page-specific 09-dividend-stocks ---- */
-  .leadRed {
-    color: #b91c1c;
-    font-weight: 700;
-  }
-
-  .leadGreen {
-    color: #15803d;
-    font-weight: 700;
-  }
-
-  .explainCard {
-    flex: 1;
-    min-height: 0;
-    padding: 0.55rem 1rem;
-    justify-content: center;
-  }
-
-  .explainEyebrow {
-    margin: 0 0 0.3rem;
-    font-size: 0.68rem;
-  }
-
-  .explainTitle {
-    margin: 0;
-    font-size: 0.95rem;
-    font-weight: 700;
-    color: #333;
-  }
-
-  .explainTitleRed {
-    margin: 0;
-    font-size: 0.95rem;
-    font-weight: 700;
-    color: #b91c1c;
-  }
-
-  .explainBody {
-    margin: 0.3rem 0 0;
-    font-size: 0.85rem;
-    color: #444;
+  .cell {
+    display: flex;
+    align-items: center;
+    padding: 0.55rem 1.1rem;
+    border-top: 1px dashed #ececec;
+    font-size: 1.85rem;
     line-height: 1.5;
+    color: #333;
   }
 
-  .bodyGreen {
-    color: #15803d;
-    font-weight: 700;
+  .cell.creditor {
+    background: rgba(29, 78, 216, 0.05);
   }
 
-  .bodyRed {
-    color: #b91c1c;
-    font-weight: 700;
-  }
-
-  .bodyCode {
-    font-family: 'Cascadia Code', monospace;
+  .cell.owner {
+    background: rgba(153, 27, 27, 0.05);
+    border-left: 1px dashed #dcdcdc;
   }
 </style>
