@@ -2,6 +2,7 @@
 title: "Yet Another Nobody"
 slug: 33-small-man.zh
 created-time: 2026-01-06
+updated-time: 2026-09-22
 status: ["WIP"]
 tags: ["随笔"]
 ---
