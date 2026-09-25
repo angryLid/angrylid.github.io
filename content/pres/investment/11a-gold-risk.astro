@@ -1,5 +1,6 @@
 ---
 import PresentationLayout from "@components/PresentationLayout.astro";
+import goldCoinCow from "./assets/svg/gold-coin-cow.svg";
 ---
 
 <PresentationLayout
@@ -8,28 +9,39 @@ import PresentationLayout from "@components/PresentationLayout.astro";
   narrow
 >
   <div class="root">
+    <div class="bodyGrid">
+      {/* Left column: one cow, one gold coin — the same exchange rate across the centuries */}
+      <div class="cowPanel">
+        <p class="cowQuote">穿越时间的长河，<br />1 盎司黄金往往能换一头牛。</p>
+        <img
+          src={goldCoinCow.src}
+          class="cowArt"
+          alt="一枚写着一盎司的黄金金币，与一头牛之间画着双向箭头，二者脚下是同一条横贯古今的时间轴"
+        />
+        <p class="cowPoint">它守住的只是购买力，不是增长。</p>
+        <p class="cowNote">牛背后是不断进步的生产力，黄金背后什么都没有。</p>
+      </div>
 
-    {/* 第一层：黄金本身不产生现金流 */}
-    <div class="riskCard">
-      <p class="cardTitle"><span class="cardIndex">①</span>黄金本身，不创造任何价值</p>
-      <p class="cardBody">它不付利息、不分红、不产生现金流。持有一公斤黄金，一年后还是一公斤——它不会自己多生出半克。<br /><span class="cardNote">反观股票让人参加劳动创造利润、债券让资金生息，黄金只是静静地躺在那里。</span></p>
-    </div>
+      {/* Right column: the three-layer argument, one continuous surface */}
+      <div class="riskPanel">
+        {/* 1. gold itself produces no cash flow */}
+        <div class="riskItem">
+          <p class="cardTitle"><span class="cardIndex">①</span>黄金本身，不创造任何价值</p>
+          <p class="cardBody">它不付利息、不分红、不产生现金流。持有一公斤黄金，一年后还是一公斤——它不会自己多生出半克。</p>
+        </div>
 
-    {/* 第二层：超开采成本的部分是短期供需 */}
-    <div class="riskCard">
-      <p class="cardTitle"><span class="cardIndex">②</span>超过开采成本的部分，更多是短期供需</p>
-      <p class="cardBody">黄金的"生产成本"（开采 + 加工）是它价值的锚之一。但价格高出成本的那一大截，更多由避险情绪、通胀预期、央行购金等<b>短期供需</b>驱动，而非内在产出。</p>
-    </div>
+        {/* 2. whatever sits above the mining cost is short-term supply and demand */}
+        <div class="riskItem">
+          <p class="cardTitle"><span class="cardIndex">②</span>超过开采成本的部分，更多是短期供需</p>
+          <p class="cardBody">黄金的"生产成本"（开采 + 加工）是它价值的锚之一。但价格高出成本的那一大截，更多由避险情绪、通胀预期、央行购金等<b>短期供需</b>驱动，而非内在产出。</p>
+        </div>
 
-    {/* 第三层：安全边际可能不足 */}
-    <div class="riskCardWarn">
-      <p class="cardTitleWarn"><span class="cardIndexWarn">③</span>结论：安全边际，可能不足</p>
-      <p class="cardBodyWarn">价值投资讲究"以低于内在价值的价格买入"。黄金没有利息、没有盈利、没有现金流去锚定内在价值，若仅仅因为"大家都在买"而追高，价格又远超成本，<b>你并不清楚自己买的是不是溢价</b>。</p>
-    </div>
-
-    {/* 底部一句话 */}
-    <div class="summaryBox">
-      <p class="summaryText"><strong>一句话：</strong>黄金不会创造价值，它只是价值的储存器；价格超过开采成本的部分由短期供需决定——当安全感来自情绪而非产出，安全边际就可能不足。</p>
+        {/* 3. the verdict: the margin of safety may not be there */}
+        <div class="riskItem riskItemWarn">
+          <p class="cardTitleWarn"><span class="cardIndexWarn">③</span>结论：安全边际，可能不足</p>
+          <p class="cardBodyWarn">黄金没有利息、没有盈利、没有现金流去锚定内在价值。若仅仅因为"大家都在买"而追高，价格又远超成本，<b>你并不清楚自己买的是不是溢价</b>。</p>
+        </div>
+      </div>
     </div>
   </div>
 </PresentationLayout>
@@ -38,28 +50,95 @@ import PresentationLayout from "@components/PresentationLayout.astro";
   /* ---- page-specific: 11a-gold-risk ---- */
   .root {
     height: 100%;
-    display: flex;
-    flex-direction: column;
-    gap: 1rem;
   }
 
-  /* Standard risk card (white) */
-  .riskCard {
-    padding: 0.9rem 1.4rem;
+  /* Two columns: the gold-versus-cow picture on the left, the three-layer argument on the right */
+  .bodyGrid {
+    height: 100%;
+    display: grid;
+    grid-template-columns: 1.14fr 1fr;
+    gap: 1.15rem;
+    min-height: 0;
+  }
+
+  /* ---- left column: gold coin vs. cow ---- */
+  .cowPanel {
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    padding: 0.9rem 1.15rem 1rem;
+    background: #f7f1e2;
+    border: 1px solid #e3d8bd;
+    border-left: 4px solid #b8860b;
+  }
+
+  .cowQuote {
+    margin: 0;
+    font-family: "Noto Serif SC", "Songti SC", "SimSun", serif;
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #6b4226;
+    line-height: 1.4;
+  }
+
+  /* auto vertical margins center the picture in the panel's leftover height */
+  .cowArt {
+    display: block;
+    width: 100%;
+    height: auto;
+    margin: auto 0;
+  }
+
+  .cowPoint {
+    margin: 0;
+    padding-top: 0.55rem;
+    border-top: 1px solid #e3d8bd;
+    font-size: 1.15rem;
+    font-weight: 700;
+    color: #8a5a12;
+    line-height: 1.5;
+  }
+
+  .cowNote {
+    margin: 0.2rem 0 0 0;
+    font-size: 1rem;
+    color: #9a8d70;
+    line-height: 1.5;
+  }
+
+  /* ---- right column: the three risk layers on one continuous surface ---- */
+  .riskPanel {
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
     background: #fff;
     border: 1px solid #e5e0d0;
     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06);
   }
 
-  .riskCardWarn {
-    padding: 0.9rem 1.4rem;
-    background: #fbf7ef;
-    border-left: 5px solid #c0392b;
+  /* one layer per third of the panel, its text centered in that third */
+  .riskItem {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 0.9rem 1.3rem;
+    border-left: 5px solid transparent;
+  }
+
+  /* rules instead of gaps, so the three layers read as one block */
+  .riskItem + .riskItem {
+    border-top: 1px solid #e5e0d0;
+  }
+
+  /* the verdict keeps the deck's red edge on the panel's own edge */
+  .riskItemWarn {
+    border-left-color: #c0392b;
   }
 
   .cardTitle {
     margin: 0;
-    font-size: 1.28rem;
+    font-size: 1.3rem;
     font-weight: 800;
     color: #333;
     line-height: 1.35;
@@ -67,7 +146,7 @@ import PresentationLayout from "@components/PresentationLayout.astro";
 
   .cardTitleWarn {
     margin: 0;
-    font-size: 1.28rem;
+    font-size: 1.3rem;
     font-weight: 800;
     color: #7f1d1d;
     line-height: 1.35;
@@ -84,33 +163,14 @@ import PresentationLayout from "@components/PresentationLayout.astro";
 
   .cardBody {
     margin: 0.4rem 0 0 0;
-    font-size: 1.05rem;
+    font-size: 1.12rem;
     color: #666;
     line-height: 1.55;
   }
 
   .cardBodyWarn {
     margin: 0.4rem 0 0 0;
-    font-size: 1.05rem;
-    color: #7f1d1d;
-    line-height: 1.55;
-  }
-
-  .cardNote {
-    color: #999;
-  }
-
-  /* Bottom one-line summary */
-  .summaryBox {
-    margin-top: auto;
-    padding: 0.7rem 1.2rem;
-    background: #fef2f2;
-    border: 1px dashed #e5b8b3;
-  }
-
-  .summaryText {
-    margin: 0;
-    font-size: 0.98rem;
+    font-size: 1.12rem;
     color: #7f1d1d;
     line-height: 1.55;
   }
