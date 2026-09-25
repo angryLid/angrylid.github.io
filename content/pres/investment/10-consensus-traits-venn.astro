@@ -1,0 +1,174 @@
+---
+import PresentationLayout from "@components/PresentationLayout.astro";
+import venn from "./assets/svg/consensus-traits-venn.svg";
+---
+
+<PresentationLayout eyebrow="共识类资产" title="三大特性" narrow>
+  <div class="root">
+    {/* Left: what the asset class is (definition + the two ways consensus plays out) and the verdict. */}
+    <div class="leftCol">
+      <div class="defCard">
+        <div class="defHead">
+          <div class="defRule"></div>
+          <div class="defLead">
+            本身<strong>不产生现金流</strong>，<br />价值完全取决于市场共识。
+          </div>
+          <div class="defFormula">value = f(consensus)</div>
+        </div>
+        <div class="defFlows">
+          <div class="flowRow">
+            <span class="flowTag">共识扩大</span>
+            <span class="flowArrow">→</span>
+            <span class="flowText">有后继者接盘</span>
+          </div>
+          <div class="flowRow">
+            <span class="flowTag">共识破裂</span>
+            <span class="flowArrow">→</span>
+            <span class="flowText">无法脱手</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="conclusion">
+        <div class="conclusionText">
+          <strong>💡 核心结论：</strong>这三大属性也只是让这些东西<strong>比一般消费品更保值</strong>而已——拉长时间线看，共识总会转移，无一例外都无法脱手。
+        </div>
+      </div>
+    </div>
+
+    {/* Right: the three traits themselves. */}
+    <div class="rightCol">
+      <img
+        src={venn.src}
+        class="venn"
+        alt="实用价值、稀缺性、可长期保存三个条件的韦恩图：每个单项与两两组合各自对应一类东西，只有三者同时满足才形成共识类资产"
+      />
+    </div>
+  </div>
+</PresentationLayout>
+
+<style>
+  .root {
+    height: 100%;
+    display: grid;
+    grid-template-columns: 1fr 1.24fr;
+    gap: 1.6rem;
+  }
+
+  /* ---- left column ---- */
+  .leftCol {
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 1.1rem;
+  }
+
+  /* Definition card, reworked from the deck's beige card into a panel that owns the column: heading on top, the two outcomes pinned to the bottom, slack shared between them. */
+  .defCard {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    background: #f0e6cd;
+    border: 1px solid #d9c49a;
+    padding: 1.3rem 1.4rem 1.4rem;
+  }
+
+  /* Statement first, the formalisation it implies second, the two outcomes last. */
+  .defRule {
+    width: 3.2rem;
+    height: 3px;
+    background: #c9a86a;
+    margin-bottom: 1rem;
+  }
+
+  .defLead {
+    font-size: 1.5rem;
+    color: #5c4a20;
+    line-height: 1.7;
+  }
+
+  .defLead strong {
+    color: #6b4226;
+  }
+
+  .defFormula {
+    margin-top: 0.9rem;
+    font-family: "Times New Roman", "Nimbus Roman", "Songti SC", "SimSun", serif;
+    font-style: italic;
+    font-weight: 700;
+    font-size: 2.5rem;
+    color: #6b4226;
+    text-align: center;
+    white-space: nowrap;
+  }
+
+  /* The two ways consensus can move, as chips instead of the original inline sentence. */
+  .defFlows {
+    display: flex;
+    flex-direction: column;
+    gap: 0.55rem;
+  }
+
+  .flowRow {
+    display: flex;
+    align-items: center;
+    gap: 0.7rem;
+    background: rgba(255, 255, 255, 0.62);
+    border-left: 3px solid #b99a5e;
+    padding: 1rem;
+  }
+
+  .flowTag {
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: #6b4226;
+    white-space: nowrap;
+  }
+
+  .flowArrow {
+    color: #a08a6a;
+    font-size: 1.35rem;
+  }
+
+  .flowText {
+    font-size: 1.35rem;
+    color: #5c4a20;
+  }
+
+  /* Verdict: white card with the brown rule, so it reads apart from the beige panel above. */
+  .conclusion {
+    background: #fff;
+    border: 1px solid #e2d6bb;
+    border-left: 4px solid #6b4226;
+    padding: 0.9rem 1.1rem;
+  }
+
+  .conclusionText {
+    font-size: 1.05rem;
+    color: #5c3a21;
+    line-height: 1.6;
+  }
+
+  .conclusionText strong {
+    color: #6b4226;
+  }
+
+  /* ---- right column ---- */
+  .rightCol {
+    min-width: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  /* Height-bound so the diagram fills the column; the explicit aspect-ratio keeps the width derivation off the SVG's (absent) intrinsic size. */
+  .venn {
+    display: block;
+    height: 100%;
+    width: auto;
+    max-width: 100%;
+    aspect-ratio: 700 / 620;
+  }
+</style>

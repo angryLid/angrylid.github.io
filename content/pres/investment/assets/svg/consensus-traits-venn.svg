@@ -1,0 +1,26 @@
+<svg viewBox="0 0 700 620" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="实用价值、稀缺性、可长期保存三个条件的韦恩图：每个单项与两两组合各自对应一类东西，只有三者同时满足才形成共识类资产">
+  <!-- Three translucent traits in RGB primaries: the overlaps tint themselves, so the pairwise lenses and the centre read darker without extra paths. -->
+  <g fill-opacity="0.22" stroke-opacity="0.6" stroke-width="2.5">
+    <circle cx="250.0" cy="223.3" r="215" fill="#ff0000" stroke="#ff0000" />
+    <circle cx="450.0" cy="223.3" r="215" fill="#00ff00" stroke="#00ff00" />
+    <circle cx="350.0" cy="396.5" r="215" fill="#0000ff" stroke="#0000ff" />
+  </g>
+  <!-- All seven regions are labelled; paint-order paints the white halo behind the glyphs so text stays legible over every tint. -->
+  <g font-family="Noto Sans SC, PingFang SC, Microsoft YaHei, Hiragino Sans GB, sans-serif" text-anchor="middle" paint-order="stroke" stroke="#fff" stroke-linejoin="round">
+    <text x="158" y="121" font-size="27" font-weight="700" fill="#333333" stroke-width="3.5">实用价值</text>
+    <text x="158" y="151" font-size="16" font-weight="400" fill="#555555" stroke-width="3">能用 · 能吃 · 能看</text>
+    <text x="542" y="121" font-size="27" font-weight="700" fill="#333333" stroke-width="3.5">稀缺性</text>
+    <text x="542" y="151" font-size="16" font-weight="400" fill="#555555" stroke-width="3">产量有限 · 难复制</text>
+    <text x="350" y="504" font-size="27" font-weight="700" fill="#333333" stroke-width="3.5">可长期保存</text>
+    <text x="350" y="534" font-size="16" font-weight="400" fill="#555555" stroke-width="3">放得住 · 不易损耗</text>
+    <text x="350" y="92" font-size="16" font-weight="700" fill="#333333" stroke-width="3">演出门票、</text>
+    <text x="350" y="112" font-size="16" font-weight="700" fill="#333333" stroke-width="3">珍稀佳肴等</text>
+    <text x="350" y="134" font-size="15" font-weight="400" fill="#555555" stroke-width="3">不耐存</text>
+    <text x="211" y="359" font-size="17" font-weight="700" fill="#333333" stroke-width="3">许多消费品</text>
+    <text x="211" y="385" font-size="15" font-weight="400" fill="#555555" stroke-width="3">不稀缺</text>
+    <text x="489" y="359" font-size="17" font-weight="700" fill="#333333" stroke-width="3">日记和纪念品等</text>
+    <text x="489" y="385" font-size="15" font-weight="400" fill="#555555" stroke-width="3">不实用</text>
+    <text x="350" y="286" font-size="26" font-weight="700" fill="#111827" stroke-width="3.5">共识类资产</text>
+    <text x="350" y="312" font-size="15" font-weight="400" fill="#555555" stroke-width="3">三者兼具</text>
+  </g>
+</svg>
