@@ -1,4 +1,16 @@
 ---
+// ============================================================================
+// /pres/[slug]/live/[pageNo]/ — one static HTML page per slide
+// ============================================================================
+// Renders ONLY the current slide. The sidebar in Presentation.astro used to
+// server-render every slide of the deck into every page here so thumbnails
+// were instant — that shipped the whole deck's markup (and made the deck's
+// images eager-load) with every page turn, which made production navigation
+// stutter. Sidebar thumbnails are now hydrated lazily from
+// /pres/${slug}/document/ (fetched at most once per session); and the ±1
+// neighbor slide pages are prefetched so a page-turn navigate() hits the HTTP
+// cache instead of being a cold roundtrip (see Presentation.astro).
+// ============================================================================
 import { type CollectionEntry, render } from "astro:content";
 import Presentation from "@layouts/Presentation.astro";
 import { getPresDecks } from "@utils/pres";
@@ -6,32 +18,20 @@ import { getPresDecks } from "@utils/pres";
 export async function getStaticPaths() {
   const decks = await getPresDecks();
 
-  const paths: {
-    params: { slug: string; pageNo: string };
-    props: {
-      slug: string;
-      pageNo: number;
-      total: number;
-      presTitle: string;
-      slideEntries: CollectionEntry<"pres">[];
-    };
-  }[] = [];
-
-  for (const { slug, slides, total, presTitle } of decks) {
-    slides.forEach((_entry, idx) => {
-      paths.push({
-        params: { slug, pageNo: String(idx + 1) },
-        props: {
-          slug,
-          pageNo: idx + 1,
-          total,
-          presTitle,
-          slideEntries: slides,
-        },
-      });
-    });
-  }
-  return paths;
+  return decks.flatMap(({ slug, slides, total, presTitle }) =>
+    slides.map((entry, idx) => ({
+      params: { slug, pageNo: String(idx + 1) },
+      props: {
+        slug,
+        pageNo: idx + 1,
+        total,
+        presTitle,
+        slideEntry: entry as CollectionEntry<"pres">,
+        // Lightweight deck metadata for the sidebar (titles only, no markup).
+        slides: slides.map((s, i) => ({ pageNo: i + 1, title: s.data.title })),
+      },
+    })),
+  );
 }
 
 interface Props {
@@ -39,23 +39,13 @@ interface Props {
   pageNo: number;
   total: number;
   presTitle: string;
-  slideEntries: CollectionEntry<"pres">[];
+  slideEntry: CollectionEntry<"pres">;
+  slides: { pageNo: number; title: string }[];
 }
 
-const { slug, pageNo, total, presTitle, slideEntries } = Astro.props;
-
-// Render every slide once per page so the sidebar can show numbered thumbnails.
-const slides = await Promise.all(
-  slideEntries.map(async (entry, idx) => {
-    const { Content } = await render(entry);
-    return { Content, title: entry.data.title, pageNo: idx + 1 };
-  }),
-);
-
-const current = slides[pageNo - 1];
-const { Content } = current;
-const title = current.title;
-const steps = slideEntries[pageNo - 1].data.steps;
+const { slug, pageNo, total, presTitle, slideEntry, slides } = Astro.props;
+const steps = slideEntry.data.steps;
+const { Content } = await render(slideEntry);
 ---
 
 <Presentation
@@ -64,7 +54,7 @@ const steps = slideEntries[pageNo - 1].data.steps;
   total={total}
   steps={steps}
   presTitle={presTitle}
-  title={title}
+  title={slideEntry.data.title}
   slides={slides}
 >
   <Content />

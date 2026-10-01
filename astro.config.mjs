@@ -26,4 +26,10 @@ export default defineConfig({
   },
 
   integrations: [mdx(), react()],
+
+  // Opt-in prefetching across the site. With <ClientRouter /> Astro default
+  // enables prefetchAll anyway, but an explicit flag also covers pages
+  // without the router (document/speaker) and documents the intent; the ±1
+  // slide neighbors are prefetched programmatically via astro:prefetch.
+  prefetch: true,
 });

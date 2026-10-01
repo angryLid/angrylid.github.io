@@ -2,8 +2,7 @@
 import { ClientRouter } from "astro:transitions";
 import PresHead from "@components/PresHead.astro";
 
-interface SlideThumb {
-  Content: any;
+interface SlideMeta {
   title: string;
   pageNo: number;
 }
@@ -15,7 +14,8 @@ interface Props {
   steps: number;
   presTitle: string;
   title: string;
-  slides: SlideThumb[];
+  /** Deck metadata for the sidebar; thumbnails hydrate lazily from /document/. */
+  slides: SlideMeta[];
 }
 
 const { slug, pageNo, total, steps, presTitle, title, slides } = Astro.props;
@@ -195,6 +195,10 @@ const fullTitle = `${presTitle} — ${title} (${pageNo}/${total})`;
       .item-thumb .preview-stage {
         width: 150px;
       }
+      /* Thumbnails hydrate lazily from /document/; dim the frame until filled. */
+      .sidebar-item:not([data-ready]) .item-thumb {
+        opacity: 0.4;
+      }
       .item-title {
         font-size: 0.85rem;
         line-height: 1.3;
@@ -249,7 +253,7 @@ const fullTitle = `${presTitle} — ${title} (${pageNo}/${total})`;
       </div>
       <div class="sidebar-scroll">
         {
-          slides.map(({ Content, title, pageNo: p }) => (
+          slides.map(({ title, pageNo: p }) => (
             <button
               type="button"
               class="sidebar-item"
@@ -258,9 +262,7 @@ const fullTitle = `${presTitle} — ${title} (${pageNo}/${total})`;
             >
               <span class="item-num">{p}</span>
               <span class="item-thumb preview-stage">
-                <span class="preview-inner">
-                  <main class="slide"><Content /></main>
-                </span>
+                <span class="preview-inner"></span>
               </span>
               <span class="item-title">{title}</span>
             </button>
@@ -274,6 +276,7 @@ const fullTitle = `${presTitle} — ${title} (${pageNo}/${total})`;
 
 <script>
   import { navigate } from "astro:transitions/client";
+  import { prefetch } from "astro:prefetch";
   import {
     computeSteps as computeSharedSteps,
     syncVisibility,
@@ -331,6 +334,95 @@ const fullTitle = `${presTitle} — ${title} (${pageNo}/${total})`;
       setStep(msg.step); // silent apply, no re-broadcast
     }
   };
+
+  // ---------------- lazy sidebar thumbnails ----------------
+  // Sidebar thumbnails used to be server-rendered into every live page, which
+  // shipped the whole deck's markup with each page turn and eagerly loaded
+  // every slide's images — the dominant production page-turn stutter. Instead,
+  // each page ships only its own slide and /document/ (the whole-deck page) is
+  // fetched at most once per session as the thumbnail source; its stylesheet
+  // links are injected too, because the scoped styles of slides other than the
+  // current one are only bundled into /document/.
+  const docSources = new Map<string, Document>();
+  const docFetches = new Map<string, Promise<Document | null>>();
+
+  async function ensureDocDoc(slug: string): Promise<Document | null> {
+    const cached = docSources.get(slug);
+    if (cached) return cached;
+    const inFlight = docFetches.get(slug);
+    if (inFlight) return inFlight;
+    const promise = fetch(`/pres/${slug}/document/`)
+      .then((res) => (res.ok ? res.text() : null))
+      .then((text) => {
+        if (!text) return null;
+        const doc = new DOMParser().parseFromString(text, "text/html");
+        docSources.set(slug, doc);
+        return doc;
+      })
+      .catch(() => null);
+    docFetches.set(slug, promise);
+    return promise;
+  }
+
+  async function hydrateSidebarThumbs(): Promise<void> {
+    const slug = currentSlug();
+    if (!slug) return;
+    const doc = await ensureDocDoc(slug);
+    if (!doc) return;
+
+    const have = new Set(
+      Array.from(
+        document.querySelectorAll<HTMLLinkElement>("link[rel=stylesheet]"),
+        (l) => l.getAttribute("href"),
+      ),
+    );
+    for (const l of Array.from(doc.querySelectorAll<HTMLLinkElement>("link[rel=stylesheet]"))) {
+      const href = l.getAttribute("href");
+      if (href && !have.has(href)) {
+        have.add(href);
+        const link = document.createElement("link");
+        link.rel = "stylesheet";
+        link.href = href;
+        document.head.append(link);
+      }
+    }
+
+    const stages = doc.querySelectorAll(".slide-block .preview-stage");
+    document.querySelectorAll<HTMLElement>(".pres-sidebar .sidebar-item").forEach((item, idx) => {
+      const thumbInner = item.querySelector<HTMLElement>(".item-thumb .preview-inner");
+      const srcInner = stages[idx]?.querySelector<HTMLElement>(".preview-inner");
+      if (!thumbInner || !srcInner || thumbInner.childElementCount > 0) return;
+      // Clone before insertion so loading=lazy applies before any img fires.
+      const clone = srcInner.cloneNode(true) as HTMLElement;
+      clone.querySelectorAll<HTMLImageElement>("img").forEach((img) => {
+        img.setAttribute("loading", "lazy");
+        img.setAttribute("decoding", "async");
+      });
+      clone.querySelectorAll("[data-anim]").forEach((el) => el.setAttribute("data-visible", ""));
+      thumbInner.replaceChildren(clone);
+      item.setAttribute("data-ready", "");
+    });
+    scaleSidebarThumbs();
+  }
+
+  function scheduleIdle(cb: () => void): void {
+    if ("requestIdleCallback" in window) window.requestIdleCallback(cb, { timeout: 4000 });
+    else window.setTimeout(cb, 600);
+  }
+
+  // ---------------- neighbor prefetch ----------------
+  // The page-turn navigate() is a cold WAN roundtrip unless the target document
+  // is already in the HTTP cache; warm the ±1 neighbors after each page load.
+  // astro:prefetch keeps the data-saver / slow-connection safeguards.
+  function prefetchNeighbors(): void {
+    const body = document.body;
+    const slug = body.dataset.slug;
+    if (!slug) return;
+    const pageNo = parseInt(body.dataset.pageNo ?? "", 10);
+    const total = parseInt(body.dataset.total ?? "", 10);
+    if (pageNo + 1 <= total) void prefetch(`/pres/${slug}/live/${pageNo + 1}/`);
+    if (pageNo - 1 >= 1) void prefetch(`/pres/${slug}/live/${pageNo - 1}/`);
+  }
 
   // ---------------- slide helpers ----------------
   // The audience slide lives inside .slide-stage. The sidebar drawer also
@@ -429,6 +521,7 @@ const fullTitle = `${presTitle} — ${title} (${pageNo}/${total})`;
       });
     }
     sessionStorage.setItem(sidebarStateKey(currentSlug()), "1");
+    void hydrateSidebarThumbs();
   }
 
   function closeSidebar(): void {
@@ -458,11 +551,8 @@ const fullTitle = `${presTitle} — ${title} (${pageNo}/${total})`;
         block: "nearest",
       });
     }
-
-    // Show all animation steps in each thumbnail for a complete preview.
-    sb.querySelectorAll(".preview-stage [data-anim]").forEach((el) => {
-      el.setAttribute("data-visible", "");
-    });
+    // Thumbs re-hydrate right away if the drawer spans a page swap.
+    if (sb.hasAttribute("data-open")) void hydrateSidebarThumbs();
 
     // Rescale thumbnails to their container width (sidebar is resizable via vw).
     const ro = new ResizeObserver(() => scaleSidebarThumbs());
@@ -610,6 +700,17 @@ const fullTitle = `${presTitle} — ${title} (${pageNo}/${total})`;
     initSlide();
     initScale();
     initSidebar();
+    prefetchNeighbors();
+    scheduleIdle(() => {
+      // Warm the thumbnail source in the idle window: prefetch() fills the
+      // HTTP cache (data-saver-aware), then hydrate reads from it.
+      const slug = currentSlug();
+      if (!slug) return;
+      void Promise.resolve(prefetch(`/pres/${slug}/document/`)).then(
+        () => void hydrateSidebarThumbs(),
+        () => void hydrateSidebarThumbs(),
+      );
+    });
   });
   document.addEventListener("keydown", onKeyDown);
 </script>
