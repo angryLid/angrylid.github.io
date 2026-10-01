@@ -406,8 +406,12 @@ const fullTitle = `${presTitle} — ${title} (${pageNo}/${total})`;
   }
 
   function scheduleIdle(cb: () => void): void {
-    if ("requestIdleCallback" in window) window.requestIdleCallback(cb, { timeout: 4000 });
-    else window.setTimeout(cb, 600);
+    // typeof-guard: TS6 'in' narrowing reduces window to never in the else branch.
+    if (typeof requestIdleCallback === "function") {
+      requestIdleCallback(cb, { timeout: 4000 });
+    } else {
+      window.setTimeout(cb, 600);
+    }
   }
 
   // ---------------- neighbor prefetch ----------------
