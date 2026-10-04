@@ -1,0 +1,94 @@
+<svg viewBox="-50 0 530 340" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bulletBody" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#fff"/>
+      <stop offset="0.55" stop-color="#e8eef4"/>
+      <stop offset="1" stop-color="#b9c6d3"/>
+    </linearGradient>
+    <linearGradient id="coachBody" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#9b8065"/>
+      <stop offset="1" stop-color="#59483b"/>
+    </linearGradient>
+    <linearGradient id="glass" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#bae6fd"/>
+      <stop offset="1" stop-color="#28627e"/>
+    </linearGradient>
+    <linearGradient id="rearFade" gradientUnits="userSpaceOnUse" x1="8" y1="0" x2="58" y2="0">
+      <stop offset="0" stop-color="#fff" stop-opacity="0"/>
+      <stop offset="1" stop-color="#fff" stop-opacity="1"/>
+    </linearGradient>
+    <mask id="fadeIntoDistance" maskUnits="userSpaceOnUse" x="0" y="150" width="115" height="140">
+      <rect x="0" y="150" width="115" height="140" fill="url(#rearFade)"/>
+    </mask>
+    <g id="scrapWagon" stroke-linejoin="round">
+      <path d="M10 203l12-14 13 5 9-14 14 9 11-18 12 8 9-13 14 11 8 24-8 12H14z" fill="#77614d" stroke="#4f4438" stroke-width="2"/>
+      <path d="M17 198l11-14 14 7 8-15 12 9 10-14 11 10 9-9 13 12" fill="none" stroke="#c0a078" stroke-width="3"/>
+      <path d="M19 190l16-4 8 8-19 4zm35-13 12 4 5 12-17-4zm27 4 12-8 9 5-6 13-13-2z" fill="#9a6843" stroke="#594536" stroke-width="1.5"/>
+      <path d="M26 195l21-22 4 3-17 23m30-3 19-25 4 3-15 25m11-1 18-18 4 4-17 19" fill="none" stroke="#c8b99d" stroke-width="3"/>
+      <path d="M14 201l24-10m28 6 23-13m-53 13 14-9m34 9 17-8" stroke="#463e35" stroke-width="2"/>
+      <circle cx="74" cy="190" r="9" fill="none" stroke="#bf9e72" stroke-width="4"/>
+      <circle cx="74" cy="190" r="3" fill="#55483c"/>
+      <path d="M8 199l7-3v47H8zM102 197l7 4v42h-7z" fill="#6c5543" stroke="#40372e" stroke-width="2"/>
+      <path d="M10 211l98-2v35H10z" fill="url(#coachBody)" stroke="#514237" stroke-width="2"/>
+      <path d="M11 212l96-2" stroke="#c09b6e" stroke-width="3"/>
+      <path d="M13 220h91M13 230h91M13 239h91" stroke="#78604a" stroke-width="1.5" opacity="0.9"/>
+      <path d="M31 212v33m25-34v34m25-35v35" stroke="#4f4034" stroke-width="2"/>
+      <path d="M16 218l8-4 4 5-9 7m49 5 11-8 5 3-10 10m22-21 5-3" fill="none" stroke="#b26d43" stroke-width="2.5"/>
+      <path d="M12 245h94v9H12z" fill="#393b3c" stroke="#24282b" stroke-width="2"/>
+      <path d="M19 251v6m80-6v6" stroke="#393b3c" stroke-width="4"/>
+      <circle cx="23" cy="268" r="12" fill="#30363b" stroke="#171d22" stroke-width="3"/>
+      <circle cx="23" cy="268" r="4" fill="#a7adb1"/>
+      <circle cx="94" cy="268" r="12" fill="#30363b" stroke="#171d22" stroke-width="3"/>
+      <circle cx="94" cy="268" r="4" fill="#a7adb1"/>
+      <path d="M21 258v-4m74 4v-4" stroke="#596168" stroke-width="3"/>
+    </g>
+  </defs>
+
+  <g fill="none" stroke="#93c5fd" stroke-linecap="round" opacity="0.55">
+    <path d="M231 100h58" stroke-width="3"/>
+    <path d="M258 114h43" stroke-width="2"/>
+    <path d="M316 91h45" stroke-width="2"/>
+  </g>
+
+  <ellipse cx="215" cy="294" rx="263" ry="5" fill="#0f172a" opacity="0.08"/>
+  <g>
+    <path d="M-48 280h526" stroke="#64748b" stroke-width="3"/>
+    <path d="M-48 290h526" stroke="#94a3b8" stroke-width="2"/>
+    <path d="M-42 277v17m32-17v17m32-17v17m32-17v17m32-17v17m32-17v17m32-17v17m32-17v17m32-17v17m32-17v17m32-17v17m32-17v17m32-17v17m32-17v17m32-17v17m32-17v17m32-17v17" stroke="#9ca3af" stroke-width="4"/>
+  </g>
+
+  <g fill="none" stroke="#3f4549" stroke-width="5" stroke-linecap="round">
+    <path d="M66 233h13m101 0h13m100 0h14"/>
+    <path d="M66 233l-4-4m4 4-4 4m122-4 4-4m-4 4 4 4m100-4 4-4m-4 4 4 4" stroke-width="2.5"/>
+  </g>
+
+  <g transform="translate(-42 0)" mask="url(#fadeIntoDistance)">
+    <use href="#scrapWagon"/>
+  </g>
+  <use href="#scrapWagon" transform="translate(72 0)"/>
+  <use href="#scrapWagon" transform="translate(186 0)"/>
+
+  <g stroke-linejoin="round" transform="translate(40 0) scale(0.9 1)">
+    <path d="M296 254v-74q7-21 31-28l72-1q29 0 45 16l21 22 13 22q3 7-4 13l-18 12q-9 6-20 18H296z" fill="url(#bulletBody)" stroke="#64748b" stroke-width="2.5"/>
+    <path d="M297 230h178q-8 12-22 8H297z" fill="#2563eb"/>
+    <path d="M311 176q6-14 22-18l67-1q19 1 32 14l7 9H311z" fill="#1e293b"/>
+    <path d="M316 174q7-11 19-13h18v17h-40zM359 161l39-1q17 1 29 14l4 4h-72z" fill="url(#glass)" stroke="#94a3b8" stroke-width="1.5"/>
+    <path d="M442 184q17 7 27 22l-20 10-16-8v-17z" fill="url(#glass)" stroke="#94a3b8" stroke-width="1.5"/>
+    <path d="M307 190h126" stroke="#fff" stroke-width="2" opacity="0.75"/>
+    <path d="M299 254h151" stroke="#94a3b8" stroke-width="2"/>
+    <path d="M319 254v2m56-2v2m65-2v2" stroke="#475569" stroke-width="4"/>
+    <circle cx="322" cy="268" r="12" fill="#30363b" stroke="#171d22" stroke-width="3"/>
+    <circle cx="322" cy="268" r="4" fill="#cbd5e1"/>
+    <circle cx="377" cy="268" r="12" fill="#30363b" stroke="#171d22" stroke-width="3"/>
+    <circle cx="377" cy="268" r="4" fill="#cbd5e1"/>
+    <circle cx="442" cy="268" r="12" fill="#30363b" stroke="#171d22" stroke-width="3"/>
+    <circle cx="442" cy="268" r="4" fill="#cbd5e1"/>
+    <path d="M472 215l5 1" stroke="#f59e0b" stroke-width="3" stroke-linecap="round"/>
+  </g>
+
+  <g fill="none" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M293 239h4l2-4h4l3 4h4l2-3h4" stroke="#374151" stroke-width="4"/>
+    <path d="M297 239l2-2h4l2 2h4" stroke="#cbd5e1" stroke-width="1.5"/>
+    <circle cx="294" cy="239" r="2.5" fill="#6b7280" stroke="#374151" stroke-width="1"/>
+  </g>
+</svg>

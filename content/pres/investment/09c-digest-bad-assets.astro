@@ -1,6 +1,6 @@
 ---
 import PresentationLayout from "@components/PresentationLayout.astro";
-import cashCowHorse from "./assets/svg/cash-cow-horse.svg";
+import highSpeedTrainOldCoach from "./assets/svg/high-speed-train-old-coach.svg";
 ---
 
 <PresentationLayout
@@ -9,206 +9,132 @@ import cashCowHorse from "./assets/svg/cash-cow-horse.svg";
   narrow
 >
   <div class="root">
-    <div class="mainGrid">
-      <div class="leftCol">
-        <div class="card cardGood">
-          <span class="cardIcon">💎</span>
-          <div>
-            <p class="cardTitle">大秦线 · 核心盈利资产</p>
-            <p class="cardDesc">全球最暴利的重载煤运专线，现金流长期稳定充沛</p>
-          </div>
-        </div>
-        <div class="card cardBad">
-          <span class="cardIcon">📦</span>
-          <div>
-            <p class="cardTitle">大秦铁路 · 被注入低效资产</p>
-            <p class="cardDesc">2009 年 165 亿定增，反向收购太原局 7 条干线 + 5 条支线（普速客运常年亏损）</p>
-          </div>
-        </div>
-        <div class="card cardMixed">
-          <span class="cardIcon">📉</span>
-          <div>
-            <p class="cardTitle">优质资产 · 被低效包袱拖累</p>
-            <p class="cardDesc">百亿客运收入却公益亏损，ROE 与分红被稀释；京沪高铁亦被注入 500 亿京福安徽</p>
-          </div>
-        </div>
+    <div class="visualRow">
+      <article class="assetCard legacyCard">
+        <p class="assetRole">被注入的低效资产</p>
+        <h2>太原局普速客货运线路</h2>
+        <p>南同蒲、北同蒲等 7 条干线 + 5 条支线，设备老化、运力饱和，公益性普速客运常年亏损。</p>
+      </article>
+
+      <div class="trainVisual">
+        <img src={highSpeedTrainOldCoach.src} alt="A modern high-speed locomotive hauling open-top wagons filled with scrap" class="svg" />
       </div>
-      <div class="rightCol">
-        <img src={cashCowHorse.src} alt="神马拉一车砖头，优质资产被低效资产拖累" class="svg" />
-      </div>
+
+      <article class="assetCard coreCard">
+        <p class="assetRole">原有核心资产</p>
+        <h2>大秦线</h2>
+        <p>全球最暴利的重载煤运专线，现金流长期稳定充沛，是上市公司的“现金奶牛”。</p>
+      </article>
     </div>
-    <div class="footer footerGreen">
-      <p class="footerText footerTextGreen"><strong>总结：</strong>大股东把低效亏损资产高价打包注入上市公司，用优质资产的收益填补低效资产的亏损，稀释原有股东回报。</p>
-    </div>
+
+    <section class="eventSummary" aria-labelledby="event-title">
+      <h2 id="event-title">事件始末</h2>
+      <p>2009 年 11 月，大秦铁路抛出定增方案：拟募资约 165 亿元，整体作价约 328 亿元，反向收购控股股东太原铁路局的运输主业资产——包括 7 条干线、5 条支线及朔黄铁路 41.6% 股权，2010 年获批完成注入。散户痛斥这是“用黄金换垃圾”：优质大秦线的 ROE 与分红，从此被常年亏损的公益客运和低效支线稀释；但在国资绝对控股下，方案依然强行通过。</p>
+    </section>
   </div>
 </PresentationLayout>
 
 <style>
-  /* ---- shared.divided-stocks: root ---- */
   .root {
     height: 100%;
+    min-height: 0;
     display: flex;
     flex-direction: column;
+    gap: 1rem;
+    padding-bottom: 0.75rem;
   }
 
-  /* ---- shared.divided-stocks: mainGrid ---- */
-  .mainGrid {
-    flex: 1;
+  .visualRow {
+    flex: 1 1 0;
     min-height: 0;
     display: grid;
-    grid-template-columns: 1fr 1.1fr;
-    gap: 1.6rem;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 2.2fr) minmax(0, 1fr);
+    align-items: center;
+    gap: 1rem;
   }
 
-  /* ---- shared.divided-stocks: leftCol ---- */
-  .leftCol {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    gap: 0.9rem;
-  }
-
-  /* ---- shared.divided-stocks: card ---- */
-  .card {
-    display: flex;
-    gap: 0.9rem;
-    align-items: flex-start;
-    padding: 0.85rem 1.1rem;
+  .assetCard {
+    padding: 1.1rem 1.15rem;
     border-left: 4px solid;
   }
 
-  .cardGood {
-    background: #fef2f2;
-    border-left-color: #c0392b;
-  }
-  .cardGood .cardTitle {
-    color: #991b1b;
-  }
-
-  .cardBad {
+  .legacyCard {
     background: #fff7ed;
     border-left-color: #ea580c;
   }
-  .cardBad .cardTitle {
+
+  .legacyCard .assetRole {
     color: #9a3412;
   }
 
-  .cardMixed {
-    background: #f8fafc;
-    border-left-color: #dc2626;
-  }
-  .cardMixed .cardTitle {
-    color: #334155;
+  .coreCard {
+    background: #eff6ff;
+    border-left-color: #2563eb;
   }
 
-  /* ---- shared.divided-stocks: card (unused variants retained for completeness) ---- */
-  .cardRed {
-    background: #fef2f2;
-    border-left-color: #dc2626;
-  }
-  .cardRed .cardTitle {
-    color: #991b1b;
+  .coreCard .assetRole {
+    color: #1d4ed8;
   }
 
-  .cardAmber {
-    background: #fffbeb;
-    border-left-color: #ea580c;
-  }
-  .cardAmber .cardTitle {
-    color: #9a3412;
-  }
-
-  .cardNeutral {
-    background: #f8fafc;
-    border-left-color: #cbd5e1;
-  }
-  .cardNeutral .cardTitle {
-    color: #334155;
-  }
-
-  .cardPurple {
-    background: #f5f3ff;
-    border-left-color: #6d28d9;
-  }
-  .cardPurple .cardTitle {
-    color: #5b21b6;
-  }
-
-  .cardIcon {
-    font-size: 1.3rem;
-  }
-
-  .cardTitle {
-    font-size: 1.05rem;
+  .assetRole {
+    margin: 0 0 0.55rem;
+    font-size: 0.72rem;
     font-weight: 700;
+    letter-spacing: 0.08em;
+  }
+
+  .assetCard h2 {
     margin: 0;
+    color: #263445;
+    font-size: 1.2rem;
+    line-height: 1.35;
   }
 
-  .cardDesc {
+  .assetCard p:last-child {
+    margin: 0.55rem 0 0;
+    color: #4b5563;
     font-size: 0.9rem;
-    color: #555;
-    margin: 0.2rem 0 0 0;
-    line-height: 1.5;
+    line-height: 1.55;
   }
 
-  /* ---- shared.divided-stocks: rightCol / svg ---- */
-  .rightCol {
+  .trainVisual {
+    height: 100%;
+    min-width: 0;
     display: flex;
     align-items: center;
     justify-content: center;
   }
 
   .svg {
+    display: block;
     width: 100%;
     max-height: 100%;
     object-fit: contain;
   }
 
-  /* ---- shared.divided-stocks: footer ---- */
-  .footer {
-    margin-top: 1rem;
-    padding: 0.75rem 1.2rem;
-    flex-shrink: 0;
+  .eventSummary {
+    flex: 0 0 auto;
+    display: grid;
+    grid-template-columns: 11rem minmax(0, 1fr);
+    align-items: start;
+    gap: 1.2rem;
+    margin: 0.5rem auto 0;
+    padding: 1rem 1.4rem 0;
+    border-top: 1px solid #dbe2e8;
+    max-width: 66rem;
   }
 
-  .footerGreen {
-    background: #f0fdf4;
-    border-left: 4px solid #27ae60;
-  }
-
-  .footerRed {
-    background: #f8fafc;
-    border-left: 4px solid #dc2626;
-  }
-
-  .footerBlue {
-    background: #eff6ff;
-    border-left: 4px solid #2563eb;
-  }
-
-  .footerNeutral {
-    background: #f8fafc;
-    border-left: 4px solid #cbd5e1;
-  }
-
-  .footerText {
-    font-size: 0.95rem;
+  .eventSummary h2 {
     margin: 0;
-  }
-
-  .footerTextGreen {
-    color: #166534;
-  }
-
-  .footerTextRed {
     color: #334155;
+    font-size: 1rem;
+    line-height: 1.6;
   }
 
-  .footerTextBlue {
-    color: #1e40af;
-  }
-
-  .footerTextNeutral {
-    color: #334155;
+  .eventSummary p {
+    margin: 0;
+    color: #475569;
+    font-size: 0.9rem;
+    line-height: 1.7;
   }
 </style>
