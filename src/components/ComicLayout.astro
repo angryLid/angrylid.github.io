@@ -36,9 +36,11 @@ interface Props {
   panels: ComicPanel[];
   /** Gap between panels & rows, in any CSS length. Defaults to "1.25rem". */
   gap?: string;
+  /** Default image zoom for panels without their own scale. Defaults to 1.25. */
+  scale?: number;
 }
 
-const { title, panels, gap = "1.25rem" } = Astro.props;
+const { title, panels, gap = "1.25rem", scale: defaultScale = 1.25 } = Astro.props;
 
 function toCaptions(spec: CaptionSpec | undefined): Caption[] {
   if (!spec) return [];
@@ -62,7 +64,7 @@ for (let i = 0; i < panels.length; i += 2) {
           const index = r * 2 + i; // absolute position in the array
           const step = panel.step ?? index + 1;
           const effect = panel.effect ?? "fade";
-          const scale = panel.scale ?? 1.25;
+          const scale = panel.scale ?? defaultScale;
           const transformOrigin = panel.transformOrigin ?? "center";
           const captions = toCaptions(panel.caption);
           return (
