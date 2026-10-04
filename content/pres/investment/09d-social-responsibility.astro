@@ -1,6 +1,7 @@
 ---
 import PresentationLayout from "@components/PresentationLayout.astro";
-import layoutSvg from "./assets/svg/social-responsibility.svg";
+import shareholdersCarryingLock from "./assets/svg/shareholders-carrying-lock.svg";
+import shareholdersBurningMoney from "./assets/svg/shareholders-burning-money.svg";
 ---
 
 <PresentationLayout
@@ -10,49 +11,26 @@ import layoutSvg from "./assets/svg/social-responsibility.svg";
 >
   <div class="root">
     <div class="mainGrid">
-      <div class="leftCol">
-        <div class="card cardMixed">
-          <span class="cardIcon">🚢</span>
-          <div>
-            <p class="cardTitle">长江电力 · 葛洲坝船闸</p>
-            <p class="cardDesc">2025.8 拟砸 266 亿建葛洲坝航运扩能（公益基建），5.7 亿股反对，仍 96% 强行通过</p>
-          </div>
-        </div>
-
-        <div class="card cardGood">
-          <span class="cardIcon">⚡</span>
-          <div>
-            <p class="cardTitle">火电厂 · 2021 亏本供电</p>
-            <p class="cardDesc">煤价 600→2000 元/吨，电价锁死，发电即倒贴 2-3 毛/度；华能国际巨亏 100 亿+</p>
-          </div>
-        </div>
-
-        <div class="card cardBad">
-          <span class="cardIcon">⚖️</span>
-          <div>
-            <p class="cardTitle">市场化的成本 vs 行政化的公益</p>
-            <p class="cardDesc">分红归零、戴维斯双杀；"讲政治、保民生"永远高于利润</p>
-          </div>
-        </div>
+      <img src={shareholdersBurningMoney.src} alt="多名头戴“股民”头巾的人往燃烧的锅炉里塞钞票" class="svg imgBoiler" />
+      <div class="caption capBoiler">
+        <p class="captionTitle">火电厂 · 亏本保供（2021）</p>
+        <p class="captionLine">煤价疯涨，一度电倒贴 2-3 毛</p>
+        <p class="captionSub">保供死命令下不许停机，合计亏损超 460 亿</p>
       </div>
-
-      <div class="rightCol">
-        <img src={layoutSvg.src} alt="长江电力与火电厂承担社会公益成本" class="svg" />
+      <div class="caption capLock">
+        <p class="captionTitle">长江电力 · 葛洲坝扩建（2025）</p>
+        <p class="captionLine">266亿“公益项目”</p>
+        <p class="captionSub">96.02% 赞成率强行通过</p>
       </div>
-    </div>
-
-    <div class="footer footerRed">
-      <p class="footerText footerTextRed">
-        <strong>总结：</strong>在民生红线面前，市场化的成本必须给行政化的公益让路——上市公司替国家扛下保供保民生的账。
-      </p>
+      <img src={shareholdersCarryingLock.src} alt="多名头戴“股民”头巾的人肩扛着一座船闸" class="svg imgLock" />
     </div>
   </div>
 </PresentationLayout>
 
 <style>
-  /* ---- shared.divided-stocks: root / mainGrid / leftCol ---- */
   .root {
     height: 100%;
+    min-height: 0;
     display: flex;
     flex-direction: column;
   }
@@ -61,157 +39,91 @@ import layoutSvg from "./assets/svg/social-responsibility.svg";
     flex: 1;
     min-height: 0;
     display: grid;
-    grid-template-columns: 1fr 1.1fr;
-    gap: 1.6rem;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: auto minmax(0, 1fr) auto;
+    gap: 0.9rem 1.6rem;
   }
 
-  .leftCol {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    gap: 0.9rem;
+  /* boiler image: column 1, rows 1-2 */
+  .imgBoiler {
+    grid-area: 2 / 1 / 4 / 2;
+    align-self: center;
   }
 
-  /* ---- shared.divided-stocks: card ---- */
-  .card {
-    display: flex;
-    gap: 0.9rem;
-    align-items: flex-start;
-    padding: 0.85rem 1.1rem;
-    border-left: 4px solid;
+  /* boiler caption: column 2, row 1 */
+  .capBoiler {
+    grid-area: 1 / 1 / 2 / 2;
+    align-self: center;
   }
 
-  .cardGood {
-    background: #fef2f2;
-    border-left-color: #c0392b;
-  }
-  .cardGood .cardTitle {
-    color: #991b1b;
+  /* lock image: column 2, rows 2-3 */
+  .imgLock {
+    grid-area: 1 / 2 / 3 / 3;
+    align-self: end;
   }
 
-  .cardBad {
-    background: #fff7ed;
-    border-left-color: #ea580c;
-  }
-  .cardBad .cardTitle {
-    color: #9a3412;
-  }
-
-  .cardMixed {
-    background: #f8fafc;
-    border-left-color: #dc2626;
-  }
-  .cardMixed .cardTitle {
-    color: #334155;
-  }
-
-  .cardRed {
-    background: #fef2f2;
-    border-left-color: #dc2626;
-  }
-  .cardRed .cardTitle {
-    color: #991b1b;
-  }
-
-  .cardAmber {
-    background: #fffbeb;
-    border-left-color: #ea580c;
-  }
-  .cardAmber .cardTitle {
-    color: #9a3412;
-  }
-
-  .cardNeutral {
-    background: #f8fafc;
-    border-left-color: #cbd5e1;
-  }
-  .cardNeutral .cardTitle {
-    color: #334155;
-  }
-
-  .cardPurple {
-    background: #f5f3ff;
-    border-left-color: #6d28d9;
-  }
-  .cardPurple .cardTitle {
-    color: #5b21b6;
-  }
-
-  .cardIcon {
-    font-size: 1.3rem;
-  }
-
-  .cardTitle {
-    font-size: 1.05rem;
-    font-weight: 700;
-    margin: 0;
-  }
-
-  .cardDesc {
-    font-size: 0.9rem;
-    color: #555;
-    margin: 0.2rem 0 0 0;
-    line-height: 1.5;
-  }
-
-  /* ---- shared.divided-stocks: rightCol / svg ---- */
-  .rightCol {
-    display: flex;
-    align-items: center;
-    justify-content: center;
+  /* lock caption: column 1, row 3 */
+  .capLock {
+    grid-area: 3 / 2 / 4 / 3;
+    align-self: end;
   }
 
   .svg {
+    display: block;
+    min-width: 0;
+    min-height: 0;
     width: 100%;
-    max-height: 100%;
+    height: 100%;
     object-fit: contain;
   }
 
-  /* ---- shared.divided-stocks: footer ---- */
-  .footer {
-    margin-top: 1rem;
-    padding: 0.75rem 1.2rem;
-    flex-shrink: 0;
-  }
-
-  .footerGreen {
-    background: #f0fdf4;
-    border-left: 4px solid #27ae60;
-  }
-
-  .footerRed {
+  .caption {
+    flex: none;
+    padding: 0.55rem 0.9rem;
+    border: 1px solid var(--color-border);
     background: #f8fafc;
-    border-left: 4px solid #dc2626;
   }
 
-  .footerBlue {
+  /* hydropower story: blue tones */
+  .capLock {
     background: #eff6ff;
-    border-left: 4px solid #2563eb;
+    --color-border: #1f4e79; 
   }
 
-  .footerNeutral {
-    background: #f8fafc;
-    border-left: 4px solid #cbd5e1;
+  .capLock .captionTitle,
+  .capLock .captionLine,
+  .capLock .captionSub {
+    color: #1f4e79;
   }
 
-  .footerText {
-    font-size: 0.95rem;
+  /* thermal power story: black + red tones */
+  .capBoiler {
+    background: #fdf0ee;
+    --color-border: #c0392b;
+  }
+
+  .capBoiler .captionTitle,
+  .capBoiler .captionLine,
+  .capBoiler .captionSub {
+    color: #1a1a1a;
+  }
+
+  /* all three lines share the middle line's size and color; only weight differs */
+  .captionTitle {
     margin: 0;
+    font-size: 1.05rem;
+    font-weight: 700;
   }
 
-  .footerTextGreen {
-    color: #166534;
+  .captionLine {
+    margin: 0.2rem 0 0;
+    font-size: 1.05rem;
+    font-weight: 400;
   }
 
-  .footerTextRed {
-    color: #334155;
-  }
-
-  .footerTextBlue {
-    color: #1e40af;
-  }
-
-  .footerTextNeutral {
-    color: #334155;
+  .captionSub {
+    margin: 0.2rem 0 0;
+    font-size: 1.05rem;
+    font-weight: 400;
   }
 </style>

@@ -1,0 +1,111 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="228 0 522 398" role="img" aria-label="Retail investors stuffing banknotes into a burning boiler">
+  <defs>
+    <!-- One chibi retail stoker: feet at (0,0), head r=30, trapezoid body, arms tossed forward, holding a banknote -->
+    <g id="stoker">
+      <!-- trapezoid upper body (coal black) -->
+      <path d="M-15 -83 L15 -83 L27 0 L-27 0 Z" fill="#262626" stroke="#262626" stroke-width="6" stroke-linejoin="round" />
+      <!-- arms thrown forward at chest height -->
+      <path d="M-14 -64 L22 -88" stroke="#262626" stroke-width="10" stroke-linecap="round" fill="none" />
+      <path d="M10 -62 L34 -80" stroke="#262626" stroke-width="10" stroke-linecap="round" fill="none" />
+      <!-- big head -->
+      <circle cx="0" cy="-113" r="30" fill="#f3c9a2" />
+      <!-- ears -->
+      <circle cx="-30" cy="-113" r="5" fill="#f3c9a2" />
+      <circle cx="30" cy="-113" r="5" fill="#f3c9a2" />
+      <!-- prominent headband with knot tails (fire red) -->
+      <rect x="-30" y="-132" width="60" height="18" rx="9" fill="#c0392b" stroke="#8c2b2b" stroke-width="1.5" />
+      <path d="M-28 -127 l-14 -3 l5 11 z" fill="#c0392b" />
+      <path d="M-27 -123 l-13 3 l9 6 z" fill="#a83232" />
+      <text x="0" y="-122" font-family="'Noto Sans SC', 'PingFang SC', 'Microsoft YaHei', sans-serif" font-size="13.5" font-weight="800" fill="#ffffff" text-anchor="middle" dominant-baseline="central">股民</text>
+      <!-- pained face -->
+      <path d="M-12 -105 l7 3 M12 -105 l-7 3" stroke="#0d0d0d" stroke-width="2" stroke-linecap="round" fill="none" />
+      <path d="M-5 -91 q5 3 10 0" stroke="#0d0d0d" stroke-width="2" stroke-linecap="round" fill="none" />
+      <!-- hands -->
+      <circle cx="24" cy="-90" r="6" fill="#f3c9a2" />
+      <circle cx="36" cy="-82" r="6" fill="#f3c9a2" />
+      <!-- banknote held forward at chest height -->
+      <g transform="translate(28 -88) rotate(-10)">
+        <rect x="-20" y="-11" width="40" height="21" rx="2.5" fill="#d94b3f" stroke="#a82828" stroke-width="1.8" />
+        <circle cx="0" cy="0" r="6.5" fill="none" stroke="#ffffff" stroke-width="1.6" opacity="0.85" />
+        <text x="0" y="0.5" font-size="11" font-weight="800" fill="#ffffff" text-anchor="middle" dominant-baseline="central">¥</text>
+      </g>
+    </g>
+    <!-- flying banknote -->
+    <g id="bill">
+      <rect x="-19" y="-10" width="38" height="20" rx="2.5" fill="#d94b3f" stroke="#a82828" stroke-width="1.8" />
+      <text x="0" y="0.5" font-size="12" font-weight="800" fill="#ffffff" text-anchor="middle" dominant-baseline="central">¥</text>
+    </g>
+    <!-- sweat drop (scorched) -->
+    <path id="sweat" d="M0 0 c4 5 4 9 0 12 c-4 -3 -4 -7 0 -12 z" fill="#d9827a" />
+  </defs>
+
+  <!-- ============ steam boiler (coal black + fire red) ============ -->
+  <g>
+    <!-- chimney -->
+    <rect x="590" y="38" width="42" height="12" rx="3" fill="#1a1a1a" />
+    <rect x="596" y="48" width="30" height="46" fill="#262626" />
+    <!-- smoke puffs -->
+    <circle cx="600" cy="26" r="10" fill="#4d4d4d" opacity="0.9" />
+    <circle cx="623" cy="17" r="13" fill="#4d4d4d" opacity="0.9" />
+    <circle cx="648" cy="24" r="9" fill="#4d4d4d" opacity="0.9" />
+    <!-- pressure gauge -->
+    <circle cx="540" cy="122" r="13" fill="#1f1f1f" stroke="#c0392b" stroke-width="2.5" />
+    <path d="M540 122 L548 114" stroke="#e74c3c" stroke-width="2.5" stroke-linecap="round" />
+    <!-- riveted cylinder -->
+    <rect x="500" y="90" width="220" height="270" rx="26" fill="#333333" stroke="#0d0d0d" stroke-width="2.5" />
+    <!-- reinforcing bands with rivets -->
+    <rect x="500" y="150" width="220" height="14" fill="#1f1f1f" />
+    <rect x="500" y="230" width="220" height="14" fill="#1f1f1f" />
+    <g fill="#c0392b">
+      <circle cx="516" cy="157" r="2.5" /><circle cx="546" cy="157" r="2.5" /><circle cx="576" cy="157" r="2.5" /><circle cx="606" cy="157" r="2.5" /><circle cx="636" cy="157" r="2.5" /><circle cx="666" cy="157" r="2.5" /><circle cx="696" cy="157" r="2.5" />
+      <circle cx="516" cy="237" r="2.5" /><circle cx="546" cy="237" r="2.5" /><circle cx="576" cy="237" r="2.5" /><circle cx="606" cy="237" r="2.5" /><circle cx="636" cy="237" r="2.5" /><circle cx="666" cy="237" r="2.5" /><circle cx="696" cy="237" r="2.5" />
+    </g>
+    <!-- firebox opening with arch -->
+    <path d="M520 360 v-70 a45 45 0 0 1 90 0 v70 z" fill="#000000" stroke="#c0392b" stroke-width="5" />
+    <!-- heat glow behind the burning pile -->
+    <ellipse cx="565" cy="336" rx="46" ry="28" fill="#e74c3c" opacity="0.4" />
+    <!-- a big pile of banknotes burning in the firebox -->
+    <g>
+      <use href="#bill" transform="translate(541 351) rotate(-8)" />
+      <use href="#bill" transform="translate(568 354) rotate(5)" />
+      <use href="#bill" transform="translate(590 349) rotate(-3)" />
+      <use href="#bill" transform="translate(553 335) rotate(6)" />
+      <use href="#bill" transform="translate(579 333) rotate(-6)" />
+      <use href="#bill" transform="translate(544 319) rotate(-10)" />
+      <use href="#bill" transform="translate(566 316) rotate(3)" />
+      <!-- charred bills at the edge of the pile -->
+      <use href="#bill" transform="translate(586 320) rotate(14) scale(0.9)" />
+      <rect x="528" y="322" width="34" height="18" rx="2" fill="#7d1f1f" stroke="#5a1616" stroke-width="1.5" transform="rotate(-16 545 331)" />
+    </g>
+    <!-- scorching glow over the pile -->
+    <ellipse cx="565" cy="330" rx="42" ry="18" fill="#e74c3c" opacity="0.35" />
+    <!-- flames licking above the money pile -->
+    <path d="M536 322 q-10 -40 16 -60 q0 22 14 26 q12 -22 22 -12 q-6 26 12 44 z" fill="#d63031" />
+    <path d="M552 320 q-6 -26 14 -38 q2 18 12 20 q10 -16 16 -8 q-6 22 8 26 z" fill="#f39c3d" />
+    <!-- fire door swung open toward the shareholders -->
+    <path d="M520 250 L478 268 L478 372 L520 360 z" fill="#8c2b2b" stroke="#5d1a1a" stroke-width="2" />
+    <circle cx="487" cy="320" r="4" fill="#e8b04a" />
+    <!-- brick foundation (charcoal with red seams) -->
+    <path d="M480 390 L500 340 L720 340 L740 390 Z" fill="#262626" stroke="#0d0d0d" stroke-width="2" />
+    <path d="M492 364 h236 M505 350 h210" stroke="#5a1616" stroke-width="2" />
+    <path d="M540 350 v14 M610 350 v14 M680 350 v14 M510 364 v14 M580 364 v14 M650 364 v14" stroke="#5a1616" stroke-width="2" />
+  </g>
+
+  <!-- ============ banknotes flying into the firebox ============ -->
+  <use href="#bill" transform="translate(474 268) rotate(-25)" />
+  <use href="#bill" transform="translate(488 296) rotate(12)" />
+  <use href="#bill" transform="translate(500 322) rotate(-10)" />
+
+  <!-- ============ three shareholders queuing with slight overlap ============ -->
+  <use href="#stoker" x="280" y="380" />
+  <use href="#stoker" x="350" y="380" />
+  <use href="#stoker" x="420" y="380" />
+
+  <!-- sweat drops -->
+  <use href="#sweat" x="314" y="216" />
+  <use href="#sweat" x="384" y="216" />
+  <use href="#sweat" x="454" y="216" />
+
+  <!-- ground -->
+  <path d="M120 392 h700" stroke="#cbd5e0" stroke-width="3" stroke-linecap="round" />
+</svg>
