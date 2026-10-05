@@ -15,7 +15,7 @@ const { posts, basePath } = Astro.props;
   {
     posts.map((post) => (
       <li class="blog-list-item">
-        <a href={`${basePath}/${post.data.slug}/`} class="blog-list-link">
+        <a href={post.data["list-url"] ?? `${basePath}/${post.data.slug}/`} class="blog-list-link">
           {getStatus(post) && <StatusBadge status={getStatus(post)!} />}
           <span class="blog-list-title-text">{post.data.title}</span>
         </a>
