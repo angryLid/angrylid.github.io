@@ -12,7 +12,6 @@ export async function getPresDecks(): Promise<PresDeck[]> {
   const entries = await getCollection("pres");
   const entriesById = new Map<string, CollectionEntry<"pres">>();
   for (const entry of entries) entriesById.set(entry.id, entry);
-  const listedEntryIds = new Set<string>();
   const decks = Object.entries(presentationDecks).map(([slug, manifest]) => {
     const seenSlideIds = new Set<string>();
     if (manifest.slides.length === 0) {
@@ -30,7 +29,6 @@ export async function getPresDecks(): Promise<PresDeck[]> {
       if (!entry) {
         throw new Error(`Missing slide entry "${entryId}" in the pres collection.`);
       }
-      listedEntryIds.add(entryId);
       return entry;
     });
 
@@ -41,11 +39,6 @@ export async function getPresDecks(): Promise<PresDeck[]> {
       deckTitle: manifest.title,
     };
   });
-
-  const unlistedEntryIds = entries.map((entry) => entry.id).filter((id) => !listedEntryIds.has(id));
-  if (unlistedEntryIds.length > 0) {
-    throw new Error(`Unlisted pres collection entries: ${unlistedEntryIds.join(", ")}`);
-  }
 
   return decks;
 }
