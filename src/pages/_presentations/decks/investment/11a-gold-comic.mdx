@@ -1,8 +1,20 @@
 ---
 title: "黄金 · 漫画"
-steps: 1
+steps: 4
 ---
 import ComicLayout from "@pres/components/ComicLayout.astro";
+import panel1 from "./assets/gold/1.jpeg";
+import panel2 from "./assets/gold/2.jpeg";
+import panel3 from "./assets/gold/3.jpeg";
+import panel4 from "./assets/gold/4.jpeg";
 
-{/* Empty on purpose: the panels and notes come later. Images go in assets/gold-comic/. */}
-<ComicLayout title="黄金 · 漫画" panels={[]} />
+<ComicLayout
+  title="黄金 · 漫画"
+  scale={1}
+  panels={[
+    { image: panel1, alt: "A garden full of pea plants outside a neighbor's house." },
+    { image: panel2, alt: "A man imagines his neighbor Dave digging a hole with a shovel." },
+    { image: panel3, alt: "A man offers Dave a gold coin in the garden." },
+    { image: panel4, alt: "Dave walks away with the gold coin as the man lies unconscious." },
+  ]}
+/>
