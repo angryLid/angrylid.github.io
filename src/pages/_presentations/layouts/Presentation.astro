@@ -1,0 +1,720 @@
+---
+import { ClientRouter } from "astro:transitions";
+import PresHead from "@pres/components/PresHead.astro";
+
+interface SlideMeta {
+  title: string;
+  pageNo: number;
+}
+
+interface Props {
+  slug: string;
+  pageNo: number;
+  total: number;
+  steps: number;
+  deckTitle: string;
+  title: string;
+  /** Deck metadata for the sidebar; thumbnails hydrate lazily from /document/. */
+  slides: SlideMeta[];
+}
+
+const { slug, pageNo, total, steps, deckTitle, title, slides } = Astro.props;
+const fullTitle = `${deckTitle} — ${title} (${pageNo}/${total})`;
+---
+
+<!doctype html>
+<html lang="en">
+  <PresHead title={fullTitle}>
+    <ClientRouter />
+  </PresHead>
+
+  <style is:global>
+    html,
+    body {
+      height: 100%;
+      overflow: hidden;
+    }
+
+    body {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    /* 16:9 stage — largest 16/9 rectangle that fits the viewport */
+      .slide-stage {
+        width: min(100vw, calc(100vh * 16 / 9));
+        aspect-ratio: 16 / 9;
+        position: relative;
+        overflow: hidden;
+      }
+
+      /* Fixed 1280×720 design canvas, scaled to fit the stage.
+         position:absolute also establishes the positioning context for
+         slide-content position:absolute (e.g. reveal answers). */
+      .slide-inner {
+        width: 1280px;
+        height: 720px;
+        transform-origin: top left;
+        transform: scale(var(--s, 1));
+        position: absolute;
+        top: 0;
+        left: 0;
+      }
+
+      /* Slide-level indicator (bottom-right) */
+      .pres-indicator {
+        position: fixed;
+        right: 1rem;
+        bottom: 0.75rem;
+        font-size: 0.8rem;
+        color: var(--gray);
+        opacity: 0.6;
+        font-family: "Cascadia Code", monospace;
+      }
+
+      /* ============================ Sidebar ============================ */
+      /* Slide-sorter drawer, hidden by default, toggled with the `g` key. */
+      /* Scrim / mask behind the drawer — dims the stage so the drawer reads
+         as a proper modal overlay. */
+      .pres-scrim {
+        position: fixed;
+        inset: 0;
+        background: rgba(0, 0, 0, 0.35);
+        opacity: 0;
+        visibility: hidden;
+        transition:
+          opacity 0.28s ease,
+          visibility 0.28s;
+        z-index: 90;
+      }
+      .pres-sidebar[data-open] ~ .pres-scrim {
+        opacity: 1;
+        visibility: visible;
+      }
+      .pres-sidebar {
+        position: fixed;
+        left: 0;
+        top: 0;
+        bottom: 0;
+        width: min(340px, 84vw);
+        background: var(--white);
+        border-right: 1px solid rgba(0, 0, 0, 0.08);
+        box-shadow: 4px 0 16px rgba(0, 0, 0, 0.12);
+        z-index: 100;
+        display: flex;
+        flex-direction: column;
+        transform: translateX(-100%);
+        visibility: hidden;
+        transition:
+          transform 0.28s ease,
+          visibility 0.28s;
+      }
+      .pres-sidebar[data-open] {
+        transform: translateX(0);
+        visibility: visible;
+      }
+      .sidebar-header {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        padding: 0.9rem 1rem;
+        border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+        flex: none;
+      }
+      .sidebar-title {
+        font-weight: 600;
+        color: var(--dark-mint);
+        font-size: 0.95rem;
+        flex: 1;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+      .sidebar-close {
+        border: none;
+        background: transparent;
+        font-size: 1.1rem;
+        line-height: 1;
+        color: var(--gray);
+        cursor: pointer;
+        padding: 0.25rem 0.4rem;
+        border-radius: var(--border-radius);
+      }
+      .sidebar-close:hover {
+        background: rgba(0, 0, 0, 0.06);
+      }
+      .sidebar-scroll {
+        flex: 1;
+        overflow-y: auto;
+        padding: 0.75rem;
+        display: flex;
+        flex-direction: column;
+        gap: 0.6rem;
+      }
+      .sidebar-item {
+        display: flex;
+        align-items: flex-start;
+        gap: 0.6rem;
+        text-align: left;
+        border: none;
+        background: transparent;
+        padding: 0.4rem;
+        border-radius: var(--border-radius);
+        cursor: pointer;
+        font: inherit;
+        color: var(--gray);
+      }
+      .sidebar-item:hover {
+        background: rgba(0, 0, 0, 0.05);
+      }
+      .sidebar-item[data-current] {
+        background: rgba(34, 139, 34, 0.1);
+        outline: 2px solid var(--dark-mint);
+      }
+      .item-num {
+        flex: none;
+        width: 1.6rem;
+        height: 1.6rem;
+        display: grid;
+        place-items: center;
+        border-radius: 50%;
+        background: var(--light-gray);
+        border: 1px solid rgba(0, 0, 0, 0.12);
+        font-size: 0.75rem;
+        font-family: "Cascadia Code", monospace;
+      }
+      .sidebar-item[data-current] .item-num {
+        background: var(--dark-mint);
+        color: var(--white);
+        border-color: var(--dark-mint);
+      }
+      .item-thumb {
+        flex: none;
+      }
+      .item-thumb .preview-stage {
+        width: 150px;
+      }
+      /* Thumbnails hydrate lazily from /document/; dim the frame until filled. */
+      .sidebar-item:not([data-ready]) .item-thumb {
+        opacity: 0.4;
+      }
+      .item-title {
+        font-size: 0.85rem;
+        line-height: 1.3;
+        padding-top: 0.15rem;
+        flex: 1;
+      }
+      /* thumbnail scaling — faithful miniature of the 1280x720 design */
+      .preview-stage {
+        position: relative;
+        aspect-ratio: 16 / 9;
+        overflow: hidden;
+        background: var(--light-gray);
+        border-radius: 6px;
+        border: 1px solid rgba(0, 0, 0, 0.08);
+      }
+      .preview-inner {
+        width: 1280px;
+        height: 720px;
+        transform-origin: top left;
+        transform: scale(var(--s, 1));
+        position: absolute;
+        top: 0;
+        left: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: var(--light-gray);
+      }
+    </style>
+  <body
+    data-slug={slug}
+    data-page-no={String(pageNo)}
+    data-total={String(total)}
+    data-steps={String(steps)}
+    data-step="0"
+  >
+    <div class="slide-stage">
+      <div class="slide-inner">
+        <main class="slide">
+          <slot />
+        </main>
+      </div>
+    </div>
+    <div class="pres-indicator">{pageNo} / {total}</div>
+
+    <div class="pres-sidebar" id="pres-sidebar" aria-label="Slide navigation" aria-hidden="true">
+      <div class="sidebar-header">
+        <span class="sidebar-title">{deckTitle}</span>
+        <button type="button" class="sidebar-close" id="sidebar-close" aria-label="Close sidebar">
+          ✕
+        </button>
+      </div>
+      <div class="sidebar-scroll">
+        {
+          slides.map(({ title, pageNo: p }) => (
+            <button
+              type="button"
+              class="sidebar-item"
+              data-page={p}
+              data-current={pageNo === p ? "" : undefined}
+            >
+              <span class="item-num">{p}</span>
+              <span class="item-thumb preview-stage">
+                <span class="preview-inner"></span>
+              </span>
+              <span class="item-title">{title}</span>
+            </button>
+          ))
+        }
+      </div>
+    </div>
+    <div class="pres-scrim" id="pres-scrim"></div>
+  </body>
+</html>
+
+<script>
+  import { navigate } from "astro:transitions/client";
+  import { prefetch } from "astro:prefetch";
+  import {
+    computeSteps as computeSharedSteps,
+    syncVisibility,
+  } from "@pres/lib/pres-visibility";
+
+  // ---------------- BroadcastChannel (module scope; survives swaps) ----------------
+  // Syncs the main slide window with the presenter-view popup. BC does not echo
+  // back to the sender, so broadcasting on local action + applying silently on
+  // receive cannot loop.
+  const channel = new BroadcastChannel("pres-speaker");
+  let navigatingTo: number | null = null; // destination pageNo during in-flight navigate
+  let pendingStep: number | null = null; // step to apply once that page loads
+  let navSource: "local" | "sync" | null = null; // who triggered the in-flight navigate
+
+  function currentSlug(): string {
+    return document.body.dataset.slug ?? "";
+  }
+  function readState() {
+    const b = document.body;
+    return {
+      slug: b.dataset.slug ?? "",
+      pageNo: parseInt(b.dataset.pageNo ?? "", 10),
+      step: parseInt(b.dataset.step ?? "0", 10),
+      total: parseInt(b.dataset.total ?? "0", 10),
+    };
+  }
+  function broadcastState(): void {
+    const s = readState();
+    if (!s.slug) return;
+    channel.postMessage({ kind: "state", ...s });
+  }
+
+  channel.onmessage = (e: MessageEvent) => {
+    const msg = e.data;
+    if (!msg || msg.slug !== currentSlug()) return;
+    if (msg.kind === "request-state") {
+      broadcastState();
+      return;
+    }
+    if (msg.kind !== "state") return;
+    const body = document.body;
+    if (!body.dataset.slug) return;
+    const myPage = parseInt(body.dataset.pageNo ?? "", 10);
+    if (navigatingTo != null) {
+      // mid-navigate: only remember the destination step, ignore the rest
+      if (msg.pageNo === navigatingTo) pendingStep = msg.step;
+      return;
+    }
+    if (msg.pageNo !== myPage) {
+      navigatingTo = msg.pageNo;
+      navSource = "sync";
+      pendingStep = msg.step;
+      navigate(`/pres/${currentSlug()}/live/${msg.pageNo}/`);
+    } else {
+      setStep(msg.step); // silent apply, no re-broadcast
+    }
+  };
+
+  // ---------------- lazy sidebar thumbnails ----------------
+  // Sidebar thumbnails used to be server-rendered into every live page, which
+  // shipped the whole deck's markup with each page turn and eagerly loaded
+  // every slide's images — the dominant production page-turn stutter. Instead,
+  // each page ships only its own slide and /document/ (the whole-deck page) is
+  // fetched at most once per session as the thumbnail source; its stylesheet
+  // links are injected too, because the scoped styles of slides other than the
+  // current one are only bundled into /document/.
+  const docSources = new Map<string, Document>();
+  const docFetches = new Map<string, Promise<Document | null>>();
+
+  async function ensureDocDoc(slug: string): Promise<Document | null> {
+    const cached = docSources.get(slug);
+    if (cached) return cached;
+    const inFlight = docFetches.get(slug);
+    if (inFlight) return inFlight;
+    const promise = fetch(`/pres/${slug}/document/`)
+      .then((res) => (res.ok ? res.text() : null))
+      .then((text) => {
+        if (!text) return null;
+        const doc = new DOMParser().parseFromString(text, "text/html");
+        docSources.set(slug, doc);
+        return doc;
+      })
+      .catch(() => null);
+    docFetches.set(slug, promise);
+    return promise;
+  }
+
+  async function hydrateSidebarThumbs(): Promise<void> {
+    const slug = currentSlug();
+    if (!slug) return;
+    const doc = await ensureDocDoc(slug);
+    if (!doc) return;
+
+    const have = new Set(
+      Array.from(
+        document.querySelectorAll<HTMLLinkElement>("link[rel=stylesheet]"),
+        (l) => l.getAttribute("href"),
+      ),
+    );
+    for (const l of Array.from(doc.querySelectorAll<HTMLLinkElement>("link[rel=stylesheet]"))) {
+      const href = l.getAttribute("href");
+      if (href && !have.has(href)) {
+        have.add(href);
+        const link = document.createElement("link");
+        link.rel = "stylesheet";
+        link.href = href;
+        document.head.append(link);
+      }
+    }
+
+    const stages = doc.querySelectorAll(".slide-block .preview-stage");
+    document.querySelectorAll<HTMLElement>(".pres-sidebar .sidebar-item").forEach((item, idx) => {
+      const thumbInner = item.querySelector<HTMLElement>(".item-thumb .preview-inner");
+      const srcInner = stages[idx]?.querySelector<HTMLElement>(".preview-inner");
+      if (!thumbInner || !srcInner || thumbInner.childElementCount > 0) return;
+      // Clone before insertion so loading=lazy applies before any img fires.
+      const clone = srcInner.cloneNode(true) as HTMLElement;
+      clone.querySelectorAll<HTMLImageElement>("img").forEach((img) => {
+        img.setAttribute("loading", "lazy");
+        img.setAttribute("decoding", "async");
+      });
+      clone.querySelectorAll("[data-anim]").forEach((el) => el.setAttribute("data-visible", ""));
+      thumbInner.replaceChildren(clone);
+      item.setAttribute("data-ready", "");
+    });
+    scaleSidebarThumbs();
+  }
+
+  function scheduleIdle(cb: () => void): void {
+    // typeof-guard: TS6 'in' narrowing reduces window to never in the else branch.
+    if (typeof requestIdleCallback === "function") {
+      requestIdleCallback(cb, { timeout: 4000 });
+    } else {
+      window.setTimeout(cb, 600);
+    }
+  }
+
+  // ---------------- neighbor prefetch ----------------
+  // The page-turn navigate() is a cold WAN roundtrip unless the target document
+  // is already in the HTTP cache; warm the ±1 neighbors after each page load.
+  // astro:prefetch keeps the data-saver / slow-connection safeguards.
+  function prefetchNeighbors(): void {
+    const body = document.body;
+    const slug = body.dataset.slug;
+    if (!slug) return;
+    const pageNo = parseInt(body.dataset.pageNo ?? "", 10);
+    const total = parseInt(body.dataset.total ?? "", 10);
+    if (pageNo + 1 <= total) void prefetch(`/pres/${slug}/live/${pageNo + 1}/`);
+    if (pageNo - 1 >= 1) void prefetch(`/pres/${slug}/live/${pageNo - 1}/`);
+  }
+
+  // ---------------- slide helpers ----------------
+  // The audience slide lives inside .slide-stage. The sidebar drawer also
+  // renders every slide in the deck as off-canvas thumbnails, so we must scope
+  // step/visibility logic to the stage slide only — otherwise data-anim elements
+  // from all slides pollute the step count and make page turns feel sluggish.
+  function currentSlide(): HTMLElement | null {
+    return document.querySelector(".slide-stage .slide");
+  }
+
+  function computeSteps(root: HTMLElement): number {
+    const frontmatterSteps = parseInt(document.body.dataset.steps ?? "", 10);
+    return computeSharedSteps(root, frontmatterSteps);
+  }
+
+  function setStep(step: number): void {
+    const body = document.body;
+    body.dataset.step = String(step);
+    const slide = currentSlide();
+    if (slide) syncVisibility(slide, step);
+  }
+
+  function goNext(): void {
+    const body = document.body;
+    const pageNo = parseInt(body.dataset.pageNo ?? "", 10);
+    const total = parseInt(body.dataset.total ?? "", 10);
+    const steps = computeSteps(currentSlide() ?? body);
+    const step = parseInt(body.dataset.step ?? "0", 10);
+    if (step < steps - 1) {
+      setStep(step + 1);
+      broadcastState();
+    } else if (pageNo < total) {
+      navigatingTo = pageNo + 1;
+      navSource = "local";
+      pendingStep = null;
+      navigate(`/pres/${currentSlug()}/live/${pageNo + 1}/`);
+    }
+  }
+
+  function goPrev(): void {
+    const body = document.body;
+    const pageNo = parseInt(body.dataset.pageNo ?? "", 10);
+    const step = parseInt(body.dataset.step ?? "0", 10);
+    if (step > 0) {
+      setStep(step - 1);
+      broadcastState();
+    } else if (pageNo > 1) {
+      // own-keyboard back-nav: same-window restore flag still works
+      sessionStorage.setItem(
+        `pres-restore-${currentSlug()}-${pageNo - 1}`,
+        "last",
+      );
+      navigatingTo = pageNo - 1;
+      navSource = "local";
+      pendingStep = null;
+      navigate(`/pres/${currentSlug()}/live/${pageNo - 1}/`);
+    }
+  }
+
+  function openPresenter(): void {
+    const s = readState();
+    if (!s.slug) return;
+    window.open(
+      `/pres/${s.slug}/speaker/?page=${s.pageNo}`,
+      "pres-speaker",
+      "width=1280,height=800",
+    );
+  }
+
+  // ---------------- sidebar (slide sorter) ----------------
+  const sidebarStateKey = (slug: string) => `pres-sidebar-${slug}`;
+
+  function getSidebar(): HTMLElement | null {
+    return document.getElementById("pres-sidebar");
+  }
+
+  function scaleSidebarThumbs(): void {
+    document
+      .querySelectorAll(".pres-sidebar .preview-stage")
+      .forEach((stage) => {
+        const inner = stage.querySelector(
+          ".preview-inner",
+        ) as HTMLElement | null;
+        if (inner)
+          inner.style.setProperty("--s", String(stage.clientWidth / 1280));
+      });
+  }
+
+  function openSidebar(): void {
+    const sb = getSidebar();
+    if (sb) {
+      sb.setAttribute("data-open", "");
+      sb.setAttribute("aria-hidden", "false");
+      sb.querySelector(".sidebar-item[data-current]")?.scrollIntoView({
+        block: "nearest",
+      });
+    }
+    sessionStorage.setItem(sidebarStateKey(currentSlug()), "1");
+    void hydrateSidebarThumbs();
+  }
+
+  function closeSidebar(): void {
+    const sb = getSidebar();
+    if (sb) {
+      sb.removeAttribute("data-open");
+      sb.setAttribute("aria-hidden", "true");
+    }
+    sessionStorage.removeItem(sidebarStateKey(currentSlug()));
+  }
+
+  function toggleSidebar(): void {
+    const sb = getSidebar();
+    if (sb && sb.hasAttribute("data-open")) closeSidebar();
+    else openSidebar();
+  }
+
+  function initSidebar(): void {
+    const sb = getSidebar();
+    if (!sb) return;
+
+    // Restore open/closed state across view-transition navigations.
+    if (sessionStorage.getItem(sidebarStateKey(currentSlug())) === "1") {
+      sb.setAttribute("data-open", "");
+      sb.setAttribute("aria-hidden", "false");
+      sb.querySelector(".sidebar-item[data-current]")?.scrollIntoView({
+        block: "nearest",
+      });
+    }
+    // Thumbs re-hydrate right away if the drawer spans a page swap.
+    if (sb.hasAttribute("data-open")) void hydrateSidebarThumbs();
+
+    // Rescale thumbnails to their container width (sidebar is resizable via vw).
+    const ro = new ResizeObserver(() => scaleSidebarThumbs());
+    sb.querySelectorAll(".preview-stage").forEach((s) => ro.observe(s));
+    scaleSidebarThumbs();
+
+    sb.querySelector("#sidebar-close")?.addEventListener("click", closeSidebar);
+
+    // Clicking the scrim/mask closes the drawer.
+    document.getElementById("pres-scrim")?.addEventListener("click", closeSidebar);
+
+
+    sb.querySelectorAll(".sidebar-item").forEach((btn) => {
+      btn.addEventListener("click", () => {
+        const p = parseInt(btn.getAttribute("data-page") ?? "", 10);
+        if (Number.isNaN(p)) return;
+        const cur = parseInt(document.body.dataset.pageNo ?? "", 10);
+        if (p === cur) {
+          closeSidebar();
+          return;
+        }
+        // Selecting a slide closes the drawer (drops the open-state so it
+        // won't reopen on the target page), then navigates there.
+        closeSidebar();
+        navigatingTo = p;
+        navSource = "local";
+        pendingStep = null;
+        navigate(`/pres/${currentSlug()}/live/${p}/`);
+      });
+    });
+  }
+
+  function initSlide(): void {
+    const body = document.body;
+    if (!body.dataset.slug) return;
+
+    const slug = body.dataset.slug;
+    const pageNo = parseInt(body.dataset.pageNo ?? "", 10);
+    const steps = computeSteps(currentSlide() ?? body);
+
+    let step = 0;
+    // Back-nav restore (own-keyboard): previous page set the flag → land on last step.
+    const restoreKey = `pres-restore-${slug}-${pageNo}`;
+    if (sessionStorage.getItem(restoreKey) === "last") {
+      step = steps - 1;
+      sessionStorage.removeItem(restoreKey);
+    }
+
+    // Sync-driven navigation overrides the step with the carried pendingStep.
+    const wasNav = navigatingTo === pageNo;
+    const source = navSource;
+    if (wasNav) {
+      navigatingTo = null;
+      navSource = null;
+    }
+    if (wasNav && pendingStep != null) {
+      step = pendingStep;
+      pendingStep = null;
+    }
+
+    body.dataset.step = String(step);
+    const slide = currentSlide();
+    if (slide) syncVisibility(slide, step);
+
+    // Only broadcast for local navigations; sync navigations stay silent.
+    if (wasNav && source === "local") broadcastState();
+  }
+
+  function onKeyDown(e: KeyboardEvent): void {
+    const body = document.body;
+    if (!body.dataset.slug) return;
+
+    // Shift+Enter toggles fullscreen on the presentation.
+    if (e.key === "Enter" && e.shiftKey) {
+      e.preventDefault();
+      if (document.fullscreenElement) {
+        void document.exitFullscreen();
+      } else {
+        void document.documentElement.requestFullscreen().catch(() => {});
+      }
+      return;
+    }
+
+    // Shift+S opens the presenter-view popup.
+    if (e.key === "S" && e.shiftKey && !e.ctrlKey && !e.metaKey && !e.altKey) {
+      e.preventDefault();
+      openPresenter();
+      return;
+    }
+
+    // `g` toggles the sidebar slide sorter (g for gallery).
+    if (e.key === "g" && !e.shiftKey && !e.ctrlKey && !e.metaKey && !e.altKey) {
+      e.preventDefault();
+      toggleSidebar();
+      return;
+    }
+
+    // Escape closes the sidebar if it is open.
+    if (e.key === "Escape") {
+      const sb = getSidebar();
+      if (sb && sb.hasAttribute("data-open")) {
+        e.preventDefault();
+        closeSidebar();
+        return;
+      }
+    }
+
+    if (e.key === "ArrowRight" || e.key === "ArrowDown") {
+      e.preventDefault();
+      goNext();
+    } else if (e.key === "ArrowLeft" || e.key === "ArrowUp") {
+      e.preventDefault();
+      goPrev();
+    }
+  }
+
+  // ---------------- slide canvas scaling ----------------
+  // Scale the fixed 1280×720 design canvas to fit the .slide-stage.
+  // Observer is disconnected on each view-transition swap to avoid leaks.
+  let scaleRO: ResizeObserver | null = null;
+
+  function initScale(): void {
+    if (scaleRO) {
+      scaleRO.disconnect();
+      scaleRO = null;
+    }
+    const stage = document.querySelector(
+      ".slide-stage",
+    ) as HTMLElement | null;
+    const inner = stage?.querySelector(
+      ".slide-inner",
+    ) as HTMLElement | null;
+    if (!stage || !inner) return;
+    const update = () =>
+      inner.style.setProperty("--s", String(stage.clientWidth / 1280));
+    update();
+    scaleRO = new ResizeObserver(update);
+    scaleRO.observe(stage);
+  }
+
+  // Bundled module script runs once per session. document persists across
+  // view-transition swaps, so these listeners survive all navigations without
+  // accumulating. astro:page-load re-initializes per page using fresh body data.
+  document.addEventListener("astro:page-load", () => {
+    initSlide();
+    initScale();
+    initSidebar();
+    prefetchNeighbors();
+    scheduleIdle(() => {
+      // Warm the thumbnail source in the idle window: prefetch() fills the
+      // HTTP cache (data-saver-aware), then hydrate reads from it.
+      const slug = currentSlug();
+      if (!slug) return;
+      void Promise.resolve(prefetch(`/pres/${slug}/document/`)).then(
+        () => void hydrateSidebarThumbs(),
+        () => void hydrateSidebarThumbs(),
+      );
+    });
+  });
+  document.addEventListener("keydown", onKeyDown);
+</script>

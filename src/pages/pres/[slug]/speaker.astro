@@ -1,25 +1,25 @@
 ---
 import { type CollectionEntry, render } from "astro:content";
-import PresHead from "@components/PresHead.astro";
-import SlideFrame from "@components/SlideFrame.astro";
-import { getPresDecks } from "@utils/pres";
+import PresHead from "@pres/components/PresHead.astro";
+import SlideFrame from "@pres/components/SlideFrame.astro";
+import { getPresDecks } from "@pres/lib/pres";
 
 export async function getStaticPaths() {
   const decks = await getPresDecks();
-  return decks.map(({ slug, slides, total, presTitle }) => ({
+  return decks.map(({ slug, slides, total, deckTitle }) => ({
     params: { slug },
-    props: { slides, total, presTitle },
+    props: { slides, total, deckTitle },
   }));
 }
 
 interface Props {
   slides: CollectionEntry<"pres">[];
   total: number;
-  presTitle: string;
+  deckTitle: string;
 }
 
 const { slug } = Astro.params;
-const { slides, total, presTitle } = Astro.props;
+const { slides, total, deckTitle } = Astro.props;
 const rendered = await Promise.all(
   slides.map(async (entry) => {
     const { Content } = await render(entry);
@@ -30,7 +30,7 @@ const rendered = await Promise.all(
 
 <!doctype html>
 <html lang="en">
-  <PresHead title={`${presTitle} — Presenter`} />
+  <PresHead title={`${deckTitle} — Presenter`} />
 
   <style is:global>
     html,
@@ -166,7 +166,7 @@ const rendered = await Promise.all(
   <body data-slug={slug} data-total={String(total)}>
     <div class="presenter">
       <div class="topbar">
-        <h1>{presTitle}</h1>
+        <h1>{deckTitle}</h1>
         <div class="page-titles">
           <span class="page-title current-page-title"
             ><span class="label">当前页:</span><b id="current-title"></b
@@ -208,8 +208,8 @@ const rendered = await Promise.all(
       import {
         computeSteps as computeSharedSteps,
         syncVisibility,
-      } from "../../../utils/pres-visibility";
-      import { extractNotes } from "../../../utils/pres-notes";
+      } from "../../_presentations/lib/pres-visibility";
+      import { extractNotes } from "../../_presentations/lib/pres-notes";
 
       const channel = new BroadcastChannel("pres-speaker");
       const slug = document.body.dataset.slug ?? "";

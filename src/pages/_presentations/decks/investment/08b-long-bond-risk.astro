@@ -1,0 +1,231 @@
+---
+import PresentationLayout from "@pres/components/PresentationLayout.astro";
+---
+
+<PresentationLayout
+  eyebrow="债券"
+  title="长期国债的利率敞口"
+  narrow
+>
+  <div class="root">
+
+    <div class="introBox">
+      {/* 核心理念 */}
+      <p class="coreHeaderText">
+        利率上升1% 📈，长期国债价格会跌约 20% 📉
+      </p>
+
+      {/* 粗略公式 */}
+      <p class="formulaText">
+        价格波动&nbsp;≈&nbsp;久期&nbsp;×&nbsp;利率变动&nbsp;=&nbsp;<b>20 年&nbsp;×&nbsp;1%</b>&nbsp;≈&nbsp;<b>20%</b>
+      </p>
+    </div>
+
+    {/* 张三的例子 —— 三段时间线，从上到下 */}
+    <div class="timeline">
+
+      {/* 段1：买入 */}
+      <div class="segRow segBuy">
+        <div class="segYear">
+          <p class="segYearTag">第 0 年 · 买入</p>
+          <p class="segAmount segAmountBlue">100 元</p>
+        </div>
+        <div class="segBody segBodyDefault">
+          <p class="segText segTextDefault">张三买一张 30 年期、利率 4% 的国债，30 年后到手的本息约为 <b>100 + 120 = 220 元</b></p>
+        </div>
+      </div>
+
+      <div class="segSplit">
+      {/* 段2：市场变化 */}
+      <div class="segRow segMarket">
+        <div class="segYear">
+          <p class="segYearTag">第 1 年 · 市场新发</p>
+          <p class="segAmount segAmountGray">利率 5%</p>
+        </div>
+        <div class="segBody segBodyDefault">
+          <p class="segText segTextDefault">市场新发一张 30 年期、利率 5% 的国债，同样 100 元，30 年后本息约为 <b>250 元</b></p>
+        </div>
+      </div>
+
+      {/* 段3：折价卖出 */}
+      <div class="segRow segSell">
+        <div class="segYear">
+          <p class="segYearTagRed">第 1 年 · 折价卖</p>
+          <p class="segAmount segAmountRed">约 80 元</p>
+        </div>
+        <div class="segBody segBodyRed">
+          <p class="segText segTextRed">新债 100 元得 250 → 张三的债只能打折：买卖差价约 <b>100 → 80，跌约 20%</b></p>
+        </div>
+        </div>
+      </div>
+    </div>
+
+    {/* 结论 */}
+    <div class="conclusion">
+      <p class="conclusionNote">
+        ※ 以上为粗略计算：假设到期一次性付息（票息不入再投资），且未考虑折现率，数值仅供演示方向。
+      </p>
+    </div>
+  </div>
+</PresentationLayout>
+
+<style>
+  /* ---- page-specific: 08b-long-bond-risk ---- */
+  .root {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 1.1rem;
+  }
+
+  /* Intro box: question + formula, one block, no divider */
+  .introBox {
+    padding: 0.85rem 1.4rem;
+    border: 1px solid #bfdbfe;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    gap: 0.45rem;
+  }
+
+  .coreHeaderText {
+    margin: 0;
+    font-size: 1.5rem;
+    font-weight: 800;
+    color: #1e40af;
+    line-height: 1.3;
+  }
+
+  .formulaText {
+    margin: 0;
+    font-size: 1.5rem;
+    font-weight: 800;
+    color: #1e40af;
+    line-height: 1.35;
+    letter-spacing: 0.02em;
+  }
+
+  /* Timeline of three segments */
+  .timeline {
+    flex: 1;
+    min-height: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    border: 1px solid #dbe3ef;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.07);
+  }
+
+  /* Side-by-side split for market/sell segments */
+  .segSplit {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0;
+    flex: 1;
+    min-height: 0;
+  }
+
+  .segSplit .segRow {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.4rem;
+  }
+
+  .segSplit .segYear {
+    width: auto;
+  }
+
+  .segSplit .segBody {
+    padding-left: 0;
+  }
+
+  /* Segment row */
+  .segRow {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 1.1rem;
+    padding: 1.1rem 1.3rem;
+  }
+
+  .segBuy {
+    border-bottom: 1px dashed #b6c6e3;
+  }
+
+  .segMarket {
+    border-right: 1px dashed #cbd2d9;
+  }
+
+  .segYear {
+    flex: 0 0 auto;
+    width: 9.5rem;
+  }
+
+  .segYearTag {
+    margin: 0;
+    font-size: 1.05rem;
+    color: #64748b;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+  }
+
+  .segYearTagRed {
+    margin: 0;
+    font-size: 1.05rem;
+    color: #7f1d1d;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+  }
+
+  .segAmount {
+    margin: 0.2rem 0 0 0;
+    font-size: 2.1rem;
+    font-weight: 800;
+    line-height: 1.1;
+  }
+
+  .segAmountBlue {
+    color: #1e40af;
+  }
+
+  .segAmountGray {
+    color: #34495e;
+  }
+
+  .segAmountRed {
+    color: #c0392b;
+  }
+
+  .segBody {
+    flex: 1;
+    min-width: 0;
+    padding-left: 1.1rem;
+  }
+
+  .segText {
+    margin: 0;
+    font-size: 1.2rem;
+    line-height: 1.6;
+  }
+
+  .segTextDefault {
+    color: #334155;
+  }
+
+  .segTextRed {
+    color: #7f1d1d;
+  }
+
+  /* Conclusion */
+  .conclusion {
+    padding: 0.9rem 1.3rem;
+    text-align: right;
+  }
+
+  .conclusionNote {
+    margin: 0;
+    font-size: 1rem;
+    color: #9a6a6a;
+    line-height: 1.45;
+  }
+</style>

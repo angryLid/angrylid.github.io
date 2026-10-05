@@ -35,21 +35,15 @@ pnpm typecheck
 
 ### Project Structure
 
-- `content/` - Blog articles in Markdown/MDX format, plus `.astro` table components that render CSV data via DataTable (`anime-from-notion/AnimeTable.astro`, `bilibili-dump/BilibiliDump.astro`); `content/pres/[slug]/NN-*.mdx` - one MDX file per presentation slide
+- `content/` - Blog articles in Markdown/MDX format, plus `.astro` table components that render CSV data via DataTable (`anime-from-notion/AnimeTable.astro`, `bilibili-dump/BilibiliDump.astro`)
 - `src/pages/` - Astro page components and routing
   - `index.astro` - Posts listing (title "Posts")
   - `posts/[...slug].astro` - Dynamic blog post route
   - `pres/[slug]/live/[pageNo].astro` - Dynamic slide route (one static HTML per slide)
   - `pres/[slug]/speaker.astro` - Speaker-view popup (pre-renders all slides; BroadcastChannel-synced to the main window)
-- `src/layouts/` - Layout components
-  - `Layout.astro` - Base HTML shell (Header + slot + footer)
-  - `IndexLayout.astro` - Centered container with sr-only h1
-  - `BlogPost.astro` - Markdown body wrapper for posts
-  - `Presentation.astro` - Fullscreen slide layout (no header/footer); `<ClientRouter />` for view transitions, `data-anim`/`data-step` reveal system, bundled keyboard script (arrows, Shift+Enter fullscreen, Shift+S open presenter, BroadcastChannel sync)
-- `src/components/` - Reusable components
-  - `Header.astro` - Brand-only top banner
-  - `BlogList.astro` - Post listing
-  - `Notes.astro` - Speaker-notes wrapper (renders `<template class="speaker-notes">`; inert on audience slides, cloned into the presenter-view notes panel)
+  - `_presentations/` - Private presentation source tree (underscore prefix prevents file-based routes); contains deck MDX/Astro files and assets, ordered deck manifests, presentation components/layouts, and presentation helpers
+- `src/components/` - Shared site components
+  - `Header.astro`, `BlogList.astro`, `StatusBadge.astro` - Site chrome and blog-list components
   - `DataTable/` - Reusable table island split by server/client boundary
     - `DataTable.astro` - SERVER wrapper; public API consumers import this. Runs `render`/`format` at build time and ships a serialized `DataTablePayload` of pre-rendered HTML to the island
     - `DataTable.client.tsx` - CLIENT React island entry (hydrated via `client:visible`); orchestrator only
@@ -57,12 +51,13 @@ pnpm typecheck
     - `types.ts` - Shared types sectioned by boundary: seam (`ColumnType`, `Serialized*`, `DataTablePayload`), server-only (`Column`, `Props`), client-only (`FilterOp`, `FilterRule`, `SortRule`)
     - `logic.ts` - Client-only pure helpers (`compare`, `matchesFilter`, `opsForType`, `findCol`, `colIndexByKey`, `newId`)
     - `FilterForm.tsx` / `SortForm.tsx` / `HeaderMenu.tsx` - Client sub-components used by the island
+- `src/layouts/` - Shared site layouts (`Layout.astro`, `IndexLayout.astro`, `BlogPost.astro`); the presentation layout lives under `src/pages/_presentations/layouts/`
 - `src/utils/date.ts` - Date formatting helpers
 - `src/utils/csv.ts` - `parseCSV` (RFC-style quoted/multiline CSV parser) shared by both table components
 - `src/utils/html.ts` - `escapeHtml` helper used by DataTable render functions
-- `src/content.config.ts` - Content collections: `blog` (glob `*.{md,mdx}` at `./content/`, no schema) and `pres` (glob `**/*.mdx` at `./content/pres/`, schema: `title`/`steps`/`presTitle`)
+- `src/content.config.ts` - Content collections: `blog` (glob `*.{md,mdx}` at `./content/`, no schema) and `pres` (glob `**/*.mdx` at `./src/pages/_presentations/decks/`, schema: `title`/`steps`); `src/pages/_presentations/deck.ts` lists presentation titles and ordered slide IDs
 - `astro.config.mjs` - Markdown plugins (remark-github-blockquote-alert, remark-math, rehype-katex) built via `unified()`, plus MDX and React integrations
-- `tsconfig.json` - TypeScript config with path aliases (@components, @layouts, @utils) and `jsx: react-jsx` / `jsxImportSource: react` for React islands
+- `tsconfig.json` - TypeScript config with path aliases (@components, @layouts, @utils, @pres) and `jsx: react-jsx` / `jsxImportSource: react` for React islands
 - `.nojekyll` - Disables Jekyll processing on GitHub Pages
 
 ### Key Features
@@ -77,10 +72,10 @@ pnpm typecheck
 ### Presentation Mode
 
 - **Routes**: `/pres/[slug]/live/[pageNo]/` (one static HTML per slide), `/pres/[slug]/speaker/` (speaker-view popup), `/pres/[slug]/document/` (whole deck as a scrollable document, embedded in blog posts)
-- **Slide content**: MDX per slide at `content/pres/[slug]/NN-name.mdx` in the `pres` collection. Slides use `data-anim="N"` on elements for progressive reveal; frontmatter `steps` declares the step count (defaults to 1; JS also scans `max(data-anim)+1` as a fallback). Slide CSS must avoid `vh`/`vw`/`vmin`/`vmax` — they reference the popup viewport rather than the 1280×720 design size and break the scaled preview; use `rem`/`em`/`%`/`px`
+- **Slide content**: MDX per slide at `src/pages/_presentations/decks/[slug]/NN-name.mdx` in the `pres` collection. Slides use `data-anim="N"` on elements for progressive reveal; frontmatter `steps` declares the step count (defaults to 1; JS also scans `max(data-anim)+1` as a fallback). Slide CSS must avoid `vh`/`vw`/`vmin`/`vmax` — they reference the popup viewport rather than the 1280×720 design size and break the scaled preview; use `rem`/`em`/`%`/`px`
 - **Animations**: CSS-driven. Root `<body data-step="N">`; elements with `data-anim="N"` are `opacity:0` until a JS-toggled `[data-visible]` attribute appears (CSS can't do `>=` attribute selectors, so `syncVisibility` toggles the attribute from `data-step`)
-- **Keyboard**: bundled `<script>` in `Presentation.astro` (runs once per session; `astro:page-load` re-inits per slide). ArrowRight/Down → advance step or next slide; ArrowLeft/Up → back step or previous slide (own-keyboard back-nav sets a `sessionStorage` flag so the previous slide lands on its last step); Shift+Enter → fullscreen toggle; Shift+S → open presenter popup
-- **View Transitions**: `<ClientRouter />` in `Presentation.astro`; slide-to-slide navigation uses `navigate()` from `astro:transitions/client` (not `window.location.href`, which bypasses the router and triggers a full reload)
+- **Keyboard**: bundled `<script>` in `src/pages/_presentations/layouts/Presentation.astro` (runs once per session; `astro:page-load` re-inits per slide). ArrowRight/Down → advance step or next slide; ArrowLeft/Up → back step or previous slide (own-keyboard back-nav sets a `sessionStorage` flag so the previous slide lands on its last step); Shift+Enter → fullscreen toggle; Shift+S → open presenter popup
+- **View Transitions**: `<ClientRouter />` in `src/pages/_presentations/layouts/Presentation.astro`; slide-to-slide navigation uses `navigate()` from `astro:transitions/client` (not `window.location.href`, which bypasses the router and triggers a full reload)
 - **Speaker view**: `/pres/[slug]/speaker/` pre-renders all slides in hidden `<section data-page>` containers; a `ResizeObserver` scales each preview via `transform: scale(var(--s))` against a 1280×720 design size. Speaker notes via the `<Notes>` MDX component (inert `<template>` on the audience side; `template.content.cloneNode(true)` into the notes panel on the speaker side). The page has no `<ClientRouter />` and no `astro:page-load` — the deferred module script initializes directly
 - **Dual-window sync**: `BroadcastChannel("pres-speaker")`, symmetric state-broadcast — each window broadcasts `{kind:"state",slug,pageNo,step,total}` only on local user actions and applies received state silently (BC doesn't echo to the sender, so no loops). The main window is the navigation authority for cross-page nav: a module-scope `pendingStep` (not `sessionStorage`, which is per-window) carries the target step across the view-transition swap; a `navigatingTo` guard absorbs messages arriving mid-swap; `navSource` ("local"|"sync") prevents sync-driven navs from re-broadcasting (echo prevention)
 

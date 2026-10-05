@@ -1,0 +1,140 @@
+---
+import PresentationLayout from "@pres/components/PresentationLayout.astro";
+import highSpeedTrainOldCoach from "./assets/svg/high-speed-train-old-coach.svg";
+---
+
+<PresentationLayout
+  eyebrow="国家队的盘外招 · 其一"
+  title="消化不良资产"
+  narrow
+>
+  <div class="root">
+    <div class="visualRow">
+      <article class="assetCard legacyCard">
+        <p class="assetRole">被注入的低效资产</p>
+        <h2>太原局普速客货运线路</h2>
+        <p>南同蒲、北同蒲等 7 条干线 + 5 条支线，设备老化、运力饱和，公益性普速客运常年亏损。</p>
+      </article>
+
+      <div class="trainVisual">
+        <img src={highSpeedTrainOldCoach.src} alt="A modern high-speed locomotive hauling open-top wagons filled with scrap" class="svg" />
+      </div>
+
+      <article class="assetCard coreCard">
+        <p class="assetRole">原有核心资产</p>
+        <h2>大秦线</h2>
+        <p>全球最暴利的重载煤运专线，现金流长期稳定充沛，是上市公司的“现金奶牛”。</p>
+      </article>
+    </div>
+
+    <section class="eventSummary" aria-labelledby="event-title">
+      <h2 id="event-title">事件始末</h2>
+      <p>2009 年 11 月，大秦铁路抛出定增方案：拟募资约 165 亿元，整体作价约 328 亿元，反向收购控股股东太原铁路局的运输主业资产——包括 7 条干线、5 条支线及朔黄铁路 41.6% 股权，2010 年获批完成注入。散户痛斥这是“用黄金换垃圾”：优质大秦线的 ROE 与分红，从此被常年亏损的公益客运和低效支线稀释；但在国资绝对控股下，方案依然强行通过。</p>
+    </section>
+  </div>
+</PresentationLayout>
+
+<style>
+  .root {
+    height: 100%;
+    min-height: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    padding-bottom: 0.75rem;
+  }
+
+  .visualRow {
+    flex: 1 1 0;
+    min-height: 0;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 2.2fr) minmax(0, 1fr);
+    align-items: center;
+    gap: 1rem;
+  }
+
+  .assetCard {
+    padding: 1.1rem 1.15rem;
+    border-left: 4px solid;
+  }
+
+  .legacyCard {
+    background: #fff7ed;
+    border-left-color: #ea580c;
+  }
+
+  .legacyCard .assetRole {
+    color: #9a3412;
+  }
+
+  .coreCard {
+    background: #eff6ff;
+    border-left-color: #2563eb;
+  }
+
+  .coreCard .assetRole {
+    color: #1d4ed8;
+  }
+
+  .assetRole {
+    margin: 0 0 0.55rem;
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+  }
+
+  .assetCard h2 {
+    margin: 0;
+    color: #263445;
+    font-size: 1.2rem;
+    line-height: 1.35;
+  }
+
+  .assetCard p:last-child {
+    margin: 0.55rem 0 0;
+    color: #4b5563;
+    font-size: 0.9rem;
+    line-height: 1.55;
+  }
+
+  .trainVisual {
+    height: 100%;
+    min-width: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .svg {
+    display: block;
+    width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+  }
+
+  .eventSummary {
+    flex: 0 0 auto;
+    display: grid;
+    grid-template-columns: 11rem minmax(0, 1fr);
+    align-items: start;
+    gap: 1.2rem;
+    margin: 0.5rem auto 0;
+    padding: 1rem 1.4rem 0;
+    border-top: 1px solid #dbe2e8;
+    max-width: 66rem;
+  }
+
+  .eventSummary h2 {
+    margin: 0;
+    color: #334155;
+    font-size: 1rem;
+    line-height: 1.6;
+  }
+
+  .eventSummary p {
+    margin: 0;
+    color: #475569;
+    font-size: 0.9rem;
+    line-height: 1.7;
+  }
+</style>

@@ -20,25 +20,25 @@
 // PresAsPost.astro). That completely sidesteps the limitation.
 // ============================================================================
 import { type CollectionEntry, render } from "astro:content";
-import PresHead from "@components/PresHead.astro";
-import SlideFrame from "@components/SlideFrame.astro";
-import { getPresDecks } from "@utils/pres";
+import PresHead from "@pres/components/PresHead.astro";
+import SlideFrame from "@pres/components/SlideFrame.astro";
+import { getPresDecks } from "@pres/lib/pres";
 
 export async function getStaticPaths() {
   const decks = await getPresDecks();
-  return decks.map(({ slug, slides }) => ({
+  return decks.map(({ slug, slides, deckTitle }) => ({
     params: { slug },
-    props: { slug, slides },
+    props: { slug, slides, deckTitle },
   }));
 }
 
 interface Props {
   slug: string;
   slides: CollectionEntry<"pres">[];
+  deckTitle: string;
 }
 
-const { slug, slides } = Astro.props;
-const presTitle = slides[0].data.presTitle || slug;
+const { slug, slides, deckTitle } = Astro.props;
 
 const rendered = await Promise.all(
   slides.map(async (entry) => {
@@ -50,7 +50,7 @@ const rendered = await Promise.all(
 
 <!doctype html>
 <html lang="zh-CN">
-  <PresHead title={`${presTitle} — 演示文稿`} />
+  <PresHead title={`${deckTitle} — 演示文稿`} />
 
   <body>
     <!-- Scoped page structure. Every class below is an element of THIS component's
@@ -172,7 +172,7 @@ const rendered = await Promise.all(
 
     <div class="document-wrap">
       <header class="page-head">
-        <h1>{presTitle}</h1>
+        <h1>{deckTitle}</h1>
         <a class="fresh-link" href={`/pres/${slug}/live/1/`}>进入演示模式 →</a>
       </header>
 

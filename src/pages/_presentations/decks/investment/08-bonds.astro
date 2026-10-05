@@ -1,0 +1,300 @@
+---
+import PresentationLayout from "@pres/components/PresentationLayout.astro";
+import bondsCert from "./assets/svg/national-development-bond.svg";
+---
+
+<PresentationLayout title="标准化融资票据" eyebrow="债券" narrow>
+  <div class="slideRoot">
+    {/* Central stage: bond diagram pinned to the slide's center, annotation cards absolutely positioned around it */}
+    <div class="stage">
+      <img src={bondsCert.src} alt="国家开发银行债券票面与现金流示意" class="bondDiagram" />
+
+      {/* Pinned left, leader dot on the certificate's 3.5% rate block */}
+      <div class:list={["cardLight", "featureCard", "posCoupon"]}>
+        <div class="spaceBetween">
+          <span class="featureIconTop">💵</span>
+          <span class:list={["monoTag", "featureTag"]}>COUPON · 票息</span>
+        </div>
+        <p class="featureLabel">固定利息收入</p>
+        <p class="featureDesc">定期支付票息，现金流可预测</p>
+        <p class="featureStatGreen">+3.5% / 年</p>
+      </div>
+
+      {/* Pinned right-bottom, leader dot next to the year-5 principal+interest node */}
+      <div class:list={["cardLight", "featureCard", "posMaturity"]}>
+        <div class="spaceBetween">
+          <span class="featureIconTop">📅</span>
+          <span class:list={["monoTag", "featureTag"]}>MATURITY · 到期</span>
+        </div>
+        <p class="featureLabel">到期还本</p>
+        <p class="featureDesc">约定到期日，本金确定性返还</p>
+        <p class="featureStatGreen">本金 ¥100</p>
+      </div>
+
+      {/* Pinned right-top, leader dot beside the AAA rating badge */}
+      <div class:list={["cardLight", "featureCard", "posRisk"]}>
+        <div class="spaceBetween">
+          <span class="featureIconTop">🛡️</span>
+          <span class:list={["monoTag", "featureTag"]}>RISK · 风险</span>
+        </div>
+        <p class="featureLabel">风险相对较低</p>
+        <p class="featureDesc">国债几乎无风险，企业债看评级</p>
+        <p class="featureStatRed">AAA · 看信用</p>
+      </div>
+
+      {/* Definition card pinned bottom-left, angled leader to the year-0 buy-in node */}
+      <div class="introCard posIntro">
+        <p class="introText">债券 = 一张标准化的借条：发行人承诺按期<strong>付息</strong>、到期<strong>还本</strong>——把「借钱」变成一份可交易、可定价的契约。</p>
+      </div>
+    </div>
+  </div>
+</PresentationLayout>
+
+<style>
+  /* ---- shared.layout: slideRoot ---- */
+  .slideRoot {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 0.8rem;
+    text-align: center;
+  }
+
+  /* ---- page-specific 08-bonds ---- */
+  /* Center stage; --cy shifts the ring center up 36px to the true slide center (title zone sits above) */
+  .stage {
+    --cy: calc(50% - 36px);
+    position: relative;
+    flex: 1;
+    min-height: 0;
+    width: 100%;
+  }
+
+  /* ---- shared.layout: spaceBetween ---- */
+  .spaceBetween {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  /* Definition card (former lead line): bottom-left with a left accent bar, angled leader to the year-0 node */
+  .introCard {
+    position: absolute;
+    height: 106px;
+    width: 230px;
+    border: 1px solid #e2e2e2;
+    border-left: 3px solid #333;
+    background: #fafafa;
+    padding: 0.55rem 0.9rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  .introText {
+    margin: 0;
+    font-size: 0.85rem;
+    line-height: 1.55;
+    color: #555;
+    text-align: left;
+  }
+
+  /* ---- shared.shared: cardLight ---- */
+  .cardLight {
+    border: 1px solid #e2e2e2;
+    background: #fafafa;
+    display: flex;
+    flex-direction: column;
+    text-align: left;
+  }
+
+  /* ---- shared.shared: monoTag ---- */
+  .monoTag {
+    font-family: 'Cascadia Code', monospace;
+    letter-spacing: 0.1em;
+    color: #9ca3af;
+  }
+
+  /* ---- page-specific 08-bonds ---- */
+  /* Bond diagram: fixed 580x464 (5:4) box; every leader target below is keyed to this box (SVG scale 1.45) */
+  .bondDiagram {
+    position: absolute;
+    left: 50%;
+    top: var(--cy);
+    transform: translate(-50%, -50%);
+    width: 580px;
+    height: 464px;
+    filter: drop-shadow(0 10px 22px rgba(0, 0, 0, 0.1));
+  }
+
+  .featureCard {
+    position: absolute;
+    width: 230px;
+    padding: 0.55rem 0.9rem;
+    justify-content: center;
+    gap: 0.15rem;
+  }
+
+  .featureIconTop {
+    font-size: 1.15rem;
+  }
+
+  .featureTag {
+    font-size: 0.6rem;
+  }
+
+  .featureLabel {
+    margin: 0.1rem 0 0;
+    font-size: 1rem;
+    font-weight: 700;
+    color: #333;
+  }
+
+  .featureDesc {
+    margin: 0;
+    font-size: 0.8rem;
+    color: #666;
+    line-height: 1.4;
+  }
+
+  .featureStatGreen {
+    margin: 0.15rem 0 0;
+    font-size: 0.95rem;
+    font-weight: 700;
+    color: #15803d;
+    font-family: 'Cascadia Code', monospace;
+  }
+
+  .featureStatRed {
+    margin: 0.15rem 0 0;
+    font-size: 0.95rem;
+    font-weight: 700;
+    color: #b91c1c;
+    font-family: 'Cascadia Code', monospace;
+  }
+
+  /* Card anchors keyed to SVG features: coupon→rate block (y106), risk→AAA badge (y100), maturity→year-5 node (y232) */
+  .posIntro {
+    left: 0;
+    bottom: 128px;
+  }
+
+  .posCoupon {
+    left: 0;
+    top: calc(var(--cy) - 78px);
+    transform: translateY(-50%);
+    --offset: 264px;
+  }
+
+  .posRisk {
+    right: 0;
+    top: calc(var(--cy) - 87px);
+    transform: translateY(-50%);
+    --offset: 88px;
+  }
+
+  .posMaturity {
+    right: 0;
+    top: calc(var(--cy) + 104px);
+    transform: translateY(-50%);
+    --offset: 88px;
+  }
+
+  /* Dotted leader + anchor dot from each card edge to its target on the certificate (dot colors echo the SVG targets) */
+  .posCoupon::before {
+    content: "";
+    position: absolute;
+    left: 100%;
+    top: 50%;
+    margin-top: -1px;
+    width: var(--offset);
+    border-top: 2px dotted #c4c4c4;
+  }
+
+  .posCoupon::after {
+    content: "";
+    position: absolute;
+    left: calc(100% + var(--offset));
+    top: 50%;
+    width: 9px;
+    height: 9px;
+    border-radius: 50%;
+    background: #16a34a;
+    transform: translate(-50%, -50%);
+    box-shadow: 0 0 0 3px #fff;
+  }
+
+  .posRisk::before {
+    content: "";
+    position: absolute;
+    right: 100%;
+    top: 50%;
+    margin-top: -1px;
+    width: var(--offset);
+    border-top: 2px dotted #c4c4c4;
+  }
+
+  .posRisk::after {
+    content: "";
+    position: absolute;
+    right: calc(100% + var(--offset));
+    top: 50%;
+    width: 9px;
+    height: 9px;
+    border-radius: 50%;
+    background: #d97706;
+    transform: translate(50%, -50%);
+    box-shadow: 0 0 0 3px #fff;
+  }
+
+  .posMaturity::before {
+    content: "";
+    position: absolute;
+    right: calc(100%);
+    top: 50%;
+    margin-top: -1px;
+    width: var(--offset);
+    border-top: 2px dotted #c4c4c4;
+  }
+
+  .posMaturity::after {
+    content: "";
+    position: absolute;
+    right: calc(100% + var(--offset));
+    top: 50%;
+    width: 9px;
+    height: 9px;
+    border-radius: 50%;
+    background: #16a34a;
+    transform: translate(50%, -50%);
+    box-shadow: 0 0 0 3px #fff;
+  }
+
+  /* Intro leader: angled dotted segment from the card's top-right corner to the year-0 node, red dot echoes the node */
+  .posIntro::before {
+    content: "";
+    position: absolute;
+    left: 100%;
+    top: 26px;
+    margin-top: -1px;
+    width: 174px;
+    border-top: 2px dotted #c4c4c4;
+    transform: rotate(-60deg);
+    transform-origin: 0 50%;
+  }
+
+  .posIntro::after {
+    content: "";
+    position: absolute;
+    left: calc(100% + 88px);
+    top: -124px;
+    width: 9px;
+    height: 9px;
+    border-radius: 50%;
+    background: #dc2626;
+    transform: translate(-50%, -50%);
+    box-shadow: 0 0 0 3px #fff;
+  }
+</style>

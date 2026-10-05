@@ -15,12 +15,11 @@ const blog = defineCollection({
 const pres = defineCollection({
   loader: glob({
     pattern: "**/*.mdx",
-    base: "./content/pres/",
+    base: "./src/pages/_presentations/decks/",
   }),
   schema: z.object({
     title: z.string(),
     steps: z.number().int().min(1).default(1),
-    presTitle: z.string().optional(),
   }),
 });
 

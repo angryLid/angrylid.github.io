@@ -12,20 +12,20 @@
 // cache instead of being a cold roundtrip (see Presentation.astro).
 // ============================================================================
 import { type CollectionEntry, render } from "astro:content";
-import Presentation from "@layouts/Presentation.astro";
-import { getPresDecks } from "@utils/pres";
+import Presentation from "@pres/layouts/Presentation.astro";
+import { getPresDecks } from "@pres/lib/pres";
 
 export async function getStaticPaths() {
   const decks = await getPresDecks();
 
-  return decks.flatMap(({ slug, slides, total, presTitle }) =>
+  return decks.flatMap(({ slug, slides, total, deckTitle }) =>
     slides.map((entry, idx) => ({
       params: { slug, pageNo: String(idx + 1) },
       props: {
         slug,
         pageNo: idx + 1,
         total,
-        presTitle,
+        deckTitle,
         slideEntry: entry as CollectionEntry<"pres">,
         // Lightweight deck metadata for the sidebar (titles only, no markup).
         slides: slides.map((s, i) => ({ pageNo: i + 1, title: s.data.title })),
@@ -38,12 +38,12 @@ interface Props {
   slug: string;
   pageNo: number;
   total: number;
-  presTitle: string;
+  deckTitle: string;
   slideEntry: CollectionEntry<"pres">;
   slides: { pageNo: number; title: string }[];
 }
 
-const { slug, pageNo, total, presTitle, slideEntry, slides } = Astro.props;
+const { slug, pageNo, total, deckTitle, slideEntry, slides } = Astro.props;
 const steps = slideEntry.data.steps;
 const { Content } = await render(slideEntry);
 ---
@@ -53,7 +53,7 @@ const { Content } = await render(slideEntry);
   pageNo={pageNo}
   total={total}
   steps={steps}
-  presTitle={presTitle}
+  deckTitle={deckTitle}
   title={slideEntry.data.title}
   slides={slides}
 >

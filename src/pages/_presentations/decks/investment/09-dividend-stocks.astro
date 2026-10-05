@@ -1,0 +1,153 @@
+---
+import PresentationLayout from "@pres/components/PresentationLayout.astro";
+
+const rows = [
+  {
+    label: "身份",
+    creditor: "把钱借给公司，是「外部人」",
+    owner: "买下公司的一部分，是「自己人」",
+  },
+  {
+    label: "收益",
+    creditor: "固定票息，签约时就写死",
+    owner: "剩余利润分红 + 价值增长，不封顶",
+  },
+  {
+    label: "期限",
+    creditor: "到期还本，有终点",
+    owner: "没有到期日，可以一直持有",
+  },
+  {
+    label: "清偿顺序",
+    creditor: "公司出事时优先受偿",
+    owner: "排在最后，先亏自己那一份",
+  },
+  {
+    label: "风险",
+    creditor: "收益有上限，风险相对可控",
+    owner: "与公司共担，可能亏光本金",
+  },
+];
+---
+
+<PresentationLayout title="从债主到股东" eyebrow="股票" narrow>
+  <div class="slideRoot">
+    <p class="lead">
+      上一章的债券，你是把<strong class="creditorC">钱借出去</strong>、当公司的债主；这一章买股票，你是<strong class="ownerC">买下公司的一部分</strong>，成为公司的股东。同样是出钱，身份、收益、风险和权利，全都不一样了。
+    </p>
+
+    <div class="compare">
+      <div class="corner"></div>
+      <div class="colHead creditor">债主 · 债权人</div>
+      <div class="colHead owner">股东 · 所有者</div>
+
+      {
+        rows.map((row) => (
+          <div class="row">
+            <div class="rowLabel">{row.label}</div>
+            <div class="cell creditor">{row.creditor}</div>
+            <div class="cell owner">{row.owner}</div>
+          </div>
+        ))
+      }
+    </div>
+  </div>
+</PresentationLayout>
+
+<style>
+  /* ---- page-specific: 09-dividend-stocks ---- */
+  .slideRoot {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 0.9rem;
+  }
+
+  .lead {
+    margin: 0;
+    font-size: 1.5rem;
+    color: #555;
+    line-height: 1.65;
+    flex-shrink: 0;
+  }
+
+  .creditorC {
+    color: #1e40af;
+  }
+
+  .ownerC {
+    color: #b91c1c;
+  }
+
+  /* ---- 3-column comparison grid: dimension | creditor | owner ---- */
+  .compare {
+    flex: 1;
+    min-height: 0;
+    display: grid;
+    grid-template-columns: 5.8rem 1fr 1fr;
+    grid-template-rows: auto repeat(5, 1fr);
+    border-top: 1px solid #e2e2e2;
+    border-bottom: 1px solid #e2e2e2;
+  }
+
+  .row {
+    display: contents;
+  }
+
+  .corner {
+    border-top: 1px dashed #ececec;
+  }
+
+  .colHead {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.5rem 1rem;
+    border-top: 1px dashed #ececec;
+    font-family: 'Cascadia Code', monospace;
+    font-size: 1.3rem;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+  }
+
+  .colHead.creditor {
+    color: #1e40af;
+    background: rgba(29, 78, 216, 0.08);
+  }
+
+  .colHead.owner {
+    color: #b91c1c;
+    background: rgba(153, 27, 27, 0.08);
+    border-left: 1px dashed #dcdcdc;
+  }
+
+  .rowLabel {
+    display: flex;
+    align-items: center;
+    padding: 0.55rem 0.6rem;
+    border-top: 1px dashed #ececec;
+    font-family: 'Cascadia Code', monospace;
+    font-size: 1.1rem;
+    color: #6b7280;
+    letter-spacing: 0.04em;
+  }
+
+  .cell {
+    display: flex;
+    align-items: center;
+    padding: 0.55rem 1.1rem;
+    border-top: 1px dashed #ececec;
+    font-size: 1.85rem;
+    line-height: 1.5;
+    color: #333;
+  }
+
+  .cell.creditor {
+    background: rgba(29, 78, 216, 0.05);
+  }
+
+  .cell.owner {
+    background: rgba(153, 27, 27, 0.05);
+    border-left: 1px dashed #dcdcdc;
+  }
+</style>
