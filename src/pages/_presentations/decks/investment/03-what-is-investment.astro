@@ -48,7 +48,7 @@ import PresentationLayout from "@pres/components/PresentationLayout.astro";
           </div>
         </div>
 
-        <div class="flowCol">
+        <div class="flowCol flowColTall">
           <div class="stepBox"><span class="stepIcon">💰</span><span class="stepLabel">买入</span></div>
           <div class="arrowDown">↓</div>
           <div class="stepBox"><span class="stepIcon">⏳</span><span class="stepLabel">等待</span></div>
@@ -73,14 +73,14 @@ import PresentationLayout from "@pres/components/PresentationLayout.astro";
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    gap: 1rem;
-    padding: 0.5rem 2.5rem 1.2rem;
+    gap: 0.75rem;
+    padding: 0.4rem 2.5rem 0.7rem;
     text-align: center;
   }
 
   .lead {
     margin: 0;
-    font-size: 1.05rem;
+    font-size: 1.2rem;
     color: #555;
   }
 
@@ -97,11 +97,11 @@ import PresentationLayout from "@pres/components/PresentationLayout.astro";
     min-height: 0;
     border: 1px solid #e2e2e2;
     background: #fafafa;
-    padding: 0.9rem 1.2rem;
+    padding: 0.7rem 1.1rem;
     display: flex;
     flex-direction: column;
     text-align: left;
-    gap: 0.5rem;
+    gap: 0.45rem;
   }
 
   .colHeader {
@@ -111,27 +111,27 @@ import PresentationLayout from "@pres/components/PresentationLayout.astro";
   }
 
   .colIcon {
-    font-size: 1.4rem;
+    font-size: 1.9rem;
   }
 
   .colEyebrow {
     margin: 0;
-    font-size: 0.7rem;
+    font-size: 0.95rem;
     letter-spacing: 0.12em;
     color: #9ca3af;
     font-family: 'Cascadia Code', monospace;
   }
 
   .colTitleRed {
-    margin: 0.1rem 0 0 0;
-    font-size: 1.05rem;
+    margin: 0.15rem 0 0 0;
+    font-size: 1.6rem;
     font-weight: 700;
     color: #b91c1c;
   }
 
   .colTitleGreen {
-    margin: 0.1rem 0 0 0;
-    font-size: 1.05rem;
+    margin: 0.15rem 0 0 0;
+    font-size: 1.6rem;
     font-weight: 700;
     color: #15803d;
   }
@@ -143,73 +143,81 @@ import PresentationLayout from "@pres/components/PresentationLayout.astro";
     flex-direction: column;
     align-items: center;
     justify-content: space-around;
-    gap: 0.4rem;
+    gap: 0.3rem;
+  }
+
+  /* Right column has only three stops, so its boxes stretch to match the left column's flow height */
+  .flowColTall .stepBox {
+    padding-block: 0.99rem;
   }
 
   .stepBox {
     border: 1px solid #e2e2e2;
     background: #fff;
-    padding: 0.5rem 1.2rem;
+    padding: 0.8rem 1.2rem;
     width: 100%;
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 0.5rem;
+    gap: 0.7rem;
   }
 
   .stepIcon {
-    font-size: 1.4rem;
+    font-size: 2.4rem;
   }
 
   .stepLabel {
-    font-size: 0.95rem;
+    font-size: 1.8rem;
     color: #444;
   }
 
   .arrowDown {
-    font-size: 1.3rem;
+    font-size: 1.7rem;
+    line-height: 1;
+    padding-block: 0.25rem;
     color: #9ca3af;
   }
 
+  /* Five chips per row keeps both rows aligned to the card width */
   .tagRow {
-    display: flex;
-    align-items: center;
-    justify-content: space-around;
-    gap: 0.4rem;
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 0.25rem;
     width: 100%;
-    flex-wrap: wrap;
   }
 
   .tagChip {
     border: 1px solid #e2e2e2;
     background: #fff;
-    padding: 0.35rem 0.55rem;
+    padding: 0.5rem 0.1rem;
     display: flex;
     align-items: center;
-    gap: 0.35rem;
+    justify-content: center;
+    gap: 0.2rem;
   }
 
   .tagChipIcon {
-    font-size: 1.1rem;
+    font-size: 1.25rem;
   }
 
   .tagChipLabel {
-    font-size: 0.85rem;
+    font-size: 1.05rem;
     color: #444;
   }
 
   .footerBar {
     flex: 0 0 auto;
     border-left: 3px solid #333;
-    padding: 0.7rem 1rem;
+    padding: 0.55rem 0.8rem;
     background: #fafafa;
     width: 100%;
   }
 
   .footerText {
     margin: 0;
-    font-size: 0.92rem;
+    font-size: 1.05rem;
     color: #333;
     line-height: 1.6;
+    text-wrap: balance;
   }
 </style>
