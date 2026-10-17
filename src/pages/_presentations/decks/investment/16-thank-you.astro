@@ -1,0 +1,70 @@
+---
+// Closing slide: deliberately skips PresentationLayout — a bare full-canvas
+// type composition is the quietest way to end a dense 36-slide deck.
+---
+
+<div class="thanksWrap">
+  <div class="eyebrow">THANK YOU</div>
+  <div class="word">感谢聆听</div>
+  <div class="rule"></div>
+  <div class="sub">欢迎提问与交流</div>
+  <div class="byline">Presented by Mason</div>
+</div>
+
+<style>
+  /* ---- page-specific: 16-thank-you ---- */
+  .thanksWrap {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 1280px;
+    height: 720px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    color: #333;
+  }
+
+  /* Wide tracking is what makes the small line read as a label rather than text */
+  .eyebrow {
+    font-family: 'Cascadia Code', monospace;
+    font-size: 1.05rem;
+    letter-spacing: 0.5em;
+    /* Trailing letter-space would otherwise push the line left of optical centre */
+    text-indent: 0.5em;
+    color: #9ca3af;
+  }
+
+  .word {
+    margin-top: 1.8rem;
+    font-family: 'Noto Serif SC', 'Songti SC', 'SimSun', serif;
+    font-size: 8.5rem;
+    font-weight: 700;
+    line-height: 1.05;
+    letter-spacing: 0.1em;
+    text-indent: 0.1em;
+    color: #333;
+  }
+
+  .rule {
+    width: 8rem;
+    height: 1px;
+    margin-top: 2.6rem;
+    background: #d4d4d4;
+  }
+
+  .sub {
+    margin-top: 2rem;
+    font-size: 1.5rem;
+    letter-spacing: 0.08em;
+    color: #555;
+  }
+
+  .byline {
+    margin-top: 0.9rem;
+    font-size: 1.15rem;
+    color: #9ca3af;
+  }
+</style>

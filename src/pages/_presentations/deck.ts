@@ -59,6 +59,8 @@ export const presentationDecks = {
       "11a-gold-risk",
 
       "15-real-estate",
+
+      "16-thank-you",
     ],
   },
 } satisfies Record<string, PresentationManifest>;
