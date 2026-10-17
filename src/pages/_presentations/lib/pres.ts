@@ -1,11 +1,36 @@
 import { getCollection, type CollectionEntry } from "astro:content";
-import { presentationDecks } from "../deck";
+import { presentationDecks, type SlideNode } from "../deck";
+
+/** A flattened slide: its collection entry plus the breadcrumb section chain. */
+export interface FlatSlide {
+  entry: CollectionEntry<"pres">;
+  /** Section titles from the outermost group down to the slide's direct parent. */
+  crumbs: string[];
+}
 
 export interface PresDeck {
   slug: string;
-  slides: CollectionEntry<"pres">[];
+  slides: FlatSlide[];
   total: number;
   deckTitle: string;
+}
+
+/** Depth-first walk of the manifest tree; `crumbs` accumulates section titles. */
+function flattenSlides(
+  nodes: readonly SlideNode[],
+  path: readonly string[],
+  visit: (slideId: string, crumbs: string[]) => void,
+): void {
+  for (const node of nodes) {
+    if (typeof node === "string") {
+      visit(node, [...path]);
+    } else {
+      if (node.slides.length === 0) {
+        throw new Error(`Slide section "${node.title}" must not be empty.`);
+      }
+      flattenSlides(node.slides, [...path, node.title], visit);
+    }
+  }
 }
 
 export async function getPresDecks(): Promise<PresDeck[]> {
@@ -18,7 +43,8 @@ export async function getPresDecks(): Promise<PresDeck[]> {
       throw new Error(`Presentation "${slug}" must contain at least one slide.`);
     }
 
-    const slides = manifest.slides.map((slideId) => {
+    const slides: FlatSlide[] = [];
+    flattenSlides(manifest.slides, [], (slideId, crumbs) => {
       if (seenSlideIds.has(slideId)) {
         throw new Error(`Duplicate slide "${slideId}" in presentation "${slug}".`);
       }
@@ -29,7 +55,7 @@ export async function getPresDecks(): Promise<PresDeck[]> {
       if (!entry) {
         throw new Error(`Missing slide entry "${entryId}" in the pres collection.`);
       }
-      return entry;
+      slides.push({ entry, crumbs });
     });
 
     return {

@@ -55,7 +55,7 @@ pnpm typecheck
 - `src/utils/date.ts` - Date formatting helpers
 - `src/utils/csv.ts` - `parseCSV` (RFC-style quoted/multiline CSV parser) shared by both table components
 - `src/utils/html.ts` - `escapeHtml` helper used by DataTable render functions
-- `src/content.config.ts` - Content collections: `blog` (glob `*.{md,mdx}` at `./content/`, no schema) and `pres` (glob `**/*.mdx` at `./src/pages/_presentations/decks/`, schema: `title`/`steps`); `src/pages/_presentations/deck.ts` lists presentation titles and ordered slide IDs
+- `src/content.config.ts` - Content collections: `blog` (glob `*.{md,mdx}` at `./content/`, no schema) and `pres` (glob `**/*.mdx` at `./src/pages/_presentations/decks/`, schema: `title`/`steps`); `src/pages/_presentations/deck.ts` lists presentation titles and slide trees (leaf = slide id, inner node = titled `SlideSection`); the flattened play order is depth-first, and each slide's breadcrumb (deck title / sections / slide title, rendered top-left of the live view) comes from its section chain
 - `astro.config.mjs` - Markdown plugins (remark-github-blockquote-alert, remark-math, rehype-katex) built via `unified()`, plus MDX and React integrations
 - `tsconfig.json` - TypeScript config with path aliases (@components, @layouts, @utils, @pres) and `jsx: react-jsx` / `jsxImportSource: react` for React islands
 - `.nojekyll` - Disables Jekyll processing on GitHub Pages

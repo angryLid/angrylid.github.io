@@ -13,12 +13,14 @@ interface Props {
   total: number;
   steps: number;
   deckTitle: string;
+  /** Section titles from the deck tree leading to this slide. */
+  crumbs: string[];
   title: string;
   /** Deck metadata for the sidebar; thumbnails hydrate lazily from /document/. */
   slides: SlideMeta[];
 }
 
-const { slug, pageNo, total, steps, deckTitle, title, slides } = Astro.props;
+const { slug, pageNo, total, steps, deckTitle, crumbs, title, slides } = Astro.props;
 const fullTitle = `${deckTitle} — ${title} (${pageNo}/${total})`;
 ---
 
@@ -71,6 +73,32 @@ const fullTitle = `${deckTitle} — ${title} (${pageNo}/${total})`;
         color: var(--gray);
         opacity: 0.6;
         font-family: "Cascadia Code", monospace;
+      }
+
+      /* Breadcrumb (top-left): deckTitle / section… / slide title. Pointer-events
+         none so it never blocks the stage; below the sidebar/scrim z-indices. */
+      .pres-breadcrumb {
+        position: fixed;
+        top: 0.75rem;
+        left: 1rem;
+        font-size: 0.8rem;
+        font-family: "Cascadia Code", monospace;
+        color: var(--gray);
+        opacity: 0.6;
+        z-index: 50;
+        pointer-events: none;
+        white-space: nowrap;
+        max-width: calc(100vw - 2rem);
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+      .pres-breadcrumb .crumb + .crumb::before {
+        content: "/";
+        margin: 0 0.45em;
+        opacity: 0.7;
+      }
+      .pres-breadcrumb .crumb[data-current] {
+        color: var(--dark-mint);
       }
 
       /* ============================ Sidebar ============================ */
@@ -243,6 +271,13 @@ const fullTitle = `${deckTitle} — ${title} (${pageNo}/${total})`;
       </div>
     </div>
     <div class="pres-indicator">{pageNo} / {total}</div>
+    <nav class="pres-breadcrumb" aria-label="Breadcrumb">
+      {[deckTitle, ...crumbs, title].map((seg, i, arr) => (
+        <span class="crumb" data-current={i === arr.length - 1 ? "" : undefined}>
+          {seg}
+        </span>
+      ))}
+    </nav>
 
     <div class="pres-sidebar" id="pres-sidebar" aria-label="Slide navigation" aria-hidden="true">
       <div class="sidebar-header">

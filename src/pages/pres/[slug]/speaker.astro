@@ -8,7 +8,7 @@ export async function getStaticPaths() {
   const decks = await getPresDecks();
   return decks.map(({ slug, slides, total, deckTitle }) => ({
     params: { slug },
-    props: { slides, total, deckTitle },
+    props: { slides: slides.map((s) => s.entry), total, deckTitle },
   }));
 }
 

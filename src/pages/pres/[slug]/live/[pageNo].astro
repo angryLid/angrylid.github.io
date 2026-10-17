@@ -19,16 +19,17 @@ export async function getStaticPaths() {
   const decks = await getPresDecks();
 
   return decks.flatMap(({ slug, slides, total, deckTitle }) =>
-    slides.map((entry, idx) => ({
+    slides.map(({ entry, crumbs }, idx) => ({
       params: { slug, pageNo: String(idx + 1) },
       props: {
         slug,
         pageNo: idx + 1,
         total,
         deckTitle,
+        crumbs,
         slideEntry: entry as CollectionEntry<"pres">,
         // Lightweight deck metadata for the sidebar (titles only, no markup).
-        slides: slides.map((s, i) => ({ pageNo: i + 1, title: s.data.title })),
+        slides: slides.map((s, i) => ({ pageNo: i + 1, title: s.entry.data.title })),
       },
     })),
   );
@@ -39,11 +40,12 @@ interface Props {
   pageNo: number;
   total: number;
   deckTitle: string;
+  crumbs: string[];
   slideEntry: CollectionEntry<"pres">;
   slides: { pageNo: number; title: string }[];
 }
 
-const { slug, pageNo, total, deckTitle, slideEntry, slides } = Astro.props;
+const { slug, pageNo, total, deckTitle, crumbs, slideEntry, slides } = Astro.props;
 const steps = slideEntry.data.steps;
 const { Content } = await render(slideEntry);
 ---
@@ -54,6 +56,7 @@ const { Content } = await render(slideEntry);
   total={total}
   steps={steps}
   deckTitle={deckTitle}
+  crumbs={crumbs}
   title={slideEntry.data.title}
   slides={slides}
 >
