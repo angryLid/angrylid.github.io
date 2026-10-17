@@ -1,11 +1,8 @@
 ---
 import { ClientRouter } from "astro:transitions";
 import PresHead from "@pres/components/PresHead.astro";
-
-interface SlideMeta {
-  title: string;
-  pageNo: number;
-}
+import SlideMindMap from "@pres/components/SlideMindMap.astro";
+import type { MenuSlide } from "@pres/lib/pres-menu";
 
 interface Props {
   slug: string;
@@ -16,8 +13,8 @@ interface Props {
   /** Section titles from the deck tree leading to this slide. */
   crumbs: string[];
   title: string;
-  /** Deck metadata for the sidebar; thumbnails hydrate lazily from /document/. */
-  slides: SlideMeta[];
+  /** Deck metadata for the sorter menu's mind map. */
+  slides: MenuSlide[];
 }
 
 const { slug, pageNo, total, steps, deckTitle, crumbs, title, slides } = Astro.props;
@@ -76,7 +73,7 @@ const fullTitle = `${deckTitle} — ${title} (${pageNo}/${total})`;
       }
 
       /* Breadcrumb (top-left): deckTitle / section… / slide title. Pointer-events
-         none so it never blocks the stage; below the sidebar/scrim z-indices. */
+         none so it never blocks the stage; below the menu overlay z-index. */
       .pres-breadcrumb {
         position: fixed;
         top: 0.75rem;
@@ -101,46 +98,38 @@ const fullTitle = `${deckTitle} — ${title} (${pageNo}/${total})`;
         color: var(--dark-mint);
       }
 
-      /* ============================ Sidebar ============================ */
-      /* Slide-sorter drawer, hidden by default, toggled with the `g` key. */
-      /* Scrim / mask behind the drawer — dims the stage so the drawer reads
-         as a proper modal overlay. */
-      .pres-scrim {
+      /* ============================ Slide menu ============================ */
+      /* Full-screen slide sorter, hidden by default, toggled with the `g` key.
+         The overlay itself is the dim backdrop (translucent gray) so the stage
+         stays faintly visible; the tree lives in a centered panel. */
+      .pres-sidebar {
         position: fixed;
         inset: 0;
-        background: rgba(0, 0, 0, 0.35);
+        z-index: 100;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        background: rgba(72, 72, 72, 0.55);
         opacity: 0;
         visibility: hidden;
         transition:
           opacity 0.28s ease,
           visibility 0.28s;
-        z-index: 90;
       }
-      .pres-sidebar[data-open] ~ .pres-scrim {
+      .pres-sidebar[data-open] {
         opacity: 1;
         visibility: visible;
       }
-      .pres-sidebar {
-        position: fixed;
-        left: 0;
-        top: 0;
-        bottom: 0;
-        width: min(340px, 84vw);
+      .menu-panel {
+        width: min(900px, 92vw);
+        max-height: calc(100vh - 8vh);
+        margin: 4vh 0;
         background: var(--white);
-        border-right: 1px solid rgba(0, 0, 0, 0.08);
-        box-shadow: 4px 0 16px rgba(0, 0, 0, 0.12);
-        z-index: 100;
+        border-radius: var(--border-radius);
+        box-shadow: 0 12px 40px rgba(0, 0, 0, 0.25);
         display: flex;
         flex-direction: column;
-        transform: translateX(-100%);
-        visibility: hidden;
-        transition:
-          transform 0.28s ease,
-          visibility 0.28s;
-      }
-      .pres-sidebar[data-open] {
-        transform: translateX(0);
-        visibility: visible;
+        overflow: hidden;
       }
       .sidebar-header {
         display: flex;
@@ -172,89 +161,14 @@ const fullTitle = `${deckTitle} — ${title} (${pageNo}/${total})`;
       .sidebar-close:hover {
         background: rgba(0, 0, 0, 0.06);
       }
-      .sidebar-scroll {
+      .menu-scroll {
         flex: 1;
-        overflow-y: auto;
+        overflow: auto;
         padding: 0.75rem;
-        display: flex;
-        flex-direction: column;
-        gap: 0.6rem;
       }
-      .sidebar-item {
-        display: flex;
-        align-items: flex-start;
-        gap: 0.6rem;
-        text-align: left;
-        border: none;
-        background: transparent;
-        padding: 0.4rem;
-        border-radius: var(--border-radius);
-        cursor: pointer;
-        font: inherit;
-        color: var(--gray);
-      }
-      .sidebar-item:hover {
-        background: rgba(0, 0, 0, 0.05);
-      }
-      .sidebar-item[data-current] {
-        background: rgba(34, 139, 34, 0.1);
-        outline: 2px solid var(--dark-mint);
-      }
-      .item-num {
-        flex: none;
-        width: 1.6rem;
-        height: 1.6rem;
-        display: grid;
-        place-items: center;
-        border-radius: 50%;
-        background: var(--light-gray);
-        border: 1px solid rgba(0, 0, 0, 0.12);
-        font-size: 0.75rem;
-        font-family: "Cascadia Code", monospace;
-      }
-      .sidebar-item[data-current] .item-num {
-        background: var(--dark-mint);
-        color: var(--white);
-        border-color: var(--dark-mint);
-      }
-      .item-thumb {
-        flex: none;
-      }
-      .item-thumb .preview-stage {
-        width: 150px;
-      }
-      /* Thumbnails hydrate lazily from /document/; dim the frame until filled. */
-      .sidebar-item:not([data-ready]) .item-thumb {
-        opacity: 0.4;
-      }
-      .item-title {
-        font-size: 0.85rem;
-        line-height: 1.3;
-        padding-top: 0.15rem;
-        flex: 1;
-      }
-      /* thumbnail scaling — faithful miniature of the 1280x720 design */
-      .preview-stage {
-        position: relative;
-        aspect-ratio: 16 / 9;
-        overflow: hidden;
-        background: var(--light-gray);
-        border-radius: 6px;
-        border: 1px solid rgba(0, 0, 0, 0.08);
-      }
-      .preview-inner {
-        width: 1280px;
-        height: 720px;
-        transform-origin: top left;
-        transform: scale(var(--s, 1));
-        position: absolute;
-        top: 0;
-        left: 0;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        background: var(--light-gray);
-      }
+      /* Mind-map nodes/branches/connectors (.mm-*) are styled globally in
+         SlideMindMap.astro — they render across that component and the
+         recursive MindMapBranch. */
     </style>
   <body
     data-slug={slug}
@@ -280,32 +194,18 @@ const fullTitle = `${deckTitle} — ${title} (${pageNo}/${total})`;
     </nav>
 
     <div class="pres-sidebar" id="pres-sidebar" aria-label="Slide navigation" aria-hidden="true">
-      <div class="sidebar-header">
-        <span class="sidebar-title">{deckTitle}</span>
-        <button type="button" class="sidebar-close" id="sidebar-close" aria-label="Close sidebar">
-          ✕
-        </button>
-      </div>
-      <div class="sidebar-scroll">
-        {
-          slides.map(({ title, pageNo: p }) => (
-            <button
-              type="button"
-              class="sidebar-item"
-              data-page={p}
-              data-current={pageNo === p ? "" : undefined}
-            >
-              <span class="item-num">{p}</span>
-              <span class="item-thumb preview-stage">
-                <span class="preview-inner"></span>
-              </span>
-              <span class="item-title">{title}</span>
-            </button>
-          ))
-        }
+      <div class="menu-panel">
+        <div class="sidebar-header">
+          <span class="sidebar-title">{deckTitle}</span>
+          <button type="button" class="sidebar-close" id="sidebar-close" aria-label="Close menu">
+            ✕
+          </button>
+        </div>
+        <div class="menu-scroll">
+          <SlideMindMap deckTitle={deckTitle} slides={slides} current={pageNo} />
+        </div>
       </div>
     </div>
-    <div class="pres-scrim" id="pres-scrim"></div>
   </body>
 </html>
 
@@ -370,85 +270,6 @@ const fullTitle = `${deckTitle} — ${title} (${pageNo}/${total})`;
     }
   };
 
-  // ---------------- lazy sidebar thumbnails ----------------
-  // Sidebar thumbnails used to be server-rendered into every live page, which
-  // shipped the whole deck's markup with each page turn and eagerly loaded
-  // every slide's images — the dominant production page-turn stutter. Instead,
-  // each page ships only its own slide and /document/ (the whole-deck page) is
-  // fetched at most once per session as the thumbnail source; its stylesheet
-  // links are injected too, because the scoped styles of slides other than the
-  // current one are only bundled into /document/.
-  const docSources = new Map<string, Document>();
-  const docFetches = new Map<string, Promise<Document | null>>();
-
-  async function ensureDocDoc(slug: string): Promise<Document | null> {
-    const cached = docSources.get(slug);
-    if (cached) return cached;
-    const inFlight = docFetches.get(slug);
-    if (inFlight) return inFlight;
-    const promise = fetch(`/pres/${slug}/document/`)
-      .then((res) => (res.ok ? res.text() : null))
-      .then((text) => {
-        if (!text) return null;
-        const doc = new DOMParser().parseFromString(text, "text/html");
-        docSources.set(slug, doc);
-        return doc;
-      })
-      .catch(() => null);
-    docFetches.set(slug, promise);
-    return promise;
-  }
-
-  async function hydrateSidebarThumbs(): Promise<void> {
-    const slug = currentSlug();
-    if (!slug) return;
-    const doc = await ensureDocDoc(slug);
-    if (!doc) return;
-
-    const have = new Set(
-      Array.from(
-        document.querySelectorAll<HTMLLinkElement>("link[rel=stylesheet]"),
-        (l) => l.getAttribute("href"),
-      ),
-    );
-    for (const l of Array.from(doc.querySelectorAll<HTMLLinkElement>("link[rel=stylesheet]"))) {
-      const href = l.getAttribute("href");
-      if (href && !have.has(href)) {
-        have.add(href);
-        const link = document.createElement("link");
-        link.rel = "stylesheet";
-        link.href = href;
-        document.head.append(link);
-      }
-    }
-
-    const stages = doc.querySelectorAll(".slide-block .preview-stage");
-    document.querySelectorAll<HTMLElement>(".pres-sidebar .sidebar-item").forEach((item, idx) => {
-      const thumbInner = item.querySelector<HTMLElement>(".item-thumb .preview-inner");
-      const srcInner = stages[idx]?.querySelector<HTMLElement>(".preview-inner");
-      if (!thumbInner || !srcInner || thumbInner.childElementCount > 0) return;
-      // Clone before insertion so loading=lazy applies before any img fires.
-      const clone = srcInner.cloneNode(true) as HTMLElement;
-      clone.querySelectorAll<HTMLImageElement>("img").forEach((img) => {
-        img.setAttribute("loading", "lazy");
-        img.setAttribute("decoding", "async");
-      });
-      clone.querySelectorAll("[data-anim]").forEach((el) => el.setAttribute("data-visible", ""));
-      thumbInner.replaceChildren(clone);
-      item.setAttribute("data-ready", "");
-    });
-    scaleSidebarThumbs();
-  }
-
-  function scheduleIdle(cb: () => void): void {
-    // typeof-guard: TS6 'in' narrowing reduces window to never in the else branch.
-    if (typeof requestIdleCallback === "function") {
-      requestIdleCallback(cb, { timeout: 4000 });
-    } else {
-      window.setTimeout(cb, 600);
-    }
-  }
-
   // ---------------- neighbor prefetch ----------------
   // The page-turn navigate() is a cold WAN roundtrip unless the target document
   // is already in the HTTP cache; warm the ±1 neighbors after each page load.
@@ -464,10 +285,9 @@ const fullTitle = `${deckTitle} — ${title} (${pageNo}/${total})`;
   }
 
   // ---------------- slide helpers ----------------
-  // The audience slide lives inside .slide-stage. The sidebar drawer also
-  // renders every slide in the deck as off-canvas thumbnails, so we must scope
-  // step/visibility logic to the stage slide only — otherwise data-anim elements
-  // from all slides pollute the step count and make page turns feel sluggish.
+  // Step/visibility logic must stay scoped to the stage slide — the sorter
+  // menu renders only labels, but keeping the scope also guards against any
+  // future off-stage markup carrying data-anim attributes.
   function currentSlide(): HTMLElement | null {
     return document.querySelector(".slide-stage .slide");
   }
@@ -538,29 +358,17 @@ const fullTitle = `${deckTitle} — ${title} (${pageNo}/${total})`;
     return document.getElementById("pres-sidebar");
   }
 
-  function scaleSidebarThumbs(): void {
-    document
-      .querySelectorAll(".pres-sidebar .preview-stage")
-      .forEach((stage) => {
-        const inner = stage.querySelector(
-          ".preview-inner",
-        ) as HTMLElement | null;
-        if (inner)
-          inner.style.setProperty("--s", String(stage.clientWidth / 1280));
-      });
-  }
-
   function openSidebar(): void {
     const sb = getSidebar();
     if (sb) {
       sb.setAttribute("data-open", "");
       sb.setAttribute("aria-hidden", "false");
-      sb.querySelector(".sidebar-item[data-current]")?.scrollIntoView({
-        block: "nearest",
+      sb.querySelector(".mm-leaf[data-current]")?.scrollIntoView({
+        block: "center",
+        inline: "center",
       });
     }
     sessionStorage.setItem(sidebarStateKey(currentSlug()), "1");
-    void hydrateSidebarThumbs();
   }
 
   function closeSidebar(): void {
@@ -586,25 +394,21 @@ const fullTitle = `${deckTitle} — ${title} (${pageNo}/${total})`;
     if (sessionStorage.getItem(sidebarStateKey(currentSlug())) === "1") {
       sb.setAttribute("data-open", "");
       sb.setAttribute("aria-hidden", "false");
-      sb.querySelector(".sidebar-item[data-current]")?.scrollIntoView({
-        block: "nearest",
+      sb.querySelector(".mm-leaf[data-current]")?.scrollIntoView({
+        block: "center",
+        inline: "center",
       });
     }
-    // Thumbs re-hydrate right away if the drawer spans a page swap.
-    if (sb.hasAttribute("data-open")) void hydrateSidebarThumbs();
-
-    // Rescale thumbnails to their container width (sidebar is resizable via vw).
-    const ro = new ResizeObserver(() => scaleSidebarThumbs());
-    sb.querySelectorAll(".preview-stage").forEach((s) => ro.observe(s));
-    scaleSidebarThumbs();
 
     sb.querySelector("#sidebar-close")?.addEventListener("click", closeSidebar);
 
-    // Clicking the scrim/mask closes the drawer.
-    document.getElementById("pres-scrim")?.addEventListener("click", closeSidebar);
+    // Clicking the dim backdrop (anywhere outside the panel) closes the menu.
+    sb.addEventListener("click", (e) => {
+      if (e.target === sb) closeSidebar();
+    });
 
 
-    sb.querySelectorAll(".sidebar-item").forEach((btn) => {
+    sb.querySelectorAll(".mm-leaf").forEach((btn) => {
       btn.addEventListener("click", () => {
         const p = parseInt(btn.getAttribute("data-page") ?? "", 10);
         if (Number.isNaN(p)) return;
@@ -740,16 +544,6 @@ const fullTitle = `${deckTitle} — ${title} (${pageNo}/${total})`;
     initScale();
     initSidebar();
     prefetchNeighbors();
-    scheduleIdle(() => {
-      // Warm the thumbnail source in the idle window: prefetch() fills the
-      // HTTP cache (data-saver-aware), then hydrate reads from it.
-      const slug = currentSlug();
-      if (!slug) return;
-      void Promise.resolve(prefetch(`/pres/${slug}/document/`)).then(
-        () => void hydrateSidebarThumbs(),
-        () => void hydrateSidebarThumbs(),
-      );
-    });
   });
   document.addEventListener("keydown", onKeyDown);
 </script>

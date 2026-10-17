@@ -1,0 +1,41 @@
+---
+// One <li> of the mind map: its node label plus a nested <ul> of branches.
+// Connectors are drawn with pseudo-elements — the vertical spine segments and
+// the horizontal stub — so each branch is self-contained (see SlideMindMap.astro
+// for the shared .mm-* styles).
+import type { MenuNode } from "@pres/lib/pres-menu";
+import Self from "./MindMapBranch.astro";
+
+interface Props {
+  node: MenuNode;
+  current: number;
+}
+
+const { node, current } = Astro.props;
+---
+
+<li class="mm-branch">
+  {
+    node.kind === "slide" ? (
+      <button
+        type="button"
+        class="mm-node mm-leaf"
+        data-page={node.pageNo}
+        data-current={current === node.pageNo ? "" : undefined}
+      >
+        {node.title}
+      </button>
+    ) : (
+      <span class="mm-node mm-section">{node.title}</span>
+    )
+  }
+  {
+    node.children.length > 0 && (
+      <ul class="mm-children">
+        {node.children.map((child) => (
+          <Self node={child} current={current} />
+        ))}
+      </ul>
+    )
+  }
+</li>

@@ -41,7 +41,6 @@ export const presentationDecks = {
           "02-warmup",
           "02a-shangri-la-scenes",
           "02b-disclaimer",
-          "02c-glossary",
         ],
       },
       {
@@ -49,6 +48,7 @@ export const presentationDecks = {
         slides: [
           "03-what-is-investment",
           "13-russia-story",
+          "02c-glossary",
           "14-why-futures",
           "14a-why-margin",
           "14b-why-offset",

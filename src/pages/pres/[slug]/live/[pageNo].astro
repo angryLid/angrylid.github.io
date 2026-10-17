@@ -28,8 +28,12 @@ export async function getStaticPaths() {
         deckTitle,
         crumbs,
         slideEntry: entry as CollectionEntry<"pres">,
-        // Lightweight deck metadata for the sidebar (titles only, no markup).
-        slides: slides.map((s, i) => ({ pageNo: i + 1, title: s.entry.data.title })),
+        // Lightweight menu metadata (titles + crumb chain, no markup).
+        slides: slides.map((s, i) => ({
+          pageNo: i + 1,
+          title: s.entry.data.title,
+          crumbs: s.crumbs,
+        })),
       },
     })),
   );
