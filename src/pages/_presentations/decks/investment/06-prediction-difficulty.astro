@@ -1,0 +1,171 @@
+---
+import PresentationLayout from "@pres/components/PresentationLayout.astro";
+
+interface LadderRow {
+  rank: number;
+  name: string;
+  desc: string;
+  dots: number;
+  color: string;
+  hot?: boolean;
+}
+
+const rows: LadderRow[] = [
+  { rank: 1, name: "常规活动", desc: "人不吃饭就会饿死，从楼上跳下来就会摔死 — 自然规律支配，结果近乎确定", dots: 5, color: "#2e7d32" },
+  { rank: 2, name: "打工", desc: "行业兴衰难以预料，但「付出劳动换取收入」大体可期", dots: 4, color: "#7cb342" },
+  { rank: 3, name: "经商", desc: "需求、对手、成本皆由他人决定，预测难度陡增", dots: 3, color: "#f9a825" },
+  { rank: 4, name: "投资", desc: "在别人经营的不确定性上，再叠加估值与人心的不确定性", dots: 2, color: "#ef6c00", hot: true },
+  { rank: 5, name: "赌博", desc: "无内幕消息则完全不可预测，长期数学期望为负", dots: 1, color: "#c0392b" },
+];
+---
+
+<PresentationLayout title="预测未来有多难" narrow>
+  <div class="ladder">
+    <div class="legend">
+      <span class="legendDot" />
+      <span>实心圆越多 = 越可预测</span>
+    </div>
+
+    {
+      rows.map((r) => (
+        <div class:list={["row", { hot: r.hot }]}>
+          <div class="rank" style={`background: ${r.color}`}>
+            {r.rank}
+          </div>
+          <div class="text">
+            <div class="name" style={r.hot ? "color: #c0392b" : undefined}>
+              {r.name}
+              {r.hot && <span class="hotBadge">本讲主题</span>}
+            </div>
+            <div class="desc">{r.desc}</div>
+          </div>
+          <div class="meter">
+            {[1, 2, 3, 4, 5].map((i) => (
+              <span
+                class="dot"
+                style={i <= r.dots ? `background: ${r.color}` : undefined}
+              />
+            ))}
+          </div>
+        </div>
+      ))
+    }
+
+    <div class="takeaway">
+      预测难度每下一层，确定性就少一分 — 所以投资的第一课不是学会预测，而是先弄清楚<span
+        class="takeawayEm">什么才算好资产</span
+      >。
+    </div>
+  </div>
+</PresentationLayout>
+
+<style>
+  .ladder {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 0.9rem;
+  }
+
+  .legend {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 0.5rem;
+    color: #999;
+    font-size: 0.85rem;
+    letter-spacing: 0.06em;
+  }
+
+  .legendDot {
+    width: 0.8rem;
+    height: 0.8rem;
+    border-radius: 50%;
+    background: #2e7d32;
+  }
+
+  .row {
+    flex: 1 1 0;
+    display: flex;
+    align-items: center;
+    gap: 1.1rem;
+    padding: 0.55rem 1.1rem;
+    border: 1px solid #e0e0e0;
+    border-radius: 10px;
+    background: #fff;
+  }
+
+  .row.hot {
+    border: 2px solid #c0392b;
+    background: rgba(192, 57, 43, 0.06);
+  }
+
+  .rank {
+    flex: none;
+    width: 2.1rem;
+    height: 2.1rem;
+    border-radius: 50%;
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.05rem;
+    font-weight: 700;
+  }
+
+  .text {
+    flex: 1 1 auto;
+    min-width: 0;
+  }
+
+  .name {
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: #111;
+    line-height: 1.3;
+  }
+
+  .hotBadge {
+    margin-left: 0.6rem;
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: #fff;
+    background: #c0392b;
+    border-radius: 999px;
+    padding: 0.08rem 0.6rem;
+    vertical-align: 0.12em;
+  }
+
+  .desc {
+    font-size: 0.95rem;
+    color: #666;
+    line-height: 1.5;
+  }
+
+  .meter {
+    flex: none;
+    display: flex;
+    gap: 0.3rem;
+  }
+
+  .dot {
+    width: 0.85rem;
+    height: 0.85rem;
+    border-radius: 50%;
+    background: #e5e5e5;
+    display: inline-block;
+  }
+
+  .takeaway {
+    border-left: 4px solid #c0392b;
+    padding: 0.5rem 1rem;
+    font-size: 1.05rem;
+    color: #333;
+    line-height: 1.55;
+  }
+
+  .takeawayEm {
+    font-weight: 700;
+    color: #c0392b;
+  }
+</style>

@@ -44,20 +44,22 @@ export const presentationDecks = {
         ],
       },
       {
-        title: "何为投资",
+        title: "预测未来的活动",
         slides: [
           "03-what-is-investment",
-          "13-russia-story",
+          "06-prediction-difficulty",
+          "07-asset-directory",
+        ],
+      },
+      {
+        title: "期货",
+        slides: ["13-russia-story",
           "02c-glossary",
           "14-why-futures",
           "14a-why-margin",
           "14b-why-offset",
           "14b2-margin-case",
         ],
-      },
-      {
-        title: "三要素与资产",
-        slides: ["06-three-essentials", "07-asset-directory"],
       },
       {
         title: "债券",
