@@ -14,6 +14,7 @@
 import { type CollectionEntry, render } from "astro:content";
 import Presentation from "@pres/layouts/Presentation.astro";
 import { getPresDecks } from "@pres/lib/pres";
+import type { MenuSlide } from "@pres/lib/pres-menu";
 
 export async function getStaticPaths() {
   const decks = await getPresDecks();
@@ -46,7 +47,7 @@ interface Props {
   deckTitle: string;
   crumbs: string[];
   slideEntry: CollectionEntry<"pres">;
-  slides: { pageNo: number; title: string }[];
+  slides: MenuSlide[];
 }
 
 const { slug, pageNo, total, deckTitle, crumbs, slideEntry, slides } = Astro.props;
