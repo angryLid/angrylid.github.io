@@ -8,41 +8,10 @@ import TypewriterList from "@pres/components/TypewriterList.astro";
   <div class="wrap">
     <PresentationStep step={0}>
       <TypewriterList
-        items={["接下来我只是要说一些我自己相信的话，不构成任何投资建议。"]}
+        items={['谨在此提请任何可能直接或间接、以现在时或将来时、在此地或任何其他管辖范围内接触到本次演示，并可能据此作为或不作为的听众注意：鉴于接下来所陈述之一切均属本人于特定时点基于自身认知所倾向于相信之内容，故其<strong>不构成、不应被视为构成、亦不得被推定为意图构成</strong>任何明示或默示、法律或事实意义上的<strong>投资建议</strong>；鉴于演示中提及之一切资产、产品与案例仅为说明之便而存在，故其不代表、不应被解读为代表、亦不得被推定为意图代表任何形式的<strong>推荐、暗示或劝诱</strong>；鉴于财富之管理从根本上系一项个人性、不可让渡、不可转委托之责任，故每一位听众都应——且仅应——被视为其自身财富之<strong>第一责任人</strong>，而本人在任何情形下均无意、亦不试图承担此项光荣而沉重的义务。']}
+        speed={140}
         itemGap="0"
-        fontSize="1.75rem"
-        lineHeight={1.9}
-      />
-    </PresentationStep>
-    <PresentationStep step={1}>
-      <TypewriterList
-        items={["文中提到的任何资产、产品与案例，仅作示例说明，不代表对它们的推荐或暗示。"]}
-        itemGap="0"
-        fontSize="1.75rem"
-        lineHeight={1.9}
-      />
-    </PresentationStep>
-    <PresentationStep step={2}>
-      <TypewriterList
-        items={["请牢记，每个人都是自己财富的第一责任人。"]}
-        itemGap="0"
-        fontSize="1.75rem"
-        lineHeight={1.9}
-      />
-    </PresentationStep>
-    <PresentationStep step={3}>
-      <TypewriterList
-        items={['如无特别说明，以下当我提及<strong>多头</strong>时，并不是指日本神话中的八歧大蛇、希腊神话中的美杜莎，也不是任何出现在神话里的多首怪物——而是指<strong>预期资产价格上涨、买入并持有（做多）来获利的投资者</strong>。']}
-        itemGap="0"
-        fontSize="1.75rem"
-        lineHeight={1.9}
-      />
-    </PresentationStep>
-    <PresentationStep step={4}>
-      <TypewriterList
-        items={['当我提及<strong>空军</strong>时，并不是指任何政权的空中武装力量，也不是指空手而归的钓鱼佬——而是指<strong>预期价格下跌、卖出或做空来获利的空头投资者</strong>，与"多头"相对。']}
-        itemGap="0"
-        fontSize="1.75rem"
+        fontSize="2rem"
         lineHeight={1.9}
       />
     </PresentationStep>
@@ -55,6 +24,6 @@ import TypewriterList from "@pres/components/TypewriterList.astro";
     padding: 0.5rem 3rem 0;
     display: flex;
     flex-direction: column;
-    gap: 1.5rem;
+    justify-content: center;
   }
 </style>
