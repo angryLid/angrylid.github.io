@@ -6,25 +6,21 @@ import jade from "./assets/consensus-wall/01-jade.jpg";
 import calligraphy from "./assets/consensus-wall/02-calligraphy.jpg";
 import teaLiquor from "./assets/consensus-wall/03-tea-liquor.jpg";
 import stamps from "./assets/consensus-wall/04-stamps.jpg";
-import dzi from "./assets/consensus-wall/05-dzi.jpg";
-import rosewood from "./assets/consensus-wall/06-rosewood.jpg";
 import sneakers from "./assets/consensus-wall/07-sneakers.jpg";
-import guzi from "./assets/consensus-wall/08-guzi.jpg";
 import cards from "./assets/consensus-wall/09-cards.jpg";
 import blindBox from "./assets/consensus-wall/10-blindbox.jpg";
-import figure from "./assets/consensus-wall/11-figure.jpg";
 import lego from "./assets/consensus-wall/12-lego.jpg";
 
-// Two rows of six overlapping cards. Each row gets only a slight fan: the
+// Two rows of four overlapping cards. Each row gets only a slight fan: the
 // cards rotate a few degrees outward and ride a shallow arc, so the row reads
 // as a casually spread hand rather than a rigid grid. Both effects are driven
 // by two numbers (ROT_MAX / DROOP) plus STRIDE for the overlap.
 const CARD_W = 250;
 const CARD_H = 54 + ((CARD_W - 26) * 3) / 4;
-const STRIDE = 176;
+const STRIDE = 240;
 const ROT_MAX = 4.5;
 const DROOP = 10;
-const CENTER_X = 608;
+const CENTER_X = 640;
 
 function cardPos(i: number, n: number) {
   const t = (i - (n - 1) / 2) / ((n - 1) / 2);
@@ -42,17 +38,13 @@ const rows = [
       { src: calligraphy.src, alt: "中国画长卷", name: "文玩字画" },
       { src: teaLiquor.src, alt: "名酒礼盒", name: "名茶名酒" },
       { src: stamps.src, alt: "整版老邮票", name: "邮票" },
-      { src: dzi.src, alt: "藏式天珠", name: "天珠佛牌" },
-      { src: rosewood.src, alt: "红木圈椅", name: "红木家具" },
     ],
   },
   {
     cards: [
       { src: sneakers.src, alt: "限量球鞋", name: "限量球鞋" },
-      { src: guzi.src, alt: "挂满动漫周边的痛包", name: "谷子" },
       { src: cards.src, alt: "集换式卡牌", name: "游戏卡牌" },
       { src: blindBox.src, alt: "潮玩盲盒门店", name: "潮玩盲盒" },
-      { src: figure.src, alt: "动漫手办", name: "手办" },
       { src: lego.src, alt: "绝版乐高套装", name: "绝版乐高" },
     ],
   },
@@ -70,7 +62,6 @@ const rows = [
             return (
               <div
                 class="card"
-                data-anim={rowIndex * 6 + cardIndex}
                 style={`--x:${s.x}px;--y:${s.y}px;--rot:${s.deg}deg;z-index:${cardIndex + 1}`}
               >
                 <PhotoCollage src={card.src} alt={card.alt} caption={card.name} />
