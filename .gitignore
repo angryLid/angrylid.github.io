@@ -14,3 +14,6 @@ node_modules
 # pnpm project — lockfiles from other package managers are not used
 package-lock.json
 yarn.lock
+# Local agent tooling state — not part of the site
+/.dsh/
+/.pi-web/

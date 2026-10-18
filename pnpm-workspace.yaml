@@ -1,6 +1,11 @@
 allowBuilds:
   esbuild: true
   sharp: true
+# The repo lives in a shared workspace synced between two machines; the
+# before-run deps check sees the other side's lockfile/package.json churn as
+# "dirty" and keeps demanding a full purge-reinstall on every pnpm run.
+# Install manually after dependency changes instead.
+verifyDepsBeforeRun: false
 # Cap parallel tarball downloads (pnpm 11.6+ defaults to min(96, cores*3), which
 # hammers the registry); maxSockets per origin is derived as 3x this value.
 networkConcurrency: 8
