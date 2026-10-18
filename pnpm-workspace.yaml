@@ -1,6 +1,22 @@
 allowBuilds:
   esbuild: true
   sharp: true
+# Cap parallel tarball downloads (pnpm 11.6+ defaults to min(96, cores*3), which
+# hammers the registry); maxSockets per origin is derived as 3x this value.
+networkConcurrency: 8
+# Only fetch native-binary optionalDependencies (sharp libvips, rolldown
+# bindings) for the platforms we actually use: macOS Apple Silicon and
+# linux-gnu. musl/Alpine, win32, android, freebsd, s390x/ppc64/riscv64 are
+# skipped. The current platform is always included implicitly.
+supportedArchitectures:
+  os:
+    - darwin
+    - linux
+  cpu:
+    - arm64
+    - x64
+  libc:
+    - glibc
 nodeLinker: hoisted
 overrides:
   style-to-js: 2.0.1

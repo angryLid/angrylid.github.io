@@ -1,8 +1,7 @@
 import { defineConfig } from "astro/config";
-import { unified } from "@astrojs/markdown-remark";
-import remarkGithubAdmonitions from "remark-github-blockquote-alert";
-import remarkMath from "remark-math";
-import rehypeKatex from "rehype-katex";
+import { satteri } from "@astrojs/markdown-satteri";
+import { satteriKatex } from "satteri-katex";
+import satteriCallouts from "satteri-callouts";
 import mdx from "@astrojs/mdx";
 import react from "@astrojs/react";
 // https://astro.build/config
@@ -19,9 +18,14 @@ export default defineConfig({
   },
 
   markdown: {
-    processor: unified({
-      remarkPlugins: [remarkGithubAdmonitions, remarkMath],
-      rehypePlugins: [rehypeKatex],
+    // Native Sätteri pipeline (Astro 7 default). GitHub-style alerts and
+    // KaTeX math replicate the old remark/rehype plugins; satteriKatex runs
+    // at the MDAST stage per its README — on HAST the syntax highlighter
+    // would claim display math as a plaintext code block first.
+    processor: satteri({
+      features: { math: true },
+      mdastPlugins: [satteriKatex()],
+      hastPlugins: [satteriCallouts({ theme: "github" })],
     }),
   },
 
