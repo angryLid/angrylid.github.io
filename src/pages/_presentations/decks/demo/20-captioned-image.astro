@@ -1,7 +1,7 @@
 ---
 import Notes from "@pres/components/Notes.astro";
 import CaptionedImage from "@pres/components/CaptionedImage.astro";
-import yangtzeHydropower from "./assets/yangtze-hydropower.png";
+import dam from "./assets/hydropower.jpg";
 export const meta = {"title":"CaptionedImage · 图注"};
 ---
 
@@ -10,24 +10,24 @@ export const meta = {"title":"CaptionedImage · 图注"};
   <div style="flex: 1; display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; align-items: center;">
     <div style="max-width: 340px; margin: 0 auto;">
       <CaptionedImage
-        src={yangtzeHydropower.src}
-        alt="长江电力"
+        src={dam.src}
+        alt="湖泊与水坝"
         caption="captionPosition：above（默认）"
         captionPosition="above"
       />
     </div>
     <div style="max-width: 340px; margin: 0 auto;">
       <CaptionedImage
-        src={yangtzeHydropower.src}
-        alt="长江电力"
+        src={dam.src}
+        alt="湖泊与水坝"
         caption="captionPosition：below"
         captionPosition="below"
       />
     </div>
     <div style="max-width: 340px; margin: 0 auto;">
       <CaptionedImage
-        src={yangtzeHydropower.src}
-        alt="长江电力"
+        src={dam.src}
+        alt="湖泊与水坝"
         caption={["captionPosition：inside", "支持多行文本"]}
         captionPosition="inside"
       />

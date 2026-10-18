@@ -116,17 +116,13 @@ const captionLines = captionText?.split("\n") ?? [];
     font-weight: 900;
   }
 
-  /* "inside" placement: the box is sized by the init script to exactly match
-     the image's rendered rect, so the label sits at
-     the bottom-centre OF THE IMAGE even when the image is letterboxed inside
-     the media area. The text is pre-line: it wraps naturally and "\n" in the
-     caption string becomes a line break. */
+  /* "inside" placement: the init script anchors the box to the rendered
+     image (left/width and the gap down to the image's bottom edge) so the
+     label hugs the image bottom even when the image is letterboxed inside
+     the media area. The text is pre-line: it wraps naturally and "\n" in
+     the caption string becomes a line break. */
   .ci-caption-inside {
     position: absolute;
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-end;
-    align-items: center;
     box-sizing: border-box;
     max-width: 100%;
     margin: 0;
@@ -173,12 +169,13 @@ const captionLines = captionText?.split("\n") ?? [];
     const caption = ci.querySelector<HTMLElement>(".ci-caption-inside");
     const media = ci.querySelector<HTMLElement>(".ci-media");
     if (!img || !caption || !media || !img.complete || !img.naturalWidth) return;
-    const imageRect = img.getBoundingClientRect();
-    const mediaRect = media.getBoundingClientRect();
-    caption.style.left = `${imageRect.left - mediaRect.left}px`;
-    caption.style.top = `${imageRect.top - mediaRect.top}px`;
-    caption.style.width = `${imageRect.width}px`;
-    caption.style.height = `${imageRect.height}px`;
+    // offset* are layout-box values relative to .ci-media (the nearest
+    // positioned ancestor) — unaffected by ancestor transforms. Inputs from
+    // getBoundingClientRect() would be viewport-scaled by the stage's --s
+    // zoom and misplace the caption whenever the 1280x720 stage is scaled.
+    caption.style.left = `${img.offsetLeft}px`;
+    caption.style.width = `${img.offsetWidth}px`;
+    caption.style.bottom = `${media.offsetHeight - img.offsetTop - img.offsetHeight}px`;
   }
 
   function setup(ci: Element): void {
