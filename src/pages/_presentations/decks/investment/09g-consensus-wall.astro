@@ -55,10 +55,10 @@ const rows = [
 export const meta = {"title":"共识类资产图鉴"};
 ---
 
-<PresentationLayout title="共识类资产图鉴" eyebrow="照片墙" reverse>
+<PresentationLayout title="共识类资产图鉴" reverse>
   <div class="root">
     {
-      rows.map((row, rowIndex) => (
+      rows.map((row) => (
         <div class="fan" style={`--h:${CARD_H + DROOP}px;--w:${CARD_W}px`}>
           {row.cards.map((card, cardIndex) => {
             const s = cardPos(cardIndex, row.cards.length);

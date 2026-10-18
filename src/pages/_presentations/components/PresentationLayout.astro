@@ -1,9 +1,6 @@
 ---
 interface Props {
   title: string;
-  /** @deprecated No longer rendered; the deck breadcrumb now carries section
-   * context. Kept in the type so existing slide call sites still typecheck. */
-  eyebrow?: string;
   /** Narrow mode: adds horizontal padding so content doesn't span the full slide width */
   narrow?: boolean;
   /** Reverse mode: puts the title at the bottom of the slide instead of the top */

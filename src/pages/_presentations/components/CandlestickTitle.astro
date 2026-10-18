@@ -424,9 +424,6 @@ const colorFor = (i: number): string => {
   // work from the previous page from surviving a DOM swap.
   let activeInstances: Instance[] = [];
 
-  function rnd(lo: number, hi: number): number {
-    return Math.random() * (hi - lo) + lo;
-  }
   // Same multi-frequency wave as the SSR frontmatter, used for the candle
   // heights (default "candle" profile). The other profiles are retained for
   // API compatibility but are no longer used — MA lines now follow the
@@ -733,8 +730,7 @@ const colorFor = (i: number): string => {
     tickMany(inst, 1, 0, animDur);
   }
 
-  function measure(inst: Instance, letters: HTMLElement[]): LetterData[] {
-    const container = inst.container;
+  function measure(letters: HTMLElement[]): LetterData[] {
     return letters.map((el) => {
       const emPx = parseFloat(getComputedStyle(el).fontSize) || 1;
       // offsetLeft/offsetTop are relative to inst.container (it's the closest
@@ -845,7 +841,7 @@ const colorFor = (i: number): string => {
       // Size the SVG user space to the container's pixels, then measure the
       // letters in that same space before the first draw.
       if (svg) syncViewBox(svg, container);
-      inst.ld = measure(inst, letters);
+      inst.ld = measure(letters);
       // initial paint (SSR already painted letters, but redraw to be safe + draw MAs)
       drawAt(inst);
       svg?.classList.add("ready");
@@ -953,7 +949,7 @@ const colorFor = (i: number): string => {
       if (!svg) continue;
       inst.resizeObserver = new ResizeObserver(() => {
         syncViewBox(svg, inst.container);
-        inst.ld = measure(inst, inst.letters);
+        inst.ld = measure(inst.letters);
         drawAt(inst);
       });
       inst.resizeObserver.observe(inst.container);
