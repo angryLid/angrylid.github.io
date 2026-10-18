@@ -1,0 +1,34 @@
+---
+import Notes from "@pres/components/Notes.astro";
+import SlideFrame from "@pres/components/SlideFrame.astro";
+export const meta = {"title":"SlideFrame · 缩放预览"};
+---
+
+<div style="height: 100%; box-sizing: border-box; padding: 1.5rem 2.5rem; display: flex; flex-direction: column;">
+  <h2 style="font-size: 2.6rem; margin: 0 0 1.25rem; color: #333;">SlideFrame · 1280×720 缩放预览</h2>
+  <div style="flex: 1; display: grid; grid-template-columns: 3fr 2fr; gap: 2rem; align-items: stretch;">
+    <SlideFrame fit="width">
+      <div style="display: flex; align-items: center; justify-content: center; height: 100%;">
+        <p style="font-family: 'Cascadia Code', monospace; color: var(--gray);">fit="width" · 16:9 定比，document 视图用</p>
+      </div>
+    </SlideFrame>
+    <div style="display: grid; grid-template-rows: 1fr 1fr; gap: 1rem; min-height: 0;">
+      <SlideFrame fit="contain">
+        <div style="display: flex; align-items: center; justify-content: center; height: 100%;">
+          <p style="font-family: 'Cascadia Code', monospace; color: var(--gray);">fit="contain"</p>
+        </div>
+      </SlideFrame>
+      <SlideFrame fit="contain">
+        <div style="display: flex; align-items: center; justify-content: center; height: 100%;">
+          <p style="font-family: 'Cascadia Code', monospace; color: var(--gray);">演讲者视图缩略图用</p>
+        </div>
+      </SlideFrame>
+    </div>
+  </div>
+</div>
+
+<Notes>
+
+SlideFrame：把任意内容装进标准 1280×720 画布并随容器缩放。fit="width" 是 16:9 定比盒子（document 滚动视图用），fit="contain" 在给定格子内取宽高较小者（演讲者视图的当前/下一页缩略图用）。
+
+</Notes>

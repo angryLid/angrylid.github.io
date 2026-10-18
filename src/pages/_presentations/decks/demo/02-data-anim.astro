@@ -1,0 +1,19 @@
+---
+import Notes from "@pres/components/Notes.astro";
+import PresentationLayout from "@pres/components/PresentationLayout.astro";
+export const meta = {"title":"data-anim · 基础揭示","steps":3};
+---
+
+<PresentationLayout title="data-anim · 基础揭示" narrow>
+  <ul style="font-size: 1.4rem; line-height: 2; margin: 0;">
+    <li data-anim="0">带 <code>data-anim="N"</code> 的元素初始为透明</li>
+    <li data-anim="1">按 <kbd>&rarr;</kbd> 时 <code>data-step</code> 递增，≤ 当前步的元素淡入</li>
+    <li data-anim="2">这是所有动画组件的底层机制，不依赖任何组件</li>
+  </ul>
+</PresentationLayout>
+
+<Notes>
+
+最原始的揭示机制：纯 CSS（opacity）+ 两个 data 属性，任何元素都能用。本页同时演示 PresentationLayout（title/narrow/reverse 三个 prop，eyebrow 已废弃）——后面各页的标题栏都来自它。
+
+</Notes>

@@ -1,0 +1,22 @@
+---
+import Notes from "@pres/components/Notes.astro";
+export const meta = {"title":"The End","steps":1};
+---
+
+<div style="padding-top: 13.5rem;">
+  <h1 data-anim="0">全覆盖 ✓</h1>
+  <p data-anim="0" style="margin-top: 1rem; color: var(--gray);">
+    未单独成页的组件见备注 · <kbd>&larr;</kbd> 返回上一页
+  </p>
+</div>
+
+<Notes>
+
+以下组件无法（或不便）单独成页演示：
+
+- PresHead：页头元数据（标题、主题色、data-anim 基础样式），每页自动生效。
+- Notes：演讲者备注，本册每页都在用——按 Shift+S 打开演讲者视图即可看到。
+- MindMapBranch：SlideMindMap 内部的递归分支节点，已由上一页代为展示。
+- PresAsPost：博客 MDX 里懒加载嵌入整套幻灯片的 iframe 组件，见 content/ 里的文章。
+
+</Notes>

@@ -1,0 +1,29 @@
+---
+import Notes from "@pres/components/Notes.astro";
+import SlideMindMap from "@pres/components/SlideMindMap.astro";
+export const meta = {"title":"SlideMindMap · 菜单思维导图"};
+---
+
+<div style="height: 100%; box-sizing: border-box; padding: 1.5rem 2.5rem; display: flex; flex-direction: column;">
+  <h2 style="font-size: 2.6rem; margin: 0 0 0.75rem; color: #333;">SlideMindMap · 排序菜单的思维导图</h2>
+  <div style="flex: 1; display: flex; align-items: center; overflow: auto;">
+    <SlideMindMap
+      deckTitle="演示手册"
+      current={4}
+      slides={[
+        { pageNo: 1, title: "开场", crumbs: [] },
+        { pageNo: 2, title: "组件清单", crumbs: [] },
+        { pageNo: 3, title: "入场特效", crumbs: ["动画与步骤"] },
+        { pageNo: 4, title: "百叶窗", crumbs: ["动画与步骤", "进阶"] },
+        { pageNo: 5, title: "打字机", crumbs: ["动画与步骤", "进阶"] },
+        { pageNo: 6, title: "结尾", crumbs: [] },
+      ]}
+    />
+  </div>
+</div>
+
+<Notes>
+
+SlideMindMap：排序菜单（按 g）背后的思维导图。deckTitle 是根节点，crumbs 决定分节嵌套，current 高亮当前页。正式演示时按 g 就能看到它在完整菜单里的样子。
+
+</Notes>

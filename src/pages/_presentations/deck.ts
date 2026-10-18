@@ -22,13 +22,22 @@ export interface PresentationManifest {
 
 export const presentationDecks = {
   demo: {
-    title: "Demo Presentation",
+    title: "Pres Storybook",
     slides: [
       "01-title",
-      "02-points",
-      "02b-typewriter",
-      "03-end",
-      "04-captioned-image",
+      {
+        title: "动画与步骤",
+        slides: ["02-data-anim", "03-typewriter", "10-step-effects"],
+      },
+      {
+        title: "图像组件",
+        slides: ["20-captioned-image", "21-photo-collage", "22-comic-layout"],
+      },
+      {
+        title: "标题与预览",
+        slides: ["30-candlestick-title", "40-slide-frame", "41-mind-map"],
+      },
+      "99-end",
     ],
   },
   investment: {

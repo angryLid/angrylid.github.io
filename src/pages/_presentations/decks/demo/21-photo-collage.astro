@@ -1,0 +1,26 @@
+---
+import Notes from "@pres/components/Notes.astro";
+import PhotoCollage from "@pres/components/PhotoCollage.astro";
+import jade from "../investment/assets/consensus-wall/01-jade.jpg";
+import teaLiquor from "../investment/assets/consensus-wall/03-tea-liquor.jpg";
+import sneakers from "../investment/assets/consensus-wall/07-sneakers.jpg";
+export const meta = {"title":"PhotoCollage · 拍立得相框"};
+---
+
+<div style="height: 100%; display: flex; align-items: center; justify-content: center; gap: 2.5rem;">
+  <div style="width: 300px; transform: rotate(-4deg);">
+    <PhotoCollage src={jade.src} alt="白玉雕件" caption="玉石" />
+  </div>
+  <div style="width: 300px; transform: rotate(1.5deg);">
+    <PhotoCollage src={teaLiquor.src} alt="名酒礼盒" caption="名茶名酒" />
+  </div>
+  <div style="width: 300px; transform: rotate(5deg);">
+    <PhotoCollage src={sneakers.src} alt="限量球鞋" caption="限量球鞋" />
+  </div>
+</div>
+
+<Notes>
+
+PhotoCollage：白边拍立得相框，图片 + 底部手写体说明。共识类资产图鉴那一页就是它扇形铺开的效果，这里是最朴素的三张并排。
+
+</Notes>

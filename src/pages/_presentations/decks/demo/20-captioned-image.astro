@@ -1,0 +1,42 @@
+---
+import Notes from "@pres/components/Notes.astro";
+import CaptionedImage from "@pres/components/CaptionedImage.astro";
+import yangtzeHydropower from "./assets/yangtze-hydropower.png";
+export const meta = {"title":"CaptionedImage · 图注"};
+---
+
+<div style="height: 100%; box-sizing: border-box; padding: 1.5rem 2.5rem; display: flex; flex-direction: column;">
+  <h2 style="font-size: 2.6rem; margin: 0 0 1.25rem; color: #333;">CaptionedImage · 图注位置</h2>
+  <div style="flex: 1; display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; align-items: center;">
+    <div style="max-width: 340px; margin: 0 auto;">
+      <CaptionedImage
+        src={yangtzeHydropower.src}
+        alt="长江电力"
+        caption="captionPosition：above（默认）"
+        captionPosition="above"
+      />
+    </div>
+    <div style="max-width: 340px; margin: 0 auto;">
+      <CaptionedImage
+        src={yangtzeHydropower.src}
+        alt="长江电力"
+        caption="captionPosition：below"
+        captionPosition="below"
+      />
+    </div>
+    <div style="max-width: 340px; margin: 0 auto;">
+      <CaptionedImage
+        src={yangtzeHydropower.src}
+        alt="长江电力"
+        caption={["captionPosition：inside", "支持多行文本"]}
+        captionPosition="inside"
+      />
+    </div>
+  </div>
+</div>
+
+<Notes>
+
+CaptionedImage 的三种图注位置：above（默认，图上方）、below（图下方）、inside（覆盖在图片底部）。caption 传字符串数组即可多行。
+
+</Notes>

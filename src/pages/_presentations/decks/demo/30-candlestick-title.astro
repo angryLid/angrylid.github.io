@@ -1,0 +1,20 @@
+---
+import Notes from "@pres/components/Notes.astro";
+import CandlestickTitle from "@pres/components/CandlestickTitle.astro";
+export const meta = {"title":"CandlestickTitle · 蜡烛图标题","steps":1};
+---
+
+<div style="height: 100%; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2rem;">
+  <div style="font-size: 7rem; font-weight: 800; letter-spacing: 0.08em;">
+    <CandlestickTitle text="STORYBOOK" colorA="#06806b" colorB="#cc2f3c" offsetRange={0.5} interval={2} mode="keys" />
+  </div>
+  <p style="color: var(--gray); font-family: 'Cascadia Code', monospace;">
+    <kbd>&darr;</kbd> 冲顶后匀速回落 · <kbd>&uarr;</kbd> 砸底后匀速回升 · <kbd>Space</kbd> 恢复自动漂移
+  </p>
+</div>
+
+<Notes>
+
+CandlestickTitle：字母像蜡烛图一样上下漂移、红绿着色，背后叠三条均线。mode="keys" 时会捕获方向键做定式表演（注意：此时 ↑↓ 不再翻页），Space 恢复自动漂移。
+
+</Notes>

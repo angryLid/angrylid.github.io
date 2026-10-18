@@ -1,0 +1,44 @@
+---
+import Notes from "@pres/components/Notes.astro";
+import PresentationStep from "@pres/components/PresentationStep.astro";
+export const meta = {"title":"PresentationStep · 入场特效","steps":4};
+---
+
+<div style="height: 100%; box-sizing: border-box; padding: 1.5rem 2.5rem;">
+  <h2 style="font-size: 2.6rem; margin: 0 0 1.25rem; color: #333;">PresentationStep · 入场特效</h2>
+  <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1.25rem;">
+    <PresentationStep step={0} effect="fade" duration={0.6}>
+      <div class="demoBox">fade · 淡入</div>
+    </PresentationStep>
+    <PresentationStep step={1} effect="fly" direction="left" duration={0.6}>
+      <div class="demoBox">fly · 左入</div>
+    </PresentationStep>
+    <PresentationStep step={2} effect="fly" direction="up" duration={0.6}>
+      <div class="demoBox">fly · 下入</div>
+    </PresentationStep>
+    <PresentationStep step={3} effect="blinds" strips={12} duration={0.7} stagger={0.05}>
+      <div class="demoBox">blinds · 百叶窗</div>
+    </PresentationStep>
+  </div>
+</div>
+
+<style>
+  .demoBox {
+    height: 8.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--light-gray);
+    border: 1px solid rgba(0, 0, 0, 0.12);
+    border-radius: var(--border-radius);
+    font-size: 1.5rem;
+    color: var(--dark-mint);
+    font-family: "Cascadia Code", monospace;
+  }
+</style>
+
+<Notes>
+
+PresentationStep 包一层即得入场特效：effect 支持 none / fade / fly / blinds，fly 另有 direction（up/down/left/right），blinds 可调 strips 与 stagger。每按一次 → 揭示一个格子。
+
+</Notes>
