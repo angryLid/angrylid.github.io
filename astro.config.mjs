@@ -23,7 +23,10 @@ export default defineConfig({
     // at the MDAST stage per its README — on HAST the syntax highlighter
     // would claim display math as a plaintext code block first.
     processor: satteri({
-      features: { math: true },
+      // rawHtml is required for MDX: satteriKatex emits raw-html nodes (as
+      // rehype-katex did), which cannot compile to JSX unless reparsed into
+      // real elements.
+      features: { math: true, rawHtml: true },
       mdastPlugins: [satteriKatex()],
       hastPlugins: [satteriCallouts({ theme: "github" })],
     }),
