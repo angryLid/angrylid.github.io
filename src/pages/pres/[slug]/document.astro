@@ -19,31 +19,30 @@
 // post then simply embeds this URL in a lazy-loading <iframe> (see
 // PresAsPost.astro). That completely sidesteps the limitation.
 // ============================================================================
-import { type CollectionEntry, render } from "astro:content";
 import PresHead from "@pres/components/PresHead.astro";
 import SlideFrame from "@pres/components/SlideFrame.astro";
-import { getPresDecks } from "@pres/lib/pres";
+import { getPresDecks, getSlideModule } from "@pres/lib/pres";
 
 export async function getStaticPaths() {
   const decks = await getPresDecks();
   return decks.map(({ slug, slides, deckTitle }) => ({
     params: { slug },
-    props: { slug, slides: slides.map((s) => s.entry), deckTitle },
+    props: { slug, slides, deckTitle },
   }));
 }
 
 interface Props {
   slug: string;
-  slides: CollectionEntry<"pres">[];
+  slides: { id: string; title: string }[];
   deckTitle: string;
 }
 
 const { slug, slides, deckTitle } = Astro.props;
 
 const rendered = await Promise.all(
-  slides.map(async (entry) => {
-    const { Content } = await render(entry);
-    return { Content, title: entry.data.title };
+  slides.map(async ({ id, title }) => {
+    const { default: Slide } = await getSlideModule(id);
+    return { Slide, title };
   }),
 );
 ---
@@ -177,7 +176,7 @@ const rendered = await Promise.all(
       </header>
 
       {
-        rendered.map(({ Content, title }, idx) => (
+        rendered.map(({ Slide, title }, idx) => (
           <section class="slide-block">
             <header class="slide-block-head">
               <h2 class="slide-no">
@@ -188,7 +187,7 @@ const rendered = await Promise.all(
               </a>
             </header>
             <SlideFrame fit="width">
-              <Content />
+              <Slide />
             </SlideFrame>
             <div class="notes-block" data-notes />
           </section>

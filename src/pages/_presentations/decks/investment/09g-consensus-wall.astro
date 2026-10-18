@@ -10,6 +10,7 @@ import sneakers from "./assets/consensus-wall/07-sneakers.jpg";
 import cards from "./assets/consensus-wall/09-cards.jpg";
 import blindBox from "./assets/consensus-wall/10-blindbox.jpg";
 import lego from "./assets/consensus-wall/12-lego.jpg";
+import Notes from "@pres/components/Notes.astro";
 
 // Two rows of four overlapping cards. Each row gets only a slight fan: the
 // cards rotate a few degrees outward and ride a shallow arc, so the row reads
@@ -50,6 +51,8 @@ const rows = [
   },
 ];
 
+
+export const meta = {"title":"共识类资产图鉴"};
 ---
 
 <PresentationLayout title="共识类资产图鉴" eyebrow="照片墙" reverse>
@@ -74,6 +77,17 @@ const rows = [
   </div>
 </PresentationLayout>
 
+<Notes>
+
+在看定义之前，先来认认这些实物。它们本身不产生任何现金流，价值完全来自市场共识。
+
+上排是所谓的"长者资产"，也就是上一辈人炒起来的东西：玉石、文玩字画、名茶名酒、邮票。邮票要多说一句：九十年代集邮热崩盘之后，它就是「共识崩塌」的活教材。
+
+下排是年轻一代的版本，也就是"小登资产"：限量球鞋、游戏卡牌、潮玩盲盒、绝版乐高。炒鞋崩盘、宝可梦卡疯涨、泡泡玛特上市，年轻人玩的是同一套共识，只是换了个马甲。
+
+两排的东西看起来风马牛不相及，但底层逻辑是同一套。下一页我们来拆解它们共同的三大特性。
+
+</Notes>
 <style>
   .root {
     height: 100%;

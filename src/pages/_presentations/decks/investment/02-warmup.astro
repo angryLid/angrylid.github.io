@@ -3,6 +3,9 @@ import PresentationLayout from "@pres/components/PresentationLayout.astro";
 import baotouWudang from "./assets/warmup/baotou-wudang.jpg";
 import harbinIceFestival from "./assets/warmup/harbin-ice-festival.jpg";
 import hefeiZhangliaoTomb from "./assets/warmup/hefei-zhangliao-tomb.jpg";
+import Notes from "@pres/components/Notes.astro";
+
+export const meta = {"title":"Warmup - Puzzle","steps":2};
 ---
 
 <PresentationLayout title="城市介绍环节" narrow>
@@ -35,6 +38,17 @@ import hefeiZhangliaoTomb from "./assets/warmup/hefei-zhangliao-tomb.jpg";
   <p data-anim="4" class="cta">但有个小城市是用英语单词命名的。你能猜到是哪个吗？</p>
 </PresentationLayout>
 
+<Notes>
+
+按照惯例，一开始都要介绍一个跟主题完全没关系的地方。是吧
+
+中国的地名大多是本地居民取的名字，通常是汉语或者是少数民族语言的汉译。
+
+比如说，包头源自蒙古语，意思是"有鹿的地方"。哈尔滨，通常认为是古代女真语晒网打渔的地方。还有合肥：是古代山越民的土话，意思是“八百精锐”
+
+然而，国内有一个小城市是用英语单词命名的。你能猜到是哪个吗？
+
+</Notes>
 <style>
   /* ---- page-specific: 02-warmup ---- */
   .lead {

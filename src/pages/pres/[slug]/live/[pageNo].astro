@@ -2,37 +2,33 @@
 // ============================================================================
 // /pres/[slug]/live/[pageNo]/ — one static HTML page per slide
 // ============================================================================
-// Renders ONLY the current slide. The sidebar in Presentation.astro used to
-// server-render every slide of the deck into every page here so thumbnails
-// were instant — that shipped the whole deck's markup (and made the deck's
-// images eager-load) with every page turn, which made production navigation
-// stutter. Sidebar thumbnails are now hydrated lazily from
-// /pres/${slug}/document/ (fetched at most once per session); and the ±1
-// neighbor slide pages are prefetched so a page-turn navigate() hits the HTTP
-// cache instead of being a cold roundtrip (see Presentation.astro).
+// Renders ONLY the current slide. The slide's component is resolved from the
+// module glob by id at render time, so each page bundles just its own slide
+// (the ±1 neighbors are prefetched so a page-turn navigate() hits the HTTP
+// cache instead of being a cold roundtrip; see Presentation.astro).
 // ============================================================================
-import { type CollectionEntry, render } from "astro:content";
 import Presentation from "@pres/layouts/Presentation.astro";
-import { getPresDecks } from "@pres/lib/pres";
-import type { MenuSlide } from "@pres/lib/pres-menu";
+import { getPresDecks, getSlideModule } from "@pres/lib/pres";
 
 export async function getStaticPaths() {
   const decks = await getPresDecks();
 
   return decks.flatMap(({ slug, slides, total, deckTitle }) =>
-    slides.map(({ entry, crumbs }, idx) => ({
+    slides.map((slide, idx) => ({
       params: { slug, pageNo: String(idx + 1) },
       props: {
         slug,
         pageNo: idx + 1,
         total,
         deckTitle,
-        crumbs,
-        slideEntry: entry as CollectionEntry<"pres">,
+        crumbs: slide.crumbs,
+        slideId: slide.id,
+        title: slide.title,
+        steps: slide.steps,
         // Lightweight menu metadata (titles + crumb chain, no markup).
         slides: slides.map((s, i) => ({
           pageNo: i + 1,
-          title: s.entry.data.title,
+          title: s.title,
           crumbs: s.crumbs,
         })),
       },
@@ -46,13 +42,15 @@ interface Props {
   total: number;
   deckTitle: string;
   crumbs: string[];
-  slideEntry: CollectionEntry<"pres">;
-  slides: MenuSlide[];
+  slideId: string;
+  title: string;
+  steps: number;
+  slides: { pageNo: number; title: string; crumbs: string[] }[];
 }
 
-const { slug, pageNo, total, deckTitle, crumbs, slideEntry, slides } = Astro.props;
-const steps = slideEntry.data.steps;
-const { Content } = await render(slideEntry);
+const { slug, pageNo, total, deckTitle, crumbs, slideId, title, steps, slides } =
+  Astro.props;
+const { default: Slide } = await getSlideModule(slideId);
 ---
 
 <Presentation
@@ -62,8 +60,8 @@ const { Content } = await render(slideEntry);
   steps={steps}
   deckTitle={deckTitle}
   crumbs={crumbs}
-  title={slideEntry.data.title}
+  title={title}
   slides={slides}
 >
-  <Content />
+  <Slide />
 </Presentation>

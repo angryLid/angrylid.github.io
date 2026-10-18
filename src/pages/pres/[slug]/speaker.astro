@@ -1,19 +1,18 @@
 ---
-import { type CollectionEntry, render } from "astro:content";
 import PresHead from "@pres/components/PresHead.astro";
 import SlideFrame from "@pres/components/SlideFrame.astro";
-import { getPresDecks } from "@pres/lib/pres";
+import { getPresDecks, getSlideModule } from "@pres/lib/pres";
 
 export async function getStaticPaths() {
   const decks = await getPresDecks();
   return decks.map(({ slug, slides, total, deckTitle }) => ({
     params: { slug },
-    props: { slides: slides.map((s) => s.entry), total, deckTitle },
+    props: { slides, total, deckTitle },
   }));
 }
 
 interface Props {
-  slides: CollectionEntry<"pres">[];
+  slides: { id: string; title: string; steps: number }[];
   total: number;
   deckTitle: string;
 }
@@ -21,9 +20,9 @@ interface Props {
 const { slug } = Astro.params;
 const { slides, total, deckTitle } = Astro.props;
 const rendered = await Promise.all(
-  slides.map(async (entry) => {
-    const { Content } = await render(entry);
-    return { Content, steps: entry.data.steps, title: entry.data.title };
+  slides.map(async ({ id, title, steps }) => {
+    const { default: Slide } = await getSlideModule(id);
+    return { Slide, steps, title };
   }),
 );
 ---
@@ -181,7 +180,7 @@ const rendered = await Promise.all(
       </div>
       <div class="current">
         {
-          rendered.map(({ Content, steps, title }, idx) => (
+          rendered.map(({ Slide, steps, title }, idx) => (
             <section
               class="slide-section"
               data-page={idx + 1}
@@ -190,7 +189,7 @@ const rendered = await Promise.all(
               hidden={idx !== 0}
             >
               <SlideFrame fit="contain">
-                <Content />
+                <Slide />
               </SlideFrame>
             </section>
           ))
